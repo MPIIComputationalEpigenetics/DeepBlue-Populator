@@ -1,0 +1,42 @@
+The data index file contains a list of all release files under the data directory for this release and
+meta data associated with those files. This is a tab delimited file
+
+The columns are
+
+ 1.	EXPERIMENT_ID, This is the experiment accession assigned by the ENA/EGA
+ 2.	STUDY_ID, This is the study accession assigned by the ENA/EGA
+ 3.	STUDY_NAME, This is the name of the study
+ 4.	CENTER_NAME, This is the center which did the sequencing
+ 5.	FIRST_SUBMISSION_DATE, This is the first time data was received that contributed to the analysis product
+ 6.	SEQ_RUNS_COUNT, The number of sequencing runs associated with an analysis product
+ 7.	SAMPLE_ID, This is the sample identifier given by the EGA
+ 8.	SAMPLE_NAME, This is the sample name provided by the submitter
+ 9.	INSTRUMENT_PLATFORM, The sequencing platform used for the experiment
+10.	INSTRUMENT_MODEL, The model of sequencing machine used
+11.	LIBRARY_NAME, The library name from the submitter
+12.	LIBRARY_LAYOUT, The library layout, This can be PAIRED or SINGLE
+13.	LIBRARY_STRATEGY, The library strategy for the experiment, this can be Bisulfite-Seq, ChIP-Seq, DNase-Hypersensitivity or RNA-Seq
+14.	EXPERIMENT_TYPE, A description for the experiment, for Bisulfite and RNA Seq this reiterates the information from Library Strategy
+15.	DISEASE, If the sample has a disease state associated with it, it will be specified here
+16.	BIOMATERIAL_PROVIDER, The center who provided the material
+17.	BIOMATERIAL_TYPE, The type of the material, primary, cell line, etc
+18.	CELL_TYPE, The cell type being tested
+19.	TISSUE, Where the tissue came from
+20.	DONOR_ID, The individual donor id
+21.	DONOR_AGE, binned age of the donor
+22.	DONOR_HEALTH_STATUS, health status of the donor
+23.	DONOR_SEX, gender of the donor
+24.	DONOR_ETHNICITY, ethnicity of the donor
+25.	READ_STRAND, For RNASeq experiments the strand of the reads, this will be NA for other experiments
+26.	DONOR_REGION_OF_RESIDENCE, Region where the donor lived at point of collection
+27.	SPECIMEN_PROCESSING, Notes on processing of specimen
+28.	SPECIMEN_STORAGE, Notes on storage of specimen
+29.	READ_QUALITIES, Read quality scoring scheme in the original fastq file
+30.	MOLECULE, The type of molecule that was extracted from the biological material. 
+31.	type, The internal code for the file type
+32.	FILE, The relative path of the file from the directory ftp://ftp.ebi.ac.uk/pub/databases/
+33.	FILE_MD5, the md5 checksum of the file
+34.	FILE_SIZE, the file size in bytes
+35.	withdrawn, If a file is flagged as suspect due to qc after initial release it will be marked as withdrawn here
+
+If you have any questions please email blueprint-info@ebi.ac.uk
