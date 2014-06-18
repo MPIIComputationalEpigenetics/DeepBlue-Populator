@@ -1,4 +1,4 @@
-from settings import log
+from log import log
 
 simple = []
 
