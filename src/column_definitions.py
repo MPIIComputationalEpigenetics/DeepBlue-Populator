@@ -55,7 +55,7 @@ SIMPLE = [
 ]
 
 CATEGORY = [
-  ("STRAND", "Region strand: + or -", "*", ["+", "-"])
+  ("STRAND", "Region strand: + or -", "\t", ["+", "-"])
 ]
 
 RANGE = []
