@@ -1,5 +1,6 @@
 # DeepBlue populator key
 .populator.epidb
+src/download/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
