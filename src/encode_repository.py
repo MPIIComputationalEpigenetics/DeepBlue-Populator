@@ -6,7 +6,9 @@ import traceback
 import threading
 
 from dataset import Dataset
-from settings import mdb, log, max_threads
+from settings import max_threads
+from log import log
+from db import mdb
 from repository import Repository
 
 """

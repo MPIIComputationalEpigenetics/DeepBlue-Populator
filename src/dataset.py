@@ -6,7 +6,8 @@ import util
 from attribute_mapper import mappers
 from formats import format_builder
 from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT
-from settings import mdb, log
+from log import log
+from db import mdb
 
 from client import EpidbClient
 
@@ -44,14 +45,14 @@ used to process and insert data into epidb.
 class Dataset:
 
   def __init__(self, file_name, type_, meta={}, file_directory=None, sample_id=None, repo_id=None, imported=False):
-    
+
     self.file_name = file_name
     self.type_ = type_
     self.meta = meta
     self.file_directory = file_directory
     self.sample_id = sample_id
     self.repository_id = repo_id
-    self.imported = imported    
+    self.imported = imported
     self._id = None
 
     # plain map as received from database (not a Repository object)
@@ -176,7 +177,7 @@ class Dataset:
     #  url = os.path.join(rep["path"], self.file_name)
     url = os.path.join(rep["path"], self.file_name)
 
-    util.download_file(url, self.download_path)  
+    util.download_file(url, self.download_path)
     log.info("finished downloading %s", url)
 
 
@@ -198,7 +199,7 @@ class Dataset:
       raise MissingFile(self.download_path, self.file_name)
 
     file_type = self.download_path.split(".")[-1]
-    if file_type == "gz":        
+    if file_type == "gz":
       f = gzip.open(self.download_path, 'rb') # gzip doc says `with' is supported - seems its not
     else:
       f = open(self.download_path, 'r')
@@ -235,6 +236,9 @@ class Dataset:
       if status != "okay":
         log.critical("Sample for biosource %s was not found", am.bio_source)
 	log.critical(samples_id)
+        return
+      if not len(samples_id):
+        log.critical("Sample for biosource %s was not found", am.bio_source)
         return
       sample_id = samples_id[0][0]
 

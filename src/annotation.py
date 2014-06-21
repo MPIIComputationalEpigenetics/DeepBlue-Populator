@@ -15,8 +15,11 @@ class Annotation:
 	    return self.props["description"]
 
 	@property
-	def data_file(self):
-	    return self.props["data_file"]
+	def data_location(self):
+		if self.local:
+			return self.props["data_file"]
+		else:
+			return self.props["data_url"]
 
 	@property
 	def file_format(self):
@@ -28,3 +31,7 @@ class Annotation:
 			return self.props["extra_metadata"]
 		else:
 			return {}
+
+	@property
+	def local(self):
+	    return self.props.has_key("data_file")

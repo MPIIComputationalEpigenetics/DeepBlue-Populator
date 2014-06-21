@@ -1,7 +1,7 @@
 from optparse import OptionParser
 
 from populator import Populator
-from settings import log
+from log import log
 
 def main(init=False, insert_annotations=False, insert_datasets=False, insert_cv= False, insert_ontology=False):
   # initialize populator and update populators local database
@@ -45,8 +45,6 @@ if __name__ == '__main__':
       help="Insert ENCODE controlled vocabulary")
   parser.add_option("--ontology", action="store_true", dest="ontology", default=False,
       help="Insert Ontologies inside the controlled vocabulary")
-  parser.add_option("--populate", action="store_true", dest="populate", default=False,
-      help="Insert annotations and datasets")
   parser.add_option("--annotations", action="store_true", dest="insert_annotations", default=False,
       help="Insert annotations")
   parser.add_option("--datasets", action="store_true", dest="insert_datasets", default=False,
@@ -61,12 +59,6 @@ if __name__ == '__main__':
   insert_datasets = args[0].insert_datasets
   insert_cv = args[0].cv
   insert_ontology = args[0].ontology
-
-
-  if args[0].populate:
-    insert_cv = True
-    insert_annotations = True
-    insert_datasets = True
 
   if args[0].full:
     init = True

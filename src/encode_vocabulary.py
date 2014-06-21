@@ -4,7 +4,8 @@ import urllib
 import settings
 
 from client import EpidbClient
-from settings import DEEPBLUE_HOST, DEEPBLUE_PORT, log
+from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
+from log import log
 
 """
 A Vocabulary has a source which is a file or an URL. It can read cell line
@@ -111,6 +112,9 @@ def process_bio_source(i, children_map, user_key):
 
   if (i.has_key("karyotype")):
     fields["karyotype"] = i["karyotype"]
+
+  if (i.has_key("lineage")):
+    fields["lineage"] = i["lineage"]
 
   if (i.has_key("lab")):
     fields["lab"] = i["lab"]

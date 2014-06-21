@@ -6,8 +6,10 @@ import threading
 import os.path
 
 from dataset import Dataset
-from settings import mdb, log, max_threads
 from repository import Repository
+from settings import max_threads
+from log import log
+from db import mdb
 
 from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT
 

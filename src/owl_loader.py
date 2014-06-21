@@ -1,10 +1,13 @@
 import sys
-from multiprocessing import Pool
+import gzip
 import xml.etree.ElementTree as ET
 
-from client import EpidbClient
+from multiprocessing import Pool
 
-from settings import mdb, log, max_threads, DEEPBLUE_HOST, DEEPBLUE_PORT
+from client import EpidbClient
+from settings import max_threads, DEEPBLUE_HOST, DEEPBLUE_PORT
+from db import mdb
+from log import log
 
 Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 Rdfs = "http://www.w3.org/2000/01/rdf-schema#"
@@ -73,9 +76,15 @@ class Class:
 
 def load_classes(ontology, _file):
 	log.info("Loading ontology " + ontology + " from file " + _file)
-	tree = ET.parse(_file)
-	root = tree.getroot()
-	
+
+	file_type = _file.split(".")[-1]
+  	if file_type == "gz":
+  		binary = gzip.open(_file).read()
+  		root = ET.fromstring(binary)
+	else:
+		tree = ET.parse(_file)
+		root = tree.getroot()
+
 	_header = root.find(OwlOntology)
 	if _header is not None:
 		address = _header.get(RdfAbout)
@@ -84,12 +93,12 @@ def load_classes(ontology, _file):
 
 	imports = []
 	for _import in _header.findall(OwlImports):
-		imports.append(_import.get(RdfResource)) 
+		imports.append(_import.get(RdfResource))
 
 	classes = []
 
 	for child in root.findall(OwlClass):
-		_namespace = child.find(OboInOwlHasOBONamespace)	
+		_namespace = child.find(OboInOwlHasOBONamespace)
 		if _namespace is not None:
 			namespace = _namespace.text.encode('utf-8')
 		else:
@@ -130,7 +139,7 @@ def load_classes(ontology, _file):
 		for syn in child.findall(OboInOwlHasExactSynonym):
 			syns.append(syn.text.encode('utf-8'))
 
-		_class = Class(namespace, ontology, about, label, superclasses, formalDefinition, syns, comment) 
+		_class = Class(namespace, ontology, about, label, superclasses, formalDefinition, syns, comment)
 		classes.append(_class)
 
 	return Ontology(ontology, address, imports, classes )
@@ -150,14 +159,14 @@ def set_scope(_class):
 def load_owl(user_key) :
 	log.info("Loading ontologies")
 
-	cl_classes = load_classes("CL", "../data/ontologies/cl.owl")
-	efo_classes = load_classes("EFO", "../data/ontologies/efo.owl")
-	uberon_classes = load_classes("uberon", "../data/ontologies/uberon.owl")
+	cl_classes = load_classes("CL", "../data/ontologies/cl.owl.gz")
+	efo_classes = load_classes("EFO", "../data/ontologies/efo.owl.gz")
+	uberon_classes = load_classes("uberon", "../data/ontologies/uberon.owl.gz")
 
 	log.info("Merging ontologies")
 	all_classes = {}
 	all_ontologies = [i for i in cl_classes.classes if i.label] + [i for i in efo_classes.classes if i.label] + [i for i in uberon_classes.classes if i.label]
-	
+
 	for _class in all_ontologies:
 		all_classes[_class.about] = _class.label
 

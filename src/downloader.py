@@ -8,7 +8,6 @@ def download(genome, type, url) :
 	u = urllib2.urlopen(url)
 
 	directory = os.path.join(settings.DOWNLOAD_PATH, genome, type)
-	print directory
 	if not os.path.exists(directory):
 		os.makedirs(directory)
 
@@ -17,7 +16,7 @@ def download(genome, type, url) :
 	f = open(file_path, 'wb')
 	meta = u.info()
 	file_size = int(meta.getheaders("Content-Length")[0])
-	print "Downloading: %s Bytes: %s" % (file_name, file_size)
+	print "Downloading: %s MBytes: %s" % (file_name, file_size/1024/1024)
 
 	file_size_dl = 0
 	block_sz = 8192
@@ -28,10 +27,10 @@ def download(genome, type, url) :
 
 	    file_size_dl += len(buffer)
 	    f.write(buffer)
-	    status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
-	    status = status + chr(8)*(len(status)+1)
-	    print status,
+	    #status = r"%s - [%3.2f%%]" % (url, file_size_dl * 100. / file_size)
+	    #status = status + chr(8)*(len(status)+1)
+	    #print status,
 	f.close()
+	print "Download %s completed" % (file_name)
 
-
-download("hg19", "annotation", "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/rmsk.txt.gz")
+	return file_path

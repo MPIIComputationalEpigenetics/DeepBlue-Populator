@@ -4,7 +4,9 @@ import traceback
 
 import util
 from dataset import Dataset
-from settings import mdb, log, max_threads, max_downloads
+from settings import max_threads, max_downloads
+from log import log
+from db import mdb
 
 """
 NonpersistantRepository exception is raised if certain operations on a
@@ -157,11 +159,12 @@ class Repository(object):
         # once we get here everything went successful
         dataset.imported = True
         dataset.save()
-      except IOError as ex:  
+      except IOError as ex:
         log.exception("error on downloading or reading dataset of %s failed: %s", dataset, ex)
       except Exception as ex:
         log.exception("processing of %s failed %s", dataset, repr(ex))
 
+    count = 0
     for e in rep_files:
       # reconstruct Datasets from database
       ds = Dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"], e["imported"])
@@ -174,6 +177,9 @@ class Repository(object):
       t = threading.Thread(target=process, args=(ds,))
       t.start()
       threads.append(t)
+      count += 1
+      if count > 3:
+        break
 
     for t in threads:
       t.join()

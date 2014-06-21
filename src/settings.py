@@ -2,8 +2,6 @@ import sys
 import os.path
 import logging
 
-from pymongo import MongoClient
-
 """
 Config Variables
 """
@@ -27,18 +25,6 @@ ROOT = "/Users/albrecht/mpi/DeepBlue-Populator/src"
 #ROOT = "/opt/mongodb/epidb/src/epidb/populator"
 DOWNLOAD_PATH = os.path.join(ROOT, "download/")
 DATA_DIR = os.path.join(ROOT, "../data/")
-
-"""
-Globals
-"""
-
-_client = MongoClient(MDB_HOST, MDB_PORT)
-mdb = _client.populator
-
-log = logging.Logger("main")
-
-log.addHandler(logging.StreamHandler(sys.stderr))
-log.setLevel(LOG_LEVEL)
 
 
 """

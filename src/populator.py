@@ -16,7 +16,9 @@ from genomes import hg19_info
 from histones import insert_histones
 from owl_loader import load_owl
 from sequences import insert_chromosome_sequences
-from settings import DEEPBLUE_HOST, DEEPBLUE_PORT, mdb, log, max_threads
+from settings import DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
+from log import log
+from db import mdb
 
 """
 The Populator maintains the database connection and delegates
