@@ -52,7 +52,7 @@ class BlueprintRepository(Repository):
 
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
-    for s in sample_extra_info_keys: 
+    for s in sample_extra_info_keys:
       epidb.add_sample_field(s, "string", None, self.user_key)
 
     #remove_fields = ["FILE_MD5", "FILE_SIZE"]
@@ -77,11 +77,11 @@ class BlueprintRepository(Repository):
       sample_extra_info = {}
       for k in sample_extra_info_keys:
         sample_extra_info[k] = line_info[k]
-      
+
       (s, samples) = epidb.list_samples(line_info["CELL_TYPE"], sample_extra_info, self.user_key)
       if samples:
-        print "(Blueprint) Reusing sample ", sample_id, " for " , line_info["CELL_TYPE"], " and ", repr(sample_extra_info) 
-        sample_id = samples[0]
+        print "(Blueprint) Reusing sample ", sample_id, " for " , line_info["CELL_TYPE"], " and ", repr(sample_extra_info)
+        sample_id = samples[0][0]
       else:
         print "(Blueprint) Inserting sample " , line_info["CELL_TYPE"], " and ", repr(sample_extra_info)
         (s, sample_id) = epidb.add_sample(line_info["CELL_TYPE"], sample_extra_info, self.user_key)
@@ -90,7 +90,7 @@ class BlueprintRepository(Repository):
           if (r[0] == "error"):
             print r
           else:
-            print "(Blueprint) inserted bio source " , line_info["CELL_TYPE"] 
+            print "(Blueprint) inserted bio source " , line_info["CELL_TYPE"]
             (s, sample_id) = epidb.add_sample(line_info["CELL_TYPE"], sample_extra_info, self.user_key)
             print "(Blueprint)" , sample_id
 
@@ -100,7 +100,7 @@ class BlueprintRepository(Repository):
       file_type = file_full_name.split(".")[-1]
       if file_type == "gz":
         file_type = file_full_name.split(".")[-2]
-        
+
       directory = os.path.dirname(file_path)
 
       meta = line_info
@@ -117,4 +117,4 @@ class BlueprintRepository(Repository):
 
       new += 1
       self.has_updates = True
-    
+

@@ -233,12 +233,9 @@ class Dataset:
       sample_id = self.sample_id
     else:
       (status, samples_id) = epidb.list_samples(am.bio_source, {}, user_key)
-      if status != "okay":
+      if status != "okay" or not len(sample_id):
         log.critical("Sample for biosource %s was not found", am.bio_source)
-	log.critical(samples_id)
-        return
-      if not len(samples_id):
-        log.critical("Sample for biosource %s was not found", am.bio_source)
+        log.critical(samples_id)
         return
       sample_id = samples_id[0][0]
 
@@ -247,6 +244,8 @@ class Dataset:
     data_splited.sort()
     file_content_sorted = "\n".join(data_splited)
 
+    print "vai inserir"
+    print sample_id
     args = (am.name, am.genome, am.epigenetic_mark, sample_id, am.technique,
             am.project, None, file_content_sorted, frmt, self.meta, user_key)
 
