@@ -71,9 +71,12 @@ class EncodeRepository(Repository):
       if epigeneticMark == None:
         epigeneticMark = em
       elif epigeneticMark != None and epigeneticMark != em:
-        print "datatype was set %s but new is %s" %(epigeneticMark, em) 
+        print "datatype was set %s but new is %s" %(epigeneticMark, em)
 
       meta["epigenetic_mark"] = epigeneticMark
+
+      if epigeneticMark == "Histone" and meta["antibody"].find("_") != -1:
+          meta["antibody"] = meta["antibody"].split("_")[0]
 
       # TODO: get sample_id here and remove bio_sample from the attribute_mapper
 
@@ -83,6 +86,6 @@ class EncodeRepository(Repository):
         continue
 
       new +=1
-    
+
 
     log.info("found %d new datasets in %s", new, self)
