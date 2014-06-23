@@ -162,11 +162,13 @@ def ensure_vocabulary(user_key):
     process_bio_source(cl, children_map, user_key)
 
   for (bio_source_name, parent) in children_map.iteritems():
-    res = epidb.set_bio_source_scope(parent, bio_source_name, user_key)
+    (s, bs_id) = epidb.set_bio_source_scope(parent, bio_source_name, user_key)
+    if util.has_error(s, bs_id, []): print "(ENCODE CV Error 8): ", bs_id
 
   # add antibodies to epidb
   for ab in voc.antibodies:
-    res = epidb.add_epigenetic_mark(ab["term"],  ab["description"], user_key=user_key)
-    log.debug("adding bio_source %s; result: %s", (ab["target"], ab["description"]), res)
+    log.debug("(Encode) Inserting epigenetic_mark %s", ab["target"])
+    (s, em_id) = epidb.add_epigenetic_mark(ab["term"],  ab["description"], user_key=user_key)
+    if util.has_error(s, em_id, ["105001"]): print "(ENCODE CV Error 8): ", em_id
 
   log.info("vocabulary added successfully")
