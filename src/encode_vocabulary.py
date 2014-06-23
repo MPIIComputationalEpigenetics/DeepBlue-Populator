@@ -80,36 +80,36 @@ def process_bio_source(i, children_map, user_key):
   bio_source_name = i["term"]
 
   print "(ENCODE) Inserting bio_source " + bio_source_name
-  (s, r) = epidb.add_bio_source(bio_source_name, None, {}, user_key)
+  (s, r) = epidb.add_bio_source(bio_source_name, None, {"source": "ENCODE"}, user_key)
   if util.has_error(s, r, ["104001"]):
-    print "1: ", r
+    print "(ENCODE CV Error 1): ", r
 
   if i.has_key("childOf"):
     children_map[bio_source_name] = i["childOf"]
 
   else:
     if (i.has_key("tissue")):
-      (s, r) = epidb.add_bio_source(i["tissue"], None, {}, user_key)
-      if util.has_error(s, r, ["104001"]): print "2: ", r
+      (s, r) = epidb.add_bio_source(i["tissue"], None, {"source": "ENCODE"}, user_key)
+      if util.has_error(s, r, ["104001"]): print "(ENCODE CV Error 2): ", r
 
       if (i["tissue"].lower().replace(" ", "") != bio_source_name.lower().replace(" ", "")):
         (s, r) = epidb.set_bio_source_scope(i["tissue"], bio_source_name, user_key)
-        if util.has_error(s, r, ["104901"]): print "3: ", r
+        if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 3): ", r
 
     if (i.has_key("lineage")):
       lineages = i["lineage"].split(",")
       for lineage in lineages:
         if lineage == "missing":
           continue
-        (s, r) = epidb.add_bio_source(lineage, None, {}, user_key)
-        if util.has_error(s, r, ["104001"]): print "4: ", r
+        (s, r) = epidb.add_bio_source(lineage, None, {"source": "ENCODE"}, user_key)
+        if util.has_error(s, r, ["104001"]): print "(ENCODE CV Error 4): ", r
 
         if (i.has_key("tissue")):
           (s, r) = epidb.set_bio_source_scope(lineage, i["tissue"], user_key)
-          if util.has_error(s, r, ["104901"]): print "5: ", r
+          if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 5): ", r
         else:
           (s, r) = epidb.set_bio_source_scope(lineage, bio_source_name, user_key)
-          if util.has_error(s, r, ["104901"]): print "6: ", r
+          if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 6): ", r
 
   fields = {}
 
@@ -121,9 +121,6 @@ def process_bio_source(i, children_map, user_key):
 
   if (i.has_key("lab")):
     fields["lab"] = i["lab"]
-
-  if (i.has_key("lineage")):
-    fields["lineage"] = i["lineage"]
 
   if (i.has_key("organism")):
     fields["organism"] = i["organism"]
@@ -143,7 +140,8 @@ def process_bio_source(i, children_map, user_key):
   if (i.has_key("description")):
     fields["description"] = i["description"]
 
-  res = epidb.add_sample(bio_source_name, fields, user_key)
+  (s, s_id) = epidb.add_sample(bio_source_name, fields, user_key)
+  if util.has_error(s, s_id, []): print "(ENCODE CV Error 7): " ,s_id
 
 """
 ensure_vocabulary retrieves a set of cell line and antibody vocabulary and
