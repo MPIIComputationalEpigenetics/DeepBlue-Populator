@@ -178,7 +178,7 @@ class Dataset:
     url = os.path.join(rep["path"], self.file_name)
 
     util.download_file(url, self.download_path)
-    log.info("finished downloading %s", url)
+    log.info("Download finished %s", url)
 
 
   """
@@ -244,8 +244,6 @@ class Dataset:
     data_splited.sort()
     file_content_sorted = "\n".join(data_splited)
 
-    print "vai inserir"
-    print sample_id
     args = (am.name, am.genome, am.epigenetic_mark, sample_id, am.technique,
             am.project, None, file_content_sorted, frmt, self.meta, user_key)
 
