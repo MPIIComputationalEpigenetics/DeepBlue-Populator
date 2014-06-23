@@ -2,6 +2,7 @@ import os
 import urllib
 
 import settings
+import util
 
 from client import EpidbClient
 from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
@@ -51,7 +52,7 @@ class ControledVocabulary:
         key = "description"
 
       # add key-value pair if desired
-      #if key in ["deprecated", "type", "organism", "target", "description", "term", "tag", "tissue", "targetClass", "tissue", 
+      #if key in ["deprecated", "type", "organism", "target", "description", "term", "tag", "tissue", "targetClass", "tissue",
       # "lineage", "karyotype", "sex"]:
       current[key] = value.strip()
 
@@ -78,35 +79,37 @@ def process_bio_source(i, children_map, user_key):
 
   bio_source_name = i["term"]
 
-  print "Inserting bio_source " + bio_source_name
-  print "ENCODE : epidb.add_bio_source(" + bio_source_name+ ",None,{},"+user_key+")"
-  res = epidb.add_bio_source(bio_source_name, None, {}, user_key)
-  print res
+  print "(ENCODE) Inserting bio_source " + bio_source_name
+  (s, r) = epidb.add_bio_source(bio_source_name, None, {}, user_key)
+  if util.has_error(s, r, ["104001"]):
+    print "1: ", r
 
   if i.has_key("childOf"):
     children_map[bio_source_name] = i["childOf"]
 
   else:
     if (i.has_key("tissue")):
-      res = epidb.add_bio_source(i["tissue"], None, {}, user_key)
-      print res
-      res = epidb.set_bio_source_scope(i["tissue"], bio_source_name, user_key)
-      print res
+      (s, r) = epidb.add_bio_source(i["tissue"], None, {}, user_key)
+      if util.has_error(s, r, ["104001"]): print "2: ", r
+
+      if (i["tissue"].lower().replace(" ", "") != bio_source_name.lower().replace(" ", "")):
+        (s, r) = epidb.set_bio_source_scope(i["tissue"], bio_source_name, user_key)
+        if util.has_error(s, r, ["104901"]): print "3: ", r
 
     if (i.has_key("lineage")):
       lineages = i["lineage"].split(",")
       for lineage in lineages:
         if lineage == "missing":
           continue
-        res = epidb.add_bio_source(lineage, None, {}, user_key)
-        print res
+        (s, r) = epidb.add_bio_source(lineage, None, {}, user_key)
+        if util.has_error(s, r, ["104001"]): print "4: ", r
 
         if (i.has_key("tissue")):
-          res = epidb.set_bio_source_scope(lineage, i["tissue"], user_key)
-          print res
+          (s, r) = epidb.set_bio_source_scope(lineage, i["tissue"], user_key)
+          if util.has_error(s, r, ["104901"]): print "5: ", r
         else:
-          res = epidb.set_bio_source_scope(lineage, bio_source_name, user_key)
-          print res
+          (s, r) = epidb.set_bio_source_scope(lineage, bio_source_name, user_key)
+          if util.has_error(s, r, ["104901"]): print "6: ", r
 
   fields = {}
 
@@ -158,7 +161,7 @@ def ensure_vocabulary(user_key):
   # add bio_sources to epidb
   children_map = {}
   for cl in voc.bio_sources:
-    process_bio_source(cl, children_map, user_key) 
+    process_bio_source(cl, children_map, user_key)
 
   for (bio_source_name, parent) in children_map.iteritems():
     res = epidb.set_bio_source_scope(parent, bio_source_name, user_key)
@@ -168,4 +171,4 @@ def ensure_vocabulary(user_key):
     res = epidb.add_epigenetic_mark(ab["term"],  ab["description"], user_key=user_key)
     log.debug("adding bio_source %s; result: %s", (ab["target"], ab["description"]), res)
 
-  log.info("vocabulary added successfully")    
+  log.info("vocabulary added successfully")

@@ -1,6 +1,18 @@
 import urllib
 import os.path
 
+
+def has_error(status, msg, errors):
+  if status == "okay":
+    return False;
+  ss = msg.split(":")[0];
+  for e in errors:
+    if ss == e:
+      return False
+  return True
+
+
+
 """
 removes a certian set of special characters from the string.
 """
@@ -41,4 +53,4 @@ def download_file(url, localFile):
     version = 'Mozilla/5.0'
 
   myopener = Opener()
-  myopener.retrieve(url, localFile)   
+  myopener.retrieve(url, localFile)
