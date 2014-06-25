@@ -79,7 +79,6 @@ def process_bio_source(i, children_map, user_key):
 
   bio_source_name = i["term"]
 
-  print "(ENCODE) Inserting bio_source " + bio_source_name
   (s, r) = epidb.add_bio_source(bio_source_name, None, {"source": "ENCODE"}, user_key)
   if util.has_error(s, r, ["104001"]):
     print "(ENCODE CV Error 1): ", r
@@ -140,6 +139,7 @@ def process_bio_source(i, children_map, user_key):
   if (i.has_key("description")):
     fields["description"] = i["description"]
 
+  fields["source"] = "ENCODE"
   (s, s_id) = epidb.add_sample(bio_source_name, fields, user_key)
   if util.has_error(s, s_id, []): print "(ENCODE CV Error 7): " ,s_id
 
