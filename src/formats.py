@@ -60,8 +60,8 @@ cpg_island = [
   "END",
   "NAME",
   "LENGTH",
-  "CPG_NUM",
-  "GC_NUM",
+  "NUM_CPG",
+  "NUM_GC",
   "PER_CPG",
   "PER_GC",
   "OBS_EXP"
@@ -128,6 +128,22 @@ rmsk = [
   "ID",
 ]
 
+
+blueprint_bs_call = [
+  "CHROMOSOME",
+  "START",
+  "END",
+  "SIZE",
+  "AVG_METHYL_LEVEL",
+  "NUM_CPG",
+  "MEDIAN_NON_CONVERTED_CPG",
+  "MEDIAN_CONVERTED_CPG",
+  "MEDIAN_TOTAL_CPG",
+  "ISLAND_SHELF_SHORE",
+  "REF_GENES"
+]
+
+
 formats = {
   "simple": simple,
   "bed" : bed,
@@ -139,7 +155,8 @@ formats = {
   "probes_450k": probes_450k,
   "lamin_b1" : lamin_b1,
   "conservation_elements": conservation_elements,
-  "rmsk":rmsk
+  "rmsk":rmsk,
+  "blueprint_bs_call":blueprint_bs_call
 }
 
 def format_builder(format_name, length=None):

@@ -58,7 +58,7 @@ class BlueprintMapper(AttributeMapper):
     super(BlueprintMapper, self).__init__(dataset)
 
   @property
-  def name(self):  
+  def name(self):
     file_full_name = self.dataset.file_name.split("/")[-1]
     file_type = file_full_name.split(".")[-1]
     if file_type == "gz":
@@ -71,6 +71,10 @@ class BlueprintMapper(AttributeMapper):
     e = self.dataset.meta["EXPERIMENT_TYPE"]
     if e == "DNA Methylation":
       return "Methylation"
+
+    if e == "Ribo Minus RNA sequencing":
+
+      return "mRNA-seq"
 
     if e == "Chromatin Accessibility":
       return "DNaseI"
@@ -87,8 +91,13 @@ class BlueprintMapper(AttributeMapper):
 
   @property
   def format(self):
+
+    if self.name.find("bs_call") != -1:
+      return "blueprint_bs_call"
+
     if self.epigenetic_mark == "mRNA-seq":
       return "encode_rna"
+
     return "bed"
 
 """
@@ -111,7 +120,7 @@ class EncodeMapper(AttributeMapper):
     else:
       return ".".join(file_full_name.split(".")[:-1])
 
-    
+
   @property
   def bio_source(self):
     return self.dataset.meta["cell"]

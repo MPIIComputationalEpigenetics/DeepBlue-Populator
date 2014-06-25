@@ -5,6 +5,7 @@ class Type(object):
 
 
 SIMPLE = [
+  ("AVG_METHYL_LEVEL", "Average methylation level in region", ".", Type.DOUBLE),
   ("CHROMOSOME", "Chromosome", None, Type.STRING),
   ("START", "Start", None, Type.INTEGER),
   ("END", "End", None, Type.INTEGER),
@@ -24,8 +25,11 @@ SIMPLE = [
   ("SIGN_IF", "Sign if", "-1", Type.DOUBLE),
   ("SCORE_2", "Level", "-1", Type.DOUBLE),
   ("LENGTH", "Length", "0", Type.INTEGER),
-  ("CPG_NUM", "CPG number", "0", Type.INTEGER),
+  ("NUM_CPG", "Number of CpGs in region", "0", Type.INTEGER),
   ("GC_NUM", "GC number", "0", Type.DOUBLE),
+  ("MEDIAN_NON_CONVERTED_CPG", "Median number of non-converted reads at CpGs in region", ".", Type.INTEGER),
+  ("MEDIAN_CONVERTED_CPG", "Median number of converted reads at CpGs in region", ".", Type.INTEGER),
+  ("MEDIAN_TOTAL_CPG", "Median number of total reads at CpGs in region", ".", Type.INTEGER),
   ("PER_CPG", "Per CPG", None, Type.DOUBLE),
   ("PER_GC", "Per GC", None, Type.DOUBLE),
   ("OBS_EXP", "Obs Exp", None, Type.DOUBLE),
@@ -45,13 +49,16 @@ SIMPLE = [
   ("MILLI_DEL", "milliDel", "0", Type.INTEGER),
   ("MILLI_INS", "milliIns", "0", Type.INTEGER),
   ("GENO_LEFT", "genoLeft", "0", Type.INTEGER),
+  ("REF_GENES", "refGene annotation (union of refGene  annotations for all CpGs in region)", ".", Type.STRING),
   ("REP_NAME", "repName", None, Type.STRING),
   ("REP_CLASS", "repClass", None, Type.STRING),
   ("REP_FAMILY", "repFamily", None, Type.STRING),
   ("REP_START", "repStart", "0", Type.INTEGER),
   ("REP_END"," repEnd", "0", Type.INTEGER),
   ("REP_LEFT", "repLeft", "0", Type.INTEGER),
-  ("ID", "id", None, Type.STRING)
+  ("ID", "Region id", None, Type.STRING),
+  ("ISLAND_SHELF_SHORE", "Island/Shelf/Shore (union of CpG Island annotations for all CpGs in region)", ".", Type.STRING),
+  ("SIZE", "Size of region in base pairs", ".", Type.INTEGER)
 ]
 
 CATEGORY = [

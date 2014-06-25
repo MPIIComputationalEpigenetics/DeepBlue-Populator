@@ -7,11 +7,11 @@ import os.path
 
 from dataset import Dataset
 from repository import Repository
-from settings import max_threads
+from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
 from log import log
 from db import mdb
 
-from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT
+import util
 
 from client import EpidbClient
 
@@ -50,12 +50,14 @@ class BlueprintRepository(Repository):
         "BIOMATERIAL_TYPE", "DONOR_ID", "DONOR_SEX", "DONOR_AGE", "DONOR_HEALTH_STATUS", "DONOR_ETHNICITY", "DONOR_REGION_OF_RESIDENCE",
         "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE"]
 
+    bio_source_info_keys = ["BIOMATERIAL_TYPE", "CELL_TYPE", "DISEASE", "TISSUE"]
+
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
     for s in sample_extra_info_keys:
-      epidb.add_sample_field(s, "string", None, self.user_key)
+      (s, sf_id) = epidb.add_sample_field(s, "string", None, self.user_key)
+      if util.has_error(s, sf_id, []): print sf_id
 
-    #remove_fields = ["FILE_MD5", "FILE_SIZE"]
     new = 0
     req = urllib.urlopen(self.index_path)
     content = req.read()
@@ -78,21 +80,41 @@ class BlueprintRepository(Repository):
       for k in sample_extra_info_keys:
         sample_extra_info[k] = line_info[k]
 
-      (s, samples) = epidb.list_samples(line_info["CELL_TYPE"], sample_extra_info, self.user_key)
+      #--
+      if line_info["BIOMATERIAL_TYPE"].lower() == "primary cell" or line_info["BIOMATERIAL_TYPE"].lower() == "primary cells":
+        bio_source_name = line_info["CELL_TYPE"]
+      else:
+        bio_source_name = line_info["DISEASE"]
+
+      bio_source_extra_info = {}
+      for k in bio_source_info_keys:
+        i = line_info[k]
+        if i != "NA" and  i !="None":
+          bio_source_extra_info[k] = i
+
+      bio_source_extra_info["souce"] = "BLUEPRINT"
+
+      (s, bs_id) = epidb.add_bio_source(bio_source_name, None, bio_source_extra_info, self.user_key)
+      if util.has_error(s, bs_id, ["104001"]): print bs_id
+
+      if bio_source_extra_info.has_key("TISSUE"):
+        (s, bs_id) = epidb.add_bio_source(bio_source_extra_info["TISSUE"], None, {}, self.user_key)
+        if util.has_error(s, bs_id, ["104001"]): print bs_id
+
+        (s, r) = epidb.set_bio_source_scope(bio_source_extra_info["TISSUE"], bio_source_name, self.user_key)
+        if util.has_error(s, r, ["104901"]): print r
+
+      #--
+
+      #--
+      (s, samples) = epidb.list_samples(bio_source_name, sample_extra_info, self.user_key)
       if samples:
-        print "(Blueprint) Reusing sample ", sample_id, " for " , line_info["CELL_TYPE"], " and ", repr(sample_extra_info)
         sample_id = samples[0][0]
       else:
-        print "(Blueprint) Inserting sample " , line_info["CELL_TYPE"], " and ", repr(sample_extra_info)
-        (s, sample_id) = epidb.add_sample(line_info["CELL_TYPE"], sample_extra_info, self.user_key)
-        if s == "error":
-          r = epidb.add_bio_source(line_info["CELL_TYPE"], None, {}, self.user_key)
-          if (r[0] == "error"):
-            print r
-          else:
-            print "(Blueprint) inserted bio source " , line_info["CELL_TYPE"]
-            (s, sample_id) = epidb.add_sample(line_info["CELL_TYPE"], sample_extra_info, self.user_key)
-            print "(Blueprint)" , sample_id
+        (s, sample_id) = epidb.add_sample(bio_source_name, sample_extra_info, self.user_key)
+        if util.has_error(s, sample_id, []):
+          print "BLUEPRIN ERROR PLACE"
+          return
 
       file_path = line_info["FILE"]
       file_full_name = file_path.split("/")[-1]
@@ -104,11 +126,6 @@ class BlueprintRepository(Repository):
       directory = os.path.dirname(file_path)
 
       meta = line_info
-
-      # Lets keep all the metadata
-      #for field in meta.keys():
-      #  if field in remove_fields:
-      #    meta.pop(field)
 
       ds = Dataset(file_path, file_type, meta, file_directory=directory, sample_id=sample_id)
       self.datasets.add(ds)

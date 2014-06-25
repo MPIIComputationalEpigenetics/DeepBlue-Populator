@@ -205,6 +205,7 @@ class Dataset:
       f = open(self.download_path, 'r')
 
     file_content = f.read()
+    f.close()
 
     file_split = file_content.split("\n", 1)
     first_line = file_split[0]
@@ -251,6 +252,4 @@ class Dataset:
     if res[0] == "okay":
       log.info("dataset %s inserted ", am.name)
     else:
-      log.info("error %s while inserting dataset %s", res, res[0])
-
-    f.close()
+      log.info("Error while inserting dataset: %s\n%s\n%s\n%s", res, am.name, frmt, file_content_sorted[0:500])
