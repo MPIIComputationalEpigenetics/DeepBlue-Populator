@@ -153,6 +153,7 @@ class Populator:
     epidb.add_sample_field("tier", "string", None, self.key)
     epidb.add_sample_field("age", "string", None, self.key)
     epidb.add_sample_field("strain", "string", None, self.key)
+    epidb.add_sample_field("source", "string", None, self.key)
 
   def create_columns(self):
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
