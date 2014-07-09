@@ -26,6 +26,7 @@ SIMPLE = [
   ("SCORE_2", "Level", "-1", Type.DOUBLE),
   ("LENGTH", "Length", "0", Type.INTEGER),
   ("NUM_CPG", "Number of CpGs in region", "0", Type.INTEGER),
+  ("NUM_GC", "Number of GCs dinucleotide in region", "0", Type.INTEGER),
   ("GC_NUM", "GC number", "0", Type.DOUBLE),
   ("MEDIAN_NON_CONVERTED_CPG", "Median number of non-converted reads at CpGs in region", ".", Type.INTEGER),
   ("MEDIAN_CONVERTED_CPG", "Median number of converted reads at CpGs in region", ".", Type.INTEGER),
