@@ -1,3 +1,4 @@
+import platform
 import sys
 import os.path
 import logging
@@ -5,6 +6,11 @@ import logging
 """
 Config Variables
 """
+
+if platform.system() == "Darwin":
+	OS = "macosx"
+else:
+	OS = "linux"
 
 EPIDB_INIT_USER = ("Epidb System", "deepblue@mpi-inf.mpg.de", "MPI-Inf")
 EPIDB_POPULATOR_USER = ("Populator", "deepblue-populator@mpi-inf.mpg.de", "MPI-Inf")
@@ -30,5 +36,5 @@ DATA_DIR = os.path.join(ROOT, "../data/")
 """
 Threads
 """
-max_downloads = 4
-max_threads = 8
+max_downloads = 1
+max_threads = 1

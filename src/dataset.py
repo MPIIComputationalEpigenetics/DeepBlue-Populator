@@ -1,13 +1,16 @@
 import os
 import gzip
-
 import util
+
+from subprocess import call
 
 from attribute_mapper import mappers
 from formats import format_builder
-from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT
+from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, OS
 from log import log
 from db import mdb
+
+from bedgraphtowig import try_to_convert
 
 from client import EpidbClient
 
@@ -171,10 +174,7 @@ class Dataset:
     if not rep:
       raise OrphanedDataset(self, "coresponding repository doesn't exist.")
 
-    #if self.file_directory is not None:
-    #  url = os.path.join(rep["path"], self.file_directory, self.file_name)
-    #else:
-    #  url = os.path.join(rep["path"], self.file_name)
+    log.info("Downloading " + self.file_name)
     url = os.path.join(rep["path"], self.file_name)
 
     util.download_file(url, self.download_path)
@@ -198,25 +198,70 @@ class Dataset:
     if not os.path.exists(self.download_path):
       raise MissingFile(self.download_path, self.file_name)
 
-    file_type = self.download_path.split(".")[-1]
-    if file_type == "gz":
-      f = gzip.open(self.download_path, 'rb') # gzip doc says `with' is supported - seems its not
+    if self.meta.has_key("type") and self.meta["type"] == "bigWig":
+      print "../third_party/bigWigToWig."+OS + " " + self.download_path + " " +  self.download_path+".wig"
+      call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
+
+      wig_file = self.download_path+".wig"
+
+      f = open(wig_file, 'r')
+      wig_content = f.read()
+
+      wig_content = wig_content.split("\n", 1)
+      first_line = wig_content[0]
+      while first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser":
+        wig_content = wig_content[1]
+        wig_content = wig_content.split("\n", 1)
+        first_line = wig_content[0]
+        log.debug(first_line)
+
+      wig_content = "\n".join(wig_content)
+      first_word = first_line.split()[0]
+      if first_word == "variableStep" or first_word == "fixedStep":
+          frmt = "wig"
+          file_content = wig_content
+      else:
+        (status, content) = try_to_convert(wig_file)
+
+        if status:
+          frmt = "wig"
+          file_content = content
+        else:
+          frmt = "bedgraph"
+          f = open(wig_file, 'r')
+          file_content = wig_content
+          f.close()
+
+      os.unlink(self.download_path+".wig")
+      print frmt
+
     else:
-      f = open(self.download_path, 'r')
+      file_type = self.download_path.split(".")[-1]
+      if file_type == "gz":
+        f = gzip.open(self.download_path, 'rb') # gzip doc says `with' is supported - seems its not
+      else:
+        f = open(self.download_path, 'r')
 
-    file_content = f.read()
-    f.close()
+      file_content = f.read()
+      f.close()
 
-    file_split = file_content.split("\n", 1)
-    first_line = file_split[0]
-
-    while (first_line[:5] == "track"):
-      file_content = file_split[1]
       file_split = file_content.split("\n", 1)
       first_line = file_split[0]
-      log.debug(first_line)
 
-    extra_info_size = len(first_line.split())
+      while (first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser"):
+        file_content = file_split[1]
+        file_split = file_content.split("\n", 1)
+        first_line = file_split[0]
+        log.debug(first_line)
+
+      extra_info_size = len(first_line.split())
+
+      frmt = format_builder(am.format, extra_info_size)
+
+      data_splited = file_content.split("\n")
+      data_splited = [x for x in data_splited if x]
+      data_splited.sort()
+      file_content = "\n".join(data_splited)
 
     project = self.repository["project"]
 
@@ -225,8 +270,6 @@ class Dataset:
       am = mappers[(project, mark)](self)
     else:
       am = mappers[(project)](self)
-
-    frmt = format_builder(am.format, extra_info_size)
 
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
@@ -240,16 +283,11 @@ class Dataset:
         return
       sample_id = samples_id[0][0]
 
-    data_splited = file_content.split("\n")
-    data_splited = [x for x in data_splited if x]
-    data_splited.sort()
-    file_content_sorted = "\n".join(data_splited)
-
     args = (am.name, am.genome, am.epigenetic_mark, sample_id, am.technique,
-            am.project, None, file_content_sorted, frmt, self.meta, user_key)
+            am.project, None, file_content, frmt, self.meta, user_key)
 
     res = epidb.add_experiment(*args)
     if res[0] == "okay":
       log.info("dataset %s inserted ", am.name)
     else:
-      log.info("Error while inserting dataset: %s\n%s\n%s\n%s", res, am.name, frmt, file_content_sorted[0:500])
+      log.info("Error while inserting dataset: %s\n%s\n%s\n%s", res, am.name, frmt, file_content[0:500])
