@@ -194,6 +194,13 @@ class Dataset:
 
   def _process(self, user_key=None):
     log.info("processing dataset %s", self)
+    
+    project = self.repository["project"]
+    if self.meta.has_key("epigenetic_mark"):
+      mark = self.meta["epigenetic_mark"]
+      am = mappers[(project, mark)](self)
+    else:
+      am = mappers[(project)](self)
 
     if not os.path.exists(self.download_path):
       raise MissingFile(self.download_path, self.file_name)
@@ -263,13 +270,6 @@ class Dataset:
       data_splited.sort()
       file_content = "\n".join(data_splited)
 
-    project = self.repository["project"]
-
-    if self.meta.has_key("epigenetic_mark"):
-      mark = self.meta["epigenetic_mark"]
-      am = mappers[(project, mark)](self)
-    else:
-      am = mappers[(project)](self)
 
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
