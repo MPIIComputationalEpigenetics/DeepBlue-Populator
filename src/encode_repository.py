@@ -19,7 +19,8 @@ retrival and processing.
 class EncodeRepository(Repository):
 
   def __init__(self, proj, genome, path, user_key):
-    super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path, user_key)
+    #super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path, user_key)
+    super(EncodeRepository, self).__init__(proj, genome, ["bigWig"], path, user_key)
 
   def __str__(self):
     return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -80,12 +81,23 @@ class EncodeRepository(Repository):
 
       # TODO: get sample_id here and remove bio_sample from the attribute_mapper
 
-      ds = Dataset(file_name, meta["type"], meta)
-      self.datasets.add(ds)
-      if ds.exists():
-        continue
+      size = meta["size"]
+      suf = size[-1].lower()
+      value = float(size[:-1])
 
-      new +=1
+      if (suf == 'k'):
+        s = value * 1024
+      elif (suf == 'm'):
+        s = value * 1024 * 1024
+      elif (suf == 'g'):
+        s = value * 1024 * 1024 * 1024
+      else:
+        s = value
 
+      meta["size"] = s
+      if (s < 256 * 1024 * 1024):
+        ds = Dataset(file_name, meta["type"], meta)
+        self.datasets.add(ds)
+        new +=1
 
     log.info("found %d new datasets in %s", new, self)
