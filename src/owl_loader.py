@@ -9,6 +9,7 @@ from settings import max_threads, DEEPBLUE_HOST, DEEPBLUE_PORT
 from db import mdb
 from log import log
 
+Efo = "http://www.ebi.ac.uk/efo/"
 Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 Rdfs = "http://www.w3.org/2000/01/rdf-schema#"
 Owl = "http://www.w3.org/2002/07/owl#"
@@ -32,6 +33,12 @@ OboFormalDefinition = "{%s}IAO_0000115" % Obo
 
 OboInOwlHasExactSynonym = "{%s}hasExactSynonym" % OboInOwl
 OboInOwlHasOBONamespace = "{%s}hasOBONamespace" % OboInOwl
+OboInOwlHasRelatedSynonym = "{%s}hasRelatedSynonym" % OboInOwl
+
+# Specific Ontologies Attributes
+EfoAlternativeTerm  = "{%s}alternative_term" % Efo
+EfoDefinition = "{%s}definition" % Efo
+
 
 class Ontology:
 	def __init__(self, name, address, imports, classes):
@@ -100,20 +107,20 @@ def load_classes(ontology, _file):
 	for child in root.findall(OwlClass):
 		_namespace = child.find(OboInOwlHasOBONamespace)
 		if _namespace is not None:
-			namespace = _namespace.text.encode('utf-8')
+			namespace = _namespace.text.encode('utf-8').strip()
 		else:
 			namespace = ""
 
 
 		_about = child.get(RdfAbout)
 		if _about is not None:
-			about = _about.encode('utf-8')
+			about = _about.encode('utf-8').strip()
 		else:
 			about = ""
 
 		_label = child.find(RdfsLabel)
 		if _label is not None:
-			label = _label.text.encode('utf-8')
+			label = _label.text.encode('utf-8').strip()
 		else:
 			label = ""
 
@@ -121,23 +128,32 @@ def load_classes(ontology, _file):
 		for superclass in child.findall(RdfsSubClass):
 			ref = superclass.get(RdfResource)
 			if ref is not None:
-				superclasses.append(ref.encode('utf-8'))
+				superclasses.append(ref.encode('utf-8').strip())
 
 		_comment = child.find(RdfsComment)
 		if _comment is not None and _comment.text is not None:
-			comment = _comment.text.encode('utf-8')
+			comment = _comment.text.encode('utf-8').strip()
 		else:
 			comment = ""
 
 		_formalDefinition = child.find(OboFormalDefinition)
 		if _formalDefinition is not None and _formalDefinition.text is not None:
-			formalDefinition = _formalDefinition.text.encode('utf-8')
+			formalDefinition = _formalDefinition.text.encode('utf-8').strip()
 		else:
 			formalDefinition = ""
 
 		syns = []
+
+		for syn in child.findall(OboInOwlHasRelatedSynonym):
+			syns.append(syn.text.encode('utf-8').strip())
+
 		for syn in child.findall(OboInOwlHasExactSynonym):
-			syns.append(syn.text.encode('utf-8'))
+			syns.append(syn.text.encode('utf-8').strip())
+
+		for syn in child.findall(EfoAlternativeTerm):
+			syns.append(syn.text.encode('utf-8').strip())
+
+		syns = list(set(syns))
 
 		_class = Class(namespace, ontology, about, label, superclasses, formalDefinition, syns, comment)
 		classes.append(_class)
@@ -199,8 +215,3 @@ def load_owl(user_key) :
 	p.map(set_scope, all_ontologies, 1000)
 	p.close()
 	p.join()
-
-
-	#count = count + 1
-	#sys.stdout.write("\r%d%%" %(count * 100 / total))
-	#sys.stdout.flush()
