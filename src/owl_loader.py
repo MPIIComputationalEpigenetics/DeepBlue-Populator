@@ -142,6 +142,12 @@ def load_classes(ontology, _file):
 		else:
 			formalDefinition = ""
 
+		_formalDefinition = child.find(EfoDefinition)
+		if _formalDefinition is not None and _formalDefinition.text is not None:
+			formalDefinition = _formalDefinition.text.encode('utf-8').strip()
+		else:
+			formalDefinition = ""
+
 		syns = []
 
 		for syn in child.findall(OboInOwlHasRelatedSynonym):
