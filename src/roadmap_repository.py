@@ -279,7 +279,6 @@ server = xmlrpclib.Server(url, encoding='UTF-8', allow_none=True)
 #set_up_bio_sources(server)
 #set_up_samples_fields(server)
 
-total = 0
 for file_name in files:
   file_path = files_path+file_name
   file = open(files_path+file_name, 'w')
@@ -297,8 +296,61 @@ for file_name in files:
     if type(roadmap_sample['Sample_data_processing']) is not list:
       continue
 
-    #pp.pprint(roadmap_sample)
-    total = total + len(roadmap_sample['Sample_data_processing'])
+    epigenetic_mark = ""
+    if roadmap_sample['Sample_characteristics_ch1'].has_key('chip_antibody'):
+      epigenetic_mark = roadmap_sample['Sample_characteristics_ch1']['chip_antibody']
+
+    elif roadmap_sample['Sample_characteristics_ch1'].has_key('chip_protocol'):
+      epigenetic_mark = roadmap_sample['Sample_characteristics_ch1']['chip_protocol']
+
+    elif roadmap_sample['Sample_characteristics_ch1'].has_key('bisulfite_conversion_protocol'):
+      epigenetic_mark = roadmap_sample['Sample_characteristics_ch1']['experiment_type']
+
+    elif roadmap_sample['Sample_characteristics_ch1'].has_key('experiment_type'):
+      epigenetic_mark = roadmap_sample['Sample_characteristics_ch1']['experiment_type']
+
+    else:
+      pp.pprint(roadmap_sample)
+      print '*' * 1000
+      break
+
+    print epigenetic_mark
+
+
+    sample_info = roadmap_sample['Sample_characteristics_ch1']
+    sample_metada = {}
+    sample_experiment_metadata = {}
+
+    del sample_info['experiment_type']
+
+    for k in sample_info:
+      if sample_info[k] != 'NA' and sample_info[k] != 'N/A' and sample_info[k] != 'None' and not k == 'molecule' and not k.startswith('extraction_protocol') and not k.startswith('chip_protocol') and not k.startswith('chip_antibody') and not k.startswith('dna_preparation_') and not k.startswith('library_generation') and not k.startswith('rna_preparation_') and not k.startswith('mrna_preparation') and not k.startswith('bisulfite_conversion') and not k.startswith('cdna_preparation'):
+        sample_metada[k] = sample_info[k]
+      else:
+        if sample_info[k] != 'NA' and sample_info[k] != 'N/A' and sample_info[k] != 'None':
+          sample_experiment_metadata[k] = sample_info[k]
+
+    #pp.pprint(sample_metada)
+    pp.pprint(sample_experiment_metadata)
+
+    if sample_info['biomaterial_type'] == 'Cell Line':
+      bio_source_name = sample_metada['line']
+    elif sample_info['biomaterial_type'] == 'Primary Tissue':
+      bio_source_name = sample_metada['tissue_type']
+    else:
+      pp.pprint(sample_metada)
+      break
+    (s, _ids) = server.get_bio_source_related(bio_source_name, user_key)
+
+    if s == "error":
+      print _ids
+      pp.pprint(sample_metada)
+
+    (s, _id) = server.add_sample(bio_source_name, sample_metada, user_key)
+    print 'Sample ID:',_id
+
+
+    continue
 
     for experiment in roadmap_sample['Sample_data_processing']:
       if experiment.has_key('ANALYSIS FILE NAME'):
@@ -314,35 +366,29 @@ for file_name in files:
     files = [v for k,v in roadmap_sample.iteritems() if
       type(v) is str and
       k.startswith('Sample_supplementary_file_') and
-      (v.endswith("wig.gz") or v.endswith("bed.gz")) ]
+      (v.endswith("wig.gz"))] #  or v.endswith("bed.gz")) if we are going to import bed files
 
     for file_location in files:
       fileinfo, = (info for info in roadmap_sample['Sample_data_processing'] if
         info.has_key("ANALYSIS FILE NAME") and
         info["ANALYSIS FILE NAME"] in file_location)
 
-      print fileinfo
+      print file_location
+      #pp.pprint(fileinfo)
 
+
+
+
+      """
+      experiment_name = info['ANALYSIS FILE NAME']
+      epigenetic_mark = epigenetic_mark
+      sample = // load or insert sample
+      technique = info['EXPERIMENT_TYPE']
+      project = "Roadmap Epigenomics"
+      description = info['ANALYSIS DESCRIPTION']
+      data = // file
+      frmt = "wig"
+      extra_metadata = roadmap_sample
+      """
     continue
 
-    sample_info = roadmap_sample['Sample_characteristics_ch1']
-
-    if sample_info['biomaterial_type'] == 'Cell Line':
-      bio_source_name = sample_info['line']
-    elif sample_info['biomaterial_type'] == 'Primary Tissue':
-      bio_source_name = sample_info['tissue_type']
-    else:
-      pp.pprint(sample_info)
-      break
-    (s, _ids) = server.get_bio_source_related(bio_source_name, user_key)
-
-    if s == "error":
-      print _ids
-      pp.pprint(sample_info)
-
-    (s, _id) = server.add_sample(bio_source_name, sample_info, user_key)
-    print s
-    print _id
-
-
-print total
