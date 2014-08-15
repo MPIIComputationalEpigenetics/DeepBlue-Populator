@@ -28,7 +28,6 @@ encode_source = [
   ('ENCODE', 'hg19',
     "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHmm/"),
 
-
   ## TFBS
   ('ENCODE', 'hg19',
     "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeAwgTfbsUniform/"),
@@ -42,11 +41,18 @@ encode_source = [
     "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwTfbs/"),
 ]
 
-blueprint_source = [  
+blueprint_source = [
   ('Blueprint Epigenetics', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
+]
+
+roadmap = [
+  # UCSD Human Reference Epigenome Mapping Project
+  ('Roadmap Epigenomics', 'hg19',
+    'http://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16256/matrix/')
 ]
 
 project_sources = [
   blueprint_source,
-  encode_source
+  encode_source,
+  roadmap
 ]
