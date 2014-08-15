@@ -160,9 +160,12 @@ formats = {
 }
 
 def format_builder(format_name, length=None):
+  if format_name == "wig":
+    return "wig"
+
   if not formats.has_key(format_name):
-    log.error("Format %s not found", format_name)
-    return None
+    log.error("Format %s not found.", format_name)
+    return format_name
 
   frmt = formats[format_name]
   if length==None:

@@ -4,7 +4,7 @@ import util
 
 from subprocess import call
 
-from attribute_mapper import mappers
+from attribute_mapper import do_map
 from formats import format_builder
 from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, OS
 from log import log
@@ -62,7 +62,7 @@ class Dataset:
     self._repository = None
 
   def __str__(self):
-    return "<Dataset at %s/%s>" % (self.repository["path"],self.file_name)
+    return "<Dataset at %s>" % (self.download_path)
 
   def __eq__(self, other):
     if not isinstance(other, Dataset):
@@ -148,8 +148,7 @@ class Dataset:
     if not self.repository_id:
       raise OrphanedDataset(self, "download path cannot be determined without repository.")
 
-    return os.path.join(DOWNLOAD_PATH, str(self.repository_id), self.file_name)
-
+    return os.path.join(DOWNLOAD_PATH, str(self.repository_id), self.file_name.replace("ftp://","").replace("http://",""))
 
   """
   load downloads the actual data this dataset refers to if it hasn't
@@ -174,12 +173,13 @@ class Dataset:
     if not rep:
       raise OrphanedDataset(self, "coresponding repository doesn't exist.")
 
-    log.info("Downloading " + self.file_name)
-    url = os.path.join(rep["path"], self.file_name)
+    if self.file_name.startswith("http://") or self.file_name.startswith("ftp://"):
+      url = self.file_name
+    else:
+      url = os.path.join(rep["path"], self.file_name)
 
     util.download_file(url, self.download_path)
     log.info("Download finished %s", url)
-
 
   """
   process inserts the downloaded file and specific meta data into Epidb.
@@ -194,17 +194,18 @@ class Dataset:
 
   def _process(self, user_key=None):
     log.info("processing dataset %s", self)
-    
+
     project = self.repository["project"]
     if self.meta.has_key("epigenetic_mark"):
       mark = self.meta["epigenetic_mark"]
-      am = mappers[(project, mark)](self)
+      am = do_map(project, mark)(self)
     else:
-      am = mappers[(project)](self)
+      am = do_map(project)(self)
 
     if not os.path.exists(self.download_path):
       raise MissingFile(self.download_path, self.file_name)
 
+    # Handle crazy ENCODE big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
     if self.meta.has_key("type") and self.meta["type"] == "bigWig":
       print "../third_party/bigWigToWig."+OS + " " + self.download_path + " " +  self.download_path+".wig"
       call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
@@ -240,7 +241,15 @@ class Dataset:
           f.close()
 
       os.unlink(self.download_path+".wig")
-      print frmt
+
+    elif self.type_ == "wig":
+      if self.download_path.endswith("gz"):
+        f = gzip.open(self.download_path, 'rb')
+      else:
+        f = open(self.download_path, 'rb')
+
+      file_content = f.read()
+      frmt = "wig"
 
     else:
       file_type = self.download_path.split(".")[-1]
@@ -284,7 +293,7 @@ class Dataset:
       sample_id = samples_id[0][0]
 
     args = (am.name, am.genome, am.epigenetic_mark, sample_id, am.technique,
-            am.project, None, file_content, frmt, self.meta, user_key)
+            am.project, am.description, file_content, frmt, self.meta, user_key)
 
     res = epidb.add_experiment(*args)
     if res[0] == "okay":

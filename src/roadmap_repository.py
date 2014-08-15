@@ -36,6 +36,9 @@ class RoadmapRepository(Repository):
       return None
     return idl["_id"]
 
+  def set_up_project(self, server, user_key):
+    print server.add_project("Roadmap Epigenomics", "", user_key)
+
   def set_up_bio_sources(self,server, user_key):
     print server.set_bio_source_synonym('Stomach', "Gastric", user_key)
     print server.add_bio_source('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"}, user_key)
@@ -259,6 +262,7 @@ class RoadmapRepository(Repository):
       os.makedirs(files_path)
 
     server = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+    self.set_up_project(server, self.user_key)
     self.set_up_bio_sources(server, self.user_key)
     self.set_up_samples_fields(server, self.user_key)
 
@@ -352,13 +356,15 @@ class RoadmapRepository(Repository):
           meta['experiment_name'] = fileinfo['ANALYSIS FILE NAME']
           meta['epigenetic_mark'] = epigenetic_mark
           meta['technique'] = fileinfo['EXPERIMENT_TYPE']
-          meta['project'] = "Roadmap Epigenomics"
           meta['description'] = fileinfo['ANALYSIS DESCRIPTION']
           meta['extra_metadata'] = extra_metadata
 
-          print file_path
+
           ds = Dataset(file_path, "wig", meta, sample_id=sample_id)
           self.datasets.add(ds)
           total += 1
           self.has_updates = True
+
+          break
+      break
     print total

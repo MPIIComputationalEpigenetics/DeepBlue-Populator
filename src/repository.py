@@ -176,6 +176,7 @@ class Repository(object):
       t = threading.Thread(target=process, args=(ds,))
       t.start()
       threads.append(t)
+      break
 
     for t in threads:
       t.join()

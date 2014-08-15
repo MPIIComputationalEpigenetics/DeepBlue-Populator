@@ -45,6 +45,10 @@ class AttributeMapper(object):
     return self.dataset.repository["project"]
 
   @property
+  def description(self):
+    return ""
+
+  @property
   def format(self):
     raise UnmappedAttribute("format")
 
@@ -249,8 +253,36 @@ class EncodeTfbsUniformMapper(EncodeMapper):
     return "ChipSeq Uniform"
 
 
-mappers = {
-  ("Blueprint Epigenetics") : BlueprintMapper,
+"""
+RoadmapMapper is the basic AttributeMapper for Roadmap repositories.
+"""
+class RoadmapMapper(AttributeMapper):
+
+  def __init__(self, dataset):
+    super(RoadmapMapper, self).__init__(dataset)
+
+  @property
+  def name(self):
+    return self.dataset.meta['experiment_name']
+
+  @property
+  def epigenetic_mark(self):
+    return self.dataset.meta['epigenetic_mark']
+
+  @property
+  def technique(self):
+    return self.dataset.meta['technique']
+
+  @property
+  def project(self):
+    return self.dataset.repository["project"]
+
+  @property
+  def format(self):
+    return "wig"
+
+
+encode_mappers = {
   ("ENCODE", "MethylRrbs") : EncodeRrbsMethylationMapper,
   ("ENCODE", "Methyl") : EncodeMethyl450KMapper,
   ("ENCODE", "Histone") : EncodeHistoneMapper,
@@ -262,3 +294,8 @@ mappers = {
   ("ENCODE", "TfbsUniform") : EncodeTfbsUniformMapper
 }
 
+def do_map(project, epigenetic_mark = None):
+  if project == "ENCODE": return encode_mappers(project, epigenetic_mark)
+  if project == "Roadmap Epigenomics": return RoadmapMapper
+  if project == "Blueprint Epigenetics" : return BlueprintMapper
+  print 'Invalid Project:', project
