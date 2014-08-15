@@ -173,7 +173,8 @@ class Populator:
     insert_annotations(self.key)
 
   def process_vocabulary(self):
-    encode_vocabulary.ensure_vocabulary(self.key)
+    pass
+    #encode_vocabulary.ensure_vocabulary(self.key)
 
   def process_ontology(self):
     load_owl(self.key)

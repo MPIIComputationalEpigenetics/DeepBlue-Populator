@@ -64,7 +64,7 @@ if __name__ == '__main__':
     init = True
     insert_annotations = True
     insert_cv = True
-    insert_ontology = True        
+    insert_ontology = True
     insert_datasets = True
 
   main(init, insert_annotations, insert_datasets, insert_cv, insert_ontology)
