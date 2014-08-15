@@ -49,6 +49,10 @@ class AttributeMapper(object):
     return ""
 
   @property
+  def extra_metadata(self):
+    return self.dataset.meta
+
+  @property
   def format(self):
     raise UnmappedAttribute("format")
 
@@ -281,6 +285,9 @@ class RoadmapMapper(AttributeMapper):
   def format(self):
     return "wig"
 
+  @property
+  def extra_metadata(self):
+    return self.dataset.meta['extra_metadata']
 
 encode_mappers = {
   ("ENCODE", "MethylRrbs") : EncodeRrbsMethylationMapper,
@@ -295,7 +302,7 @@ encode_mappers = {
 }
 
 def do_map(project, epigenetic_mark = None):
-  if project == "ENCODE": return encode_mappers(project, epigenetic_mark)
+  if project == "ENCODE": return encode_mappers[(project, epigenetic_mark)]
   if project == "Roadmap Epigenomics": return RoadmapMapper
   if project == "Blueprint Epigenetics" : return BlueprintMapper
   print 'Invalid Project:', project

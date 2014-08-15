@@ -293,7 +293,7 @@ class Dataset:
       sample_id = samples_id[0][0]
 
     args = (am.name, am.genome, am.epigenetic_mark, sample_id, am.technique,
-            am.project, am.description, file_content, frmt, self.meta, user_key)
+            am.project, am.description, file_content, frmt, am.extra_metadata, user_key)
 
     res = epidb.add_experiment(*args)
     if res[0] == "okay":

@@ -45,7 +45,7 @@ blueprint_source = [
   ('Blueprint Epigenetics', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
 ]
 
-roadmap = [
+roadmap_source = [
   # UCSD Human Reference Epigenome Mapping Project
   ('Roadmap Epigenomics', 'hg19',
     'http://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16256/matrix/')
@@ -54,5 +54,5 @@ roadmap = [
 project_sources = [
   blueprint_source,
   encode_source,
-  roadmap
+  roadmap_source
 ]
