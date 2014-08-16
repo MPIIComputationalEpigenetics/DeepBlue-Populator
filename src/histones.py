@@ -67,6 +67,7 @@ H3K9bio lysine biotinylation
 H3K9me1 lysine methylation
 H3K9me2 lysine methylation
 H3K9me3 lysine methylation
+H3K23me2 lysine methylation
 H3R17ci arginine citrullination
 H3R17me1    arginine methylation
 H3R17me2    arginine methylation
@@ -117,11 +118,11 @@ H2AC 	type 1-C	histone cluster 1, H2ac
 H2Aa4 	type 2-A	histone cluster 2, H2aa4
 H4b	histone cluster 2, H4b
 H2A.Z	H2A histone family, member Z
-H2A.Zac H2A histone family, member Z acetylation	
+H2A.Zac H2A histone family, member Z acetylation
 H2ab	Histone H2A type 2-B
 H2ah	Histone H2A type 1-H
 H2aa	Histone H2A type 1-A
-H2a 	Histone H2A type 3	histone cluster 3, 
+H2a 	Histone H2A type 3	histone cluster 3,
 H2ba 	Histone H2B type 1-A
 H2bb 	Histone H2B type 3-B
 H2bf 	Histone H2B type 2-F
@@ -135,10 +136,10 @@ H2B 	type F-M	H2B histone family, member M"""
 def insert_histones(epidb, key):
 	for line in histones_ptm.split("\n"):
 		s = line.split()
-		desc = d_ptm + s[1] + " " + s[2]  + source  
+		desc = d_ptm + s[1] + " " + s[2]  + source
 		epidb.add_epigenetic_mark(s[0], desc, key)
-	
+
 	for line in histones_variants.split("\n"):
 		s = line.split()
-		desc = d_hav +  " ".join(s[1:])  + source		
+		desc = d_hav +  " ".join(s[1:])  + source
 		epidb.add_epigenetic_mark(s[0], desc, key)

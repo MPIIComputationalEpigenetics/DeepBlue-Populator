@@ -271,7 +271,12 @@ class RoadmapMapper(AttributeMapper):
 
   @property
   def epigenetic_mark(self):
-    return self.dataset.meta['epigenetic_mark']
+    em = self.dataset.meta['epigenetic_mark']
+    if em == 'DNA Methylation':
+      return 'Methylation'
+    if em == 'mRNA-Seq':
+      return 'RNASeq'
+    return em
 
   @property
   def technique(self):
