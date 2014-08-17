@@ -275,7 +275,7 @@ class RoadmapMapper(AttributeMapper):
     if em == 'DNA Methylation':
       return 'Methylation'
     if em == 'mRNA-Seq':
-      return 'RNASeq'
+      return 'mRNA-seq'
     return em
 
   @property
