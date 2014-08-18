@@ -178,7 +178,7 @@ class Dataset:
     else:
       url = os.path.join(rep["path"], self.file_name)
 
-    util.download_file(url, self.download_path)
+    #util.download_file(url, self.download_path)
     log.info("Download finished %s", url)
 
   """
@@ -236,11 +236,9 @@ class Dataset:
           file_content = content
         else:
           frmt = "bedgraph"
-          f = open(wig_file, 'r')
           file_content = wig_content
-          f.close()
 
-      os.unlink(self.download_path+".wig")
+      os.remove(self.download_path+".wig")
 
     elif self.type_ == "wig":
       if self.download_path.endswith("gz"):
@@ -299,4 +297,6 @@ class Dataset:
     if res[0] == "okay":
       log.info("dataset %s inserted ", am.name)
     else:
-      log.info("Error while inserting dataset: %s\n%s\n%s\n%s", res, am.name, frmt, file_content[0:500])
+      log.info("Error while inserting dataset: %s\n%s\n%s\n%s", res, am.name, frmt, file_content[0:500], self.download_path)
+
+    os.remove(self.download_path)

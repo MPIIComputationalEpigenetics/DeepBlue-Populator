@@ -48,11 +48,43 @@ blueprint_source = [
 roadmap_source = [
   # UCSD Human Reference Epigenome Mapping Project
   ('Roadmap Epigenomics', 'hg19',
-    'http://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16256/matrix/')
+    'http://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16256/matrix/'),
+
+  # UCSF-UBC Human Reference Epigenome Mapping Project
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16368/matrix/'),
+
+  # BI Human Reference Epigenome Mapping Project
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17312/matrix/'),
+
+  # University of Washington Human Reference Epigenome Mapping Project
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18927/matrix/'),
+
+  # BI Human Reference Epigenome Mapping Project: ChIP-Seq in human subject
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19465/matrix/'),
+
+  # BI Human Reference Epigenome Mapping Project: Characterization of DNA methylation by RRBS
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25246/matrix/'),
+
+  # BI Human Reference Epigenome Mapping Project: Characterization of DNA methylation by RRBS in human subject
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25247/matrix/'),
+
+  # BI Human Reference Epigenome Mapping Project: Characterization of DNA methylation by RRBS in HUES lines
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25248/matrix/'),
+
+  # BI Human Reference Epigenome Mapping Project: Characterization of chromatin modification by ChIP-Seq in human subject
+  ('Roadmap Epigenomics', 'hg19',
+    'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25249/matrix/')
 ]
 
 project_sources = [
-  blueprint_source,
-  encode_source,
+  #blueprint_source,
+  #encode_source,
   roadmap_source
 ]

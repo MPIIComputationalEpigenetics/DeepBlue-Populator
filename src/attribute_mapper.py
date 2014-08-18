@@ -280,7 +280,10 @@ class RoadmapMapper(AttributeMapper):
 
   @property
   def technique(self):
-    return self.dataset.meta['technique']
+    technique = self.dataset.meta['technique']
+    if (technique == 'mRNA-Seq'):
+      return 'RNASeq'
+    return technique
 
   @property
   def project(self):

@@ -7,6 +7,8 @@ import util
 import urllib
 import threading
 
+from ftplib import FTP
+
 from client import EpidbClient
 from dataset import Dataset
 from repository import Repository
@@ -40,95 +42,186 @@ class RoadmapRepository(Repository):
     print server.add_project("Roadmap Epigenomics", "", user_key)
 
   def set_up_bio_sources(self,server, user_key):
-    print server.set_bio_source_synonym('Stomach', "Gastric", user_key)
-    print server.add_bio_source('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"}, user_key)
+    (s, r) = server.set_bio_source_synonym('Stomach', "Gastric", user_key)
+    if s != 'okay' and not r.startswith('104400'): print r
 
-    print server.set_bio_source_scope('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts', user_key)
+    (s, r) = server.add_bio_source('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"}, user_key)
+    if s != 'okay' and not r.startswith('104001'): print r
+    (s, r) = server.set_bio_source_scope('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts', user_key)
+    if s != 'okay' and not r.startswith('104901'): print r
 
-    print server.add_bio_source('iPS DF 19.11 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
-    print server.set_bio_source_synonym('iPS DF 19.11 Cell Line', 'iPS 19.11', user_key)
-    print server.set_bio_source_synonym('iPS DF 19.11 Cell Line', 'iPS DF 19.11', user_key)
+    (s, r) = server.add_bio_source('iPS DF 19.11 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
+    if s != 'okay' and not r.startswith('104001'): print r
+    (s, r) = server.set_bio_source_synonym('iPS DF 19.11 Cell Line', 'iPS 19.11', user_key)
+    if s != 'okay' and not r.startswith('104400'): print r
+    (s, r) = server.set_bio_source_synonym('iPS DF 19.11 Cell Line', 'iPS DF 19.11', user_key)
+    if s != 'okay' and not r.startswith('104400'): print r
+    (s, r) = server.set_bio_source_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 19.11 Cell Line', user_key)
+    if s != 'okay' and not r.startswith('104901'): print r
 
-    print server.add_bio_source('iPS DF 6.9 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
-    print server.set_bio_source_synonym('iPS DF 6.9 Cell Line', 'iPS 6.9', user_key)
-    print server.set_bio_source_synonym('iPS DF 6.9 Cell Line', 'iPS DF 6.9', user_key)
+    (s, r) = server.add_bio_source('iPS DF 6.9 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
+    if s != 'okay' and not r.startswith('104001'): print r
+    (s, r) = server.set_bio_source_synonym('iPS DF 6.9 Cell Line', 'iPS 6.9', user_key)
+    if s != 'okay' and not r.startswith('104400'): print r
+    (s, r) = server.set_bio_source_synonym('iPS DF 6.9 Cell Line', 'iPS DF 6.9', user_key)
+    if s != 'okay' and not r.startswith('104400'): print r
+    (s, r) = server.set_bio_source_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 6.9 Cell Line', user_key)
+    if s != 'okay' and not r.startswith('104901'): print r
 
+    (s, r) = server.add_bio_source('hSKM', "HSkM-S (Cat. no. A12555) are normal human skeletal myoblasts developed to undergo highly efficient differentiation directly following plating of cryopreserved cells.", {"source": "Roadmap Epigenomics", "more_info":"http://tools.lifetechnologies.com/content/sfs/manuals/HSkM_S.pdf"}, user_key)
+    if s != 'okay' and not r.startswith('104001'): print r
+    (s, r) = server.set_bio_source_scope('HSMM', 'hSKM', user_key)
+    if s != 'okay' and not r.startswith('104901'): print r
 
   def set_up_samples_fields(self, server, user_key):
-    print server.add_sample_field('batch', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('biomaterial_provider', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('biomaterial_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('bisulfite_conversion_percent', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('bisulfite_conversion_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_first_strand_purification', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_first_strand_synthesis_enzyme', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_fragment_size_range', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_fragmentation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_initial_rna_qnty', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_polya_rna', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_purification', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_second_strand_synthesis_dntp_mix', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('cdna_preparation_second_strand_synthesis_enzyme', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_antibody', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_antibody_catalog', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_antibody_lot', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_antibody_provider', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_protocol_antibody_amount', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_protocol_bead_amount', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_protocol_bead_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('chip_protocol_chromatin_amount', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('collection_method', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('differentiation_method', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('differentiation_stage', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('disease', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('dna_preparation_adaptor', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('dna_preparation_adaptor_ligation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('dna_preparation_adaptor_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('dna_preparation_fragment_size_range', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('dna_preparation_initial_dna_qnty', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('dna_preparation_post-ligation_fragment_size_selection', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('dna_preparation_uracil_dna_glycosylase_digestion', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('donor_age', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('donor_ethnicity', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('donor_health_status', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('donor_id','string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('donor_sex','string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('experiment_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('extraction_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('extraction_protocol_fragmentation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('extraction_protocol_mrna_enrichment', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('extraction_protocol_sonication_cycles', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('extraction_protocol_type_of_sonicator', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_f_primer_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_number_cycles', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_polymerase_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_primer', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_primer_conc', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_product_isolation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_r_primer_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_template', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_template_conc', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('library_generation_pcr_thermocycling_program', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('line', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('medium', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('molecule', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('mrna_preparation_fragment_size_range', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('mrna_preparation_initial_mrna_qnty', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('passage', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_3\'_rna adapter_ligation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_3\'_rna_adapter_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_5\'_dephosphorylation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_5\'_phosphorylation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_5\'_rna_adapter_ligation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_5\'_rna_adapter_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_reverse_transcription_primer_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('rna_preparation_reverse_transcription_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('sample alias', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('sample common name', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('sra sample accession','string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('tissue_depot', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
-    print server.add_sample_field('tissue_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    (s, r) = server.add_sample_field('batch', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('biomaterial_provider', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('biomaterial_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('bisulfite_conversion_percent', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('bisulfite_conversion_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_first_strand_purification', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_first_strand_synthesis_enzyme', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_fragment_size_range', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_fragmentation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_initial_rna_qnty', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_polya_rna', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_purification', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_second_strand_synthesis_dntp_mix', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('cdna_preparation_second_strand_synthesis_enzyme', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_antibody', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_antibody_catalog', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_antibody_lot', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_antibody_provider', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_protocol_antibody_amount', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_protocol_bead_amount', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_protocol_bead_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('chip_protocol_chromatin_amount', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('collection_method', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('differentiation_method', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('differentiation_stage', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('disease', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('dna_preparation_adaptor', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('dna_preparation_adaptor_ligation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('dna_preparation_adaptor_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('dna_preparation_fragment_size_range', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('dna_preparation_initial_dna_qnty', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('dna_preparation_post-ligation_fragment_size_selection', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('dna_preparation_uracil_dna_glycosylase_digestion', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('donor_age', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('donor_ethnicity', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('donor_health_status', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('donor_id','string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('donor_sex','string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('experiment_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('extraction_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('extraction_protocol_fragmentation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('extraction_protocol_mrna_enrichment', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('extraction_protocol_sonication_cycles', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('extraction_protocol_type_of_sonicator', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_f_primer_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_number_cycles', 'integer', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_polymerase_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_primer', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_primer_conc', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_product_isolation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_r_primer_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_template', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_template_conc', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('library_generation_pcr_thermocycling_program', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('line', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('medium', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('molecule', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('mrna_preparation_fragment_size_range', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('mrna_preparation_initial_mrna_qnty', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('passage', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_3\'_rna adapter_ligation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_3\'_rna_adapter_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_5\'_dephosphorylation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_5\'_phosphorylation', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_5\'_rna_adapter_ligation_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_5\'_rna_adapter_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_reverse_transcription_primer_sequence', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('rna_preparation_reverse_transcription_protocol', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('sample alias', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('sample common name', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('sra sample accession','string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('tissue_depot', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
+    (s, r) = server.add_sample_field('tissue_type', 'string', "Roadmap Epigenomics Sample Metadata", user_key)
+    if s != 'okay' and not r.startswith('111001'): print r
 
   def process_matrix_file(self, _file):
     print _file
@@ -244,20 +337,18 @@ class RoadmapRepository(Repository):
     def add_file(f):
       files.append(f)
 
-    from ftplib import FTP
-    #print util.download_file('http://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16256/matrix/', "index.html")
-
     address = "ftp.ncbi.nlm.nih.gov"
-    path = 'geo/series/GSE16nnn/GSE16256/matrix/'
+    data_path = self.path.split(address)[1]
+
     ftp = FTP(address)
     print ftp.login()
 
-    ftp.cwd(path)
+    ftp.cwd(data_path)
     ftp.retrlines('NLST', add_file)
 
     print files
 
-    files_path = DOWNLOAD_PATH+"/roadmap_matrix/"+path
+    files_path = DOWNLOAD_PATH+"/roadmap_matrix/"+data_path
     if not os.path.exists(files_path):
       os.makedirs(files_path)
 
@@ -268,6 +359,7 @@ class RoadmapRepository(Repository):
 
     total = 0
     for file_name in files:
+      print 'Downloading', file_name
       file_path = files_path+file_name
       file = open(files_path+file_name, 'w')
       ftp.retrbinary('RETR %s' % file_name, file.write)
