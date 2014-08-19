@@ -169,11 +169,8 @@ def load_classes(ontology, _file):
 def insert_class(_class):
 	_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 	extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
-	print extra_metadata
 	status, _id = _epidb.add_bio_source(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
 	for syn in _class.syns:
-		print _class.label
-		print syn
 		status = _epidb.set_bio_source_synonym(_class.label, syn, _class.user_key)
 
 def set_scope(_class):
