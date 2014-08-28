@@ -11,14 +11,17 @@ from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
 from log import log
 from db import mdb
 
+import pprint
 import util
 
 from client import EpidbClient
 
+pp = pprint.PrettyPrinter(depth=6)
+
 class BlueprintRepository(Repository):
 
   def __init__(self, proj, genome, path, user_key):
-    super(BlueprintRepository, self).__init__(proj, genome, ["bed"], path, user_key)
+    super(BlueprintRepository, self).__init__(proj, genome, ["bed", "wig"], path, user_key)
 
   def __str__(self):
     return "<Blueprint Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -29,7 +32,7 @@ class BlueprintRepository(Repository):
   """
   @property
   def index_path(self):
-    return self.path + "blueprint/releases/current_release/homo_sapiens/20140317.data.index"
+    return self.path + "blueprint/releases/current_release/homo_sapiens/20140811.data.index"
 
   @property
   def id(self):
@@ -50,7 +53,7 @@ class BlueprintRepository(Repository):
         "BIOMATERIAL_TYPE", "DONOR_ID", "DONOR_SEX", "DONOR_AGE", "DONOR_HEALTH_STATUS", "DONOR_ETHNICITY", "DONOR_REGION_OF_RESIDENCE",
         "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE"]
 
-    bio_source_info_keys = ["BIOMATERIAL_TYPE", "CELL_TYPE", "DISEASE", "TISSUE"]
+    bio_source_info_keys = ["BIOMATERIAL_TYPE", "CELL_TYPE", "DISEASE", "TISSUE_TYPE"]
 
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
@@ -59,6 +62,7 @@ class BlueprintRepository(Repository):
       if util.has_error(s, sf_id, []): print sf_id
 
     new = 0
+    print self.index_path
     req = urllib.urlopen(self.index_path)
     content = req.read()
     ucontent = unicode(content, 'iso_8859_1')
@@ -80,33 +84,42 @@ class BlueprintRepository(Repository):
       for k in sample_extra_info_keys:
         sample_extra_info[k] = line_info[k]
 
-      #--
-      if line_info["BIOMATERIAL_TYPE"].lower() == "primary cell" or line_info["BIOMATERIAL_TYPE"].lower() == "primary cells":
+      if line_info["BIOMATERIAL_TYPE"].lower() == "primary cell":
         bio_source_name = line_info["CELL_TYPE"]
-      else:
+      elif line_info["BIOMATERIAL_TYPE"].lower() == "cell line":
         bio_source_name = line_info["DISEASE"]
+      elif line_info['BIOMATERIAL_TYPE'].lower() == "primary cell culture":
+        bio_source_extra_info = line_info['SAMPLE_SOURCE']
+      else:
+        print 'Invalid BIOMATERIAL_TYPE: ', line_info['BIOMATERIAL_TYPE']
+
+      if bio_source_name.lower() == "none":
+        print "Invalid bio source name:", bio_source_name
+        pp.pprint(line_info)
+        continue
 
       bio_source_extra_info = {}
       for k in bio_source_info_keys:
         i = line_info[k]
-        if i != "NA" and  i !="None":
+        if i != "NA" and  i !="None" and i != "-":
           bio_source_extra_info[k] = i
 
-      bio_source_extra_info["souce"] = "BLUEPRINT"
+      bio_source_extra_info["source"] = "BLUEPRINT"
 
       (s, bs_id) = epidb.add_bio_source(bio_source_name, None, bio_source_extra_info, self.user_key)
-      if util.has_error(s, bs_id, ["104001"]): print bs_id
+      if s == "okay":
+        print "New Bio Source inserted :", bio_source_name
+      elif util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
-      if bio_source_extra_info.has_key("TISSUE"):
-        (s, bs_id) = epidb.add_bio_source(bio_source_extra_info["TISSUE"], None, {}, self.user_key)
-        if util.has_error(s, bs_id, ["104001"]): print bs_id
+      if bio_source_extra_info.has_key("TISSUE_TYPE"):
+        (s, bs_id) = epidb.add_bio_source(bio_source_extra_info["TISSUE_TYPE"], None, {"source": "Blueprint Epigenomics"}, self.user_key)
+        if s == "okay":
+          print 'New bio source (tissue) inserted:', bio_source_extra_info['TISSUE_TYPE']
+        elif util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
-        (s, r) = epidb.set_bio_source_scope(bio_source_extra_info["TISSUE"], bio_source_name, self.user_key)
-        if util.has_error(s, r, ["104901"]): print r
+        (s, r) = epidb.set_bio_source_scope(bio_source_extra_info["TISSUE_TYPE"], bio_source_name, self.user_key)
+        if util.has_error(s, r, ["104901"]): print s, r
 
-      #--
-
-      #--
       (s, samples) = epidb.list_samples(bio_source_name, sample_extra_info, self.user_key)
       if samples:
         sample_id = samples[0][0]
@@ -122,7 +135,8 @@ class BlueprintRepository(Repository):
       file_type = file_full_name.split(".")[-1]
       if file_type == "gz":
         file_type = file_full_name.split(".")[-2]
-
+      elif file_type == "bw":
+        file_type = "bigwig"
       directory = os.path.dirname(file_path)
 
       meta = line_info
