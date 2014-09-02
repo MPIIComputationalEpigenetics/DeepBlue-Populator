@@ -71,4 +71,4 @@ repeat_masker = Annotation({
 	"extra_metadata":{"url" : "http://genome.ucsc.edu/cgi-bin/hgTrackUi?hgsid=185567991&c=chrX&g=rmsk"}
 })
 
-annotations = [cpgIslands, genes, promoters, probes450k, laminB1,conservation_primates, conservation_placental, repeat_masker]
+annotations = [repeat_masker, cpgIslands, genes, promoters, probes450k, laminB1,conservation_primates, conservation_placental]
