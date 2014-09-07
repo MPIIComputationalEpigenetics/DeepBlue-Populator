@@ -230,6 +230,10 @@ def load_classes(ontology, _file):
 		if _intersectionOf is not None:
 			print _intersectionOf
 
+		if label = 'breast adenocarcinoma cell line':
+			print 'XXXX'
+			XXX = True
+
 		for _equivalentClass in child.findall(OwlEquivalentClass):
 			found = False
 			for _class_retriction in _equivalentClass.findall(OwlRestriction):
