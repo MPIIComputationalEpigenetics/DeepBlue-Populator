@@ -1,0 +1,591 @@
+cartwheel heterochromatin
+information entity
+label
+data item
+quantitative confidence value
+data format specification
+seq file type
+Sequence Read Format (SRF)
+FASTQ format
+   Standard Flowgram Format (SFF)
+   BAM format
+   SOLiD native csfasta format
+   SOLiD native qual format
+   Illumina native qseq format
+   Illumina native scarf format
+   Illumina native fastq format
+  data set
+   gene list
+   genomic data
+   transcriptomic data
+   metagenomic data
+   metatranscriptomic data
+   synthetic DNA data
+   viral RNA data
+  image
+   scanned image
+  protocol
+   delivery method
+   extraction protocol
+   study design
+   gene expression protocol
+   growth protocol
+   hybridization protocol
+   labelling protocol
+   treatment protocol
+   nucleic acid sequencing protocol
+   nucleic acid library construction protocol
+  independent variable specification
+  controlled variable specification
+  unit
+   base unit
+   derived unit
+   angle unit
+   International Unit
+   Number of molecules
+   milli-International Unit per milliliter
+  clinical history
+   family history
+  epigenetic factor
+   epigenetic status
+  test result
+  measurement
+   latitude
+   longitude
+   biopsy number
+   electrical current
+   damage intensity
+   dose
+   event death
+   genotype
+   number of injections
+   operator variation
+   risk status
+   exposure temperature
+   temporal measurement
+   pulmonary function measurement
+   ankle brachial index
+   bone density
+   neuropsychological test
+   computed tomography
+   tumor size
+   clinical laboratory measurement
+   cardiovascular measurement
+   blood viscosity
+   anthropometry
+   vital signs
+   heart function measurement
+   vital capacity
+   maximal midexpiratory flow rate
+   forced expiratory volume
+   corneal topography
+   neuroimaging measurement
+   electroencephalogram measurement
+   C-reactive protein measurement
+   ferritin measurement
+   soluble transferrin receptor measurement
+   iron biomarker measurement
+   PR interval
+   angiotensin converting enzyme activity measurement
+   brain measurement
+   fasting blood glucose measurement
+   fasting blood insulin measurement
+   insulin measurement
+   glucose measurement
+   HOMA-B
+   insulin sensitivity measurement
+   HOMA-IR
+   adiponectin measurement
+   hematological measurement
+   serum hepcidin measurement
+   telomere length
+   monocyte early outgrowth colony forming unit
+   D dimer measurement
+   spine bone size
+   hemoglobin measurement
+   HPV seropositivity
+   bone measurement
+   bone quantitative ultrasound measurement
+   bone fracture related measurement
+   arterial stiffness measurement
+   serum creatinine measurement
+   soluble P-selectin measurement
+   ICAM-1 measurement
+   adhesion molecule measurement
+   lipid measurement
+   triglyceride measurement
+   urate measurement
+   serum gamma-glutamyl transferase measurement
+   alkaline phosphatase measurement
+   creatine kinase measurement
+   serum albumin measurement
+   total blood protein measurement
+   A1C measurement
+   amygdala reactivity measurement
+   genomic measurement
+   glycoprotein measurement
+   antibody measurement
+   population measurement
+   serum IgG measurement
+   serum non-albumin protein measurement
+   brain serotonin transporter measurement
+   bilirubin measurement
+   butyrylcholinesterase measurement
+   C4BP measurement
+   chemerin measurement
+   total cholesterol measurement
+   e-selectin measurement
+   fetal hemoglobin measurement
+   homocysteine measurement
+   serum IgE measurement
+   interleukin 18 measurement
+   liver enzyme measurement
+   mean platelet volume
+   naphthyl-keratin adduct measurement
+   complete blood cell count
+   lymphocyte count
+   low density lipoprotein cholesterol measurement
+   high density lipoprotein cholesterol measurement
+   apolipoprotein A 1 measurement
+   apolipoprotein B measurement
+   cystatin C measurement
+   vitamin K measurement
+   factor VII measurement
+   sphingolipid measurement
+   prostate specific antigen measurement
+   progranulin measurement
+   IGFBP-3 measurement
+   IGF-1 measurement
+   insulin like growth factor measurement
+   von Willebrand factor measurement
+   vitamin D measurement
+   nevus count
+   coagulation factor measurement
+   leptin receptor measurement
+   phospholipid measurement
+   haptoglobin measurement
+   white matter integrity
+   cortisol secretion measurement
+   TPE interval measurement
+   beta-amyloid 1-42 measurement
+   QT interval
+   tumor necrosis factor-alpha measurement
+   intraocular pressure measurement
+   sex hormone globulin binding measurement
+   estradiol measurement
+   FEV/FEC ratio
+   carotid-femoral pulse wave velocity
+   metabolite measurement
+   serum amyloid A protein measurement
+   vitamin measurement
+   hormone measurement
+   eye measurement
+   lipoprotein measurement
+   anti-cyclic citrullinated peptide antibody measurement
+   serum alanine aminotransferase measurement
+   aspartate aminotransferase measurement
+   carotenoid measurement
+   tocopherol measurement
+   circulating cell free DNA measurement
+   blood urea nitrogen measurement
+   renal system measurement
+   matrix metalloproteinase measurement
+   NT-proBNP measurement
+   lipoprotein-associated phospholipase A(2) measurement
+   protein measurement
+   thyroid stimulating hormone measurement
+   CCL2 measurement
+   interleukin 10 measurement
+   CCL4 measurement
+   parathyroid hormone measurement
+   interleukin 12 measurement
+   interleukin 1 receptor antagonist measurement
+   t-tau measurement
+   uric acid measurement
+   vascular endothelial growth factor measurement
+   p-tau measurement
+   visceral adipose tissue measurement
+   subcutaneous adipose tissue
+   visceral:subcutaneous adipose tissue ratio
+   follicle stimulating hormone measurement
+   anti-Mullerian hormone measurement
+   ovarian reserve
+   visual cortical surface area measurement
+   CHAOS measure
+   DSM-IV-based social scale
+   DSM-IV-based  non-social scale
+   mental or behavioral disorder measurement
+   TEMPS-A questionnaire
+   self reported educational attainment
+   South Texas Assessment of Neurocognition
+   Mini-International Neuropsychiatric Interview
+   atrial natriuretic factor measurement
+   CD40 ligand measurement
+   tissue plasminogen activator measurement
+   plasminogen activator inhibitor 1 measurement
+   copy number variation
+   frontal theta oscillation measurement
+   family size
+   birth rate
+   asbestos exposure measurement
+   L lactate dehydrogenase measurement
+   fructose-bisphosphate aldolase measurement
+   interleukin-6 measurement
+   interleukin-8 measurement
+   interleukin-1 beta measurement
+   alpha globulin measurement
+   interleukin-6 receptor measurement
+   alpha macroglobulin measurement
+   transforming growth factor beta measurement
+   resistin measurement
+   sex ratio
+   behavior or behavioral disorder measurement
+   temperament and character inventory
+   caudate nucleus volume
+   RR interval
+   optic disc size measurement
+   neutrophil count
+   calcium measurement
+   CD4:CD8 lymphocyte ratio
+   cortical thickness
+   eosinophil count
+   vitamin B measurement
+   magnesium measurement
+   serotonin measurement
+   common carotid intimal medial thickness
+   phosphorus measurement
+   phytosterol measurement
+   recombination rate
+   renal sinus adipose tissue measurement
+   thryoid volume
+   autoantibody measurement
+   volumetric brain MRI
+   YKL40 measurement
+   sleep measurement
+   inflammatory marker measurement
+   cytokine measurement
+   memory performance
+   urinary arsenic measurement
+   early cardiac repolarization measurement
+   intra cranial volume
+   maximal oxygen uptake measurement
+   testosterone measurement
+   dihydrotestosterone measurement
+   CYP3A4 activity
+   serum IgA measurement
+   lentiform nucleus measurement
+   facial neural processing
+   vaspin measurement
+   complement C3 measurement
+   complement C4 measurement
+   platelet reactivity measurement
+   serum IgM measurement
+   lean body mass
+   carbohydrate measurement
+   leptin measurement
+   phenylalanine measurement
+   lysine measurement
+   hippocampal volume
+   platelet measurement
+   aortic root size
+   cardiac troponin T measurement
+   nervous system measurement
+   internal carotid intimal medial thickness
+   QRS complex
+   myoglobin measurement
+   tyrosine measurement
+   acylcarnitine measurement
+   CC16 measurement
+   surfactant protein D measurement
+   whole-brain volume
+   basophil count
+   monocyte count
+   entorhinal cortical volume
+   P wave duration
+   PR segment
+   lipid or lipoprotein measurement
+   fatty acid measurement
+   folic acid measurement
+   metabolic rate measurement
+   CCL5 measurement
+   IGFBP-1 measurement
+   antioxidant measurement
+   arylesterase enzyme measurement
+   cancer biomarker measurement
+   thyroxine measurement
+   HVA measurement
+   5-HIAA measurement
+   MHPG measurement
+   amino acid measurement
+   serum ceruloplasmin measurement
+   C-peptide measurement
+   CCL11 measurement
+   respiratory quotient
+   urinary nitrogen measurement
+   waist height ratio
+   amyloid-beta measurement
+   vasoactive peptide measurement
+   beta-2 microglobulin measurement
+   transplant outcome measurement
+   antiphospholipid antibody measurement
+   oligoclonal band measurement
+   glomerular filtration rate
+   aspirin hydrolysis measurement
+   central corneal thickness
+   employment status
+   myeloperoxidase measurement
+   serum selenium measurement
+   serum copper measurement
+   serum zinc measurement
+   cardiovascular disease biomarker measurement
+  instrument design
+   array design
+  publication status
+   submitted
+   in preparation
+   published
+  software
+  gene name
+  protocol parameter
+   external control ratio
+  sign or symptom
+   hyperglycemia
+   memory impairment
+   abnormal glucose tolerance
+   insulin resistance
+   essential tremor
+   hyperlipidemia
+   hyperemia
+   calcification
+   pain
+   mental retardation
+   dementia
+   functional laterality
+   dysuria
+   angina pectoris
+   menopause
+   menarche
+   menorrhagia
+   fever of unknown origin
+   leukopenia
+   albuminuria
+   sneezing
+   neurobehavioral manifestations
+   sexual dysfunction
+   coronary artery calcification
+   formal thought disorder
+   abdominal aortic artery calcification
+   post operative nausea and vomiting
+   mitral annular calcification
+  experiment accession
+  discretized differential expression
+  data file
+   array data file
+   processed genotype data file
+  validation type
+   seq_library_source
+  validation flag
+   seq file type flag
+   seq library strategy flag
+   seq library source flag
+   seq library selection flag
+   seq instrument model flag
+   QC type flag
+   Atlas experiment type flag
+   factor type flag
+   AE experiment type flag
+  mortality
+  environmental history
+  genetic variation
+  population
+   ecotype
+   prognostic subgroup
+   mixed sex population
+   ethnic group
+   cohort
+   population measurement
+   microbiome
+   strain
+   cultivar
+   plant population
+   breed
+  organization
+   organization role
+   material supplier
+ material entity
+  cell culture
+   cell suspension culture
+   culture supernatant
+  tissue culture
+  biofilm
+  chemical entity
+   element
+   chemical compound
+gene
+  environmental factor
+   atmosphere
+   hydrostatic pressure
+   light
+  instrument
+   mass spectrometer
+   array scanner
+   arrayer
+   centrifuge
+   computer
+   heating block
+   homogenizer
+   hybridization chamber
+   hybridization station
+   liquid handler
+   oligonucleotide synthesizer
+   sonicator
+   spectrophotometer
+   thermal cycler
+   vacuum dryer
+   vortexer
+   water bath
+   microarray wash station
+   array
+   sequencer
+   seq instrument model
+   braces
+   probe design element
+     pool
+  telomere
+  genome
+   genomic measurement
+  transcriptome
+  exome
+  exon
+  biological macromolecule
+   DNA
+   RNA
+   adhesion factor
+  instrument part
+   substrate
+   array surface coating
+   array reporter
+  collection of material
+   block
+ site
+  biopsy site
+  cancer site
+  sampling site
+  disposition
+   pathogenicity
+   disease
+   injury
+   survival probability
+   normal
+   uninfected
+   risk factor
+   mental health
+   family relationship
+  function
+   molecular function
+   atrial function, left
+   ventricular function, left
+   thyroid function
+ material property
+  quality
+   morphology
+   mass
+   viability
+   generation
+   genetic trait
+   phenotype
+   ploidy
+   sex
+   mating type
+   anatomical modifier
+   temperature
+   parous
+   virgin
+   personality
+   personality trait
+   karyotype
+   inbred
+   outbred
+   economic and social preference
+  role
+   alkylating agent role
+   antioxidant
+   compatible osmolytes role
+   biological role
+   metabolite role
+   detergent role
+   agrochemical role
+   surfactant role
+   antimetabolite role
+   inhibitor role
+   dye role
+   polar solvent role
+   polar aprotic solvent role
+   amphiprotic solvent role
+   prodrug role
+   sweetening agent role
+   estrogen receptor antagonist role
+   chemical role
+   phase-transfer catalyst role
+   explosive role
+   material supplier role
+   analyte role
+   spike-in quality control role
+   dye swap quality control role
+   experiment performer
+   replicate
+   vehicle role
+   control
+   array manufacturer
+   biomaterial provider
+   biosequence provider
+   consortium member
+   consultant
+   curator
+   data analyst
+   data coder
+   funder
+   hardware manufacturer
+   institution
+   investigator
+   software manufacturer
+   submitter
+   drug role
+   organization role
+   Atlas Quality Control type
+   peer review quality control role
+   carcinogen role
+     biological process
+   reproductive process
+   aging
+   sensory perception
+   behavior
+   protein localization
+   metabolic process
+   cellular process
+   regulation of gene expression
+   cellular component organization
+   sleep
+   developmental process
+   odontogenesis
+   interspecies interaction between organisms
+   single-organism process
+   single-multicellular organism process
+   leukocyte activation
+   regulation of biological process
+   response to stimulus
+   establishment of localization
+   cellular localization
+   platelet aggregation
+   pathological process
+   puberty
+   heart transplant rejection
+   energy intake
+   physical activity
+   mental process
+   circadian rhythm
+   psychomotor performance
+   body weight gain
+   HIV mother to child transmission
+   energy expenditure
+   body weight loss
