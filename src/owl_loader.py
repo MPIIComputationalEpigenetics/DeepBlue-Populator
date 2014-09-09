@@ -319,20 +319,8 @@ def load_classes(ontology, _file):
 	return Ontology(ontology, address, imports, classes )
 
 
-def insert_class(_class):
-	_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
-	extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
-	status, _id = _epidb.add_bio_source(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
-	for syn in _class.syns:
-		status = _epidb.set_bio_source_synonym(_class.label, syn, _class.user_key)
-
-def set_scope(_class):
-	_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
-	for parent in _class.superclasses_names:
-		status = _epidb.set_bio_source_scope(parent, _class.label, _class.user_key)
-
-
 def load_blacklist() :
+	print 'loading blacklist terms (terms that arent biosources) from ontologies_blacklist.txt'
 	f = open("ontologies_blacklist.txt")
 	blacklist = []
 
@@ -361,7 +349,6 @@ def filter_classes(classes, blacklist, count = 0):
 	for _class in classes:
 		if _class.label in blacklist:
 			continue
-		print "#" * count, _class.label
 		result.append(_class)
 		sub_result = filter_classes(_class.sub, blacklist, count + 1)
 		result += sub_result
@@ -425,22 +412,33 @@ def load_owl(user_key):
 		print no_parent.label, no_parent.ontology
 
 	blacklist_terms = load_blacklist()
-	result = filter_classes(no_parents, blacklist_terms)
+	print 'filtering.. '
+	biosources = filter_classes(no_parents, blacklist_terms)
+	print biosources
+	print len(biosources)
 
-	print len(result)
 
-	return
+	def print_bio_souces(no_parents, biosources, parent = None):
+		_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
-	for no_parent in no_parents:
-		print no_parent.label
-		for sub in no_parent.sub:
-			print "",sub.label
+		for _class in no_parents:
+			if _class not in biosources:
+				continue
 
-			for sub_sub in sub.sub:
-				print " ", sub_sub.label
+			extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
+			#status, _id = _epidb.add_bio_source(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
+			print '_epidb.add_bio_source(',_class.label,',',_class.formalDefinition,',',extra_metadata,',',_class.user_key,')'
+			for syn in _class.syns:
+				print '_epidb.set_bio_source_synonym(',_class.label,',', syn, ',', _class.user_key,')'
+				#status = _epidb.set_bio_source_synonym(_class.label, syn, _class.user_key)
 
-				for sub_sub_sub in sub_sub.sub:
-					print "  ", sub_sub_sub.label
+			if parent:
+				print '_epidb.set_bio_source_scope(',parent.label,',', _class.label,',', _class.user_key,')'
+				#status = _epidb.set_bio_source_scope(parent.label, _class.label, _class.user_key)
+
+			print_bio_souces(_class.sub, biosources, _class)
+
+	print_bio_souces(no_parents, biosources)
 
 	return
 	total = len(all_ontologies)
