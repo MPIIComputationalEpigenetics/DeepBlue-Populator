@@ -1,0 +1,17 @@
+http://www.ebi.ac.uk/efo/EFO_0000784
+http://purl.org/obo/owl/OBO_REL#bearer_of
+http://purl.obolibrary.org/obo/BFO_0000062
+http://purl.obolibrary.org/obo/BFO_0000066
+http://purl.obolibrary.org/obo/BFO_0000068
+http://purl.obolibrary.org/obo/BFO_0000069
+http://purl.obolibrary.org/obo/RO_0001025
+http://purl.obolibrary.org/obo/RO_0002158
+http://purl.obolibrary.org/obo/RO_0002159
+http://purl.obolibrary.org/obo/RO_0002207
+http://purl.obolibrary.org/obo/RO_0002225
+http://purl.obolibrary.org/obo/RO_0002285
+http://purl.obolibrary.org/obo/RO_0003001
+http://purl.obolibrary.org/obo/bto#develops_from
+http://purl.obolibrary.org/obo/cl#located_in
+http://purl.obolibrary.org/obo/core#subdivision_of
+http://purl.obolibrary.org/obo/UBREL_0000002

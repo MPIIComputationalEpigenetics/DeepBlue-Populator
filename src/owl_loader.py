@@ -26,6 +26,9 @@ OwlUnionOf = "{%s}unionOf" % Owl
 OwlRestriction = "{%s}Restriction" % Owl
 OwlSomeValuesFrom = "{%s}someValuesFrom" % Owl
 OwlOnClass = "{%s}onClass" % Owl
+OwlAllValuesFrom = "{%s}allValuesFrom" % Owl
+OwlHasValue = "{%s}hasValue" % Owl
+OwlOnProperty = "{%s}onProperty" % Owl
 
 RdfAbout = "{%s}about" % Rdf
 RdfRDF = "{%s}RDF" % Rdf
@@ -97,19 +100,48 @@ def process_owl_class(_owl_class, label, about, superclasses):
 		found = True
 
 	for _class_union_of in _owl_class.findall(OwlUnionOf):
-		process_intersection_or_union_of(_class_union_of, label, about, superclasses)
+		# The Union informs sub classes. We are looking for super classes here.
+		#	process_intersection_or_union_of(_class_union_of, label, about, superclasses)
 		found = True
 
 	if not found:
 		print 'Nothing found at process_owl_class', label, about
 
+def process_restriction_sub(_class_retriction_sub, label, about, superclasses):
+	found = False
+	_owl_all_values_from_value = _class_retriction_sub.get(RdfResource)
+	if _owl_all_values_from_value is not None:
+		superclasses.append(_owl_all_values_from_value.encode('utf-8').strip())
+		found = True
+
+	for owl_class in _class_retriction_sub.findall(OwlClass):
+		process_owl_class(owl_class, label, about, superclasses)
+		found = True
+
+	for _in_restriction in _class_retriction_sub.findall(OwlRestriction):
+		process_restriction(_in_restriction, label, about, superclasses)
+		found = True
+
+	if not found:
+		print 'Nothing found at process_restriction_sub'
+
 def process_restriction(_class_retriction, label, about, superclasses):
 	found = False
-	for _owl_on_property in _class_retriction.findall(OwlSomeValuesFrom):
-		_on_property = _owl_on_property.get(RdfResource)
-		if _on_property is not None:
-			superclasses.append(_on_property.encode('utf-8').strip())
-			found = True
+
+	is_accepted_property = False
+	for _on_property in _class_retriction.findall(OwlOnProperty):
+		_property = _on_property.get(RdfResource).encode('utf-8')
+
+		if _property in on_propery_whitelist:
+			is_accepted_property = True
+		elif _property in on_propery_blacklist:
+			is_accepted_property = False
+		else:
+			print 'onProperty ', _property, ' is not know. Insert into on_propery_blacklist or on_propery_blacklist'
+			is_accepted_property = False
+
+	if not is_accepted_property:
+		return
 
 	for _on_class in _class_retriction.findall(OwlOnClass):
 		_resource = _on_class.get(RdfResource)
@@ -117,19 +149,17 @@ def process_restriction(_class_retriction, label, about, superclasses):
 			superclasses.append(_resource.encode('utf-8').strip())
 			found = True
 
+	for _owl_all_values_from in _class_retriction.findall(OwlAllValuesFrom):
+		process_restriction_sub(_owl_all_values_from, label, about, superclasses)
+		found = True
+
+	for _owl_has_value in _class_retriction.findall(OwlHasValue):
+		process_restriction_sub(_owl_has_value, label, about, superclasses)
+		found = True
+
 	for _owl_some_value_of in _class_retriction.findall(OwlSomeValuesFrom):
-		_restriction = _owl_some_value_of.get(RdfResource)
-		if _restriction is not None:
-			superclasses.append(_restriction.encode('utf-8').strip())
-			found = True
-
-		for owl_class in _owl_some_value_of.findall(OwlClass):
-			process_owl_class(owl_class, label, about, superclasses)
-			found = True
-
-		for _in_restriction in _owl_some_value_of.findall(OwlRestriction):
-			process_restriction(_in_restriction, label, about, superclasses)
-			found = True
+		process_restriction_sub(_owl_some_value_of, label, about, superclasses)
+		found = True
 
 	if not found:
 		print 'Nothing found at process_restriction', label, about
@@ -141,8 +171,6 @@ def process_intersection_or_union_of(_class_intersection_of, label, about, super
 		if _class_equivalent_description_about is not None:
 			superclasses.append(_class_equivalent_description_about.encode('utf-8').strip())
 			found = True
-		else:
-			print 'FFFFF not found _class_equivalent_description_about', label, about
 
 	for _class_retriction in _class_intersection_of.findall(OwlRestriction):
 		process_restriction(_class_retriction, label, about, superclasses)
@@ -150,9 +178,10 @@ def process_intersection_or_union_of(_class_intersection_of, label, about, super
 
 	for owl_class in _class_intersection_of.findall(OwlClass):
 		process_owl_class(owl_class, label, about, superclasses)
+		found = True
 
 	if not found:
-		print 'Not found content for the insersection or union', label, about
+		print 'Not found content for the insersection or union', label, about, _class_intersection_of
 
 def load_classes(ontology, _file):
 	log.info("Loading ontology " + ontology + " from file " + _file)
@@ -205,17 +234,51 @@ def load_classes(ontology, _file):
 		for _subclass in child.findall(RdfsSubClass):
 			ref = _subclass.get(RdfResource)
 			if ref is not None:
-				superclasses.append(ref.encode('utf-8').strip())
+				sub_ref = ref.encode('utf-8').strip()
+				if sub_ref == _about:
+					print 'This class (', label, ontology,') is a sub class of... itself!'
+					continue
+				superclasses.append(sub_ref)
 
 			for _owl_class in _subclass.findall(OwlClass):
 				process_owl_class(_owl_class, label, about, superclasses)
 				found = True
+
+			for _owl_restriction in _subclass.findall(OwlRestriction):
+				process_restriction(_owl_restriction, label, about, superclasses)
 
 		_comment = child.find(RdfsComment)
 		if _comment is not None and _comment.text is not None:
 			comment = _comment.text.encode('utf-8').strip()
 		else:
 			comment = ""
+
+
+		for _equivalentClass in child.findall(OwlEquivalentClass):
+			found = False
+
+			for _class_retriction in _equivalentClass.findall(OwlRestriction):
+				found = True
+				process_restriction(_class_retriction, label, about, superclasses)
+
+			for _class_equivalent_class in _equivalentClass.findall(OwlClass):
+				for _class_intersection_of in _class_equivalent_class.findall(OwlIntersectionOf):
+					process_intersection_or_union_of(_class_intersection_of, label, about, superclasses)
+					found = True
+
+				for	_class_union_of in _class_equivalent_class.findall(OwlUnionOf):
+					# The Union informs sub classes. We are looking for super classes here.
+					found = True
+
+				if not found:
+					print 'Not found: _class_intersection_of or _class_union_of', label, about
+
+			if not found:
+				_resource = _equivalentClass.get(RdfResource)
+				if _resource is not None:
+					print 'equivalent to ', _resource.encode('utf-8').strip(), label, about
+				else:
+					print 'AAAAAAA not found _class_equivalent_class', label, about
 
 		_deprecated = child.find(OwlDeprecated)
 		if _deprecated is not None and _deprecated.text is not None:
@@ -245,39 +308,6 @@ def load_classes(ontology, _file):
 
 		for syn in child.findall(EfoAlternativeTerm):
 			syns.append(syn.text.encode('utf-8').strip())
-
-		_intersectionOf = child.find(OwlIntersectionOf)
-		if _intersectionOf is not None:
-			print _intersectionOf
-
-
-		"""
-		for _equivalentClass in child.findall(OwlEquivalentClass):
-			found = False
-
-			for _class_retriction in _equivalentClass.findall(OwlRestriction):
-				found = True
-				process_restriction(_class_retriction, label, about, superclasses)
-
-			for _class_equivalent_class in _equivalentClass.findall(OwlClass):
-				for _class_intersection_of in _class_equivalent_class.findall(OwlIntersectionOf):
-					process_intersection_or_union_of(_class_intersection_of, label, about, superclasses)
-					found = True
-
-				for	_class_union_of in _class_equivalent_class.findall(OwlUnionOf):
-					process_intersection_or_union_of(_class_union_of, label, about, superclasses)
-					found = True
-
-				if not found:
-					print 'Not found: _class_intersection_of or _class_union_of', label, about
-
-			if not found:
-				_resource = _equivalentClass.get(RdfResource)
-				if _resource is not None:
-					print 'equivalent to ', _resource.encode('utf-8').strip(), label, about
-				else:
-					print 'AAAAAAA not found _class_equivalent_class', label, about
-		"""
 
 		# Remove duplicates
 		syns = list(set(syns))
@@ -309,17 +339,31 @@ def load_blacklist() :
 	for term in f.readlines():
 		blacklist.append(term.strip())
 
-	print  len(blacklist)
 	return blacklist
 
-def filter_classes(classes, blacklist):
+def load_on_propery_lists() :
+	f = open("on_property_black_list.txt")
+	blacklist = []
+
+	for term in f.readlines():
+		blacklist.append(term.strip())
+
+	f = open("on_property_white_list.txt")
+	whitelist = []
+
+	for term in f.readlines():
+		whitelist.append(term.strip())
+
+	return blacklist, whitelist
+
+def filter_classes(classes, blacklist, count = 0):
 	result = []
 	for _class in classes:
-		print _class.label
 		if _class.label in blacklist:
 			continue
+		print "#" * count, _class.label
 		result.append(_class)
-		sub_result = filter_classes(_class.sub, blacklist)
+		sub_result = filter_classes(_class.sub, blacklist, count + 1)
 		result += sub_result
 		result = list(set(result))
 	return result
@@ -356,8 +400,6 @@ def load_owl(user_key):
 	no_parents = []
 	obsoletes = []
 
-	blacklist = load_blacklist()
-
 	# Build the relationship
 	for _class in all_ontologies:
 		if  _class.label.startswith('obsolete') or _class.deprecated:
@@ -382,11 +424,10 @@ def load_owl(user_key):
 	for no_parent in no_parents:
 		print no_parent.label, no_parent.ontology
 
-	return
+	blacklist_terms = load_blacklist()
+	result = filter_classes(no_parents, blacklist_terms)
 
-	result = filter_classes(no_parents, blacklist)
-
-	print lent(result)
+	print len(result)
 
 	return
 
@@ -418,5 +459,5 @@ def load_owl(user_key):
 	p.close()
 	p.join()
 
-#print load_blacklist()
+on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()
 load_owl("")
