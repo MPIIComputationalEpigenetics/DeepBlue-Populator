@@ -16,9 +16,6 @@ def main(init=False, insert_annotations=False, insert_datasets=False, insert_ont
     pop.insert_basic_data()
     pop.create_columns()
 
-  if insert_cv:
-    pop.process_vocabulary()
-
   if insert_ontology:
     pop.process_ontology()
 
@@ -55,7 +52,6 @@ if __name__ == '__main__':
   init = args[0].init
   insert_annotations = args[0].insert_annotations
   insert_datasets = args[0].insert_datasets
-  insert_cv = args[0].cv
   insert_ontology = args[0].ontology
 
   if args[0].full:
