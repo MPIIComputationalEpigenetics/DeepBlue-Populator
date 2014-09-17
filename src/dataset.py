@@ -178,7 +178,7 @@ class Dataset:
     else:
       url = os.path.join(rep["path"], self.file_name)
 
-    #util.download_file(url, self.download_path)
+    util.download_file(url, self.download_path)
     log.info("Download finished %s", url)
 
   """
@@ -206,7 +206,7 @@ class Dataset:
       raise MissingFile(self.download_path, self.file_name)
 
     # Handle crazy ENCODE big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
-    if self.meta.has_key("type") and self.meta["type"] == "bigWig":
+    if self.meta.has_key("type") and self.meta["type"].lower() == "bigwig":
       print "../third_party/bigWigToWig."+OS + " " + self.download_path + " " +  self.download_path+".wig"
       call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
 
@@ -297,6 +297,6 @@ class Dataset:
     if res[0] == "okay":
       log.info("dataset %s inserted ", am.name)
     else:
-      log.info("Error while inserting dataset: %s\n%s\n%s\n%s", res, am.name, frmt, file_content[0:500], self.download_path)
+      log.info("Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s", res, am.name, frmt, file_content[0:500], self.download_path)
 
     os.remove(self.download_path)

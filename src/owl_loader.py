@@ -402,6 +402,8 @@ def load_owl(user_key):
 				parent_class = all_classes_names[parent]
 				parent_class.sub.append(_class)
 
+		if _class.label in _class.syns:
+			_class.syns.remove(_class.label)
 
 	print 'total: ', len(all_classes)
 	print 'no_parent: ', len(no_parents)

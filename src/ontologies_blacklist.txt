@@ -1,3 +1,4 @@
+experimental factor
 cartwheel heterochromatin
 information entity
 label
@@ -589,3 +590,5 @@ gene
    HIV mother to child transmission
    energy expenditure
    body weight loss
+mental or behavioural disorder
+fetal growth restriction

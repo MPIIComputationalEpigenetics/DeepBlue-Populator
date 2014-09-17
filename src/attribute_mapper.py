@@ -106,7 +106,21 @@ class BlueprintMapper(AttributeMapper):
     if self.epigenetic_mark == "mRNA-seq":
       return "encode_rna"
 
-    return "bed"
+    if self.epigenetic_mark in ["H3K27me3", "H3K36me3", "H3K9me3", "H3K4me1"]:
+      return "broadPeak"
+
+    if self.epigenetic_mark in ["H3K27ac", "H3K4me3", "H3K9/14ac", "H2A.Zac"]:
+      return "narrowPeak"
+
+    if self.epigenetic_mark == "DNaseI":
+      return "bed"
+
+    if self.dataset.meta["type"] == "bigwig":
+      return "wig"
+
+    print "Unknown format for %s epigenetic mark %s and type %s" %(self.name, self.epigenetic_mark, self.dataset.meta["type"])
+
+    return None
 
 """
 EncodeMapper is the basic AttributeMapper for ENCODE repositories.

@@ -106,16 +106,21 @@ class BlueprintRepository(Repository):
 
       bio_source_extra_info["source"] = "BLUEPRINT"
 
-      (s, bs_id) = epidb.add_bio_source(bio_source_name, None, bio_source_extra_info, self.user_key)
-      if s == "okay":
-        print "New Bio Source inserted :", bio_source_name
-      elif util.has_error(s, bs_id, ["104001"]): print s, bs_id
+      if bio_source_name not in exists_bio_sources:
+        (s, bs_id) = epidb.add_bio_source(bio_source_name, None, bio_source_extra_info, self.user_key)
+        if s == "okay":
+          print "New Bio Source inserted :", bio_source_name
+        else:
+          exists_bio_sources.append(bio_source_name)
+          if util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
-      if bio_source_extra_info.has_key("TISSUE_TYPE"):
+      if bio_source_extra_info.has_key("TISSUE_TYPE") and bio_source_extra_info["TISSUE_TYPE"] not in exists_bio_sources:
         (s, bs_id) = epidb.add_bio_source(bio_source_extra_info["TISSUE_TYPE"], None, {"source": "Blueprint Epigenomics"}, self.user_key)
         if s == "okay":
           print 'New bio source (tissue) inserted:', bio_source_extra_info['TISSUE_TYPE']
-        elif util.has_error(s, bs_id, ["104001"]): print s, bs_id
+        else:
+          exists_bio_sources.append(bio_source_extra_info["TISSUE_TYPE"])
+          if util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
         (s, r) = epidb.set_bio_source_scope(bio_source_extra_info["TISSUE_TYPE"], bio_source_name, self.user_key)
         if util.has_error(s, r, ["104901"]): print s, r
@@ -127,6 +132,8 @@ class BlueprintRepository(Repository):
         (s, sample_id) = epidb.add_sample(bio_source_name, sample_extra_info, self.user_key)
         if util.has_error(s, sample_id, []):
           print "BLUEPRIN ERROR PLACE"
+          print bio_source_name
+          print sample_extra_info
           return
 
       file_path = line_info["FILE"]
