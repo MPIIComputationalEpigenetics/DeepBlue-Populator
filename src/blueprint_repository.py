@@ -70,6 +70,8 @@ class BlueprintRepository(Repository):
 
     header_keys = lines[0].split()
 
+    exists_bio_sources = []
+
     for l in lines[1:]:
       if not l.strip():
         continue
