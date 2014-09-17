@@ -405,17 +405,37 @@ def load_owl(user_key):
 		if _class.label in _class.syns:
 			_class.syns.remove(_class.label)
 
+	# Remove weird relationships, if the class is sub and synonym, remove the synonym
+	for _class in [_class for _class in all_ontologies if _class.sub and _class.syns]:
+		def is_in_sub(x):
+			for sub in _class.sub:
+				if x == sub.label:
+					return True
+			return False
+
+		_class.syns = [x for x in _class.syns if not is_in_sub(x)]
+
+	# Remove classes that are synonyms of other classes
+
+	_synonymn_classes = []
+	for _class in [_class for _class in all_ontologies if _class.syns]:
+		_classes_to_remove = [synonym for synonym in  _class.syns if all_classes_names.has_key(synonym)]
+		for _class_to_remove in _classes_to_remove:
+			_synonymn_classes.append(_class_to_remove)
+
 	print 'total: ', len(all_classes)
 	print 'no_parent: ', len(no_parents)
 	print 'obsoletes: ', len(obsoletes)
-
+	print 'duplicated (synonym and class): ', len(_synonymn_classes)
 
 	for no_parent in no_parents:
 		print no_parent.label, no_parent.ontology
 
 	blacklist_terms = load_blacklist()
+	full_blacklist_terms = blacklist_terms + _synonymn_classes
+	print len(full_blacklist_terms)
 	print 'filtering.. '
-	biosources = filter_classes(no_parents, blacklist_terms)
+	biosources = filter_classes(no_parents, full_blacklist_terms)
 	print len(biosources)
 
 	more_embrancing_cache = {}
@@ -482,23 +502,4 @@ def load_owl(user_key):
 
 	insert_bio_sources(no_parents, biosources)
 
-	return
-	total = len(all_ontologies)
-	count = 0
-	p = Pool(12)
-	log.info("Inserting bio sources. Total of " + str(total) + " classes.")
-	p.map(insert_class, all_ontologies, 1000)
-	p.close()
-	p.join()
-
-	p = Pool(12)
-	total = len(all_ontologies)
-	count = 0
-	log.info("Setting bio source scope.")
-	p.map(set_scope, all_ontologies, 1000)
-	p.close()
-	p.join()
-
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()
-
-#load_owl("")

@@ -172,11 +172,9 @@ class Populator:
   def process_annotations(self):
     insert_annotations(self.key)
 
-  def process_vocabulary(self):
-    encode_vocabulary.ensure_vocabulary(self.key)
-
   def process_ontology(self):
     load_owl(self.key)
+    encode_vocabulary.ensure_vocabulary(self.key)
 
   """
   setup_collections configures database internals for the Populator database

@@ -3,7 +3,7 @@ from optparse import OptionParser
 from populator import Populator
 from log import log
 
-def main(init=False, insert_annotations=False, insert_datasets=False, insert_cv= False, insert_ontology=False):
+def main(init=False, insert_annotations=False, insert_datasets=False, insert_ontology=False):
   # initialize populator and update populators local database
   pop = Populator()
 
@@ -41,10 +41,8 @@ if __name__ == '__main__':
 
   parser.add_option("--init", action="store_true", dest="init", default=False,
       help="Init EpiDB, creating default users")
-  parser.add_option("--cv", action="store_true", dest="cv", default=False,
-      help="Insert ENCODE controlled vocabulary")
   parser.add_option("--ontology", action="store_true", dest="ontology", default=False,
-      help="Insert Ontologies inside the controlled vocabulary")
+      help="Insert Ontologies and ENCODE controlled vocabulary terms inside the controlled vocabulary")
   parser.add_option("--annotations", action="store_true", dest="insert_annotations", default=False,
       help="Insert annotations")
   parser.add_option("--datasets", action="store_true", dest="insert_datasets", default=False,
@@ -63,8 +61,7 @@ if __name__ == '__main__':
   if args[0].full:
     init = True
     insert_annotations = True
-    insert_cv = True
     insert_ontology = True
     insert_datasets = True
 
-  main(init, insert_annotations, insert_datasets, insert_cv, insert_ontology)
+  main(init, insert_annotations, insert_datasets, insert_ontology)

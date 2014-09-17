@@ -117,3 +117,6 @@ http://www.obofoundry.org/ro/ro.owl#participates_in
 http://www.ebi.ac.uk/efo/EFO_0001697
 http://www.ebi.ac.uk/efo/has_flag
 http://www.ebi.ac.uk/efo/is_executed_in
+http://purl.obolibrary.org/obo/BFO_0000069
+http://purl.obolibrary.org/obo/RO_0002158
+http://purl.obolibrary.org/obo/RO_0002159:w
