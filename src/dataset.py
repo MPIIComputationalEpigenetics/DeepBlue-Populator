@@ -56,6 +56,7 @@ class Dataset:
     self.sample_id = sample_id
     self.repository_id = repo_id
     self.imported = imported
+    self.inserted = False
     self._id = None
 
     # plain map as received from database (not a Repository object)
@@ -131,7 +132,9 @@ class Dataset:
         "imported": self.imported,
         "meta": self.meta,
         "file_directory":self.file_directory,
-        "sample_id": self.sample_id
+        "sample_id": self.sample_id,
+        "inserted" : self.inserted
+        "insert_error" = ""
       }
     # update existing dataset if id is known/it exists
     if self.id:
@@ -178,6 +181,7 @@ class Dataset:
     else:
       url = os.path.join(rep["path"], self.file_name)
 
+    log.info("Downloading %s", url)
     util.download_file(url, self.download_path)
     log.info("Download finished %s", url)
 
@@ -206,7 +210,7 @@ class Dataset:
       raise MissingFile(self.download_path, self.file_name)
 
     # Handle crazy ENCODE big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
-    if self.meta.has_key("type") and self.meta["type"].lower() == "bigwig":
+    if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type_ == "bigwig" :
       print "../third_party/bigWigToWig."+OS + " " + self.download_path + " " +  self.download_path+".wig"
       call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
 
@@ -295,8 +299,16 @@ class Dataset:
 
     res = epidb.add_experiment(*args)
     if res[0] == "okay":
+      self.inserted = True
+      self.insert_error = ""
+      self.save()
       log.info("dataset %s inserted ", am.name)
     else:
-      log.info("Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s", res, am.name, frmt, file_content[0:500], self.download_path)
+      msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s", res, am.name, frmt, file_content[0:500], self.download_path
+      self.insert_error = msg
+      self.save
+      log.info(msg)
+
 
     os.remove(self.download_path)
+
