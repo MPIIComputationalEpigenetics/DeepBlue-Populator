@@ -215,32 +215,16 @@ class Dataset:
       call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
 
       wig_file = self.download_path+".wig"
+      (converted, content) = try_to_convert(wig_file)
 
-      f = open(wig_file, 'r')
-      wig_content = f.read()
-
-      wig_content = wig_content.split("\n", 1)
-      first_line = wig_content[0]
-      while first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser":
-        wig_content = wig_content[1]
-        wig_content = wig_content.split("\n", 1)
-        first_line = wig_content[0]
-        log.debug(first_line)
-
-      wig_content = "\n".join(wig_content)
-      first_word = first_line.split()[0]
-      if first_word == "variableStep" or first_word == "fixedStep":
-          frmt = "wig"
-          file_content = wig_content
-      else:
-        (status, content) = try_to_convert(wig_file)
-
-        if status:
-          frmt = "wig"
-          file_content = content
-        else:
+      if converted:
           frmt = "bedgraph"
+          file_content = content
+      else:
+          f = open(wig_file, 'r')
+          wig_content = f.read()
           file_content = wig_content
+          frmt = "wig"
 
       os.remove(self.download_path+".wig")
 
