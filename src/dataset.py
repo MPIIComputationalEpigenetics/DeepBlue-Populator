@@ -133,8 +133,8 @@ class Dataset:
         "meta": self.meta,
         "file_directory":self.file_directory,
         "sample_id": self.sample_id,
-        "inserted" : self.inserted
-        "insert_error" = ""
+        "inserted" : self.inserted,
+        "insert_error" : ""
       }
     # update existing dataset if id is known/it exists
     if self.id:
