@@ -92,8 +92,8 @@ class Repository(object):
       {"repository_id": self.id },
       {"type": { "$in" : self.data_types }},
       {"$or": [
-        {"imported": False },
-        {"imported": {"$exists": False }} ]}
+        {"inserted": False },
+        {"inserted": {"$inserted": False }} ]}
     ]}).count() > 0
 
 
@@ -129,20 +129,20 @@ class Repository(object):
 
   """
   process_datasets starts downloading and processing of all datasets in the
-  database that belong to the repository and have not been imported yet.
+  database that belong to the repository and have not been inserted yet.
   """
   def process_datasets(self, key=None):
     if not self.id:
       raise NonpersistantRepository(self, "cannot process datasets for unsaved repository")
 
-    # get all datasets that aren't imported and have the desired type
+    # get all datasets that aren't inserted and have the desired type
     rep_files = list(mdb.datasets.find({
       "$and": [
         {"repository_id": self.id },
         {"type": { "$in" : self.data_types }},
         {"$or": [
-          {"imported": False },
-          {"imported": {"$exists": False }} ]}
+          {"inserted": False },
+          {"inserted": {"$exists": False }} ]}
       ]}
     ))
 
@@ -156,8 +156,6 @@ class Repository(object):
       try:
         dataset.load(load_sem)
         dataset.process(key, process_sem)
-        # once we get here everything went successful
-        dataset.imported = True
         dataset.save()
       except IOError as ex:
         log.exception("error on downloading or reading dataset of %s failed: %s", dataset, ex)
@@ -166,7 +164,7 @@ class Repository(object):
 
     for e in rep_files:
       # reconstruct Datasets from database
-      ds = Dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"], e["imported"])
+      ds = Dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"])
       ds.id = e["_id"]
       # create download dirs
       p = os.path.split(ds.download_path)[0]

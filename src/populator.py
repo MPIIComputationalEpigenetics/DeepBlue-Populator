@@ -192,8 +192,6 @@ class Populator:
 
     self.setup_collections()
     log.info("populator initialized with %d repositories", len(self.repositories))
-    self.remove_old_repositories()
-
 
   """
   process_repositories downloads all new datasets and inserts them
@@ -213,21 +211,12 @@ class Populator:
   """
   def check_repositories(self):
     self.setup_collections()
-    self.remove_old_repositories()
 
     for rep in self.repositories:
       rep.read_datasets()
 
     log.info("repositories checked successfully")
 
-
-  def remove_old_repositories(self):
-    res = list(mdb.repositories.find({}))
-    for r in res:
-      rep = repository_factory.load(r["project"], r["genome"], r["path"], self.key)
-      if rep not in self.repositories:
-        mdb.datasets.remove({"repository_id": r["_id"]})
-        mdb.repositories.remove(r["_id"])
 
   """
   save_repositories saves all not yet saved repositories and
