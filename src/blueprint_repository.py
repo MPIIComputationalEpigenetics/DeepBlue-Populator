@@ -21,7 +21,7 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
 
   def __init__(self, proj, genome, path, user_key):
-    super(BlueprintRepository, self).__init__(proj, genome, ["bed", "wig"], path, user_key)
+    super(BlueprintRepository, self).__init__(proj, genome, ["bed", "bigwig"], path, user_key)
 
   def __str__(self):
     return "<Blueprint Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -69,8 +69,6 @@ class BlueprintRepository(Repository):
     lines = ucontent.split("\n")
 
     header_keys = lines[0].split()
-
-    exists_bio_sources = []
 
     for l in lines[1:]:
       if not l.strip():
