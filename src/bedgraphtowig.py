@@ -46,6 +46,12 @@ def try_to_convert(filename):
 			actual_block.append(l_value)
 			previus_start = l_start
 
+		elif line.startswith("track"):
+			continue
+		elif line.startswith("#"):
+			continue
+		elif line.startswith("browser"):
+			continue
 		else:
 			return (False, "invalid: %s " %(line))
 
