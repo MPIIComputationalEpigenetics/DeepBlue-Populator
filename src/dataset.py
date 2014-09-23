@@ -278,7 +278,13 @@ class Dataset:
         return
       sample_id = samples_id[0][0]
 
-    args = (am.name, am.genome, am.epigenetic_mark, sample_id, am.technique,
+
+    if frmt == "bedgraph" or frmt == "wig":
+	exp_name = am.name + "." + frmt
+    else:
+	exp_name = am.name + ".bed"
+  	
+    args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
             am.project, am.description, file_content, frmt, am.extra_metadata, user_key)
 
     res = epidb.add_experiment(*args)
@@ -286,7 +292,7 @@ class Dataset:
       self.inserted = True
       self.insert_error = ""
       self.save()
-      log.info("dataset %s inserted ", am.name)
+      log.info("dataset %s inserted ", exp_name)
     else:
       msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s", res, am.name, frmt, file_content[0:500], self.download_path
       self.insert_error = msg
