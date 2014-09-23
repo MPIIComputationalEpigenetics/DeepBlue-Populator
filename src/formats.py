@@ -163,6 +163,9 @@ def format_builder(format_name, length=None):
   if format_name == "wig":
     return "wig"
 
+  if format_name == "bedgraph":
+    return "bedgraph"
+
   if not formats.has_key(format_name):
     log.error("Format %s not found.", format_name)
     return format_name
