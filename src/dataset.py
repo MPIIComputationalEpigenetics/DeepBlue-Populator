@@ -215,16 +215,15 @@ class Dataset:
       call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
 
       wig_file = self.download_path+".wig"
-      (converted, content) = try_to_convert(wig_file)
+      (datatype, content) = try_to_convert(wig_file)
 
-      if converted:
-          frmt = "bedgraph"
+      if datatype == "wig":
+          frmt = "wig"
           file_content = content
       else:
           f = open(wig_file, 'r')
-          wig_content = f.read()
-          file_content = wig_content
-          frmt = "wig"
+          file_content = f.read()
+          frmt = "bedgraph"
 
       os.remove(self.download_path+".wig")
 
