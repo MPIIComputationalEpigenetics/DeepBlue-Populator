@@ -215,9 +215,13 @@ class Dataset:
       wig_file = self.download_path+".wig"
       (datatype, content) = try_to_convert(wig_file)
 
-      if datatype == "wig":
+      if datatype == "wig_converted":
           frmt = "wig"
           file_content = content
+      elif datatype == "wig_input":
+          f = open(wig_file, 'r')
+          file_content = f.read()
+          frmt = "wig"
       else:
           f = open(wig_file, 'r')
           file_content = f.read()
@@ -277,10 +281,10 @@ class Dataset:
 
 
     if frmt == "bedgraph" or frmt == "wig":
-	exp_name = am.name + "." + frmt
+      exp_name = am.name + "." + frmt
     else:
-	exp_name = am.name + ".bed"
-  	
+      exp_name = am.name + ".bed"
+
     args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
             am.project, am.description, file_content, frmt, am.extra_metadata, user_key)
 

@@ -4,7 +4,7 @@ def try_to_convert(filename):
 	f = open(filename)
 	output = cStringIO.StringIO()
 	init = False
-	type = "wig"
+	type = "wig_input"
 	for line in f:
 		if line.startswith("#bedGraph"):
 			type = "bedgraph"
@@ -65,4 +65,4 @@ def try_to_convert(filename):
 			output.write("%f\n" % (v))
 
 	s = output.getvalue()
-	return ("wig", s)
+	return ("wig_converted", s)
