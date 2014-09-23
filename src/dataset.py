@@ -47,7 +47,7 @@ used to process and insert data into epidb.
 """
 class Dataset:
 
-  def __init__(self, file_name, type_, meta={}, file_directory=None, sample_id=None, repo_id=None, imported=False):
+  def __init__(self, file_name, type_, meta={}, file_directory=None, sample_id=None, repo_id=None):
 
     self.file_name = file_name
     self.type_ = type_
@@ -55,7 +55,6 @@ class Dataset:
     self.file_directory = file_directory
     self.sample_id = sample_id
     self.repository_id = repo_id
-    self.imported = imported
     self.inserted = False
     self._id = None
 
@@ -129,7 +128,6 @@ class Dataset:
         "file_name": self.file_name,
         "repository_id": self.repository_id,
         "type":self.type_,
-        "imported": self.imported,
         "meta": self.meta,
         "file_directory":self.file_directory,
         "sample_id": self.sample_id,
