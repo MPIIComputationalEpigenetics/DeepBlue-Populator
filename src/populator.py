@@ -189,22 +189,8 @@ class Populator:
         r = repository_factory.load(proj, genome, url, self.key)
         log.info("%s loaded", str(r))
         self.repositories.add(r)
-
-    self.setup_collections()
+        r.save()
     log.info("populator initialized with %d repositories", len(self.repositories))
-
-  """
-  process_repositories downloads all new datasets and inserts them
-  into epidb (processing).
-  Note: For this method to take any effect check_repositories must be
-  invoked beforehand.
-  """
-  def process_repositories(self):
-    log.info("processing repositories")
-    for rep in self.repositories:
-      rep.process_datasets(self.key)
-
-    log.info("repositories processed successfully")
 
   """
   check_reposoitories reads all repositories and flags new datasets.
@@ -219,13 +205,15 @@ class Populator:
 
 
   """
-  save_repositories saves all not yet saved repositories and
-  datasetes to the database.
+  process_repositories downloads all new datasets and inserts them
+  into epidb (processing).
+  Note: For this method to take any effect check_repositories must be
+  invoked beforehand.
   """
-  def save_repositories(self):
-    log.info("saving repositories")
+  def process_repositories(self):
+    log.info("processing repositories")
     for rep in self.repositories:
-      rep.save()
-      rep.save_datasets()
+      rep.process_datasets(self.key)
 
-    log.info("repositories saved successfully")
+    log.info("repositories processed successfully")
+

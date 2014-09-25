@@ -147,10 +147,7 @@ class BlueprintRepository(Repository):
       meta = line_info
 
       ds = Dataset(file_path, file_type, meta, file_directory=directory, sample_id=sample_id)
-      self.datasets.add(ds)
-      if ds.exists():
-        continue
-
-      new += 1
-      self.has_updates = True
+      if self.add_dataset(ds):
+        new += 1
+        self.has_updates = True
 

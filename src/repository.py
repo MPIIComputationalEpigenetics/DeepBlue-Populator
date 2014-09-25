@@ -8,6 +8,17 @@ from settings import max_threads, max_downloads
 from log import log
 from db import mdb
 
+
+def FIND_NOT_INSERTED_QUERY(_id, _data_types):
+   return { "$and": [
+        {"repository_id": _id },
+        {"type": { "$in" : _data_types }},
+        {"$or": [
+          {"inserted": False },
+          {"inserted": {"$exists": False }} ]}
+    ]}
+
+
 """
 NonpersistantRepository exception is raised if certain operations on a
 repository are attempted before it has been saved to the database.
@@ -29,15 +40,11 @@ retrival and processing.
 class Repository(object):
 
   def __init__(self, proj, genome, data_types, path, user_key):
-    self._id = None
-
     self.project = proj
     self.genome = genome
     self.data_types = data_types
     self.path = path
     self.user_key = user_key
-
-    self.datasets = set([])
 
   def __str__(self):
     return "<Repository: [%s, %s]>" % (self.project, self.path)
@@ -49,7 +56,6 @@ class Repository(object):
 
   def __hash__(self):
     return hash(self.path)
-
 
   """
   index_path is the path to the file which contains information of all
@@ -73,8 +79,7 @@ class Repository(object):
   new datasets.
   """
   def read_datasets(self):
-    pass
-
+    raise Exception('The method read_datasets() should be implemented for the desired data source')
 
   """
   exists checks if the repository has already been added to the database.
@@ -105,6 +110,7 @@ class Repository(object):
     doc = {
         "project": self.project,
         "genome": self.genome,
+        "data_types" : self.data_types,
         "path": self.path
       }
     if self.id:
@@ -114,18 +120,14 @@ class Repository(object):
     r_id = mdb.repositories.save(doc)
 
 
-  """
-  save_datasets saves all the datasets that have been read before.
-  Note: it's required to call read_datasets before this method can do anything.
-  """
-  def save_datasets(self):
-    if not self.id:
-      raise NonpersistantRepository(self, "cannot save datasets for unsaved repository")
+  def add_dataset(self, dataset):
+    if not dataset.repository_id:
+      dataset.repository_id = self.id
 
-    for ds in self.datasets:
-      ds.repository_id = self.id
-      ds.save()
-
+    if not dataset.exists():
+      dataset.save()
+      return True
+    return False
 
   """
   process_datasets starts downloading and processing of all datasets in the
@@ -135,18 +137,8 @@ class Repository(object):
     if not self.id:
       raise NonpersistantRepository(self, "cannot process datasets for unsaved repository")
 
-    # get all datasets that aren't inserted and have the desired type
-    rep_files = list(mdb.datasets.find({
-      "$and": [
-        {"repository_id": self.id },
-        {"type": { "$in" : self.data_types }},
-        {"$or": [
-          {"inserted": False },
-          {"inserted": {"$exists": False }} ]}
-      ]}
-    ))
-
-    log.info("%d datasets in %s require processing", len(rep_files), self)
+    c = list(mdb.datasets.find(FIND_NOT_INSERTED_QUERY(self.id, self.data_types)))
+    log.info("%d datasets in %s require processing", len(c), self)
 
     threads = []
     load_sem = threading.Semaphore(max_downloads)
@@ -162,7 +154,7 @@ class Repository(object):
       except Exception as ex:
         log.exception("processing of %s failed %s", dataset, repr(ex))
 
-    for e in rep_files:
+    for e in mdb.datasets.find(FIND_NOT_INSERTED_QUERY(self.id, self.data_types)):
       # reconstruct Datasets from database
       ds = Dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"])
       ds.id = e["_id"]

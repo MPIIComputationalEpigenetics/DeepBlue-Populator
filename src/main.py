@@ -27,7 +27,6 @@ def main(init=False, insert_annotations=False, insert_datasets=False, insert_ont
   if insert_datasets:
     pop.load_repositories()
     pop.check_repositories()
-    pop.save_repositories()
     pop.process_repositories()
 
 

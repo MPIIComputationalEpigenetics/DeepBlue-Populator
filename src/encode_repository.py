@@ -214,7 +214,8 @@ class EncodeRepository(Repository):
         continue
 
       ds = Dataset(file_name, meta["type"], meta)
-      self.datasets.add(ds)
-      new +=1
+      if self.add_dataset(ds):
+        new +=1
+        self.has_updates = True
 
     log.info("found %d new datasets in %s", new, self)

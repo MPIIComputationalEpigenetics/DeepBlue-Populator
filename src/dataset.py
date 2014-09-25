@@ -62,12 +62,15 @@ class Dataset:
     self._repository = None
 
   def __str__(self):
-    return "<Dataset at %s>" % (self.download_path)
+    if self.repository_id:
+      return "<Dataset %s at %s>" % (self.file_name, self.download_path)
+    else:
+      return "<Dataset %s [not in any repository]>" % (self.file_name)
 
   def __eq__(self, other):
     if not isinstance(other, Dataset):
       return False
-    return self.repository_id == other.repository_id and self.file_name == other.file_name
+    return self.repository_id == other.repository_id and self.file_name == other.file_name and self.meta == other.meta
 
   def __hash__(self):
     return (hash(self.repository_id) << 16) ^ hash(self.file_name)
@@ -81,7 +84,8 @@ class Dataset:
     if self.exists():
       doc = mdb.datasets.find_one({
         "repository_id": self.repository_id,
-        "file_name": self.file_name
+        "file_name": self.file_name,
+        "meta":self.meta
       })
       if doc and doc["_id"]:
         self._id = doc["_id"]
@@ -96,7 +100,7 @@ class Dataset:
   @property
   def repository(self):
     if not self.repository_id:
-      raise OrphanedDataset("cannot get repository without id")
+      raise OrphanedDataset(self, "cannot get repository without id")
     # only keep cache as long as it matches the repository_id
     if self._repository and self._repository["_id"] == self.repository_id:
       return self._repository
@@ -122,7 +126,7 @@ class Dataset:
   """
   def save(self):
     if not self.repository_id:
-      raise OrphanedDataset("datasets cannot be saved without a repository id")
+      raise OrphanedDataset(self, "datasets cannot be saved without a repository id")
 
     doc = {
         "file_name": self.file_name,
@@ -139,7 +143,6 @@ class Dataset:
       doc["_id"] = self.id
 
     ds_id = mdb.datasets.save(doc)
-
 
   """
   download_path is the path where the datasetes data file is stored

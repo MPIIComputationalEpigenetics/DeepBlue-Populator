@@ -453,7 +453,7 @@ class RoadmapRepository(Repository):
 
 
           ds = Dataset(file_path, "wig", meta, sample_id=sample_id)
-          self.datasets.add(ds)
-          total += 1
-          self.has_updates = True
+          if self.add_dataset(ds):
+            total += 1
+            self.has_updates = True
     print total
