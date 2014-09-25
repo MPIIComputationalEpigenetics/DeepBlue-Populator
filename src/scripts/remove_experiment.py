@@ -43,6 +43,6 @@ genome = db.genomes.find_one({"norm_name": genome_name})
 for chromosome in genome['chromosomes']:
 	collection_name = "regions."+genome_name+"."+chromosome["name"]
 	print 'Removing experiment data from ' + collection_name
-	print db[collection_name].find({"D": dataset_id})
+	print db[collection_name].remove({"D": dataset_id})
 
 db.experiments.remove({"_id": experiment_id})
