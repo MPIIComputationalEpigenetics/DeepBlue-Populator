@@ -59,7 +59,8 @@ SIMPLE = [
   ("REP_LEFT", "repLeft", "0", Type.INTEGER),
   ("ID", "Region id", None, Type.STRING),
   ("ISLAND_SHELF_SHORE", "Island/Shelf/Shore (union of CpG Island annotations for all CpGs in region)", ".", Type.STRING),
-  ("SIZE", "Size of region in base pairs", ".", Type.INTEGER)
+  ("SIZE", "Size of region in base pairs", ".", Type.INTEGER),
+  ("IGNORE", "Ignored column", "*", Type.STRING),
 ]
 
 CATEGORY = [
