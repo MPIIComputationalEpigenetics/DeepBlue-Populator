@@ -46,3 +46,5 @@ for chromosome in genome['chromosomes']:
 	print db[collection_name].remove({"D": dataset_id})
 
 db.experiments.remove({"_id": experiment_id})
+
+db.text_search.remove({"epidb_id": experiment_id})
