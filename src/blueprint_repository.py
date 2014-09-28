@@ -104,7 +104,7 @@ class BlueprintRepository(Repository):
         if i != "NA" and  i !="None" and i != "-":
           bio_source_extra_info[k] = i
 
-      bio_source_extra_info["source"] = "BLUEPRINT"
+      bio_source_extra_info["source"] = "BLUEPRINT Epigenomics"
 
       (s, bs_id) = epidb.add_bio_source(bio_source_name, None, bio_source_extra_info, self.user_key)
       if s == "okay":
@@ -112,7 +112,7 @@ class BlueprintRepository(Repository):
       elif util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
       if bio_source_extra_info.has_key("TISSUE_TYPE"):
-        (s, bs_id) = epidb.add_bio_source(bio_source_extra_info["TISSUE_TYPE"], None, {"source": "Blueprint Epigenomics"}, self.user_key)
+        (s, bs_id) = epidb.add_bio_source(bio_source_extra_info["TISSUE_TYPE"], None, {"source": "BLUEPRINT Epigenomics"}, self.user_key)
         if s == "okay":
           print 'New bio source (tissue) inserted:', bio_source_extra_info['TISSUE_TYPE']
         else:
@@ -127,6 +127,7 @@ class BlueprintRepository(Repository):
       if samples:
         sample_id = samples[0][0]
       else:
+        sample_extra_info["source"] = "BLUEPRINT Epigenomics"
         (s, sample_id) = epidb.add_sample(bio_source_name, sample_extra_info, self.user_key)
         if util.has_error(s, sample_id, []):
           print "Error while loading BluePrint sample:"
