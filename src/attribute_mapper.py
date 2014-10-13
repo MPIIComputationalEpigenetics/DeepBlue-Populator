@@ -33,8 +33,8 @@ class AttributeMapper(object):
     raise UnmappedAttribute("epigenetic_mark")
 
   @property
-  def bio_source(self):
-    raise UnmappedAttribute("bio_source")
+  def biosource(self):
+    raise UnmappedAttribute("biosource")
 
   @property
   def technique(self):
@@ -144,7 +144,7 @@ class EncodeMapper(AttributeMapper):
 
 
   @property
-  def bio_source(self):
+  def biosource(self):
     return self.dataset.meta["cell"]
 
   @property

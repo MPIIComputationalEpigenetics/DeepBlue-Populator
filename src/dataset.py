@@ -275,9 +275,9 @@ class Dataset:
     if self.sample_id:
       sample_id = self.sample_id
     else:
-      (status, samples_id) = epidb.list_samples(am.bio_source, {}, user_key)
+      (status, samples_id) = epidb.list_samples(am.biosource, {}, user_key)
       if status != "okay" or not len(samples_id):
-        log.critical("Sample for biosource %s was not found", am.bio_source)
+        log.critical("Sample for biosource %s was not found", am.biosource)
         log.critical(samples_id)
         return
       sample_id = samples_id[0][0]

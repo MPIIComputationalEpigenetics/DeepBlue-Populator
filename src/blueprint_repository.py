@@ -21,7 +21,8 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
 
   def __init__(self, proj, genome, path, user_key):
-    super(BlueprintRepository, self).__init__(proj, genome, ["bed", "bigwig"], path, user_key)
+    #super(BlueprintRepository, self).__init__(proj, genome, ["bed", "bigwig"], path, user_key)
+    super(BlueprintRepository, self).__init__(proj, genome, ["bed"], path, user_key)
 
   def __str__(self):
     return "<Blueprint Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -53,7 +54,7 @@ class BlueprintRepository(Repository):
         "BIOMATERIAL_TYPE", "DONOR_ID", "DONOR_SEX", "DONOR_AGE", "DONOR_HEALTH_STATUS", "DONOR_ETHNICITY", "DONOR_REGION_OF_RESIDENCE",
         "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE"]
 
-    bio_source_info_keys = ["BIOMATERIAL_TYPE", "CELL_TYPE", "DISEASE", "TISSUE_TYPE"]
+    biosource_info_keys = ["BIOMATERIAL_TYPE", "CELL_TYPE", "DISEASE", "TISSUE_TYPE"]
 
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
@@ -85,53 +86,53 @@ class BlueprintRepository(Repository):
         sample_extra_info[k] = line_info[k]
 
       if line_info["BIOMATERIAL_TYPE"].lower() == "primary cell":
-        bio_source_name = line_info["CELL_TYPE"]
+        biosource_name = line_info["CELL_TYPE"]
       elif line_info["BIOMATERIAL_TYPE"].lower() == "cell line":
-        bio_source_name = line_info["DISEASE"]
+        biosource_name = line_info["DISEASE"]
       elif line_info['BIOMATERIAL_TYPE'].lower() == "primary cell culture":
-        bio_source_extra_info = line_info['SAMPLE_SOURCE']
+        biosource_extra_info = line_info['SAMPLE_SOURCE']
       else:
         print 'Invalid BIOMATERIAL_TYPE: ', line_info['BIOMATERIAL_TYPE']
 
-      if bio_source_name.lower() == "none":
-        print "Invalid bio source name:", bio_source_name
+      if biosource_name.lower() == "none":
+        print "Invalid biosource name:", biosource_name
         pp.pprint(line_info)
         continue
 
-      bio_source_extra_info = {}
-      for k in bio_source_info_keys:
+      biosource_extra_info = {}
+      for k in biosource_info_keys:
         i = line_info[k]
         if i != "NA" and  i !="None" and i != "-":
-          bio_source_extra_info[k] = i
+          biosource_extra_info[k] = i
 
-      bio_source_extra_info["source"] = "BLUEPRINT Epigenomics"
+      biosource_extra_info["source"] = "BLUEPRINT Epigenomics"
 
-      (s, bs_id) = epidb.add_bio_source(bio_source_name, None, bio_source_extra_info, self.user_key)
+      (s, bs_id) = epidb.add_biosource(biosource_name, None, biosource_extra_info, self.user_key)
       if s == "okay":
-        print "New Bio Source inserted :", bio_source_name
+        print "New BioSource inserted :", biosource_name
       elif util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
-      if bio_source_extra_info.has_key("TISSUE_TYPE"):
-        (s, bs_id) = epidb.add_bio_source(bio_source_extra_info["TISSUE_TYPE"], None, {"source": "BLUEPRINT Epigenomics"}, self.user_key)
+      if biosource_extra_info.has_key("TISSUE_TYPE"):
+        (s, bs_id) = epidb.add_biosource(biosource_extra_info["TISSUE_TYPE"], None, {"source": "BLUEPRINT Epigenomics"}, self.user_key)
         if s == "okay":
-          print 'New bio source (tissue) inserted:', bio_source_extra_info['TISSUE_TYPE']
+          print 'New biosource (tissue) inserted:', biosource_extra_info['TISSUE_TYPE']
         else:
           if util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
-        (s, r) = epidb.set_bio_source_scope(bio_source_extra_info["TISSUE_TYPE"], bio_source_name, self.user_key)
+        (s, r) = epidb.set_biosource_scope(biosource_extra_info["TISSUE_TYPE"], biosource_name, self.user_key)
         if s == "okay":
           print "New Scope: ", r
         elif util.has_error(s, r, ["104901"]): print s, r
 
-      (s, samples) = epidb.list_samples(bio_source_name, sample_extra_info, self.user_key)
+      (s, samples) = epidb.list_samples(biosource_name, sample_extra_info, self.user_key)
       if samples:
         sample_id = samples[0][0]
       else:
         sample_extra_info["source"] = "BLUEPRINT Epigenomics"
-        (s, sample_id) = epidb.add_sample(bio_source_name, sample_extra_info, self.user_key)
+        (s, sample_id) = epidb.add_sample(biosource_name, sample_extra_info, self.user_key)
         if util.has_error(s, sample_id, []):
           print "Error while loading BluePrint sample:"
-          print bio_source_name
+          print biosource_name
           print sample_extra_info
           return
 

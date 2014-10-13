@@ -79,7 +79,7 @@ class EncodeRepository(Repository):
       if epigeneticMark == "Histone" and meta["antibody"].find("_") != -1:
           meta["antibody"] = meta["antibody"].split("_")[0]
 
-      # TODO: get sample_id here and remove bio_sample from the attribute_mapper
+      # TODO: get sample_id here and remove biosample from the attribute_mapper
 
       size = meta["size"]
       suf = size[-1].lower()

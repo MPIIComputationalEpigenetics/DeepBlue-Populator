@@ -440,7 +440,7 @@ def load_owl(user_key):
 
 	more_embrancing_cache = {}
 	alread_in = {}
-	def insert_bio_sources(no_parents, biosources, parent = None, deep = 0):
+	def insert_biosources(no_parents, biosources, parent = None, deep = 0):
 		_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
 		for _class in no_parents:
@@ -451,7 +451,7 @@ def load_owl(user_key):
 			if not alread_in.has_key(_class.label):
 				print '#' * deep, _class.label,
 				extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
-				status, _id = _epidb.add_bio_source(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
+				status, _id = _epidb.add_biosource(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
 				alread_in[_class.label] = True
 				if status == 'error':
 					print _id
@@ -472,7 +472,7 @@ def load_owl(user_key):
 						if first:
 							print 'Synonymous for ',_class.label, ':', syn
 						print ',',syn,
-					status, _id = _epidb.set_bio_source_synonym(_class.label, syn, _class.user_key)
+					status, _id = _epidb.set_biosource_synonym(_class.label, syn, _class.user_key)
 					if status == 'error' and not _id.startswith('104400'):
 						print _id
 					alread_in[syn] = True
@@ -487,7 +487,7 @@ def load_owl(user_key):
 			if parent:
 				cache_key = parent.label + " " + _class.label
 				if not more_embrancing_cache.has_key(cache_key):
-					status, _id = _epidb.set_bio_source_scope(parent.label, _class.label, _class.user_key)
+					status, _id = _epidb.set_biosource_scope(parent.label, _class.label, _class.user_key)
 
 					if status == 'okay':
 						more_embrancing_cache[cache_key] = True
@@ -498,8 +498,8 @@ def load_owl(user_key):
 					else:
 						print _id
 
-			insert_bio_sources(_class.sub, biosources, _class, deep + 1)
+			insert_biosources(_class.sub, biosources, _class, deep + 1)
 
-	insert_bio_sources(no_parents, biosources)
+	insert_biosources(no_parents, biosources)
 
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()

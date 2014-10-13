@@ -41,36 +41,36 @@ class RoadmapRepository(Repository):
   def set_up_project(self, server, user_key):
     print server.add_project("Roadmap Epigenomics", "", user_key)
 
-  def set_up_bio_sources(self,server, user_key):
-    (s, r) = server.set_bio_source_synonym('Stomach', "Gastric", user_key)
+  def set_up_biosources(self,server, user_key):
+    (s, r) = server.set_biosource_synonym('Stomach', "Gastric", user_key)
     if s != 'okay' and not r.startswith('104400'): print r
 
-    (s, r) = server.add_bio_source('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"}, user_key)
+    (s, r) = server.add_biosource('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"}, user_key)
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_bio_source_scope('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts', user_key)
+    (s, r) = server.set_biosource_scope('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
-    (s, r) = server.add_bio_source('iPS DF 19.11 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
+    (s, r) = server.add_biosource('iPS DF 19.11 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_bio_source_synonym('iPS DF 19.11 Cell Line', 'iPS 19.11', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 19.11 Cell Line', 'iPS 19.11', user_key)
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_bio_source_synonym('iPS DF 19.11 Cell Line', 'iPS DF 19.11', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 19.11 Cell Line', 'iPS DF 19.11', user_key)
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_bio_source_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 19.11 Cell Line', user_key)
+    (s, r) = server.set_biosource_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 19.11 Cell Line', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
-    (s, r) = server.add_bio_source('iPS DF 6.9 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
+    (s, r) = server.add_biosource('iPS DF 6.9 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_bio_source_synonym('iPS DF 6.9 Cell Line', 'iPS 6.9', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 6.9 Cell Line', 'iPS 6.9', user_key)
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_bio_source_synonym('iPS DF 6.9 Cell Line', 'iPS DF 6.9', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 6.9 Cell Line', 'iPS DF 6.9', user_key)
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_bio_source_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 6.9 Cell Line', user_key)
+    (s, r) = server.set_biosource_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 6.9 Cell Line', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
-    (s, r) = server.add_bio_source('hSKM', "HSkM-S (Cat. no. A12555) are normal human skeletal myoblasts developed to undergo highly efficient differentiation directly following plating of cryopreserved cells.", {"source": "Roadmap Epigenomics", "more_info":"http://tools.lifetechnologies.com/content/sfs/manuals/HSkM_S.pdf"}, user_key)
+    (s, r) = server.add_biosource('hSKM', "HSkM-S (Cat. no. A12555) are normal human skeletal myoblasts developed to undergo highly efficient differentiation directly following plating of cryopreserved cells.", {"source": "Roadmap Epigenomics", "more_info":"http://tools.lifetechnologies.com/content/sfs/manuals/HSkM_S.pdf"}, user_key)
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_bio_source_scope('HSMM', 'hSKM', user_key)
+    (s, r) = server.set_biosource_scope('HSMM', 'hSKM', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
   def set_up_samples_fields(self, server, user_key):
@@ -354,7 +354,7 @@ class RoadmapRepository(Repository):
 
     server = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
     self.set_up_project(server, self.user_key)
-    self.set_up_bio_sources(server, self.user_key)
+    self.set_up_biosources(server, self.user_key)
     self.set_up_samples_fields(server, self.user_key)
 
     total = 0
@@ -404,19 +404,19 @@ class RoadmapRepository(Repository):
               sample_experiment_metadata[k] = sample_info[k]
 
         if sample_info['biomaterial_type'] == 'Cell Line':
-          bio_source_name = sample_metada['line']
+          biosource_name = sample_metada['line']
         elif sample_info['biomaterial_type'] == 'Primary Tissue':
-          bio_source_name = sample_metada['tissue_type']
+          biosource_name = sample_metada['tissue_type']
         else:
           pp.pprint(sample_metada)
           break
-        (s, _ids) = server.get_bio_source_related(bio_source_name, user_key)
+        (s, _ids) = server.get_biosource_related(biosource_name, user_key)
 
         if s == "error":
           print _ids
           pp.pprint(sample_metada)
 
-        (s, sample_id) = server.add_sample(bio_source_name, sample_metada, user_key)
+        (s, sample_id) = server.add_sample(biosource_name, sample_metada, user_key)
 
         files = [v for k,v in roadmap_sample.iteritems() if
           type(v) is str and
