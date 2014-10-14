@@ -16,7 +16,7 @@ class ControledVocabulary:
 
   def __init__(self, fromURL=False):
     self.biosources = []
-    self.antibodies = []
+    self.antibodies = {}
 
     f = self._load_data(fromURL)
     self.data = self._process_data(f)
@@ -40,8 +40,14 @@ class ControledVocabulary:
         if current:
           if current["type"] == "Cell Line":
             self.biosources.append(current)
-          elif current["type"] == "Antibody" and not "_(" in current["term"]:
-            self.antibodies.append(current)
+          elif current["type"] == "Antibody":
+            if not "_(" in current["term"]:
+              self.antibodies[current["term"]] = current
+            else:
+              label = current["term"].split("_(")[0]
+              if not self.antibodies.has_key(label):
+                self.antibodies[label] = current
+
 
         # start a new object
         current = {}
@@ -167,8 +173,9 @@ def ensure_vocabulary(user_key):
 
   # add antibodies to epidb
   for ab in voc.antibodies:
-    log.debug("(Encode) Inserting epigenetic_mark %s", ab["target"])
-    (s, em_id) = epidb.add_epigenetic_mark(ab["term"],  ab["description"], user_key=user_key)
+    antibody = voc.antibodies[ab]
+    log.debug("(Encode) Inserting epigenetic_mark %s", antibody["target"])
+    (s, em_id) = epidb.add_epigenetic_mark(antibody["target"],  antibody["description"], user_key=user_key)
     if util.has_error(s, em_id, ["105001"]): print "(ENCODE CV Error 8): ", em_id
 
   log.info("vocabulary added successfully")
