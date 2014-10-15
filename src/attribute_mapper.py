@@ -192,7 +192,10 @@ class EncodeHistoneMapper(EncodeMapper):
 
   @property
   def epigenetic_mark(self):
-    return self.dataset.meta["antibody"]
+    antibody = self.dataset.meta["antibody"]
+    if antibody == "H3K36me3B":
+      return "H3K36me3"
+    return antibody
 
   @property
   def technique(self):
