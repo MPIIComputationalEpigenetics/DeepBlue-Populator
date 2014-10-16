@@ -216,29 +216,24 @@ class Dataset:
       call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
 
       wig_file = self.download_path+".wig"
-      (datatype, content) = try_to_convert(wig_file)
+      (datatype, tmp_file) = try_to_convert(wig_file)
 
       if datatype == "wig_converted":
           frmt = "wig"
-          file_content = content
+          file_name = tmp_file
       elif datatype == "wig_input":
-          f = open(wig_file, 'r')
-          file_content = f.read()
+          file_name = wig_file	  
           frmt = "wig"
       else:
-          f = open(wig_file, 'r')
-          file_content = f.read()
+          file_name = wig_file	  
           frmt = "bedgraph"
 
-      os.remove(self.download_path+".wig")
+      am.extra_metadata['__local_file__'] = file_name
+      file_content = ""
 
     elif self.type_ == "wig":
-      if self.download_path.endswith("gz"):
-        f = gzip.open(self.download_path, 'rb')
-      else:
-        f = open(self.download_path, 'rb')
-
-      file_content = f.read()
+      am.extra_metadata['__local_file__'] = wig_file
+      file_content = ""
       frmt = "wig"
 
     else:
@@ -303,6 +298,8 @@ class Dataset:
       self.save
       log.info(msg)
 
-
     os.remove(self.download_path)
+    if frmt == "wig" or frmt == "bedgraph":
+      os.remove(file_name)
+      os.remove(self.download_path+".wig")
 
