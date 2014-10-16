@@ -301,5 +301,4 @@ class Dataset:
     os.remove(self.download_path)
     if frmt == "wig" or frmt == "bedgraph":
       os.remove(file_name)
-      os.remove(self.download_path+".wig")
 
