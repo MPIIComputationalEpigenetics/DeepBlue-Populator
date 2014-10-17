@@ -287,15 +287,15 @@ class Dataset:
             am.project, am.description, file_content, frmt, am.extra_metadata, user_key)
 
     res = epidb.add_experiment(*args)
-    if res[0] == "okay":
+    if res[0] == "okay" or res[1].startswith("102001"):
       self.inserted = True
       self.insert_error = ""
       self.save()
       log.info("dataset %s inserted ", exp_name)
     else:
-      msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s", res, am.name, frmt, file_content[0:500], self.download_path
+      msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s" %(res, am.name, frmt, file_content[0:500], self.download_path)
       self.insert_error = msg
-      self.save
+      self.save()
       log.info(msg)
 
     os.remove(self.download_path)
