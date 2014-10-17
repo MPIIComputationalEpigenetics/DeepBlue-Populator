@@ -213,7 +213,10 @@ class Dataset:
     # Handle crazy ENCODE big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
     if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type_ == "bigwig" :
       print "../third_party/bigWigToWig."+OS + " " + self.download_path + " " +  self.download_path+".wig"
-      call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
+      ret_code = call(["../third_party/bigWigToWig."+OS, self.download_path, self.download_path+".wig"])
+      if ret_code != 0:
+        print "Problem while converting bigwig file:", self.download_path
+        os.remove(self.download_path)     
 
       wig_file = self.download_path+".wig"
       (datatype, tmp_file) = try_to_convert(wig_file)
