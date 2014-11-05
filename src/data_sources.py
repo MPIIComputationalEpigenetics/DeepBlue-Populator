@@ -24,7 +24,7 @@ encode_source = [
   ('ENCODE', "hg19",
     "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeAwgDnaseUniform/"),
 
-  ## HMM Chromatin State Segmetation
+  ## HMM Chromatin State Segmentation
   ('ENCODE', 'hg19',
     "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHmm/"),
 
@@ -84,7 +84,7 @@ roadmap_source = [
 ]
 
 project_sources = [
-  #blueprint_source,
+  blueprint_source,
   #encode_source,
-  roadmap_source
+  #roadmap_source
 ]
