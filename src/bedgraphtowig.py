@@ -1,8 +1,9 @@
-import cStringIO
+import os
+import tempfile
 
 def try_to_convert(filename):
 	f = open(filename)
-	output = cStringIO.StringIO()
+	output = tempfile.NamedTemporaryFile(prefix="deepblue", delete=False)
 	init = False
 	type = "wig_input"
 	for line in f:
@@ -29,6 +30,8 @@ def try_to_convert(filename):
 			type = "bedgraph"
 			(l_chr, l_start, l_end, l_value) = line.strip().split("\t")
 			if (l_chr != chromosome):
+				output.close()
+				os.unlink(output.name)	
 				return (type, "Invalid chromosome %s expecting %s" %(l_chr, chromosome))
 
 			l_start = int(l_start)
@@ -38,11 +41,15 @@ def try_to_convert(filename):
 			if actual_span == -1:
 				actual_span = l_end - l_start
 			elif actual_span != l_end - l_start:
+				output.close()
+				os.unlink(output.name)	
 				return (type, "invalid span %d" %(actual_span))
 
 			if actual_step == -1 and previus_start != -1:
 				actual_step = l_start - previus_start
 			elif actual_step != -1 and actual_step != l_start - previus_start:
+				output.close()
+				os.unlink(output.name)	
 				return (type, "invalid step %d" %(actual_step))
 
 			actual_block.append(l_value)
@@ -57,6 +64,8 @@ def try_to_convert(filename):
 		elif line.startswith("browser"):
 			continue
 		else:
+			output.close()
+			os.unlink(output.name)	
 			return (type, "invalid: %s " %(line))
 
 	if init:
@@ -64,5 +73,4 @@ def try_to_convert(filename):
 		for v in actual_block:
 			output.write("%f\n" % (v))
 
-	s = output.getvalue()
-	return ("wig_converted", s)
+	return ("wig_converted", output.name)

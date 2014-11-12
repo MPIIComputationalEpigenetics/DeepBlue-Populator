@@ -195,6 +195,34 @@ class EncodeHistoneMapper(EncodeMapper):
     antibody = self.dataset.meta["antibody"]
     if antibody == "H3K36me3B":
       return "H3K36me3"
+    if antibody == "PLU1":
+      return "KDM5B"
+    if antibody == "p300":
+      return "EP300"
+    if antibody == "P300":
+      return "EP300"
+    if antibody == "JMJD2A":
+      return "KDM4A"
+    if antibody == "CBP":
+      return "CREBBP"
+    if antibody == "Pol2(b)":
+      return "POLR2A"
+    if antibody == "JARID1A":
+      return "KDM5A"
+    if antibody == "NCoR":
+      return "NCOR1"
+    if antibody == "LSD1":
+      return "KDM1A"
+    if antibody == "NSD2":
+      return "WHSC1"
+    if antibody == "PCAF":
+      return "KAT2B"
+    if antibody == "H3K4me3B":
+      return "H3K4me3"
+    if antibody == "H3K9acB":
+      return "H3K9ac"
+    if antibody == "H3K27me3B":
+      return "H3K27me3"
     return antibody
 
   @property
