@@ -20,7 +20,6 @@ class EncodeRepository(Repository):
 
   def __init__(self, proj, genome, path, user_key):
     super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path, user_key)
-    #super(EncodeRepository, self).__init__(proj, genome, ["bigWig"], path, user_key)
 
   def __str__(self):
     return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -193,25 +192,24 @@ class EncodeRepository(Repository):
           'skmc','t-47d', 'u2os', 'u87', 'weri-rb-1', 'wi-38'
         ]
 
+
+      """
       if epigeneticMark not in ["Tfbs", "Histone", "TfbsUniform"]:
         if epigeneticMark not in verified :
           print "Ignoring Epigenetic Mark ", epigeneticMark
 
-        continue
-
+    
       if not meta.has_key("antibody"):
         print "antibody metadata not found", str(meta)
-        continue
 
       if  meta["antibody"] not in epigenetic_marks:
         if meta["antibody"] not in verified:
           print "ignoring because antibody '" + meta["antibody"] + "' not included"
-        continue
 
       if meta['cell'].lower() not in cell_types:
         if meta['cell'].lower() not in verified:
           print "ignoring because cell line '" + meta["cell"].lower() + "' not included"
-        continue
+      """
 
       ds = Dataset(file_name, meta["type"], meta)
       if self.add_dataset(ds):
