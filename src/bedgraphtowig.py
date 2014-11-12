@@ -41,11 +41,15 @@ def try_to_convert(filename):
 			if actual_span == -1:
 				actual_span = l_end - l_start
 			elif actual_span != l_end - l_start:
+				temp.close()
+				os.unlink(temp.name)
 				return (type, "invalid span %d" %(actual_span))
 
 			if actual_step == -1 and previus_start != -1:
 				actual_step = l_start - previus_start
 			elif actual_step != -1 and actual_step != l_start - previus_start:
+				temp.close()
+				os.unlink(temp.name)
 				return (type, "invalid step %d" %(actual_step))
 
 			actual_block.append(l_value)
