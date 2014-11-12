@@ -24,7 +24,7 @@ encode_source = [
   ('ENCODE', "hg19",
     "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeAwgDnaseUniform/"),
 
-  ## HMM Chromatin State Segmetation
+  ## HMM Chromatin State Segmentation
   ('ENCODE', 'hg19',
     "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHmm/"),
 
