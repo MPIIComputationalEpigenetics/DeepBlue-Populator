@@ -84,7 +84,7 @@ roadmap_source = [
 ]
 
 project_sources = [
-  #blueprint_source,
-  #encode_source,
-  roadmap_source
+  blueprint_source,
+  encode_source,
+  #roadmap_source
 ]
