@@ -34,6 +34,8 @@ class ControledVocabulary:
         continue
 
       (key, value) = line.split(" ", 1)
+      key = key.strip()
+      value = value.strip()
 
       if key == "term":
         # new "term" key finishes the last object
@@ -121,8 +123,8 @@ def process_biosource(i, children_map, user_key):
   if (i.has_key("karyotype")):
     fields["karyotype"] = i["karyotype"]
 
-  if (i.has_key("lineage")):
-    fields["lineage"] = i["lineage"]
+  #if (i.has_key("lineage")):
+  #  fields["lineage"] = i["lineage"]
 
   if (i.has_key("lab")):
     fields["lab"] = i["lab"]
