@@ -130,6 +130,9 @@ class EpidbClient:
   def get_biosource_scope(self, biosource_name, user_key):
     return self.server.get_biosource_scope(biosource_name, user_key)
 
+  def get_biosource_wider(self, biosource_name, user_key):
+    return self.get_biosource_wider(biosource_name, user_key)
+
   def get_biosource_related(self, biosource_name, user_key):
     return self.server.get_biosource_related(biosource_name, user_key)
 
