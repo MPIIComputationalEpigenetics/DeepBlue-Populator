@@ -365,7 +365,7 @@ def filter_classes(classes, blacklist, count = 0):
 	return result
 
 def load_owl(user_key):
-	#log.info("Loading ontologies")
+	log.info("Loading ontologies")
 
 	cl_classes = load_classes("CL", "../data/ontologies/cl.owl.gz")
 	efo_classes = load_classes("EFO", "../data/ontologies/efo.owl.gz")
@@ -381,6 +381,7 @@ def load_owl(user_key):
 	count = 0
 
 	# Linking references
+	print 'Linking'
 	for _class in all_ontologies:
 		# Workaround to pass the user_key value
 		_class.user_key = user_key
@@ -418,10 +419,8 @@ def load_owl(user_key):
 		_class.syns = [x for x in _class.syns if not is_in_sub(x)]
 
 	# Remove classes that are synonyms of other classes
-
 	_synonymn_classes = []
-
-	#print 'finding synonyms defined as classes'
+	print 'searching  for synonyms that are also defined as classes'
 	#All ontologies
 	for _class in all_ontologies:
 		# That have synonyms
@@ -470,20 +469,22 @@ def load_owl(user_key):
 		if to_merge_ontology:
 			_class.ontology_merges = list(set(_class.ontology_merges + to_merge_ontology))
 
-	#print 'total: ', len(all_classes)
-	#print 'no_parent: ', len(no_parents)
-	#print 'duplicated (synonym and class): ', len(_synonymn_classes)
+	print 'total: ', len(all_classes)
+	print 'no_parent: ', len(no_parents)
+	print 'duplicated (synonym and class): ', len(_synonymn_classes)
 
-	#for no_parent in no_parents:
-	#	print no_parent.label, no_parent.ontology
+	print 'Roots:'
+	for no_parent in no_parents:
+		print no_parent.label, no_parent.ontology
+	print '-' * 20
 
 	blacklist_terms = load_blacklist()
 	full_blacklist_terms = blacklist_terms + _synonymn_classes
-	#print 'filtering.. '
+	print 'filtering.. '
 
 	biosources = filter_classes(no_parents, full_blacklist_terms)
 
-	#print 'total biosources:', len(biosources)
+	print 'total biosources:', len(biosources)
 
 	more_embrancing_cache = {}
 	alread_in = {}
@@ -502,10 +503,13 @@ def load_owl(user_key):
 			f.write('\n')
 			f.write(' ' * (deep))
 			f.write('{')
+			f.write('\n')
 			f.write(' ' * (deep+1))
 			f.write('"label": "%s",' %(_class.label))
+			f.write('\n')
 			f.write(' ' * (deep+1))
 			f.write('"about": "%s",' %(_class.about))
+			f.write('\n')
 			f.write(' ' * (deep+1))
 			f.write('"synonyms": [')
 			first_2 = True
@@ -517,11 +521,12 @@ def load_owl(user_key):
 					first_2 = False
 
 			f.write('],')
+			f.write('\n')
 
 			f.write(' ' * (deep+1))
 			f.write('"subs":')
 			print_biosources(_class.sub, biosources, f, _class, deep + 1)
-
+			f.write('\n')
 			f.write(' ' * (deep))
 			f.write('}')
 		f.write(']\n')
@@ -590,13 +595,11 @@ def load_owl(user_key):
 	#print_biosources(no_parents, biosources)
 	#print '}'
 
-	print "Output json"
-	f = open("imported_biosources.json", "w+")
-	print_biosources(no_parents, biosources, f)
-	#insert_biosources(no_parents, biosources)
+	#print "Output json"
+	#f = open("imported_biosources.json", "w+")
+	#print_biosources(no_parents, biosources, f)
+	insert_biosources(no_parents, biosources)
 
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()
 
-
-load_owl("")
 
