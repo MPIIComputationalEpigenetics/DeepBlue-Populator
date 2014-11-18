@@ -36,5 +36,5 @@ DATA_DIR = os.path.join(ROOT, "../data/")
 """
 Threads
 """
-max_downloads = 32
-max_threads = 32
+max_downloads = 8
+max_threads = 4
