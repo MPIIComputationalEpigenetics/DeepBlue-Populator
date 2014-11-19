@@ -1,4 +1,4 @@
-experimental factor
+Viridiplantae
 cartwheel heterochromatin
 information entity
 label
@@ -413,11 +413,6 @@ FASTQ format
   organization
    organization role
    material supplier
- material entity
-  cell culture
-   cell suspension culture
-   culture supernatant
-  tissue culture
   biofilm
   chemical entity
    element
@@ -468,9 +463,6 @@ gene
    array reporter
   collection of material
    block
- site
-  biopsy site
-  cancer site
   sampling site
   disposition
    pathogenicity
