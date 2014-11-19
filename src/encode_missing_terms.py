@@ -1,21 +1,26 @@
 import xmlrpclib
 from encode_vocabulary import ControledVocabulary
 
-user_key = "TzmSikRoYgEvYyz9"
+user_key = "47n5PooxPJ5PxAMd"
 url = "http://localhost:31415"
 server = xmlrpclib.Server(url, encoding='UTF-8', allow_none=True)
 server.echo(user_key)
 
+
+cache = {}
 def is_in_ontology(term):
+	if cache.has_key(term):
+		return cache[term]
 	s, t = server.is_biosource(term, user_key)
-	return s == "okay"
+	value = (s == "okay")
+	cache[term] = value
+	return value
 
 voc = ControledVocabulary()
 
 m_terms = []
 m_tissues = []
 m_lineages = []
-m_found_pieces = []
 
 for term in voc.biosources:
 	term_name = term['term']
@@ -39,7 +44,7 @@ for term in voc.biosources:
 					m_tissues.append((tissue, lineage, False))
 
 	if term.has_key('lineage'):
-		lineages = term['lineage']
+		lineages = term['lineage'].split(",")
 		for lineage in lineages:
 			if not is_in_ontology(lineage):
 					m_lineages.append(lineage)
@@ -48,16 +53,14 @@ for term in voc.biosources:
 m_terms = list(set(m_terms))
 m_tissues = list(set(m_tissues))
 m_lineages = list(set(m_lineages))
-m_found_pieces = list(set(m_found_pieces))
 
 m_terms.sort()
 m_tissues.sort()
 m_lineages.sort()
-m_found_pieces.sort()
 
 print
 print '**Missing terms**'
-print "Term Name\tSimilar names\tPartials Found\tTissue\tTissue Exists"
+print "'Term Name'\t'Similar names'\t'Partials Found'\t'Tissue'\t'Tissue Exists'"
 
 """
 for t in m_terms:
@@ -66,12 +69,12 @@ for t in m_terms:
 	tissue_found = t[2]
 	similar = [x[1] for x in server.list_similar_biosources(term_name, user_key)[1][:5]]
 
-	print term_name,
+	print print "'%s'"%(term_name),
 	print "\t",
 	if similar:
-		print ','.join(similar),
+		print "'%s'"%(','.join(similar)),
 	else:
-		print "-",
+		print "'-'",
 	print "\t",
 
 	is_partial = True
@@ -82,27 +85,53 @@ for t in m_terms:
 	print is_partial,
 
 	print "\t",
-	print tissue_name,
+	print "'%s'"%(tissue_name),
 	print "\t",
 	print tissue_found,
 	print
-"""
+
 
 print
 print '**Missing tissues**'
-print "Tissue Name\tSimilar names\tPartials Found\tLineage\tLineage Exists"
+print "'Tissue Name'\t'Similar names'\t'Partials Found'\t'Lineage'\t'Lineage Exists'"
 for t in m_tissues:
 	tissue_name = t[0]
 	lineage_name = t[1]
 	lineage_found = t[2]
 	similar = [x[1] for x in server.list_similar_biosources(tissue_name, user_key)[1][:5]]
-
-	print tissue_name,
+	print "'%s'"%tissue_name,
 	print "\t",
 	if similar:
-		print ','.join(similar),
+		print "'%s'"%(','.join(similar)),
 	else:
-		print "-",
+		print "'-'",
+
+	is_partial = True
+	for s in tissue_name.split():
+		if not is_in_ontology(s):
+			is_partial = False
+			break
+	print is_partial,
+
+	print "\t",
+	print "'%s'"%(lineage_name),
+	print "\t",
+	print lineage_found,
+	print
+
+print
+"""
+
+print '**Missing lineages**'
+for t in m_lineages:
+	lineage_name = t
+	similar = [x[1] for x in server.list_similar_biosources(lineage_name, user_key)[1][:5]]
+	print "'%s'"%lineage_name,
+	print "\t",
+	if similar:
+		print "'%s'"%(','.join(similar)),
+	else:
+		print "'-'",
 
 	is_partial = True
 	for s in lineage_name.split():
@@ -110,19 +139,4 @@ for t in m_tissues:
 			is_partial = False
 			break
 	print is_partial,
-
-	print "\t",
-	print lineage_name,
-	print "\t",
-	print lineage_found,
 	print
-"""
-print
-print '**Missing lineages**'
-for t in m_lineages:
-	print t
-
-print '**Terms that were not found, but all its tokens were found**'
-for t in m_found_pieces:
-	print t
-"""
