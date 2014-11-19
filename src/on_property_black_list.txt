@@ -41,7 +41,6 @@ http://purl.obolibrary.org/obo/RO_0002087
 http://purl.obolibrary.org/obo/RO_0002104
 http://purl.obolibrary.org/obo/RO_0002130
 http://purl.obolibrary.org/obo/RO_0002131
-http://purl.obolibrary.org/obo/RO_0002202
 http://purl.obolibrary.org/obo/RO_0002203
 http://purl.obolibrary.org/obo/RO_0002211
 http://purl.obolibrary.org/obo/RO_0002215

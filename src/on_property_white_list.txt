@@ -13,3 +13,4 @@ http://purl.obolibrary.org/obo/cl#located_in
 http://purl.obolibrary.org/obo/core#subdivision_of
 http://purl.obolibrary.org/obo/UBREL_0000002
 http://purl.obolibrary.org/obo/RO_0002177
+http://purl.obolibrary.org/obo/RO_0002202
