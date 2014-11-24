@@ -1,8 +1,11 @@
 import sys
 import gzip
+import threading
 import xml.etree.ElementTree as ET
 
+
 from multiprocessing import Pool
+
 
 from client import EpidbClient
 from settings import max_threads, DEEPBLUE_HOST, DEEPBLUE_PORT
@@ -353,12 +356,17 @@ def load_on_propery_lists() :
 
 	return blacklist, whitelist
 
+already_filtered = {}
 def filter_classes(classes, blacklist, count = 0):
 	result = []
 	for _class in classes:
 		if _class.label in blacklist:
 			continue
+		if already_filtered.has_key(_class.label):
+			continue
+
 		result.append(_class)
+		already_filtered[_class.label] = True
 		sub_result = filter_classes(_class.sub, blacklist, count + 1)
 		result += sub_result
 		result = list(set(result))
@@ -379,6 +387,7 @@ def load_owl(user_key):
 		all_classes[_class.about] = _class.label
 		all_classes_names[_class.label] = _class
 	count = 0
+
 
 	# Linking references
 	print 'Linking'
@@ -486,7 +495,6 @@ def load_owl(user_key):
 
 	print 'total biosources:', len(biosources)
 
-	more_embrancing_cache = {}
 	alread_in = {}
 
 	def print_biosources(no_parents, biosources, f, parent = None, deep = 0):
@@ -531,55 +539,44 @@ def load_owl(user_key):
 			f.write('}')
 		f.write(']\n')
 
-	def insert_biosources(no_parents, biosources, parent = None, deep = 0):
-		_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+	""" Laziness to write a better synchronizer """
+	set_alread_in_semaphore = threading.BoundedSemaphore()
+	def set_alread_in(label):
+		set_alread_in_semaphore.acquire()
+		alread_in[label] = True
+		set_alread_in_semaphore.release()
 
+	def insert_syns(_class):
+		syns_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+		for syn in _class.syns:
+			if not alread_in.has_key(syn) :
+				status, _id = syns_epidb.set_biosource_synonym(_class.label, syn, _class.user_key)
+				if status == 'error' and not _id.startswith('104400'):
+					print _class, syn, _id
+				set_alread_in(syn)
+
+	more_embrancing_cache = {}
+	def insert_biosources(no_parents, biosources, epidb):
 		for _class in no_parents:
 			if _class not in biosources:
 				continue
 
-			insert = False
-			if not alread_in.has_key(_class.label):
-				print '#' * deep, _class.label,
-				extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
-				status, _id = _epidb.add_biosource(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
-				alread_in[_class.label] = True
-				if status == 'error':
-					print _id
-				insert = True
+			if alread_in.has_key(_class.label):
+				continue
 
-			if insert and _class.syns:
-				print '(',
+			extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
+			status, _id = epidb.add_biosource(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
+			if status == 'error':
+				print _id
 
-			first = True
-			for syn in _class.syns:
-				if not alread_in.has_key(syn) :
-					if not first:
-						print ',',
+			insert_syns(_class)
 
-					if insert:
-						print syn,
-					else:
-						if first:
-							print 'Synonymous for ',_class.label, ':', syn
-						print ',',syn,
-					status, _id = _epidb.set_biosource_synonym(_class.label, syn, _class.user_key)
-					if status == 'error' and not _id.startswith('104400'):
-						print _id
-					alread_in[syn] = True
-					first = False
-
-			if insert and _class.syns:
-				print ')'
-
-			elif insert:
-				print
-
-			if parent:
-				cache_key = parent.label + " " + _class.label
+			set_alread_in(_class.label)
+			insert_biosources(_class.sub, biosources, epidb)
+			for sub in _class.sub:
+				cache_key = _class.label + " " + sub.label
 				if not more_embrancing_cache.has_key(cache_key):
-					status, _id = _epidb.set_biosource_scope(parent.label, _class.label, _class.user_key)
-
+					status, _id = epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
 					if status == 'okay':
 						more_embrancing_cache[cache_key] = True
 
@@ -589,17 +586,17 @@ def load_owl(user_key):
 					else:
 						print _id
 
-			insert_biosources(_class.sub, biosources, _class, deep + 1)
-
-	#print '{ "data":'
-	#print_biosources(no_parents, biosources)
-	#print '}'
 
 	#print "Output json"
 	#f = open("imported_biosources.json", "w+")
+	#print f.write('{ "data":\n')
 	#print_biosources(no_parents, biosources, f)
-	insert_biosources(no_parents, biosources)
+	#print f.write('}')
+
+	epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+	insert_biosources(no_parents, biosources, epidb)
 
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()
 
+#load_owl("")
 

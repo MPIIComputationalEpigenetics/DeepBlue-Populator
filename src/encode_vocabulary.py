@@ -100,7 +100,7 @@ def process_biosource(i, children_map, user_key):
       if util.has_error(s, r, ["104001"]): print "(ENCODE CV Error 2): ", r
 
       if (i["tissue"].lower().replace(" ", "") != biosource_name.lower().replace(" ", "")):
-        (s, r) = epidb.set_biosource_scope(i["tissue"], biosource_name, user_key)
+        (s, r) = epidb.set_biosource_parent(i["tissue"], biosource_name, user_key)
         if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 3): ", r
 
     if (i.has_key("lineage")):
@@ -112,10 +112,10 @@ def process_biosource(i, children_map, user_key):
         if util.has_error(s, r, ["104001"]): print "(ENCODE CV Error 4): ", r
 
         if (i.has_key("tissue")):
-          (s, r) = epidb.set_biosource_scope(lineage, i["tissue"], user_key)
+          (s, r) = epidb.set_biosource_parent(lineage, i["tissue"], user_key)
           if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 5): ", r
         else:
-          (s, r) = epidb.set_biosource_scope(lineage, biosource_name, user_key)
+          (s, r) = epidb.set_biosource_parent(lineage, biosource_name, user_key)
           if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 6): ", r
 
   fields = {}
@@ -170,7 +170,7 @@ def ensure_vocabulary(user_key):
     process_biosource(cl, children_map, user_key)
 
   for (biosource_name, parent) in children_map.iteritems():
-    (s, bs_id) = epidb.set_biosource_scope(parent, biosource_name, user_key)
+    (s, bs_id) = epidb.set_biosource_parent(parent, biosource_name, user_key)
     if util.has_error(s, bs_id, []): print "(ENCODE CV Error 8): ", bs_id
 
   # add antibodies to epidb

@@ -47,7 +47,7 @@ class RoadmapRepository(Repository):
 
     (s, r) = server.add_biosource('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"}, user_key)
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_biosource_scope('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts', user_key)
+    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
     (s, r) = server.add_biosource('iPS DF 19.11 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
@@ -56,7 +56,7 @@ class RoadmapRepository(Repository):
     if s != 'okay' and not r.startswith('104400'): print r
     (s, r) = server.set_biosource_synonym('iPS DF 19.11 Cell Line', 'iPS DF 19.11', user_key)
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_biosource_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 19.11 Cell Line', user_key)
+    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 19.11 Cell Line', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
     (s, r) = server.add_biosource('iPS DF 6.9 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
@@ -65,12 +65,12 @@ class RoadmapRepository(Repository):
     if s != 'okay' and not r.startswith('104400'): print r
     (s, r) = server.set_biosource_synonym('iPS DF 6.9 Cell Line', 'iPS DF 6.9', user_key)
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_biosource_scope('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 6.9 Cell Line', user_key)
+    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 6.9 Cell Line', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
     (s, r) = server.add_biosource('hSKM', "HSkM-S (Cat. no. A12555) are normal human skeletal myoblasts developed to undergo highly efficient differentiation directly following plating of cryopreserved cells.", {"source": "Roadmap Epigenomics", "more_info":"http://tools.lifetechnologies.com/content/sfs/manuals/HSkM_S.pdf"}, user_key)
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_biosource_scope('HSMM', 'hSKM', user_key)
+    (s, r) = server.set_biosource_parent('HSMM', 'hSKM', user_key)
     if s != 'okay' and not r.startswith('104901'): print r
 
   def set_up_samples_fields(self, server, user_key):

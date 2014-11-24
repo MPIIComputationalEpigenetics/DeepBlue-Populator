@@ -7,7 +7,7 @@ server = xmlrpclib.Server(url, encoding='UTF-8', allow_none=True)
 
 def remove_biosource(biosource_id, name):
 	print biosource_id, name
-	status, subs = server.get_biosource_scope(name, user_key)
+	status, subs = server.get_biosource_children(name, user_key)
 	if status == 'error':
 		return
 	for sub in subs[1:]:

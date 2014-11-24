@@ -118,7 +118,7 @@ class BlueprintRepository(Repository):
         else:
           if util.has_error(s, bs_id, ["104001"]): print s, bs_id
 
-        (s, r) = epidb.set_biosource_scope(biosource_extra_info["TISSUE_TYPE"], biosource_name, self.user_key)
+        (s, r) = epidb.set_biosource_parent(biosource_extra_info["TISSUE_TYPE"], biosource_name, self.user_key)
         if s == "okay":
           print "New Scope: ", r
         elif util.has_error(s, r, ["104901"]): print s, r
