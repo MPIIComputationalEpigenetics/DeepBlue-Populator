@@ -539,6 +539,9 @@ def load_owl(user_key):
 			f.write('}')
 		f.write(']\n')
 
+
+	more_embrancing_cache = {}
+
 	""" Laziness to write a better synchronizer """
 	set_alread_in_semaphore = threading.BoundedSemaphore()
 	def set_alread_in(label):
@@ -555,13 +558,26 @@ def load_owl(user_key):
 					print _class, syn, _id
 				set_alread_in(syn)
 
-	more_embrancing_cache = {}
+	def set_scope(_class):
+		scope_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+		for sub in _class.sub:
+			cache_key = _class.label + " " + sub.label
+			if not more_embrancing_cache.has_key(cache_key):
+				status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
+				if status == 'okay':
+					more_embrancing_cache[cache_key] = True
+				elif status == 'error' and _id.startswith('104901'):
+					more_embrancing_cache[cache_key] = True
+				else:
+					print _id
+
+	threads = []
 	def insert_biosources(no_parents, biosources, epidb):
 		for _class in no_parents:
-			if _class not in biosources:
+			if alread_in.has_key(_class.label):
 				continue
 
-			if alread_in.has_key(_class.label):
+			if _class not in biosources:
 				continue
 
 			extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
@@ -569,23 +585,20 @@ def load_owl(user_key):
 			if status == 'error':
 				print _id
 
+			#t = threading.Thread(target=insert_syns, args=(_class,))
+			#t.start()
+			#threads.append(t)
 			insert_syns(_class)
 
 			set_alread_in(_class.label)
 			insert_biosources(_class.sub, biosources, epidb)
-			for sub in _class.sub:
-				cache_key = _class.label + " " + sub.label
-				if not more_embrancing_cache.has_key(cache_key):
-					status, _id = epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
-					if status == 'okay':
-						more_embrancing_cache[cache_key] = True
 
-					elif status == 'error' and _id.startswith('104901'):
-						more_embrancing_cache[cache_key] = True
+			t = threading.Thread(target=set_scope, args=(_class,))
+			t.start()
+			threads.append(t)
 
-					else:
-						print _id
-
+	for t in threads:
+		t.join()
 
 	#print "Output json"
 	#f = open("imported_biosources.json", "w+")
