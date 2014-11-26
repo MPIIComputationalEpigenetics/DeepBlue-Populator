@@ -80,8 +80,8 @@ class Ontology:
 class Class:
 	def __init__(self, namespace, ontology, about, label, superclasses, formalDefinition, syns, comment, deprecated):
 		self.namespace = namespace
-		self.ontology = ontology
 		self.ontology_merges = []
+		self.ontology = ontology
 		self.about = about
 		self.about_merges = []
 		self.label = label
@@ -298,13 +298,11 @@ def load_classes(ontology, _file):
 		if _formalDefinition is not None and _formalDefinition.text is not None:
 			formalDefinition = _formalDefinition.text.encode('utf-8').strip()
 		else:
-			formalDefinition = ""
-
-		_formalDefinition = child.find(EfoDefinition)
-		if _formalDefinition is not None and _formalDefinition.text is not None:
-			formalDefinition = _formalDefinition.text.encode('utf-8').strip()
-		else:
-			formalDefinition = ""
+			_formalDefinition = child.find(EfoDefinition)
+			if _formalDefinition is not None and _formalDefinition.text is not None:
+				formalDefinition = _formalDefinition.text.encode('utf-8').strip()
+			else:
+				formalDefinition = ""
 
 		syns = []
 
@@ -383,23 +381,35 @@ def load_owl(user_key):
 	all_classes_names= {}
 	all_ontologies = [i for i in cl_classes.classes if i.label] + [i for i in efo_classes.classes if i.label] + [i for i in uberon_classes.classes if i.label]
 
-	for _class in all_ontologies:
-		all_classes[_class.about] = _class.label
-		all_classes_names[_class.label] = _class
-	count = 0
+	print "Before merge", len(all_ontologies)
 
+	for _class in all_ontologies:
+		if all_classes_names.has_key(_class.label):
+			duplicated_class = all_classes_names[_class.label]
+			duplicated_class.superclasses = list(set(duplicated_class.superclasses + _class.superclasses))
+			duplicated_class.superclasses_names = list(set(duplicated_class.superclasses_names + _class.superclasses_names))
+			duplicated_class.syns = list(set(duplicated_class.syns + _class.syns))
+			duplicated_class.sub = list(set(duplicated_class.sub + _class.sub))
+			all_classes_names[_class.label] = duplicated_class
+			all_classes[_class.about] = _class.label
+		else:
+			all_classes[_class.about] = _class.label
+			all_classes_names[_class.label] = _class
+
+	all_ontologies = []
+	for v in all_classes_names.itervalues():
+		all_ontologies.append(v)
+	print "After merge",  len(all_ontologies)
 
 	# Linking references
 	print 'Linking'
 	for _class in all_ontologies:
-		# Workaround to pass the user_key value
 		_class.user_key = user_key
-
 		for ref in _class.superclasses:
 			if all_classes.has_key(ref):
 				_class.superclasses_names.append(all_classes[ref])
-			#else:
-			#	print "refence %s for the class '%s' not found" %(ref, _class.label)
+			else:
+				print "refence %s for the class '%s' not found" %(ref, _class.label)
 
 	no_parents = []
 
@@ -490,9 +500,7 @@ def load_owl(user_key):
 	blacklist_terms = load_blacklist()
 	full_blacklist_terms = blacklist_terms + _synonymn_classes
 	print 'filtering.. '
-
 	biosources = filter_classes(no_parents, full_blacklist_terms)
-
 	print 'total biosources:', len(biosources)
 
 	alread_in = {}
@@ -558,18 +566,29 @@ def load_owl(user_key):
 					print _class, syn, _id
 				set_alread_in(syn)
 
-	def set_scope(_class):
+	def set_parent(_class, sub):
 		scope_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+		status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
+		cache_key = _class.label + " " + sub.label
+		if status == 'okay':
+			more_embrancing_cache[cache_key] = True
+		elif status == 'error' and _id.startswith('104901'):
+			more_embrancing_cache[cache_key] = True
+		else:
+			print _id
+
+	def set_scope(_class):
+		#scope_threads = []
 		for sub in _class.sub:
 			cache_key = _class.label + " " + sub.label
 			if not more_embrancing_cache.has_key(cache_key):
-				status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
-				if status == 'okay':
-					more_embrancing_cache[cache_key] = True
-				elif status == 'error' and _id.startswith('104901'):
-					more_embrancing_cache[cache_key] = True
-				else:
-					print _id
+				more_embrancing_cache[cache_key] = True
+				#t = threading.Thread(target=set_parent, args=(_class, sub,))
+				set_parent(_class, sub)
+				#t.start()
+				#scope_threads.append(t)
+		#for st in scope_threads:
+		#	st.join()
 
 	threads = []
 	def insert_biosources(no_parents, biosources, epidb):
@@ -585,9 +604,6 @@ def load_owl(user_key):
 			if status == 'error':
 				print _id
 
-			#t = threading.Thread(target=insert_syns, args=(_class,))
-			#t.start()
-			#threads.append(t)
 			insert_syns(_class)
 
 			set_alread_in(_class.label)
@@ -597,8 +613,11 @@ def load_owl(user_key):
 			t.start()
 			threads.append(t)
 
+	print 'Waiting for threads..',
 	for t in threads:
+		print '.',
 		t.join()
+
 
 	#print "Output json"
 	#f = open("imported_biosources.json", "w+")
@@ -610,6 +629,4 @@ def load_owl(user_key):
 	insert_biosources(no_parents, biosources, epidb)
 
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()
-
-#load_owl("")
 
