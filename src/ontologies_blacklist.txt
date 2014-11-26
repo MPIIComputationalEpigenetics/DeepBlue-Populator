@@ -206,7 +206,6 @@ FASTQ format
    vascular endothelial growth factor measurement
    p-tau measurement
    visceral adipose tissue measurement
-   subcutaneous adipose tissue
    visceral:subcutaneous adipose tissue ratio
    follicle stimulating hormone measurement
    anti-Mullerian hormone measurement
