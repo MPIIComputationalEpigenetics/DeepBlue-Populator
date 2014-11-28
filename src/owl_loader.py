@@ -94,10 +94,12 @@ class Class:
 		self.deprecated = deprecated
 
 	def __str__(self):
-		return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s" % (self.namespace, self.ontology, self.about, self.label, self.superclasses, self.formalDefinition, self.syns, self.comment)
+		subs_label = ",".join([s.label for s in self.sub])
+		return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s\tsubs %s" % (self.namespace, self.ontology, self.about, self.label, self.superclasses, self.formalDefinition, self.syns, self.comment, subs_label)
 
 	def __repr__(self):
-		return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s" % (self.namespace, self.ontology, self.about, self.label, self.superclasses, self.formalDefinition, self.syns, self.comment)
+		subs_label = ",".join([s.label for s in self.sub])
+		return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s\tsubs %s" % (self.namespace, self.ontology, self.about, self.label, self.superclasses, self.formalDefinition, self.syns, self.comment, subs_label)
 
 def process_owl_class(_owl_class, label, about, superclasses):
 	found = False
@@ -561,34 +563,31 @@ def load_owl(user_key):
 		syns_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 		for syn in _class.syns:
 			if not alread_in.has_key(syn) :
+				log.info("setting syn " + syn + " to " + _class.label)
 				status, _id = syns_epidb.set_biosource_synonym(_class.label, syn, _class.user_key)
 				if status == 'error' and not _id.startswith('104400'):
 					print _class, syn, _id
+					log.info("error on setting syn" + _class.label + " syn " + syn + " msg: " + _id)
 				set_alread_in(syn)
 
 	def set_parent(_class, sub):
 		scope_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+		log.info("setting parent " + _class.label + " sub " + sub.label)
 		status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
 		cache_key = _class.label + " " + sub.label
 		if status == 'okay':
 			more_embrancing_cache[cache_key] = True
+			log.info("OKAY on setting parent " + _class.label + " sub " + sub.label + " msg: " + str(_id))
 		elif status == 'error' and _id.startswith('104901'):
-			more_embrancing_cache[cache_key] = True
+			log.info("error expected on setting parent " + _class.label + " sub " + sub.label + " msg: " + _id)
 		else:
-			print _id
+			log.info("error on setting parent " + _class.label + " sub " + sub.label + " msg: " + str(_id))
 
 	def set_scope(_class):
-		#scope_threads = []
 		for sub in _class.sub:
 			cache_key = _class.label + " " + sub.label
 			if not more_embrancing_cache.has_key(cache_key):
-				more_embrancing_cache[cache_key] = True
-				#t = threading.Thread(target=set_parent, args=(_class, sub,))
 				set_parent(_class, sub)
-				#t.start()
-				#scope_threads.append(t)
-		#for st in scope_threads:
-		#	st.join()
 
 	threads = []
 	def insert_biosources(no_parents, biosources, epidb):
@@ -600,9 +599,10 @@ def load_owl(user_key):
 				continue
 
 			extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
+			log.info("add biosource " + _class.label + " - " + _class.formalDefinition + " - " + str(extra_metadata))
 			status, _id = epidb.add_biosource(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
 			if status == 'error':
-				print _id
+				log.info("error on inserting biosource " + _class.label + " msg: " + _id)
 
 			insert_syns(_class)
 
@@ -630,3 +630,4 @@ def load_owl(user_key):
 
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()
 
+#load_owl("")
