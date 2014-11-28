@@ -59,9 +59,6 @@ class ControledVocabulary:
       if key == "targetDescription":
         key = "description"
 
-      # add key-value pair if desired
-      #if key in ["deprecated", "type", "organism", "target", "description", "term", "tag", "tissue", "targetClass", "tissue",
-      # "lineage", "karyotype", "sex"]:
       current[key] = value.strip()
 
     # add very last object
@@ -82,74 +79,143 @@ class ControledVocabulary:
       f = file(os.path.join(settings.DATA_DIR, "cv/cv.ra"))
     return f
 
-def process_biosource(i, children_map, user_key):
+def process_biosource(i, user_key):
   epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
   biosource_name = i["term"]
 
-  (s, r) = epidb.add_biosource(biosource_name, None, {"source": "ENCODE"}, user_key)
-  if util.has_error(s, r, ["104001"]):
-    print "(ENCODE CV Error 1): ", r
-
-  if i.has_key("childOf"):
-    children_map[biosource_name] = i["childOf"]
-
-  else:
-    if (i.has_key("tissue")):
-      (s, r) = epidb.add_biosource(i["tissue"], None, {"source": "ENCODE"}, user_key)
-      if util.has_error(s, r, ["104001"]): print "(ENCODE CV Error 2): ", r
-
-      if (i["tissue"].lower().replace(" ", "") != biosource_name.lower().replace(" ", "")):
-        (s, r) = epidb.set_biosource_parent(i["tissue"], biosource_name, user_key)
-        if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 3): ", r
-
-    if (i.has_key("lineage")):
-      lineages = i["lineage"].split(",")
-      for lineage in lineages:
-        if lineage == "missing":
-          continue
-        (s, r) = epidb.add_biosource(lineage, None, {"source": "ENCODE"}, user_key)
-        if util.has_error(s, r, ["104001"]): print "(ENCODE CV Error 4): ", r
-
-        if (i.has_key("tissue")):
-          (s, r) = epidb.set_biosource_parent(lineage, i["tissue"], user_key)
-          if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 5): ", r
-        else:
-          (s, r) = epidb.set_biosource_parent(lineage, biosource_name, user_key)
-          if util.has_error(s, r, ["104901"]): print "(ENCODE CV Error 6): ", r
-
   fields = {}
 
-  if (i.has_key("karyotype")):
+  fields["term"] = biosource_name
+
+  if i.has_key("karyotype"):
     fields["karyotype"] = i["karyotype"]
 
-  #if (i.has_key("lineage")):
-  #  fields["lineage"] = i["lineage"]
-
-  if (i.has_key("lab")):
+  if i.has_key("lab"):
     fields["lab"] = i["lab"]
 
-  if (i.has_key("organism")):
+  if i.has_key("organism"):
     fields["organism"] = i["organism"]
 
-  if (i.has_key("sex") and i["sex"] != "U"):
+  if i.has_key("sex") and i["sex"] != "U":
     fields["sex"] = i["sex"]
 
-  if (i.has_key("tier")):
+  if i.has_key("tier"):
     fields["tier"] = i["tier"]
 
-  if (i.has_key("age") and i["age"] != "ageUnknown"):
+  if i.has_key("age") and i["age"] != "ageUnknown":
     fields["age"] = i["age"]
 
-  if (i.has_key("strain") and i["strain"] != "Unknown"):
+  if i.has_key("strain") and i["strain"] != "Unknown":
     fields["strain"] = i["strain"]
 
-  if (i.has_key("description")):
+  if i.has_key("description"):
     fields["description"] = i["description"]
 
+  if i.has_key("tissue"):
+    fields["tissue"] = i["description"]
+
+  if i.has_key("lineage") and i["lineage"] != "missing":
+    fields["lineage"] = i["lineage"]
+
+  if i.has_key("childOf"):
+    fields["childOf"] = i["childOf"]
+
   fields["source"] = "ENCODE"
-  (s, s_id) = epidb.add_sample(biosource_name, fields, user_key)
-  if util.has_error(s, s_id, []): print "(ENCODE CV Error 7): " ,s_id
+
+  if epidb.is_biosource(biosource_name, user_key)[0] == 'okay':
+    (s, s_id) = epidb.add_sample(biosource_name, fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "(term) Error while creating sample from the given biosource term"
+      print s_id
+      print biosource_name
+      print fields
+  elif i.has_key("tissue") and epidb.is_biosource(i["tissue"], user_key)[0] == 'okay':
+    (s, s_id) = epidb.add_sample(i["tissue"], fields, user_key)
+    print s, s_id
+    if util.has_error(s, s_id, []):
+      print "(tissue) Error while creating sample from the given biosource term"
+      print s_id
+      print biosource_name
+      print i["tissue"]
+      print fields
+  # Manual check
+  elif biosource_name == "H7-hESC":
+    (s, s_id) = epidb.add_sample("embryonic stem cell", fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  elif biosource_name in ["HVMF", "MEF"]:
+    (s, s_id) = epidb.add_sample("fibroblast", fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  elif biosource_name == "Mel_2183":
+    (s, s_id) = epidb.add_sample("melanoma cell line", fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  elif biosource_name == "Olf_neurosphere":
+    (s, s_id) = epidb.add_sample("neuronal stem cell", fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  elif biosource_name == "Pons_OC":
+    (s, s_id) = epidb.add_sample("brain", fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  elif biosource_name == "Urothelia":
+    (s, s_id) = epidb.add_sample("urothelial cell", fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  elif biosource_name in ["EpiSC-5", "EpiSC-7"]:
+    (s, s_id) = epidb.add_sample("epidermal stem cell", fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  elif biosource_name in ["ES-46C","ES-CJ7", "ES-D3", "ES-E14", "ES-EM5Sox17huCD25", "ES-TT2", "ES-WW6", "ES-WW6_F1KO", "ZhBTc4"]:
+    (s, s_id) = epidb.add_sample('embryonic stem cell', fields, user_key)
+    if util.has_error(s, s_id, []):
+      print "Error while creating sample for this term"
+      print biosource_name
+      print fields
+
+  else:
+    print "Invalid term ", biosource_name, "Please, check the ENCODE CV and include this term."
+
+
+def manual_curation(user_key):
+  epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+
+  print epidb.set_biosource_synonym("MEL cell line", "MEL", user_key)  # "http://www.ebi.ac.uk/efo/EFO_0003971"
+  print epidb.set_biosource_synonym("CH12.LX", "CH12", user_key)  # "http://www.ebi.ac.uk/efo/EFO_0005233"
+  print epidb.set_biosource_synonym("hippocampus", "brain hippocampus", user_key)
+  print epidb.add_biosource("embryonic lung", "", {"SOURCE":"MPI internal"}, user_key)
+  print epidb.add_biosource("chordoma", "Neoplasm arising from cellular remnants of the notochord; cancer", {"SOURCE":"MPI internal"}, user_key)
+  print epidb.set_biosource_synonym("induced pluripotent stem cell", "induced pluripotent cell (iPS)", user_key)
+  print epidb.set_biosource_synonym("neuron", "neurons", user_key)  # CL0000540
+  print epidb.set_biosource_synonym("enucleate erythrocyte", "enucleated erythrocyte", user_key)
+
+  # Cerebrum_frontal_OC
+  print epidb.add_biosource("frontal cerebrum", "", {"SOURCE":"MPI internal"}, user_key)
+  print epidb.set_biosource_parent("cerebrum", "frontal cerebrum", user_key)
+
 
 """
 ensure_vocabulary retrieves a set of cell line and antibody vocabulary and
@@ -164,14 +230,14 @@ def ensure_vocabulary(user_key):
   log.info("adding %d biosource to the vocabulary", len(voc.biosources))
   log.info("adding %d antibodies to the vocabulary", len(voc.antibodies))
 
-  # add biosources to epidb
-  children_map = {}
-  for cl in voc.biosources:
-    process_biosource(cl, children_map, user_key)
 
-  for (biosource_name, parent) in children_map.iteritems():
-    (s, bs_id) = epidb.set_biosource_parent(parent, biosource_name, user_key)
-    if util.has_error(s, bs_id, []): print "(ENCODE CV Error 8): ", bs_id
+  epidb.add_sample_field("term", "string", None, user_key)
+  epidb.add_sample_field("tissue", "string", None, user_key)
+  epidb.add_sample_field("childOf", "string", None, user_key)
+
+  # add biosources to epidb
+  for cl in voc.biosources:
+    process_biosource(cl, user_key)
 
   # add antibodies to epidb
   for ab in voc.antibodies:
