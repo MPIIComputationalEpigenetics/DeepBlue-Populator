@@ -144,10 +144,6 @@ class EncodeMapper(AttributeMapper):
 
 
   @property
-  def biosource(self):
-    return self.dataset.meta["cell"]
-
-  @property
   def format(self):
     return self.dataset.meta["type"]
 
