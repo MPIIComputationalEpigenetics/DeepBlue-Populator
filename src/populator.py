@@ -104,7 +104,7 @@ class Populator:
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
     epidb.add_genome("hg19", "Human genome 19", hg19_info, self.key)
-    insert_chromosome_sequences(epidb, "hg19", self.key)
+    #insert_chromosome_sequences(epidb, "hg19", self.key)
 
 
   def insert_epigenetic_marks(self):
@@ -162,7 +162,6 @@ class Populator:
 
     for col in column_definitions.SIMPLE:
       epidb.create_column_type_simple(*col + (self.key,))
-
     for col in column_definitions.CATEGORY:
       epidb.create_column_type_category(*col + (self.key,))
 
@@ -175,6 +174,7 @@ class Populator:
 
   def process_ontology(self):
     load_owl(self.key)
+    encode_vocabulary.manual_curation(self.key)
     encode_vocabulary.ensure_vocabulary(self.key)
 
   """
