@@ -149,7 +149,7 @@ class EncodeMapper(AttributeMapper):
 
 
 """
-EncoddeMethylationMapper is the AttributeMapper for ENCODE repositories with
+EncodeMethylationMapper is the AttributeMapper for ENCODE repositories with
 Methylation.
 """
 class EncodeRrbsMethylationMapper(EncodeMapper):
@@ -270,13 +270,17 @@ class EncodeHMMMapper(EncodeMapper):
 
 """
 """
-class EncodeTFBSMapper(EncodeMapper):
+class EncodeTfbsMapper(EncodeMapper):
   def __init__(self, dataset):
-    super(EncodeTFBSMapper, self).__init__(dataset)
+    super(EncodeTfbsMapper, self).__init__(dataset)
 
   @property
   def epigenetic_mark(self):
-    return "TFBS"
+    antibody = self.dataset.meta["antibody"]
+    if "_(" in antibody:
+      return antibody.split("_(")[0]
+    else:
+      return antibody
 
   @property
   def technique(self):
@@ -291,7 +295,11 @@ class EncodeTfbsUniformMapper(EncodeMapper):
 
   @property
   def epigenetic_mark(self):
-    return "TFBS"
+    antibody = self.dataset.meta["antibody"]
+    if "_(" in antibody:
+      return antibody.split("_(")[0]
+    else:
+      return antibody
 
   @property
   def technique(self):
@@ -346,12 +354,15 @@ encode_mappers = {
   ("ENCODE", "ChromDnase") :  EncodeDNaseIMapper,
   ("ENCODE", "UniPk") : EncodeDNaseIUniformMapper,
   ("ENCODE", "Hmm") : EncodeHMMMapper,
-  ("ENCODE", "Tfbs") : EncodeTFBSMapper,
+  ("ENCODE", "Tfbs") : EncodeTfbsMapper,
   ("ENCODE", "TfbsUniform") : EncodeTfbsUniformMapper
 }
 
 def do_map(project, epigenetic_mark = None):
-  if project == "ENCODE": return encode_mappers[(project, epigenetic_mark)]
-  if project == "Roadmap Epigenomics": return RoadmapMapper
-  if project == "Blueprint Epigenetics" : return BlueprintMapper
+  if project == "ENCODE":
+    return encode_mappers[(project, epigenetic_mark)]
+  if project == "Roadmap Epigenomics":
+    return RoadmapMapper
+  if project == "Blueprint Epigenetics":
+    return BlueprintMapper
   print 'Invalid Project:', project
