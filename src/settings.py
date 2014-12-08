@@ -1,5 +1,4 @@
 import platform
-import sys
 import os.path
 import logging
 
@@ -8,9 +7,9 @@ Config Variables
 """
 
 if platform.system() == "Darwin":
-	OS = "macosx"
+    OS = "macosx"
 else:
-	OS = "linux"
+    OS = "linux"
 
 EPIDB_INIT_USER = ("Epidb System", "deepblue@mpi-inf.mpg.de", "MPI-Inf")
 EPIDB_POPULATOR_USER = ("Populator", "deepblue-populator@mpi-inf.mpg.de", "MPI-Inf")
@@ -26,12 +25,9 @@ DEEPBLUE_PORT = 56573
 
 VOCAB_URL = "ftp://hgdownload.cse.ucsc.edu/apache/cgi-bin/encode/cv.ra"
 
-# TODO: Remove absolute path
-ROOT = "/local/data/DeepBlue-Populator/src"
-#ROOT = "/opt/mongodb/epidb/src/epidb/populator"
+ROOT = os.path.dirname(os.path.realpath(__file__))
 DOWNLOAD_PATH = os.path.join(ROOT, "download/")
 DATA_DIR = os.path.join(ROOT, "../data/")
-
 
 """
 Threads

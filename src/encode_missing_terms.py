@@ -1,4 +1,5 @@
 import xmlrpclib
+
 from encode_vocabulary import ControledVocabulary
 
 user_key = "47n5PooxPJ5PxAMd"
@@ -6,15 +7,17 @@ url = "http://localhost:31415"
 server = xmlrpclib.Server(url, encoding='UTF-8', allow_none=True)
 server.echo(user_key)
 
-
 cache = {}
+
+
 def is_in_ontology(term):
-	if cache.has_key(term):
-		return cache[term]
-	s, t = server.is_biosource(term, user_key)
-	value = (s == "okay")
-	cache[term] = value
-	return value
+    if cache.has_key(term):
+        return cache[term]
+    s, t = server.is_biosource(term, user_key)
+    value = (s == "okay")
+    cache[term] = value
+    return value
+
 
 voc = ControledVocabulary()
 
@@ -23,32 +26,31 @@ m_tissues = []
 m_lineages = []
 
 for term in voc.biosources:
-	term_name = term['term']
+    term_name = term['term']
 
-	if not is_in_ontology(term_name):
-		if term.has_key('tissue'):
-			tissue = term['tissue']
-			if is_in_ontology(tissue):
-				m_terms.append((term_name, tissue, True))
-			else:
-				m_terms.append((term_name, tissue, False))
+    if not is_in_ontology(term_name):
+        if term.has_key('tissue'):
+            tissue = term['tissue']
+            if is_in_ontology(tissue):
+                m_terms.append((term_name, tissue, True))
+            else:
+                m_terms.append((term_name, tissue, False))
 
-	if term.has_key('tissue'):
-		tissue = term['tissue']
-		if not is_in_ontology(tissue):
-			if term.has_key('lineage'):
-				lineage = term['lineage']
-				if is_in_ontology(lineage):
-					m_tissues.append((tissue, lineage, True))
-				else:
-					m_tissues.append((tissue, lineage, False))
+    if term.has_key('tissue'):
+        tissue = term['tissue']
+        if not is_in_ontology(tissue):
+            if term.has_key('lineage'):
+                lineage = term['lineage']
+                if is_in_ontology(lineage):
+                    m_tissues.append((tissue, lineage, True))
+                else:
+                    m_tissues.append((tissue, lineage, False))
 
-	if term.has_key('lineage'):
-		lineages = term['lineage'].split(",")
-		for lineage in lineages:
-			if not is_in_ontology(lineage):
-					m_lineages.append(lineage)
-
+    if term.has_key('lineage'):
+        lineages = term['lineage'].split(",")
+        for lineage in lineages:
+            if not is_in_ontology(lineage):
+                m_lineages.append(lineage)
 
 m_terms = list(set(m_terms))
 m_tissues = list(set(m_tissues))
@@ -124,19 +126,19 @@ print
 
 print '**Missing lineages**'
 for t in m_lineages:
-	lineage_name = t
-	similar = [x[1] for x in server.list_similar_biosources(lineage_name, user_key)[1][:5]]
-	print "'%s'"%lineage_name,
-	print "\t",
-	if similar:
-		print "'%s'"%(','.join(similar)),
-	else:
-		print "'-'",
+    lineage_name = t
+    similar = [x[1] for x in server.list_similar_biosources(lineage_name, user_key)[1][:5]]
+    print "'%s'" % lineage_name,
+    print "\t",
+    if similar:
+        print "'%s'" % (','.join(similar)),
+    else:
+        print "'-'",
 
-	is_partial = True
-	for s in lineage_name.split():
-		if not is_in_ontology(s):
-			is_partial = False
-			break
-	print is_partial,
-	print
+    is_partial = True
+    for s in lineage_name.split():
+        if not is_in_ontology(s):
+            is_partial = False
+            break
+    print is_partial,
+    print
