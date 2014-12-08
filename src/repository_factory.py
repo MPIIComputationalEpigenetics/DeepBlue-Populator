@@ -4,7 +4,7 @@ from roadmap_repository import RoadmapRepository
 
 
 def load(project, genome, url, user_key):
-    if project == "ENCODE":
+    if project == "ENCODE" or project == "Mouse ENCODE":
         return EncodeRepository(project, genome, url, user_key)
     elif project == "Blueprint Epigenetics":
         return BlueprintRepository(project, genome, url, user_key)

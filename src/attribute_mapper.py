@@ -376,21 +376,31 @@ class RoadmapMapper(AttributeMapper):
 
 
 encode_mappers = {
-    ("ENCODE", "MethylRrbs"): EncodeRrbsMethylationMapper,
-    ("ENCODE", "Methyl"): EncodeMethyl450KMapper,
-    ("ENCODE", "Histone"): EncodeHistoneMapper,
-    ("ENCODE", "Dnase"): EncodeDNaseIMapper,
-    ("ENCODE", "ChromDnase"): EncodeDNaseIMapper,
-    ("ENCODE", "UniPk"): EncodeDNaseIUniformMapper,
-    ("ENCODE", "Hmm"): EncodeHMMMapper,
-    ("ENCODE", "Tfbs"): EncodeTfbsMapper,
-    ("ENCODE", "TfbsUniform"): EncodeTfbsUniformMapper
+    "MethylRrbs": EncodeRrbsMethylationMapper,
+    "Methyl": EncodeMethyl450KMapper,
+    "Histone": EncodeHistoneMapper,
+    "Dnase": EncodeDNaseIMapper,
+    "ChromDnase": EncodeDNaseIMapper,
+    "UniPk": EncodeDNaseIUniformMapper,
+    "Hmm": EncodeHMMMapper,
+    "Tfbs": EncodeTfbsMapper,
+    "TfbsUniform": EncodeTfbsUniformMapper
+}
+
+mouse_encode_mappers = {
+    "LicrHistone" : EncodeHistoneMapper,
+    "Dgf" : EncodeDNaseIMapper
 }
 
 
 def do_map(project, epigenetic_mark=None):
     if project == "ENCODE":
-        return encode_mappers[(project, epigenetic_mark)]
+        return encode_mappers[epigenetic_mark]
+    if project == "Mouse ENCODE":
+        if epigenetic_mark in encode_mappers:
+            return encode_mappers[epigenetic_mark]
+        else:
+            return mouse_encode_mappers[epigenetic_mark]
     if project == "Roadmap Epigenomics":
         return RoadmapMapper
     if project == "Blueprint Epigenetics":

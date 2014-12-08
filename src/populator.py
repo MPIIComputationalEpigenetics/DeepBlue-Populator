@@ -1,8 +1,5 @@
 import os
-import re
 import os.path
-import urllib
-import util
 import settings
 
 import encode_vocabulary
@@ -12,11 +9,10 @@ import repository_factory
 from annotations import insert_annotations
 from client import EpidbClient
 from data_sources import project_sources
-from genomes import hg19_info
+from genomes import hg19_info, mm9_info
 from histones import insert_histones
 from owl_loader import load_owl
-from sequences import insert_chromosome_sequences
-from settings import DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
+from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
 from log import log
 from db import mdb
 
@@ -104,6 +100,7 @@ class Populator:
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
     epidb.add_genome("hg19", "Human genome 19", hg19_info, self.key)
+    epidb.add_genome("mm9", "Human genome 19", mm9_info, self.key)
     #insert_chromosome_sequences(epidb, "hg19", self.key)
 
 
@@ -141,6 +138,7 @@ class Populator:
 
     epidb.add_project("ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements", self.key)
     epidb.add_project("Blueprint Epigenetics", "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes", self.key)
+    epidb.add_project("Mouse ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse", self.key)
 
 
   def insert_sample_fields(self):
