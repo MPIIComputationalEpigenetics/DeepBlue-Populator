@@ -26,7 +26,9 @@ SIMPLE = [
   ("SCORE_2", "Level", "-1", Type.DOUBLE),
   ("LENGTH", "Length", "0", Type.INTEGER),
   ("NUM_CPG", "Number of CpGs in region", "0", Type.INTEGER),
+  #check
   ("NUM_GC", "Number of GCs dinucleotide in region", "0", Type.INTEGER),
+  #check
   ("GC_NUM", "GC number", "0", Type.DOUBLE),
   ("MEDIAN_NON_CONVERTED_CPG", "Median number of non-converted reads at CpGs in region", ".", Type.INTEGER),
   ("MEDIAN_CONVERTED_CPG", "Median number of converted reads at CpGs in region", ".", Type.INTEGER),
@@ -35,7 +37,7 @@ SIMPLE = [
   ("PER_GC", "Per GC", None, Type.DOUBLE),
   ("OBS_EXP", "Obs Exp", None, Type.DOUBLE),
   ("VALUE", "Value", "0", Type.INTEGER),
-  ("ENSEMBL_ID", "Ensemble ID", None, Type.STRING),
+  ("ENSEMBL_ID", "Ensembl ID", None, Type.STRING),
   ("SPAN", "span", None, Type.INTEGER),
   ("COUNT", "count", None, Type.INTEGER),
   ("OFFSET", "offset", None, Type.INTEGER),
@@ -63,7 +65,7 @@ SIMPLE = [
   ("IGNORE", "Ignored column", "*", Type.STRING),
 ]
 
-CATEGORY = [
+CATEGORY =  [
   ("STRAND", "Region strand: + or -", ".", ["+", "-"])
 ]
 
