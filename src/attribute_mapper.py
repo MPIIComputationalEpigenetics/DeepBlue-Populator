@@ -122,7 +122,7 @@ class BlueprintMapper(AttributeMapper):
             return "wig"
 
         print "Unknown format for %s epigenetic mark %s and type %s" % (
-        self.name, self.epigenetic_mark, self.dataset.meta["type"])
+            self.name, self.epigenetic_mark, self.dataset.meta["type"])
 
         return None
 
@@ -147,7 +147,6 @@ class EncodeMapper(AttributeMapper):
             return ".".join(file_full_name.split(".")[:-2])
         else:
             return ".".join(file_full_name.split(".")[:-1])
-
 
     @property
     def format(self):
@@ -379,28 +378,20 @@ encode_mappers = {
     "MethylRrbs": EncodeRrbsMethylationMapper,
     "Methyl": EncodeMethyl450KMapper,
     "Histone": EncodeHistoneMapper,
+    "Hist": EncodeHistoneMapper,  # only in mm9
     "Dnase": EncodeDNaseIMapper,
     "ChromDnase": EncodeDNaseIMapper,
+    "Dgf": EncodeDNaseIMapper,  # only in mm9
     "UniPk": EncodeDNaseIUniformMapper,
     "Hmm": EncodeHMMMapper,
     "Tfbs": EncodeTfbsMapper,
     "TfbsUniform": EncodeTfbsUniformMapper
 }
 
-mouse_encode_mappers = {
-    "LicrHistone" : EncodeHistoneMapper,
-    "Dgf" : EncodeDNaseIMapper
-}
-
 
 def do_map(project, epigenetic_mark=None):
-    if project == "ENCODE":
+    if project == "ENCODE" or project == "Mouse ENCODE":
         return encode_mappers[epigenetic_mark]
-    if project == "Mouse ENCODE":
-        if epigenetic_mark in encode_mappers:
-            return encode_mappers[epigenetic_mark]
-        else:
-            return mouse_encode_mappers[epigenetic_mark]
     if project == "Roadmap Epigenomics":
         return RoadmapMapper
     if project == "Blueprint Epigenetics":

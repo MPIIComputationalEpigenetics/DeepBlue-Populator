@@ -1,6 +1,7 @@
 from encode_repository import EncodeRepository
 from blueprint_repository import BlueprintRepository
 from roadmap_repository import RoadmapRepository
+from log import log
 
 
 def load(project, genome, url, user_key):
