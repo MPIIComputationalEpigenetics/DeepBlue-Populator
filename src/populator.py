@@ -99,8 +99,8 @@ class Populator:
     # TODO: check the source for the genome, if not, add it.
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
-    epidb.add_genome("hg19", "Human genome 19", hg19_info, self.key)
-    epidb.add_genome("mm9", "Human genome 19", mm9_info, self.key)
+    epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info, self.key)
+    epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info, self.key)
     #insert_chromosome_sequences(epidb, "hg19", self.key)
 
 
