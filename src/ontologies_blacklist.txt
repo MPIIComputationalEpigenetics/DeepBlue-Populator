@@ -1,6 +1,6 @@
-Viridiplantae
 cartwheel heterochromatin
 information entity
+process
 label
 data item
 quantitative confidence value
@@ -462,7 +462,6 @@ gene
    array reporter
   collection of material
    block
-  sampling site
   disposition
    pathogenicity
    disease
