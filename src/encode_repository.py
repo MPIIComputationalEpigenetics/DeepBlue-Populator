@@ -72,10 +72,8 @@ class EncodeRepository(Repository):
             if r[-2] in ["Haib", "Sydh", "Broad", "Uw", "Uchicago", "Psu", "Licr", "Caltech"]:
                 #filter out project/instutute names
                 em = r[-1]
-                print em
             else:
                 em = r[-2] + r[-1]
-                print em
 
             if epigeneticMark == None:
                 epigeneticMark = em
