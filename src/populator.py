@@ -141,21 +141,6 @@ class Populator:
     epidb.add_project("Blueprint Epigenetics", "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes", self.key)
     epidb.add_project("Mouse ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse", self.key)
 
-
-  def insert_sample_fields(self):
-    epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
-
-    epidb.add_sample_field("karyotype", "string", None, self.key)
-    epidb.add_sample_field("description", "string", None, self.key)
-    epidb.add_sample_field("lab", "string", None, self.key)
-    epidb.add_sample_field("lineage", "string", None, self.key)
-    epidb.add_sample_field("organism", "string", None, self.key)
-    epidb.add_sample_field("sex", "string", None, self.key)
-    epidb.add_sample_field("tier", "string", None, self.key)
-    epidb.add_sample_field("age", "string", None, self.key)
-    epidb.add_sample_field("strain", "string", None, self.key)
-    epidb.add_sample_field("source", "string", None, self.key)
-
   def create_columns(self):
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 

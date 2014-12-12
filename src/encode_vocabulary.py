@@ -238,10 +238,6 @@ def ensure_vocabulary(user_key):
     log.info("adding %d biosource to the vocabulary", len(voc.biosources))
     log.info("adding %d antibodies to the vocabulary", len(voc.antibodies))
 
-    epidb.add_sample_field("term", "string", None, user_key)
-    epidb.add_sample_field("tissue", "string", None, user_key)
-    epidb.add_sample_field("childOf", "string", None, user_key)
-
     # add biosources to epidb
     for cl in voc.biosources:
         process_biosource(cl, user_key)
