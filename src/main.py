@@ -5,7 +5,7 @@ from log import log
 
 
 def main(init=False, insert_annotations=False, insert_datasets=False,
-         insert_ontology=False):
+         insert_ontology=False, insert_basic_data=False):
     # initialize populator and update populators local database
     pop = Populator()
 
@@ -15,6 +15,10 @@ def main(init=False, insert_annotations=False, insert_datasets=False,
         if not s:
             log.info("Aborting populator.")
             return
+        pop.insert_basic_data()
+        pop.create_columns()
+
+    if insert_basic_data:
         pop.insert_basic_data()
         pop.create_columns()
 
@@ -40,6 +44,9 @@ if __name__ == '__main__':
     parser.add_option("--init", action="store_true", dest="init",
                       default=False,
                       help="Init EpiDB, creating default users")
+    parser.add_option("--basic_data", action="store_true", dest="insert_basic_data",
+                      default=False,
+                      help="Insert DeepBlue Basic Data. Usefull when new genomes, columns, epigenetic marks, projects or samples were included into populator")
     parser.add_option("--ontology", action="store_true", dest="ontology",
                       default=False,
                       help="Insert Ontologies and ENCODE controlled vocabulary terms inside the controlled vocabulary")
@@ -59,6 +66,10 @@ if __name__ == '__main__':
     insert_annotations = args[0].insert_annotations
     insert_datasets = args[0].insert_datasets
     insert_ontology = args[0].ontology
+    insert_basic_data = args[0].insert_basic_data
+
+    if args[0].insert_basic_data:
+        insert_basic_data = True
 
     if args[0].full:
         init = True
@@ -66,4 +77,4 @@ if __name__ == '__main__':
         insert_ontology = True
         insert_datasets = True
 
-    main(init, insert_annotations, insert_datasets, insert_ontology)
+    main(init, insert_annotations, insert_datasets, insert_ontology, insert_basic_data)

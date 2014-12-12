@@ -71,7 +71,7 @@ genes = [
     "CHROMOSOME",
     "START",
     "END",
-    "ENSEMBL_ID",
+    "GENE_ID_ENSEMBL",
     "VALUE",
     "STRAND"
 ]
