@@ -34,7 +34,7 @@ SIMPLE = [
     ("PER_GC", "Per GC", None, Type.DOUBLE),
     ("OBS_EXP", "Obs Exp", None, Type.DOUBLE),
     ("VALUE", "Value", "0", Type.INTEGER),
-    ("ENSEMBL_ID", "Ensemble ID", None, Type.STRING),
+    ("GENE_ID_ENSEMBL", "Gene Ensemble ID", None, Type.STRING),
     ("SPAN", "span", None, Type.INTEGER),
     ("COUNT", "count", None, Type.INTEGER),
     ("OFFSET", "offset", None, Type.INTEGER),
@@ -61,6 +61,11 @@ SIMPLE = [
      Type.STRING),
     ("SIZE", "Size of region in base pairs", ".", Type.INTEGER),
     ("IGNORE", "Ignored column", "*", Type.STRING),
+    ("TRANSCRIPT_ID_ENSEMBL", "ENSEMBL transcript ID", "NA", Type.STRING),
+    ("TRANSCRIPT_SYMBOL", "Analogous to GENE_SYMBOL, usually GENE_SYMBOL with numeric suffix", "NA", Type.STRING),
+    ("GENE_SYMBOL", "Gene Symbol", None, Type.STRING),
+    ("PROBE_ID", "Microarray probe id", None, Type.STRING),
+    ("EXPRESSION_NORM_GCRMA", "GCRMA-normalized signal intensity", None, Type.DOUBLE),
 ]
 
 CATEGORY = [
