@@ -9,7 +9,7 @@ import repository_factory
 from annotations import insert_annotations
 from client import EpidbClient
 from data_sources import project_sources
-from genomes import hg19_info, mm9_info
+from genomes import hg19_info, mm9_info, mm10_info
 from histones import insert_histones
 from owl_loader import load_owl
 from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
@@ -95,12 +95,11 @@ class Populator:
     self.insert_sample_fields()
 
   def insert_genomes(self):
-    # TODO: Load these information from the source file.
-    # TODO: check the source for the genome, if not, add it.
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
     epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info, self.key)
     epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info, self.key)
+    epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info, self.key)
     #insert_chromosome_sequences(epidb, "hg19", self.key)
 
 
@@ -115,6 +114,7 @@ class Populator:
     epidb.add_epigenetic_mark("mRNA-seq", "Messenger RNA", self.key)
     epidb.add_epigenetic_mark("Input", "Experiment Input Data. It is not an epigenetic mark", self.key)
     epidb.add_epigenetic_mark("Control", "Experiment Control Data. It is not an epigenetic mark", self.key)
+    epidb.add_epigenetic_mark("mRNA expression", "mRNA expression levels", self.key)
 
     insert_histones(epidb, self.key)
 
@@ -130,6 +130,7 @@ class Populator:
     epidb.add_technique("DNaseSeq Uniform", "DNase I hypersensitive sites sequencing performed uniform processing on datasets produced by multiple data production groups in the ENCODE Consortium", {}, self.key)
     epidb.add_technique("Chromatin State Segmentation by HMM", "ChIP-seq data from the Broad Histone track was used to generate this track. Data for nine factors plus input and nine cell types was binarized separately at a 200 base pair resolution based on a Poisson background model. The chromatin states were learned from this binarized data using a multivariate Hidden Markov Model (HMM) that explicitly models the combinatorial patterns of observed modifications (Ernst and Kellis, 2010). To learn a common set of states across the nine cell types, first the genomes were concatenated across the cell types. For each of the nine cell types, each 200 base pair interval was then assigned to its most likely state under the model. Detailed information about the model parameters and state enrichments can be found in (Ernst et al, accepted).", {}, self.key)
     epidb.add_technique("RNASeq", "RNA sequencing", {}, self.key)
+    epidb.add_technique("Microarray", "Various microarray techniques", {}, self.key)
 
   def insert_projects(self):
     # TODO: Load these information from the source file.
