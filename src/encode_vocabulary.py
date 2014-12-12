@@ -254,3 +254,44 @@ def ensure_vocabulary(user_key):
         if util.has_error(s, em_id, ["105001"]): print "(ENCODE CV Error 8): ", em_id
 
     log.info("vocabulary added successfully")
+
+
+_antibodyToTarget = {
+    "H3K36me3B": "H3K36me3",
+    "PLU1": "KDM5B",
+    "p300": "EP300",
+    "P300": "EP300",
+    "JMJD2A": "KDM4A",
+    "CBP": "CREBBP",
+    "Pol2(b)": "POLR2A",
+    "JARID1A": "KDM5A",
+    "NCoR": "NCOR1",
+    "LSD1": "KDM1A",
+    "NSD2": "WHSC1",
+    "PCAF": "KAT2B",
+    "H3K4me3B": "H3K4me3",
+    "H3K9acB": "H3K9ac",
+    "H3K27me3B": "H3K27me3",
+    "c-Jun": "JUN",
+    "c-Myb": "MYB",
+    "c-Myc": "MYC",
+    "COREST": "RCOR1",
+    "GCN5": "KAT2A",
+    "MyoD": "MYOD1",
+    "Myogenin": "MYOG",
+    "NELFe": "RDBP",
+    "Nrf2": "GABPA",
+    "NRSF": "REST",
+    "Pol2": "POLR2A",
+    "Pol2-4H8": "POLR2A",
+    "Pol2(phosphoS2)": "POLR2A",
+    "UBF": "UBTF",
+    "ZNF-MIZD-CP1": "ZMIZ1"
+}
+
+"""Returns the target-name for an antibody-name used in ENCODE"""
+def antibodyToTarget(antibody):
+    if antibody in _antibodyToTarget:
+        return _antibodyToTarget[antibody]
+    else:
+        return None
