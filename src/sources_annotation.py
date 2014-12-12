@@ -153,5 +153,4 @@ transcripts_snoRNA_full_autosomes = Annotation({
 })
 
 
-annotations = [RepeatFree_1kb_autosomes, RepeatMasked_1kb_autosomes, gene_protcod_3kbprom_autosomes, gene_protcod_3kbprom_autosomes, gene_protcod_3kbprom_autosomes, gene_protcod_full_autosomes, transcripts_protcod_3kbprom_autosomes, transcripts_lincRNA_full_autosomes, transcripts_snRNA_full_autosomes, transcripts_snoRNA_full_autosomes]
-#annotations = [repeat_masker, cpgIslands, genes, promoters, probes450k, laminB1,conservation_primates, conservation_placental]
+annotations = [repeat_masker, cpgIslands, genes, promoters, probes450k, laminB1,conservation_primates, conservation_placental, RepeatFree_1kb_autosomes, RepeatMasked_1kb_autosomes, gene_protcod_3kbprom_autosomes, gene_protcod_3kbprom_autosomes, gene_protcod_3kbprom_autosomes, gene_protcod_full_autosomes, transcripts_protcod_3kbprom_autosomes, transcripts_lincRNA_full_autosomes, transcripts_snRNA_full_autosomes, transcripts_snoRNA_full_autosomes]
