@@ -1,5 +1,6 @@
 import threading
 import os.path
+import abc
 
 from dataset import Dataset
 from settings import max_threads, max_downloads
@@ -16,14 +17,11 @@ def FIND_NOT_INSERTED_QUERY(_id, _data_types):
             {"inserted": {"$exists": False}}]}
     ]}
 
-
-"""
-NonpersistantRepository exception is raised if certain operations on a
-repository are attempted before it has been saved to the database.
-"""
-
-
 class NonpersistantRepository(Exception):
+    """
+    NonpersistantRepository exception is raised if certain operations on a
+    repository are attempted before it has been saved to the database.
+    """
     def __init__(self, repo, msg):
         super(NonpersistantRepository, self).__init__()
         self.repository = repo
@@ -33,14 +31,14 @@ class NonpersistantRepository(Exception):
         return "%s has not been stored: %s" % os.path.join(self.repository, self.msg)
 
 
-"""
-A Repository refers to a source of datasets belonging to a certain project.
-It detects the available datasets in the repository and can coordinate their
-retrival and processing.
-"""
-
-
 class Repository(object):
+    """
+    A Repository refers to a source of datasets belonging to a certain project.
+    It detects the available datasets in the repository and can coordinate their
+    retrival and processing.
+    """
+    __metaclass__ = abc.ABCMeta
+
     def __init__(self, proj, genome, data_types, path, user_key):
         self.project = proj
         self.genome = genome
@@ -59,14 +57,14 @@ class Repository(object):
     def __hash__(self):
         return hash(self.path)
 
-    """
-    index_path is the path to the file which contains information of all
-    datasets in the repository.
-    """
 
     @property
     def index_path(self):
-        pass
+        """
+        index_path is the path to the file which contains information of all
+        datasets in the repository.
+        """
+        raise NotImplementedError("")
 
     @property
     def id(self):
@@ -77,27 +75,27 @@ class Repository(object):
         return idl["_id"]
 
 
-    """
-    read_datasets analyses the repositorie's index file and flags
-    new datasets.
-    """
-
+    @abc.abstractmethod
     def read_datasets(self):
-        raise Exception('The method read_datasets() should be implemented for the desired data source')
+        """
+        read_datasets analyses the repositorie's index file and flags
+        new datasets.
+        """
+        pass
 
-    """
-    exists checks if the repository has already been added to the database.
-    """
 
     def exists(self):
+        """
+        exists checks if the repository has already been added to the database.
+        """
         return mdb.repositories.find({
             "project": self.project, "path": self.path}).count() > 0
 
-    """
-    has_unimported checks if the repository
-    """
 
     def has_unimported(self):
+        """
+       has_unimported checks if the repository
+       """
         return mdb.datasets.find({
             "$and": [
                 {"repository_id": self.id},
@@ -108,8 +106,10 @@ class Repository(object):
             ]}).count() > 0
 
 
-    # save saves the repository to the database if it doesn't exist already.
     def save(self):
+        """
+        save saves the repository to the database if it doesn't exist already.
+        """
         if self.exists():
             return
 
@@ -135,12 +135,12 @@ class Repository(object):
             return True
         return False
 
-    """
-    process_datasets starts downloading and processing of all datasets in the
-    database that belong to the repository and have not been inserted yet.
-    """
 
     def process_datasets(self, key=None):
+        """
+        process_datasets starts downloading and processing of all datasets in the
+        database that belong to the repository and have not been inserted yet.
+        """
         if not self.id:
             raise NonpersistantRepository(self, "cannot process datasets for unsaved repository")
 
