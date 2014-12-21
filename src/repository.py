@@ -2,20 +2,10 @@ import threading
 import os.path
 import abc
 
+import db
 from dataset import Dataset
 from settings import max_threads, max_downloads
 from log import log
-from db import mdb
-
-
-def FIND_NOT_INSERTED_QUERY(_id, _data_types):
-    return {"$and": [
-        {"repository_id": _id},
-        {"type": {"$in": _data_types}},
-        {"$or": [
-            {"inserted": False},
-            {"inserted": {"$exists": False}}]}
-    ]}
 
 class NonpersistantRepository(Exception):
     """
@@ -68,8 +58,7 @@ class Repository(object):
 
     @property
     def id(self):
-        idl = mdb.repositories.find_one({
-                                            "project": self.project, "path": self.path}, ["_id"])
+        idl = db.repo_id(self.project, self.path)
         if not idl:
             return None
         return idl["_id"]
@@ -88,22 +77,14 @@ class Repository(object):
         """
         exists checks if the repository has already been added to the database.
         """
-        return mdb.repositories.find({
-            "project": self.project, "path": self.path}).count() > 0
+        return db.repo_exists(self.project, self.path)
 
 
     def has_unimported(self):
         """
-       has_unimported checks if the repository
-       """
-        return mdb.datasets.find({
-            "$and": [
-                {"repository_id": self.id},
-                {"type": {"$in": self.data_types}},
-                {"$or": [
-                    {"inserted": False},
-                    {"inserted": {"$inserted": False}}]}
-            ]}).count() > 0
+        has_unimported checks if the repository
+        """
+        return db.count_unimported(self.project, self.path)
 
 
     def save(self):
@@ -123,7 +104,7 @@ class Repository(object):
             doc["_id"] = self.id
 
         log.debug("saving repository: %s", doc)
-        r_id = mdb.repositories.save(doc)
+        db.repo_save(doc)
 
 
     def add_dataset(self, dataset):
@@ -144,7 +125,7 @@ class Repository(object):
         if not self.id:
             raise NonpersistantRepository(self, "cannot process datasets for unsaved repository")
 
-        c = list(mdb.datasets.find(FIND_NOT_INSERTED_QUERY(self.id, self.data_types)))
+        c = list(db.find_not_inserted(self.id, self.data_types))
         log.info("%d datasets in %s require processing", len(c), self)
 
         threads = []
@@ -161,7 +142,7 @@ class Repository(object):
             except Exception as ex:
                 log.exception("processing of %s failed %s", dataset, repr(ex))
 
-        for e in mdb.datasets.find(FIND_NOT_INSERTED_QUERY(self.id, self.data_types)):
+        for e in db.find_not_inserted(self.id, self.data_types):
             # reconstruct Datasets from database
             ds = Dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"])
             ds.id = e["_id"]
