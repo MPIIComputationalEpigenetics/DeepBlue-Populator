@@ -100,5 +100,5 @@ for filename in os.listdir(d):
 		print "../third_party/bigWigToWig."+OS + " " + d + filename + " " + d +  filename+".wig"
     	#call(["../third_party/bigWigToWig."+OS, d+filename, d+filename+".wig"])
 
-    	server.set_biosource_scope('organ', 'cell_type', uk)
+    	server.set_biosource_parent('organ', 'cell_type', uk)
     	server.add_sample(cell_type, fields, user_key):
