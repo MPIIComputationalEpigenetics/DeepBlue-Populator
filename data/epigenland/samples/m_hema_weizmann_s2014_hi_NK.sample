@@ -1,0 +1,14 @@
+name=m_hema_weizmann_s2014_hi_NK
+biosource=NK1.1-positive natural killer cell
+extra_metadata_1=dataset:m_hema_weizmann_s2014_hi
+extra_metadata_2=short_name:NK Cells
+extra_metadata_3=organism:mus musculus
+extra_metadata_4=cell_type:NK Cells
+extra_metadata_5=biosource:NK1.1-positive natural killer cell
+extra_metadata_6=CL_ID:CL_0002438
+extra_metadata_7=cell_identification:CD4- CD8- B220- I-Ab- Ter119- TCR-beta- NK1.1+
+extra_metadata_X=cell_lineage:splenic lymphoid cells
+extra_metadata_8=strain:C57BL/6
+extra_metadata_X=publication:David Lara-Astiaso et al., Science Vol. 345 no. 6199: 943-949
+extra_metadata_X=publication_DOI:10.1126/science.1256271
+extra_metadata_X=institute:Weizmann Institute of Science Israel

@@ -1,0 +1,16 @@
+name=m_hema_weizmann_s2014_hi_ST-HSC_H3K27Ac
+genome=mm9
+epigenetic_mark=H3K27Ac
+sample=m_hema_weizmann_s2014_hi_ST-HSC
+technique=ChipSeq
+project=epigenomic landscape - hematopoiesis - mouse - pilot
+description=Data of four chromatin/histone modifications across 16 stages of hematopoietic differentiation from David Lara-Astiaso et al., Science Vol. 345 no. 6199: 943-949
+data=m_hema_weizmann_s2014_ST-HSC_H3K27Ac_GSM1441270.bg
+format=bedgraph
+extra_metadata_1=dataset:m_hema_weizmann_s2014_hi
+extra_metadata_2=cell_type:Short Term Hematopoietic Stem Cell (ST-HSC)
+extra_metadata_3=publication_DOI:10.1126/science.1256271
+extra_metadata_4=protocol:iChIP
+extra_metadata_5=read_mapping:bowtie2
+extra_metadata_6=peak_calling:HOMER
+extra_metadata_7=GEO_accession:GSM1441270

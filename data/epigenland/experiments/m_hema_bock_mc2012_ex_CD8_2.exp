@@ -1,0 +1,11 @@
+name=m_hema_bock_mc2012_ex_CD8_2
+genome=mm10
+epigenetic_mark=mRNA expression
+sample=GSM149586
+technique=Affymetrix Mouse Genome 430 2.0 Array
+project=epigenomic landscape - hematopoiesis - mouse - pilot
+description=DNA methylation data (TWGBS) of hematopoietic stem and multipotent progenitor cells from [Cabezas-Wallscheid et al. (2014). Cell Stem Cell, 15(4), 507-522].
+data=m_hema_bock_mc2012_ex_CD8_2.bed
+format=CHROMOSOME,START,END,STRAND,PROBE_ID,GENE_ID_ENSEMBL,GENE_SYMBOL,EXPRESSION_NORM_GCRMA
+extra_metadata_1=dataset:m_hema_bock_mc2012_ex
+extra_metadata_2=cell type:CD8

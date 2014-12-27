@@ -1,0 +1,11 @@
+name=m_hema_bock_mc2012_me_Eryth_2
+genome=mm10
+epigenetic_mark=DNA methylation
+sample=m_hema_bock_mc2012_me_Eryth_2
+technique=RRBS
+project=epigenomic landscape - hematopoiesis - mouse - pilot
+description=DNA methylation data (TWGBS) of hematopoietic stem and multipotent progenitor cells from [Cabezas-Wallscheid et al. (2014). Cell Stem Cell, 15(4), 507-522].
+data=m_hema_bock_mc2012_me_Eryth_2.bed
+format=CHROMOSOME,START,END,DNA_METH_M,DNA_METH_T
+extra_metadata_1=dataset:m_hema_bock_mc2012_me
+extra_metadata_2=cell type:Eryth
