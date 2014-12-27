@@ -66,6 +66,9 @@ SIMPLE = [
     ("GENE_SYMBOL", "Gene Symbol", None, Type.STRING),
     ("PROBE_ID", "Microarray probe id", None, Type.STRING),
     ("EXPRESSION_NORM_GCRMA", "GCRMA-normalized signal intensity", None, Type.DOUBLE),
+    ("DNA_METH_U", "Number of unmethylated reads for a cytosine in a bisulfite sequencing experiment", None, Type.INTEGER),
+    ("DNA_METH_M", "Number of methylated reads for a cytosine in a bisulfite sequencing experiment", None, Type.INTEGER),
+    ("DNA_METH_T", "Number of total reads for a cytosine in a bisulfite sequencing experiment", None, Type.INTEGER)
 ]
 
 CATEGORY = [
