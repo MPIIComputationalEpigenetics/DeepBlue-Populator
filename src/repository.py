@@ -144,7 +144,7 @@ class Repository(object):
 
         for e in db.find_not_inserted(self.id, self.data_types):
             # reconstruct Datasets from database
-            ds = Dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"])
+            ds = self._make_dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"])
             ds.id = e["_id"]
             # create download dirs
             p = os.path.split(ds.download_path)[0]
@@ -157,3 +157,7 @@ class Repository(object):
 
         for t in threads:
             t.join()
+
+
+    def _make_dataset(file_name, type, meta, file_directory, sample_id, repository):
+        return Dataset(file_name, type, meta, file_directory, sample_id, repository)
