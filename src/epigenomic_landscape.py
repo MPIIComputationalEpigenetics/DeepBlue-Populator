@@ -1,43 +1,51 @@
 import os
 import threading
+import re
 
 from log import log
 
 import db
 import settings
+import client
 
 from repository import Repository
 from dataset import Dataset
 from attribute_mapper import AttributeMapper
-from client import EpidbClient
+
+_regex_eq = re.compile("(.*?)=(.*)")
+_regex_dp = re.compile(".*?=(.*?):(.*)")
 
 class EpigenomicLandscapeRepository(Repository):
 
-    def __init__(self, proj, genome, path, user_key):
-        super(EpigenomicLandscapeRepository, self).__init__(proj, genome, ["bed", "bedgraph", "wig"], path, user_key)
+    def __init__(self, project, genome, path, user_key):
+        super(EpigenomicLandscapeRepository, self).__init__(project, genome, ["bed", "bedgraph", "wig"], path, user_key)
 
     def read_datasets(self):
-        #rsync
 
-        for file in os.listdir(self.path):
-            if os.path.splitext(file)[1][1:] == "exp":
+        for file_name in os.listdir(os.path.join(self.path, "experiments")):
+            if os.path.splitext(file_name)[1][1:] == "exp":
 
-                lines = open(os.path.join(self.path, file)).readlines()
+                lines = open(os.path.join(self.path, "experiments", file_name)).readlines()
                 meta = {}
                 for line in lines:
-                    line_split = line.split("=")
+                    match_eq = _regex_eq.match(line)
 
-                    if line_split[0] == "data":
-                        file_path = line_split[1].strip()
+                    if match_eq.group(1) == "data":
+                        file_path = os.path.join(self.path, "experiments", match_eq.group(2).strip())
                         file_type = os.path.splitext(line)[1][1:].strip()
-                    elif line_split[0] == "sample":
-                        sample_id = line_split[1].strip()
+                    elif match_eq.group(1) == "sample":
+                        sample_line = match_eq.group(2).strip()
+                        path = os.path.join(self.path, "samples", sample_line + ".sample")
+                        if os.path.exists(path):
+                            sample_id = self.process_sample_file(path)
+                        else:
+                            sample_id = sample_line
                     else:
-                        meta[line_split[0]] = line_split[1].strip()
+                        meta[match_eq.group(1)] = match_eq.group(2).strip()
 
-                directory = ""
-
-                dataset = EpigenomicLandscapeDataset(file_path, file_type, meta, file_directory=directory, sample_id=sample_id, repo_id=self.id)
+                dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
+                                                     file_directory=os.path.join(self.path, "samples"),
+                                                     sample_id=sample_id, repo_id=self.id)
                 self.add_dataset(dataset)
 
     def process_datasets(self, key=None):
@@ -71,12 +79,43 @@ class EpigenomicLandscapeRepository(Repository):
         for t in threads:
             t.join()
 
+    def process_sample_file(self, path):
+        """Returns ID for sample in path, inserts sample into DeepBlue if it's not already
+        :param path: path to .sample-file
+        :return: DeepBlue's ID for that sample
+        """
+        lines = open(path).readlines()
+        for line in lines:
+            match_eq = _regex_eq.match(line)
+
+            extra_metadata = {}
+            group1 = match_eq.group(1)
+            if group1 == "biosource":
+                biosource = match_eq.group(2)
+            if group1 == "name":
+                extra_metadata["name"] = match_eq.group(2)
+            if group1.startswith("extra_metadata"):
+                match_dp = _regex_dp.match(line)
+                extra_metadata[match_dp.group(1)] = match_dp.group(2)
+
+        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
+        (s, samples) = epidb.list_samples(biosource,
+                                          extra_metadata, self.user_key)
+        if samples:
+            return samples[0][0]
+        else:
+            (s, sample_id) = epidb.add_sample(biosource,
+                                              extra_metadata,
+                                              self.user_key)
+            return sample_id
+
+
     def _make_dataset(file_name, type, meta, file_directory, sample_id, repository):
         return EpigenomicLandscapeDataset(file_name, type, meta, file_directory, sample_id, repository)
 
 class EpigenomicLandscapeAttributeMapper(AttributeMapper):
     def __init__(self, dataset):
-        super(self, dataset)
+        super(self.__class__, self).__init__(dataset)
 
     @property
     def name(self):
@@ -88,6 +127,8 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
 
     @property
     def epigenetic_mark(self):
+        if self.dataset.meta["epigenetic_mark"] == "DNA methylation":
+            return "Methylation"
         return self.dataset.meta["epigenetic_mark"]
 
     @property
@@ -114,16 +155,14 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
     def format(self):
         return self.dataset.meta["format"]
 
+
 class EpigenomicLandscapeDataset(Dataset):
 
     @property
     def download_path(self):
-        #TODO
-        raise NotImplementedError()
+        return os.path.join(self.file_directory, self.file_name)
 
     def _load(self):
-        #TODO
-        raise NotImplementedError()
         pass
 
     def _process(self, user_key=None):
@@ -131,14 +170,16 @@ class EpigenomicLandscapeDataset(Dataset):
 
         am = EpigenomicLandscapeAttributeMapper(self)
 
-        if not os.path.exists(self.download_path):
-            raise IOError(self.download_path, self.file_name)
+        #if not os.path.exists(self.download_path):
+        #    raise IOError(self.download_path, self.file_name)
 
         am.extra_metadata['__local_file__'] = self.download_path
 
-        f = open(self.download_path, 'r')
-        file_content = f.read()
-        f.close()
+        #f = open(self.download_path, 'r')
+        #file_content = f.read()
+        #f.close()
+        file_content = ""
+        #TODO ;)
 
         file_split = file_content.split("\n", 1)
         first_line = file_split[0]
@@ -154,7 +195,7 @@ class EpigenomicLandscapeDataset(Dataset):
         data_splited.sort()
         file_content = "\n".join(data_splited)
 
-        epidb = EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
+        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
 
         if self.sample_id:
             sample_id = self.sample_id
@@ -172,9 +213,8 @@ class EpigenomicLandscapeDataset(Dataset):
             exp_name = am.name + ".bed"
 
         args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
-        am.project, am.description, file_content, am.format, am.extra_metadata,
-        user_key)
-
+                am.project, am.description, file_content, am.format, am.extra_metadata,
+                user_key)
         res = epidb.add_experiment(*args)
 
         if res[0] == "okay" or res[1].startswith("102001"):
@@ -188,5 +228,3 @@ class EpigenomicLandscapeDataset(Dataset):
             self.insert_error = msg
             self.save()
             log.info(msg)
-
-        os.remove(self.download_path)
