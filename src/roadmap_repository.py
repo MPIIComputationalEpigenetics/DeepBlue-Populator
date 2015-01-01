@@ -1,11 +1,7 @@
-
 import gzip
 import os
 import os.path
 import pprint
-import util
-import urllib
-import threading
 
 from ftplib import FTP
 
@@ -13,8 +9,6 @@ from client import EpidbClient
 from dataset import Dataset
 from repository import Repository
 from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
-from log import log
-from db import mdb
 
 pp = pprint.PrettyPrinter(depth=6)
 
@@ -30,13 +24,6 @@ class RoadmapRepository(Repository):
   def index_path(self):
     return self.path
 
-  @property
-  def id(self):
-    idl = mdb.repositories.find_one({
-      "project": self.project, "path": self.path}, ["_id"])
-    if not idl:
-      return None
-    return idl["_id"]
 
   def set_up_project(self, server, user_key):
     print server.add_project("Roadmap Epigenomics", "", user_key)

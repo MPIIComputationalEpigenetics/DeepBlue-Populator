@@ -6,7 +6,6 @@ from client import EpidbClient
 from dataset import Dataset
 from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
 from log import log
-from db import mdb
 from repository import Repository
 
 
@@ -34,13 +33,6 @@ class EncodeRepository(Repository):
     def index_path(self):
         return os.path.join(self.path, "files.txt")
 
-    @property
-    def id(self):
-        idl = mdb.repositories.find_one({
-                                            "project": self.project, "path": self.path}, ["_id"])
-        if not idl:
-            return None
-        return idl["_id"]
 
     """
     read_datasets analyses the repositorie's index file and flags

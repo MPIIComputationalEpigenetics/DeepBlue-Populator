@@ -6,7 +6,6 @@ import pprint
 from dataset import Dataset
 from repository import Repository
 from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
-from db import mdb
 import util
 from client import EpidbClient
 
@@ -31,15 +30,6 @@ class BlueprintRepository(Repository):
     @property
     def index_path(self):
         return self.path + "blueprint/releases/current_release/homo_sapiens/20140811.data.index"
-
-    @property
-    def id(self):
-        idl = mdb.repositories.find_one({
-                                            "project": self.project,
-                                            "path": self.path}, ["_id"])
-        if not idl:
-            return None
-        return idl["_id"]
 
 
     """
