@@ -26,7 +26,9 @@ class EpigenomicLandscapeRepository(Repository):
             if os.path.splitext(file_name)[1][1:] == "exp":
 
                 lines = open(os.path.join(self.path, "experiments", file_name)).readlines()
+
                 meta = {}
+                file_type = file_path = sample_id = ""
                 for line in lines:
                     match_eq = _regex_eq.match(line)
 
@@ -42,6 +44,10 @@ class EpigenomicLandscapeRepository(Repository):
                             sample_id = sample_line
                     else:
                         meta[match_eq.group(1)] = match_eq.group(2).strip()
+
+                if not (file_path and file_type and sample_id):
+                    log.error("Error parsing " + os.path.join(self.path, "experiments", file_name))
+                    return
 
                 dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
                                                      file_directory=os.path.join(self.path, "samples"),
@@ -85,10 +91,13 @@ class EpigenomicLandscapeRepository(Repository):
         :return: DeepBlue's ID for that sample
         """
         lines = open(path).readlines()
+
+        extra_metadata = {}
+        biosource = ""
+
         for line in lines:
             match_eq = _regex_eq.match(line)
 
-            extra_metadata = {}
             group1 = match_eq.group(1)
             if group1 == "biosource":
                 biosource = match_eq.group(2)
@@ -98,9 +107,12 @@ class EpigenomicLandscapeRepository(Repository):
                 match_dp = _regex_dp.match(line)
                 extra_metadata[match_dp.group(1)] = match_dp.group(2)
 
+        if not biosource:
+            log.error("Error parsing " + path)
+            return ""
+
         epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
-        (s, samples) = epidb.list_samples(biosource,
-                                          extra_metadata, self.user_key)
+        (s, samples) = epidb.list_samples(biosource, extra_metadata, self.user_key)
         if samples:
             return samples[0][0]
         else:
@@ -127,8 +139,6 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
 
     @property
     def epigenetic_mark(self):
-        if self.dataset.meta["epigenetic_mark"] == "DNA methylation":
-            return "Methylation"
         return self.dataset.meta["epigenetic_mark"]
 
     @property
