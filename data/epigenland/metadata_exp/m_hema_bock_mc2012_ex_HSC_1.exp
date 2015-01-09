@@ -1,0 +1,11 @@
+name=m_hema_bock_mc2012_ex_HSC_1
+genome=mm10
+epigenetic_mark=mRNA expression
+sample=GSM945546
+technique=Affymetrix Mouse Genome 430 2.0 Array
+project=epigenomic landscape - hematopoiesis - mouse - pilot
+description=Gene expression data of hematopoietic cells from [Bock et al. (2012). Molecular Cell, 47(4), 633-647].
+data=m_hema_bock_mc2012_ex_HSC_1.bed
+format=CHROMOSOME,START,END,STRAND,PROBE_ID,GENE_ID_ENSEMBL,GENE_SYMBOL,EXPRESSION_NORM_GCRMA
+extra_metadata_1=dataset:m_hema_bock_mc2012_ex
+extra_metadata_2=cell type:HSC

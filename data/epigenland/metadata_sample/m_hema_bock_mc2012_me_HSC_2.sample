@@ -1,0 +1,13 @@
+biosource=hematopoietic stem cell
+extra_metadata_1=dataset:m_hema_bock_mc2012_me
+extra_metadata_2=name:HSC_2
+extra_metadata_3=organism:mus musculus
+extra_metadata_4=cell_type:Hematopoietic stem cell
+extra_metadata_5=biosource:hematopoietic stem cell
+extra_metadata_6=CL_ID:CL:0000037
+extra_metadata_7=cell_purification:Lineage (CD4, CD8, CD3, B220, Ter119, Mac1, Gr1, Il7ra) negative, Sca1+, ckit+, CD34-, flk2-, PI-
+extra_metadata_8=strain:C57BL/6
+extra_metadata_9=replicate:2
+extra_metadata_10=publication:Bock, C., Beerman, I., Lien, W.-H., Smith, Z. D., Gu, H., Boyle, P., et al. (2012). DNA methylation dynamics during in vivo differentiation of blood and skin stem cells. Molecular Cell, 47(4), 633-647. doi:10.1016/j.molcel.2012.06.019
+extra_metadata_11=publication_doi:doi:10.1016/j.molcel.2012.06.019
+extra_metadata_12=experiment_type:RRBS

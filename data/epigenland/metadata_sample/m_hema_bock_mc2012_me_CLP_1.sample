@@ -1,0 +1,13 @@
+biosource=common lymphoid progenitor
+extra_metadata_1=dataset:m_hema_bock_mc2012_me
+extra_metadata_2=name:CLP_1
+extra_metadata_3=organism:mus musculus
+extra_metadata_4=cell_type:Common lymphoid progenitor
+extra_metadata_5=biosource:common lymphoid progenitor
+extra_metadata_6=CL_ID:CL:0000051
+extra_metadata_7=cell_purification:Lineage (CD4, CD8, CD3, B220, Ter119, Mac1, Gr1) negative, Sca1low, ckitmid, flk2+, il7ra+, PI-
+extra_metadata_8=strain:C57BL/6
+extra_metadata_9=replicate:1
+extra_metadata_10=publication:Bock, C., Beerman, I., Lien, W.-H., Smith, Z. D., Gu, H., Boyle, P., et al. (2012). DNA methylation dynamics during in vivo differentiation of blood and skin stem cells. Molecular Cell, 47(4), 633-647. doi:10.1016/j.molcel.2012.06.019
+extra_metadata_11=publication_doi:doi:10.1016/j.molcel.2012.06.019
+extra_metadata_12=experiment_type:RRBS
