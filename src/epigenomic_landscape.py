@@ -7,6 +7,7 @@ from log import log
 import db
 import settings
 import client
+import util
 
 from repository import Repository
 from dataset import Dataset
@@ -19,6 +20,8 @@ class EpigenomicLandscapeRepository(Repository):
 
     def __init__(self, project, genome, path, user_key):
         super(EpigenomicLandscapeRepository, self).__init__(project, genome, ["bed", "bedgraph", "wig"], path, user_key)
+        #TODO: shouldn't  be called here:
+        init(user_key)
 
     def read_datasets(self):
 
@@ -39,7 +42,7 @@ class EpigenomicLandscapeRepository(Repository):
                         sample_line = match_eq.group(2).strip()
                         path = os.path.join(self.path, "samples", sample_line + ".sample")
                         if os.path.exists(path):
-                            sample_id = self.process_sample_file(path)
+                            sample_id = self._process_sample_file(path)
                         else:
                             sample_id = sample_line
                     else:
@@ -85,11 +88,13 @@ class EpigenomicLandscapeRepository(Repository):
         for t in threads:
             t.join()
 
-    def process_sample_file(self, path):
+    def _process_sample_file(self, path):
         """Returns ID for sample in path, inserts sample into DeepBlue if it's not already
         :param path: path to .sample-file
-        :return: DeepBlue's ID for that sample
+        :return: Sample name
         """
+        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
+
         lines = open(path).readlines()
 
         extra_metadata = {}
@@ -105,21 +110,26 @@ class EpigenomicLandscapeRepository(Repository):
                 extra_metadata["name"] = match_eq.group(2)
             if group1.startswith("extra_metadata"):
                 match_dp = _regex_dp.match(line)
-                extra_metadata[match_dp.group(1)] = match_dp.group(2)
+                if match_dp.group(2):
+                    epidb.add_sample_field(match_dp.group(1), "string", None, self.user_key)
+                    extra_metadata[match_dp.group(1)] = match_dp.group(2)
 
         if not biosource:
             log.error("Error parsing " + path)
             return ""
 
-        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
         (s, samples) = epidb.list_samples(biosource, extra_metadata, self.user_key)
         if samples:
-            return samples[0][0]
+            sample_id = samples[0][0]
         else:
-            (s, sample_id) = epidb.add_sample(biosource,
-                                              extra_metadata,
-                                              self.user_key)
-            return sample_id
+            if not epidb.is_biosource(biosource, self.user_key)[0] == "okay":
+                log.error("biosource " + biosource + " doesn't exist " + self.path)
+
+            (s, sample_id) = epidb.add_sample(biosource, extra_metadata, self.user_key)
+            if util.has_error(s, sample_id, []):
+                log.error("Sample not inserted " + path)
+
+        return sample_id
 
 
     def _make_dataset(file_name, type, meta, file_directory, sample_id, repository):
@@ -139,6 +149,8 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
 
     @property
     def epigenetic_mark(self):
+        if (self.dataset.meta["epigenetic_mark"] == "DNA methylation"):
+            return "Methylation"
         return self.dataset.meta["epigenetic_mark"]
 
     @property
@@ -238,3 +250,7 @@ class EpigenomicLandscapeDataset(Dataset):
             self.insert_error = msg
             self.save()
             log.info(msg)
+
+def init(user_key):
+    epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
+    epidb.add_sample_field("name", "string", None, user_key)
