@@ -216,7 +216,7 @@ class EncodeHistoneMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "ChipSeq"
+        return "ChIPseq"
 
 
 """
@@ -293,7 +293,7 @@ class EncodeTfbsMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "ChipSeq"
+        return "ChIPseq"
 
 
 """
@@ -319,7 +319,7 @@ class EncodeTfbsUniformMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "ChipSeq Uniform"
+        return "ChIPseq Uniform"
 
 
 """
