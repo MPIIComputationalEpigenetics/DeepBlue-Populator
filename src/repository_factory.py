@@ -1,7 +1,7 @@
 from encode_repository import EncodeRepository
 from blueprint_repository import BlueprintRepository
 from roadmap_repository import RoadmapRepository
-from epigenomic_landscape import EpigenomicLandscapeRepository
+from datasources.epigenomic_landscape.epigenomic_landscape_repository import EpigenomicLandscapeRepository
 from log import log
 
 
