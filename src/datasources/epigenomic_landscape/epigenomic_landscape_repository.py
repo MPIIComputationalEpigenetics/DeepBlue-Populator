@@ -144,3 +144,6 @@ class EpigenomicLandscapeRepository(Repository):
 def init(user_key):
     epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
     epidb.add_sample_field("name", "string", None, user_key)
+    #TODO shouldn't be here
+    epidb.create_column_type_simple("GENE_ID_ENTREZ", "", "-", "string", user_key)
+    epidb.create_column_type_simple("EXPRESSION_NORM", "", "0.0", "double", user_key)
