@@ -1,4 +1,5 @@
 name=m_hema_bock_mc2012_ex_MPP2_1
+biosource=hematopoietic multipotent progenitor cell
 genome=mm10
 epigenetic_mark=mRNA expression
 sample=GSM507369

@@ -20,30 +20,24 @@ class EpigenomicLandscapeDataset(Dataset):
 
         am = EpigenomicLandscapeAttributeMapper(self)
 
-        #if not os.path.exists(self.download_path):
-        #    raise IOError(self.download_path, self.file_name)
+        if not os.path.exists(self.download_path):
+            raise IOError(self.download_path)
 
         am.extra_metadata['__local_file__'] = self.download_path
 
-        #f = open(self.download_path, 'r')
-        #file_content = f.read()
-        #f.close()
-        file_content = ""
-        #TODO ;)
+        f = open(self.download_path, 'r')
+        file_content = f.readlines()
+        f.close()
 
-        file_split = file_content.split("\n", 1)
-        first_line = file_split[0]
+        # remove lines with CHROMOSOME,START,END,STRAND="NA"
+        na_linecount = 0
+        for line in list(file_content):
+            if line.startswith("NA"):
+                file_content.remove(line)
+                na_linecount += 1
+        log.info("NA lines removed: %d from %s", na_linecount, self.download_path)
 
-        while first_line.startswith('#') or first_line.startswith("track") or first_line.startswith("browser"):
-            file_content = file_split[1]
-            file_split = file_content.split("\n", 1)
-            first_line = file_split[0]
-            log.debug(first_line)
-
-        data_splited = file_content.split("\n")
-        data_splited = [x for x in data_splited if x]
-        data_splited.sort()
-        file_content = "\n".join(data_splited)
+        file_content = "\n".join(file_content)
 
         epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
 

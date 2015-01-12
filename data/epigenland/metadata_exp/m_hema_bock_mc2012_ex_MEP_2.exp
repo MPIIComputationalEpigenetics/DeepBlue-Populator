@@ -1,4 +1,5 @@
 name=m_hema_bock_mc2012_ex_MEP_2
+biosource=megakaryocyte-erythroid progenitor cell
 genome=mm10
 epigenetic_mark=mRNA expression
 sample=GSM945549

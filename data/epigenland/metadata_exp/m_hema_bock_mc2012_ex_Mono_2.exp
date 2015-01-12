@@ -1,4 +1,5 @@
 name=m_hema_bock_mc2012_ex_Mono_2
+biosource=monocyte
 genome=mm10
 epigenetic_mark=mRNA expression
 sample=GSM149594
