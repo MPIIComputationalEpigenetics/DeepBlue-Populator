@@ -14,6 +14,12 @@ from datasources.epigenomic_landscape.epigenomic_landscape_dataset import Epigen
 _regex_eq = re.compile("(.*?)=(.*)")
 _regex_dp = re.compile(".*?=(.*?):(.*)")
 
+_folder_experiments = "metadata_exp"
+_folder_samples = "metadata_sample"
+_folder_data = "data"
+_fileending_experiments = "exp"
+_fileending_samples = "sample"
+
 class EpigenomicLandscapeRepository(Repository):
 
     def __init__(self, project, genome, path, user_key):
@@ -24,10 +30,10 @@ class EpigenomicLandscapeRepository(Repository):
 
     def read_datasets(self):
 
-        for file_name in os.listdir(os.path.join(self.path, "experiments")):
-            if os.path.splitext(file_name)[1][1:] == "exp":
+        for file_name in os.listdir(os.path.join(self.path, _folder_experiments)):
+            if os.path.splitext(file_name)[1][1:] == _fileending_experiments:
 
-                lines = open(os.path.join(self.path, "experiments", file_name)).readlines()
+                lines = open(os.path.join(self.path, _folder_experiments, file_name)).readlines()
 
                 meta = {}
                 file_type = file_path = sample_id = ""
@@ -35,11 +41,11 @@ class EpigenomicLandscapeRepository(Repository):
                     match_eq = _regex_eq.match(line)
 
                     if match_eq.group(1) == "data":
-                        file_path = os.path.join(self.path, "experiments", match_eq.group(2).strip())
+                        file_path = match_eq.group(2).strip()
                         file_type = os.path.splitext(line)[1][1:].strip()
                     elif match_eq.group(1) == "sample":
                         sample_line = match_eq.group(2).strip()
-                        path = os.path.join(self.path, "samples", sample_line + ".sample")
+                        path = os.path.join(self.path, _folder_samples , sample_line + "." + _fileending_samples)
                         if os.path.exists(path):
                             sample_id = self._process_sample_file(path)
                         else:
@@ -48,11 +54,11 @@ class EpigenomicLandscapeRepository(Repository):
                         meta[match_eq.group(1)] = match_eq.group(2).strip()
 
                 if not (file_path and file_type and sample_id):
-                    log.error("Error parsing " + os.path.join(self.path, "experiments", file_name))
+                    log.error("Error parsing " + os.path.join(self.path, _folder_experiments, file_name))
                     return
 
                 dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
-                                                     file_directory=os.path.join(self.path, "samples"),
+                                                     file_directory=os.path.join(self.path, _folder_data),
                                                      sample_id=sample_id, repo_id=self.id)
                 self.add_dataset(dataset)
 
@@ -138,3 +144,6 @@ class EpigenomicLandscapeRepository(Repository):
 def init(user_key):
     epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
     epidb.add_sample_field("name", "string", None, user_key)
+    #TODO shouldn't be here
+    epidb.create_column_type_simple("GENE_ID_ENTREZ", "", "-", "string", user_key)
+    epidb.create_column_type_simple("EXPRESSION_NORM", "", "0.0", "double", user_key)
