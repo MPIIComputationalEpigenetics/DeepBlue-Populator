@@ -107,7 +107,7 @@ class Populator:
     # TODO: enforce in the datasource the epigenetic mark
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
-    epidb.add_epigenetic_mark("Methylation", "DNA Methylation", self.key)
+    epidb.add_epigenetic_mark("DNA Methylation", "DNA Methylation", self.key)
     epidb.add_epigenetic_mark("DNaseI", "DNaseI hypersensitive sites", self.key)
     epidb.add_epigenetic_mark("TFBS", "Transcription factor binding sites", self.key)
     epidb.add_epigenetic_mark("Chromatin State Segmentation",  "A common set of states across the cell types were learned by computationally integrating ChIP-seq data for nine factors plus input using a Hidden Markov Model (HMM). In total, fifteen states were used to segment the genome.", self.key)
