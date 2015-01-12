@@ -1,4 +1,5 @@
 name=m_hema_bock_mc2012_ex_B_cell_1
+biosource=B cell
 genome=mm10
 epigenetic_mark=mRNA expression
 sample=GSM149591

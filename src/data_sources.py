@@ -111,8 +111,8 @@ encode_mm9 = [
 ]
 
 project_sources = [
-    blueprint_source,
-    encode_source,
+    #blueprint_source,
+    #encode_source,
     encode_mm9
     # roadmap_source
 ]

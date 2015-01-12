@@ -1,4 +1,5 @@
 name=m_hema_bock_mc2012_ex_CD8_1
+biosource=CD8-positive, alpha-beta cytotoxic T cell
 genome=mm10
 epigenetic_mark=mRNA expression
 sample=GSM149585

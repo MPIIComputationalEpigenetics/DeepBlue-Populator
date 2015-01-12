@@ -1,4 +1,5 @@
 name=m_hema_bock_mc2012_ex_CMP_2
+biosource=common myeloid progenitor
 genome=mm10
 epigenetic_mark=mRNA expression
 sample=GSM507374

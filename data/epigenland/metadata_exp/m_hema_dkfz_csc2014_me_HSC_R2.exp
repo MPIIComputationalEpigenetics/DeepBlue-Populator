@@ -1,4 +1,5 @@
 name=m_hema_dkfz_csc2014_me_HSC_R2
+biosource=hematopoietic stem cell
 genome=mm10
 epigenetic_mark=DNA methylation
 sample=GSM1274425
