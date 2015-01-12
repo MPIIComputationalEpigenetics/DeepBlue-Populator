@@ -30,9 +30,12 @@ class EpigenomicLandscapeDataset(Dataset):
         f.close()
 
         # remove lines with CHROMOSOME,START,END,STRAND="NA"
+        na_linecount = 0
         for line in list(file_content):
             if line.startswith("NA"):
                 file_content.remove(line)
+                na_linecount += 1
+        log.info("NA lines removed: %d from %s", na_linecount, self.download_path)
 
         file_content = "\n".join(file_content)
 
