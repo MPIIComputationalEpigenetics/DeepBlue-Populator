@@ -52,12 +52,6 @@ class BlueprintRepository(Repository):
 
         epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
-        for s in sample_extra_info_keys:
-            (s, sf_id) = epidb.add_sample_field(s, "string", None,
-                                                self.user_key)
-            if util.has_error(s, sf_id, []):
-                print sf_id
-
         new = 0
         print self.index_path
         req = urllib.urlopen(self.index_path)
