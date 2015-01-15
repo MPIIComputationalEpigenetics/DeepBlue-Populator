@@ -92,7 +92,6 @@ class Populator:
     self.insert_epigenetic_marks()
     self.insert_technologies()
     self.insert_projects()
-    self.insert_sample_fields()
 
   def insert_genomes(self):
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
