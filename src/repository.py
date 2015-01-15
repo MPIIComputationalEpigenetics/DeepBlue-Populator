@@ -159,5 +159,5 @@ class Repository(object):
             t.join()
 
 
-    def _make_dataset(file_name, type, meta, file_directory, sample_id, repository):
+    def _make_dataset(self, file_name, type, meta, file_directory, sample_id, repository):
         return Dataset(file_name, type, meta, file_directory, sample_id, repository)
