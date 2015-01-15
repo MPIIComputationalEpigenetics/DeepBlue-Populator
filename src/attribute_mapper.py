@@ -83,9 +83,6 @@ class BlueprintMapper(AttributeMapper):
     @property
     def epigenetic_mark(self):
         e = self.dataset.meta["EXPERIMENT_TYPE"]
-        if e == "DNA Methylation":
-            return "Methylation"
-
         if e == "Ribo Minus RNA sequencing":
             return "mRNA-seq"
 
@@ -167,7 +164,7 @@ class EncodeRrbsMethylationMapper(EncodeMapper):
 
     @property
     def epigenetic_mark(self):
-        return "Methylation"
+        return "DNA Methylation"
 
     @property
     def technique(self):
@@ -184,7 +181,7 @@ class EncodeMethyl450KMapper(EncodeMapper):
 
     @property
     def epigenetic_mark(self):
-        return "Methylation"
+        return "DNA Methylation"
 
     @property
     def technique(self):
@@ -338,8 +335,6 @@ class RoadmapMapper(AttributeMapper):
     @property
     def epigenetic_mark(self):
         em = self.dataset.meta['epigenetic_mark']
-        if em == 'DNA Methylation':
-            return 'Methylation'
         if em == 'mRNA-Seq':
             return 'mRNA-seq'
         return em
