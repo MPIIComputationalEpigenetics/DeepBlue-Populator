@@ -79,7 +79,7 @@ class EncodeRepository(Repository):
 
             (status, samples_id) = epidb.list_samples("", {"term": meta["cell"]}, self.user_key)
             if status != "okay" or not len(samples_id):
-                log.critical("Sample for biosource %s was not found", am.biosource)
+                log.critical("Sample for biosource %s was not found", meta["cell"])
                 log.critical(samples_id)
 
             # First (and only element) and them get its ID
