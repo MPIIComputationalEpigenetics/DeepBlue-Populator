@@ -167,7 +167,7 @@ class Populator:
     mdb.repositories.ensure_index([("path", 1)], unique=True)
     mdb.datasets.ensure_index([("file_name", 1), ("repository_id", 1)], unique=True)
 
-  def  load_repositories(self):
+  def load_repositories(self):
     for sources in project_sources:
       for (proj, genome, url) in sources:
         r = repository_factory.load(proj, genome, url, self.key)
