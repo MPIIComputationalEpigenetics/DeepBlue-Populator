@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 import os
 import threading
 import re
@@ -8,7 +10,7 @@ import settings
 import client
 import util
 from repository import Repository
-from datasources.epigenomic_landscape.epigenomic_landscape_dataset import EpigenomicLandscapeDataset
+from datasources.epigenomic_landscape.dataset import EpigenomicLandscapeDataset
 
 
 _regex_eq = re.compile("(.*?)=(.*)")

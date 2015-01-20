@@ -1,10 +1,12 @@
+from __future__ import absolute_import
+
 import os
 
 from log import log
 import settings
 import client
 from dataset import Dataset
-from datasources.epigenomic_landscape.epigenomic_landscape_attribute_mapper import EpigenomicLandscapeAttributeMapper
+from datasources.epigenomic_landscape.attribute_mapper import EpigenomicLandscapeAttributeMapper
 
 class EpigenomicLandscapeDataset(Dataset):
 
