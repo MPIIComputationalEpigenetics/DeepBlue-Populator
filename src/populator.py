@@ -130,6 +130,7 @@ class Populator:
     epidb.add_technique("Chromatin State Segmentation by HMM", "ChIP-seq data from the Broad Histone track was used to generate this track. Data for nine factors plus input and nine cell types was binarized separately at a 200 base pair resolution based on a Poisson background model. The chromatin states were learned from this binarized data using a multivariate Hidden Markov Model (HMM) that explicitly models the combinatorial patterns of observed modifications (Ernst and Kellis, 2010). To learn a common set of states across the nine cell types, first the genomes were concatenated across the cell types. For each of the nine cell types, each 200 base pair interval was then assigned to its most likely state under the model. Detailed information about the model parameters and state enrichments can be found in (Ernst et al, accepted).", {}, self.key)
     epidb.add_technique("RNASeq", "RNA sequencing", {}, self.key)
     epidb.add_technique("Microarray", "Various microarray techniques", {}, self.key)
+    epidb.add_technique("Affymetrix Mouse Genome 430 2.0 Array", "", {}, self.key)
 
   def insert_projects(self):
     # TODO: Load these information from the source file.
@@ -139,6 +140,7 @@ class Populator:
     epidb.add_project("ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements", self.key)
     epidb.add_project("Blueprint Epigenetics", "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes", self.key)
     epidb.add_project("Mouse ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse", self.key)
+    epidb.add_project("epigenomic landscape - hematopoiesis - mouse - pilot", "", self.key)
 
   def create_columns(self):
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
