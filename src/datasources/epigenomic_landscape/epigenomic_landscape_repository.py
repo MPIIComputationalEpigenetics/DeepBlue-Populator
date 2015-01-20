@@ -24,11 +24,11 @@ class EpigenomicLandscapeRepository(Repository):
 
     def __init__(self, project, genome, path, user_key):
         super(EpigenomicLandscapeRepository, self).__init__(project, genome, ["bed", "bedgraph", "wig"], path, user_key)
-        #TODO: shouldn't  be called here:
-        init(user_key)
 
 
     def read_datasets(self):
+
+        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
 
         for file_name in os.listdir(os.path.join(self.path, _folder_experiments)):
             if os.path.splitext(file_name)[1][1:] == _fileending_experiments:
@@ -36,26 +36,38 @@ class EpigenomicLandscapeRepository(Repository):
                 lines = open(os.path.join(self.path, _folder_experiments, file_name)).readlines()
 
                 meta = {}
-                file_type = file_path = sample_id = ""
+                file_type = file_path = sample_id = biosource = ""
                 for line in lines:
                     match_eq = _regex_eq.match(line)
 
                     if match_eq.group(1) == "data":
                         file_path = match_eq.group(2).strip()
                         file_type = os.path.splitext(line)[1][1:].strip()
+                    elif match_eq.group(1) == "biosource":
+                        biosource = match_eq.group(2).strip()
                     elif match_eq.group(1) == "sample":
                         sample_line = match_eq.group(2).strip()
                         path = os.path.join(self.path, _folder_samples , sample_line + "." + _fileending_samples)
                         if os.path.exists(path):
-                            sample_id = self._process_sample_file(path)
-                        else:
+                            #Line is path for .sample file
+                            sample_id = self._get_sample_id(path)
+                        elif sample_line.startswith("GSM"):
+                            #Line is Sample ID from GSM
+                            (status, id) = epidb.add_sample_from_gsm(biosource, sample_line, self.user_key)
+                            if id.startswith("The ID"):
+                                id_split = id.split(" ")
+                                sample_id = id_split[len(id_split) - 1]
+                            else:
+                                sample_id = id
+                        elif sample_line.startswith("s") and sample_line[1:].isalnum():
+                            #Line is DeepBlue sampleID
                             sample_id = sample_line
-                    else:
+                    elif match_eq.group(1):
                         meta[match_eq.group(1)] = match_eq.group(2).strip()
 
                 if not (file_path and file_type and sample_id):
                     log.error("Error parsing " + os.path.join(self.path, _folder_experiments, file_name))
-                    return
+                    continue
 
                 dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
                                                      file_directory=os.path.join(self.path, _folder_data),
@@ -93,10 +105,10 @@ class EpigenomicLandscapeRepository(Repository):
         for t in threads:
             t.join()
 
-    def _process_sample_file(self, path):
+    def _get_sample_id(self, path):
         """Returns ID for sample in path, inserts sample into DeepBlue if it's not already
         :param path: path to .sample-file
-        :return: Sample name
+        :return: SampleID
         """
         epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
 
@@ -116,34 +128,18 @@ class EpigenomicLandscapeRepository(Repository):
             if group1.startswith("extra_metadata"):
                 match_dp = _regex_dp.match(line)
                 if match_dp.group(2):
-                    epidb.add_sample_field(match_dp.group(1), "string", None, self.user_key)
                     extra_metadata[match_dp.group(1)] = match_dp.group(2)
 
         if not biosource:
             log.error("Error parsing " + path)
             return ""
 
-        (s, samples) = epidb.list_samples(biosource, extra_metadata, self.user_key)
-        if samples:
-            sample_id = samples[0][0]
-        else:
-            if not epidb.is_biosource(biosource, self.user_key)[0] == "okay":
-                log.error("biosource " + biosource + " doesn't exist " + self.path)
-
-            (s, sample_id) = epidb.add_sample(biosource, extra_metadata, self.user_key)
-            if util.has_error(s, sample_id, []):
-                log.error("Sample not inserted " + path)
+        (s, sample_id) = epidb.add_sample(biosource, extra_metadata, self.user_key)
+        if util.has_error(s, sample_id, []):
+            log.error("Sample not inserted " + path)
 
         return sample_id
 
 
-    def _make_dataset(file_name, type, meta, file_directory, sample_id, repository):
+    def _make_dataset(self, file_name, type, meta, file_directory, sample_id, repository):
         return EpigenomicLandscapeDataset(file_name, type, meta, file_directory, sample_id, repository)
-
-
-def init(user_key):
-    epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
-    epidb.add_sample_field("name", "string", None, user_key)
-    #TODO shouldn't be here
-    epidb.create_column_type_simple("GENE_ID_ENTREZ", "", "string", user_key)
-    epidb.create_column_type_simple("EXPRESSION_NORM", "", "double", user_key)
