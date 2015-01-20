@@ -1,4 +1,8 @@
+import re
+
 from attribute_mapper import AttributeMapper
+
+_regex_dp = re.compile("(.*?):(.*)")
 
 class EpigenomicLandscapeAttributeMapper(AttributeMapper):
     def __init__(self, dataset):
@@ -14,8 +18,6 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
 
     @property
     def epigenetic_mark(self):
-        if (self.dataset.meta["epigenetic_mark"] == "DNA methylation"):
-            return "Methylation"
         return self.dataset.meta["epigenetic_mark"]
 
     @property
@@ -36,7 +38,12 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
 
     @property
     def extra_metadata(self):
-        return self.dataset.meta
+        _extra_metadata = {}
+        for key in self.dataset.meta:
+            if key.startswith("extra_metadata"):
+                _match_dp = _regex_dp.match(self.dataset.meta[key])
+                _extra_metadata[_match_dp.group(1)] = _match_dp.group(2)
+        return _extra_metadata
 
     @property
     def format(self):

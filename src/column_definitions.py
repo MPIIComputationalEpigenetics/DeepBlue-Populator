@@ -68,7 +68,9 @@ SIMPLE = [
     ("EXPRESSION_NORM_GCRMA", "GCRMA-normalized signal intensity", Type.DOUBLE),
     ("DNA_METH_U", "Number of unmethylated reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER),
     ("DNA_METH_M", "Number of methylated reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER),
-    ("DNA_METH_T", "Number of total reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER)
+    ("DNA_METH_T", "Number of total reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER),
+    ("GENE_ID_ENTREZ", "", Type.INTEGER),
+    ("EXPRESSION_NORM", "", Type.DOUBLE)
 ]
 
 CATEGORY = [

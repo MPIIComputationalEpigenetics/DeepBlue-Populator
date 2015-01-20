@@ -35,7 +35,8 @@ class EpigenomicLandscapeDataset(Dataset):
             if line.startswith("NA"):
                 file_content.remove(line)
                 na_linecount += 1
-        log.info("NA lines removed: %d from %s", na_linecount, self.download_path)
+        if na_linecount:
+            log.info("NA lines removed: %d from %s", na_linecount, self.download_path)
 
         file_content = "\n".join(file_content)
 
