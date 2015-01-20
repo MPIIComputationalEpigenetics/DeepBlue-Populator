@@ -1,3 +1,5 @@
+from password_manager import PROJECT_USER, PROJECT_PASSWORD
+
 encode_source = [
     ## Histone Modifications
     ('ENCODE', "hg19",
@@ -41,7 +43,8 @@ encode_source = [
 ]
 
 blueprint_source = [
-    ('Blueprint Epigenetics', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
+    #('Blueprint Epigenetics', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
+    ('Blueprint Epigenetics', "hg19", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
 ]
 
 roadmap_source = [
@@ -111,8 +114,8 @@ encode_mm9 = [
 ]
 
 project_sources = [
-    #blueprint_source,
-    #encode_source,
-    encode_mm9
+    blueprint_source,
+    # encode_source,
+    # encode_mm9
     # roadmap_source
 ]

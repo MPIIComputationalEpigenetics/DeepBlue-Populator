@@ -1,5 +1,5 @@
 import os.path
-import urllib
+import urllib2
 import os.path
 import pprint
 
@@ -29,14 +29,14 @@ class BlueprintRepository(Repository):
 
     @property
     def index_path(self):
-        return self.path + "blueprint/releases/current_release/homo_sapiens/20140811.data.index"
+        # return self.path + "blueprint/releases/current_release/homo_sapiens/20140811.data.index
+        return self.path + "releases/20150128/data_files.index"
 
 
     """
     read_datasets analyses the repositorie's index file and flags
     new datasets.
     """
-
     def read_datasets(self):
         # TODO: convert to the predefined keys
         sample_extra_info_keys = ["SAMPLE_ID", "SAMPLE_NAME", "DISEASE",
@@ -45,16 +45,14 @@ class BlueprintRepository(Repository):
                                   "DONOR_AGE", "DONOR_HEALTH_STATUS",
                                   "DONOR_ETHNICITY",
                                   "DONOR_REGION_OF_RESIDENCE",
-                                  "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE"]
-
-        biosource_info_keys = ["BIOMATERIAL_TYPE", "CELL_TYPE", "DISEASE",
-                               "TISSUE_TYPE"]
+                                  "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE", "DISEASE"]
 
         epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
         new = 0
+
         print self.index_path
-        req = urllib.urlopen(self.index_path)
+        req = urllib2.urlopen(self.index_path)
         content = req.read()
         ucontent = unicode(content, 'iso_8859_1')
         lines = ucontent.split("\n")
@@ -75,55 +73,32 @@ class BlueprintRepository(Repository):
             for k in sample_extra_info_keys:
                 sample_extra_info[k] = line_info[k]
 
-            if line_info["BIOMATERIAL_TYPE"].lower() == "primary cell":
+            if line_info["BIOMATERIAL_TYPE"].lower() == "primary cell" or line_info['BIOMATERIAL_TYPE'].lower() == "primary cell culture":
                 biosource_name = line_info["CELL_TYPE"]
+            elif line_info["BIOMATERIAL_TYPE"].lower() == "primary tissue":
+                biosource_name = line_info["TISSUE_TYPE"]
             elif line_info["BIOMATERIAL_TYPE"].lower() == "cell line":
-                biosource_name = line_info["DISEASE"]
-            elif line_info['BIOMATERIAL_TYPE'].lower() == "primary cell culture":
-                biosource_extra_info = line_info['SAMPLE_SOURCE']
+                biosource_name = line_info["CELL_LINE"]
             else:
-                print 'Invalid BIOMATERIAL_TYPE: ', line_info[
-                    'BIOMATERIAL_TYPE']
+                print 'Invalid BIOMATERIAL_TYPE: ', line_info['BIOMATERIAL_TYPE']
+                print line_info
+                print line_info["CELL_TYPE"]
+                print line_info["TISSUE_LINE"]
+                print line_info["CELL_LINE"]
 
-            if biosource_name.lower() == "none":
+            if biosource_name.lower() == "none" or not biosource_name.strip():
                 print "Invalid biosource name:", biosource_name
                 pp.pprint(line_info)
                 continue
 
-            biosource_extra_info = {}
-            for k in biosource_info_keys:
-                i = line_info[k]
-                if i != "NA" and i != "None" and i != "-":
-                    biosource_extra_info[k] = i
+            if "(" in biosource_name:
+                biosource_name_old = biosource_name
+                biosource_name = biosource_name.split("(")[0]
+                print "Renaming " + biosource_name_old + " to " + biosource_name
 
-            biosource_extra_info["source"] = "BLUEPRINT Epigenomics"
+            sample_extra_info["source"] = "BLUEPRINT Epigenomics"
 
-            (s, bs_id) = epidb.add_biosource(biosource_name, None,
-                                             biosource_extra_info,
-                                             self.user_key)
-            if s == "okay":
-                print "New BioSource inserted :", biosource_name
-            elif util.has_error(s, bs_id, ["104001"]):
-                print s, bs_id
-
-            if biosource_extra_info.has_key("TISSUE_TYPE"):
-                (s, bs_id) = epidb.add_biosource(
-                    biosource_extra_info["TISSUE_TYPE"], None,
-                    {"source": "BLUEPRINT Epigenomics"}, self.user_key)
-                if s == "okay":
-                    print 'New biosource (tissue) inserted:', \
-                        biosource_extra_info['TISSUE_TYPE']
-                else:
-                    if util.has_error(s, bs_id, ["104001"]):
-                        print s, bs_id
-
-                (s, r) = epidb.set_biosource_parent(
-                    biosource_extra_info["TISSUE_TYPE"], biosource_name,
-                    self.user_key)
-                if s == "okay":
-                    print "New Scope: ", r
-                elif util.has_error(s, r, ["104901"]):
-                    print s, r
+            epidb.add_biosource(biosource_name, None, {}, self.user_key)
 
             (s, samples) = epidb.list_samples(biosource_name,
                                               sample_extra_info, self.user_key)
@@ -157,4 +132,3 @@ class BlueprintRepository(Repository):
             if self.add_dataset(ds):
                 new += 1
                 self.has_updates = True
-
