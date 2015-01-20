@@ -6,8 +6,9 @@ keys = {}
 
 if os.path.exists(FILES):
 	for line in open(FILES).readlines():
+		print line
 		(project, user, password) = line.split(":", 3)
-		keys[project] = (user, password)
+		keys[project] = (user.strip(), password.strip())
 
 
 def PROJECT_USER(project):
