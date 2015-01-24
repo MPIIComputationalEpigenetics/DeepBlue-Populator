@@ -125,7 +125,10 @@ def process_biosource(i, user_key):
     if i.has_key("childOf"):
         fields["childOf"] = i["childOf"]
 
-    fields["source"] = "ENCODE"
+    if fields["organism"] == "human":
+        fields["source"] = "ENCODE"
+    elif fields["organism"] == "mouse":
+        fields["source"] = "Mouse ENCODE"
 
     if epidb.is_biosource(biosource_name, user_key)[0] == 'okay':
         (s, s_id) = epidb.add_sample(biosource_name, fields, user_key)
