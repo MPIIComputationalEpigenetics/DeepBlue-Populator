@@ -131,6 +131,8 @@ class Populator:
     epidb.add_technique("RNASeq", "RNA sequencing", {}, self.key)
     epidb.add_technique("Microarray", "Various microarray techniques", {}, self.key)
     epidb.add_technique("Affymetrix Mouse Genome 430 2.0 Array", "", {}, self.key)
+    epidb.add_technique("WGBS", "Whole-genome bisulfite sequencing", {}, self.key)
+
 
   def insert_projects(self):
     # TODO: Load these information from the source file.
