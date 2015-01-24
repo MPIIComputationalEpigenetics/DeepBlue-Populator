@@ -1,4 +1,4 @@
-from encode_vocabulary import antibodyToTarget
+from datasources.encode.vocabulary import antibodyToTarget
 
 """
 UnmappedAttribute exception is raised if for a certain AttributeMapper

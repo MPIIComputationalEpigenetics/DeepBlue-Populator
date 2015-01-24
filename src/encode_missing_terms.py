@@ -1,5 +1,7 @@
 import xmlrpclib
-from encode_vocabulary import ControledVocabulary
+
+from datasources.encode.vocabulary import ControledVocabulary
+
 
 
 # Get the data from the main server

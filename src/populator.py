@@ -2,7 +2,7 @@ import os
 import os.path
 import settings
 
-import encode_vocabulary
+import datasources.encode.vocabulary
 import column_definitions
 import repository_factory
 
@@ -161,8 +161,8 @@ class Populator:
 
   def process_ontology(self):
     load_owl(self.key)
-    encode_vocabulary.manual_curation(self.key)
-    encode_vocabulary.ensure_vocabulary(self.key)
+    datasources.encode.vocabulary.manual_curation(self.key)
+    datasources.encode.vocabulary.ensure_vocabulary(self.key)
 
   """
   setup_collections configures database internals for the Populator database
