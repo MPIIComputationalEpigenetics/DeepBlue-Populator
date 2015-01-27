@@ -151,6 +151,15 @@ class EncodeMapper(AttributeMapper):
     def format(self):
         return self.dataset.meta["type"]
 
+    @property
+    def extra_metadata(self):
+        ret = {}
+        for key in self.dataset.meta:
+            #epigenetic mark has own field
+            if not key == "epigenetic_mark":
+                ret[key] = self.dataset.meta[key]
+        return ret
+
 
 """
 EncodeMethylationMapper is the AttributeMapper for ENCODE repositories with
