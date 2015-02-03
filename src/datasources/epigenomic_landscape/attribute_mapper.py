@@ -16,7 +16,7 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
 
     @property
     def genome(self):
-        return self.dataset.repository["genome"]
+        return self.dataset.meta["genome"]
 
     @property
     def epigenetic_mark(self):
