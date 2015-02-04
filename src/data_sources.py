@@ -113,9 +113,15 @@ encode_mm9 = [
      'http://hgdownload.cse.ucsc.edu/goldenPath/mm9/encodeDCC/wgEncodeUwDnase/')
 ]
 
+epigenomic_landscape = [
+    ('Epigenomic Landscape', 'None',
+     '/TL/deep-external01/nobackup/forDeepBlue/epigenland/')
+]
+
 project_sources = [
-    blueprint_source,
+    # blueprint_source,
     # encode_source,
     # encode_mm9
     # roadmap_source
+    epigenomic_landscape
 ]

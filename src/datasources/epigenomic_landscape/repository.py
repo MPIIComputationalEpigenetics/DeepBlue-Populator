@@ -68,11 +68,24 @@ class EpigenomicLandscapeRepository(Repository):
                         meta[match_eq.group(1)] = match_eq.group(2).strip()
 
                 if not (file_path and file_type and sample_id):
-                    log.error("Error parsing " + os.path.join(self.path, _folder_experiments, file_name))
+                    log.error("Error parsing " + os.path.join(self.path, _folder_experiments, file_name) + " (file_path: '" + str(file_path) + "' file_type: '" + str(file_type) + "' sample_id: '" + str(sample_id)+ "')")
                     continue
 
+            	file_full_name = file_path.split("/")[-1]
+           	file_type = file_full_name.split(".")[-1]
+            	if file_type == "gz":
+                	file_type = file_full_name.split(".")[-2]
+            	directory = os.path.dirname(file_path)
+
+		if not directory:
+			directory = os.path.join(self.path, _folder_data)
+
+		if file_type == "bg":
+			file_type = "bedgraph"
+		
+		print '"file_type: "', file_type, '"'
                 dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
-                                                     file_directory=os.path.join(self.path, _folder_data),
+                                                     file_directory=directory,
                                                      sample_id=sample_id, repo_id=self.id)
                 self.add_dataset(dataset)
 
@@ -133,12 +146,12 @@ class EpigenomicLandscapeRepository(Repository):
                     extra_metadata[match_dp.group(1)] = match_dp.group(2)
 
         if not biosource:
-            log.error("Error parsing " + path)
+            log.error("Error parsing sample file: " + path + " - BioSource not informed. ")
             return ""
 
         (s, sample_id) = epidb.add_sample(biosource, extra_metadata, self.user_key)
         if util.has_error(s, sample_id, []):
-            log.error("Sample not inserted " + path)
+            log.error("Sample not inserted " + path + " - " + sample_id)
 
         return sample_id
 
