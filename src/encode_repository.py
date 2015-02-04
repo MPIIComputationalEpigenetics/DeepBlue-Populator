@@ -23,25 +23,22 @@ class EncodeRepository(Repository):
     def __str__(self):
         return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)
 
-    """
-    index_path is the path to the file which contains information of all
-    datasets in the repository.
-    """
-
     @property
     def index_path(self):
+        """
+        index_path is the path to the file which contains information of all
+        datasets in the repository.
+        """
         return os.path.join(self.path, "files.txt")
 
-
-    """
-    read_datasets analyses the repositorie's index file and flags
-    new datasets.
-    """
-
     def read_datasets(self):
+        """
+        read_datasets analyses the repositorie's index file and flags
+        new datasets.
+        """
         epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
-        epigeneticMark = None
+        epigenetic_mark = None
 
         new = 0
         f = urllib.urlopen(self.index_path)
@@ -55,33 +52,33 @@ class EncodeRepository(Repository):
                 meta[fs[0]] = fs[1]
 
             if "objStatus" in meta:
-                #do not include obsolete datasets
+                # do not include obsolete datasets
                 if meta["objStatus"].startswith("renamed") or \
                         meta["objStatus"].startswith("replaced") or \
                         meta["objStatus"].startswith("revoked"):
                     log.info("Not including obsolete dataset %s", line.strip())
                     continue
 
-            if not meta.has_key("dataType"):
+            if "dataType" not in meta:
                 log.info("Line %s from %s does not have datatype" % (line, self.path))
                 continue
 
             r = re.findall('[A-Z][a-z]*', meta["composite"])
 
             if r[-2] in ["Haib", "Sydh", "Broad", "Uw", "Uchicago", "Psu", "Licr", "Caltech"]:
-                #filter out project/instutute names
+                # filter out project/instutute names
                 em = r[-1]
             else:
                 em = r[-2] + r[-1]
 
-            if epigeneticMark == None:
-                epigeneticMark = em
-            elif epigeneticMark != None and epigeneticMark != em:
-                print "datatype was set %s but new is %s" % (epigeneticMark, em)
+            if epigenetic_mark is None:
+                epigenetic_mark = em
+            elif epigenetic_mark is not None and epigenetic_mark != em:
+                print "datatype was set %s but new is %s" % (epigenetic_mark, em)
 
-            meta["epigenetic_mark"] = epigeneticMark
+            meta["epigenetic_mark"] = epigenetic_mark
 
-            if epigeneticMark == "Histone" and meta["antibody"].find("_") != -1:
+            if epigenetic_mark == "Histone" and meta["antibody"].find("_") != -1:
                 meta["antibody"] = meta["antibody"].split("_")[0]
 
             (status, samples_id) = epidb.list_samples("", {"term": meta["cell"]}, self.user_key)
@@ -96,11 +93,11 @@ class EncodeRepository(Repository):
             suf = size[-1].lower()
             value = float(size[:-1])
 
-            if (suf == 'k'):
+            if suf == 'k':
                 s = value * 1024
-            elif (suf == 'm'):
+            elif suf == 'm':
                 s = value * 1024 * 1024
-            elif (suf == 'g'):
+            elif suf == 'g':
                 s = value * 1024 * 1024 * 1024
             else:
                 s = value
