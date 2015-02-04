@@ -83,7 +83,6 @@ class EpigenomicLandscapeRepository(Repository):
 		if file_type == "bg":
 			file_type = "bedgraph"
 		
-		print '"file_type: "', file_type, '"'
                 dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
                                                      file_directory=directory,
                                                      sample_id=sample_id, repo_id=self.id)
