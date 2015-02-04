@@ -107,5 +107,5 @@ class EpigenomicLandscapeDataset(Dataset):
             self.save()
             log.info(msg)
 
-	#if localfile:
-	#	os.remove(localfile)
+	if localfile:
+		os.remove(localfile)
