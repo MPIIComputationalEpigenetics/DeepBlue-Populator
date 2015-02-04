@@ -71,9 +71,9 @@ class EncodeRepository(Repository):
             else:
                 em = r[-2] + r[-1]
 
-            if epigenetic_mark is None:
+            if not epigenetic_mark:
                 epigenetic_mark = em
-            elif epigenetic_mark is not None and epigenetic_mark != em:
+            elif epigenetic_mark and epigenetic_mark != em:
                 print "datatype was set %s but new is %s" % (epigenetic_mark, em)
 
             meta["epigenetic_mark"] = epigenetic_mark

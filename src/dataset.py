@@ -3,7 +3,7 @@ import gzip
 from subprocess import call
 
 import util
-from attribute_mapper import do_map
+import attribute_mapper_factory
 from formats import format_builder
 from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, OS
 from log import log
@@ -213,9 +213,9 @@ class Dataset:
         project = self.repository["project"]
         if self.meta.has_key("epigenetic_mark"):
             mark = self.meta["epigenetic_mark"]
-            am = do_map(project, mark)(self)
+            am = attribute_mapper_factory.get(project, mark)(self)
         else:
-            am = do_map(project)(self)
+            am = attribute_mapper_factory.get(project)(self)
 
         if not os.path.exists(self.download_path):
             raise MissingFile(self.download_path, self.file_name)
