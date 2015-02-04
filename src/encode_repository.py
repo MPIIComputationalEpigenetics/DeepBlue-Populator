@@ -54,6 +54,14 @@ class EncodeRepository(Repository):
                 fs = kv.split("=")
                 meta[fs[0]] = fs[1]
 
+            if "objStatus" in meta:
+                #do not include obsolete datasets
+                if meta["objStatus"].startswith("renamed") or \
+                        meta["objStatus"].startswith("replaced") or \
+                        meta["objStatus"].startswith("revoked"):
+                    log.info("Not including obsolete dataset %s", line.strip())
+                    continue
+
             if not meta.has_key("dataType"):
                 log.info("Line %s from %s does not have datatype" % (line, self.path))
                 continue
