@@ -81,12 +81,12 @@ class EpigenomicLandscapeRepository(Repository):
 			directory = os.path.join(self.path, _folder_data)
 
 		if file_type == "bg":
-			file_type = "bedgraph"
-		
-                dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
+		  file_type = "bedgraph"
+
+        dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
                                                      file_directory=directory,
                                                      sample_id=sample_id, repo_id=self.id)
-                self.add_dataset(dataset)
+        self.add_dataset(dataset)
 
     def process_datasets(self, key=None):
 
@@ -148,7 +148,9 @@ class EpigenomicLandscapeRepository(Repository):
             log.error("Error parsing sample file: " + path + " - BioSource not informed. ")
             return ""
 
+        extra_metadata["source"] = self.project
         (s, sample_id) = epidb.add_sample(biosource, extra_metadata, self.user_key)
+        print "new sample:" , sample_id
         if util.has_error(s, sample_id, []):
             log.error("Sample not inserted " + path + " - " + sample_id)
 
