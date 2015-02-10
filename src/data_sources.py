@@ -118,6 +118,11 @@ epigenomic_landscape = [
      '/local/data/DeepBlue-Populator/data/forDeepBlue')
 ]
 
+epigenomic_landscape = [
+    ('DEEP', 'None',
+     '/TL/deep-external01/nobackup/forDeepBlue/epigenland/')
+]
+
 project_sources = [
      # blueprint_source,
      # encode_source

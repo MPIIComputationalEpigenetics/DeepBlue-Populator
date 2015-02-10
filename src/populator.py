@@ -143,6 +143,7 @@ class Populator:
     epidb.add_project("Blueprint Epigenetics", "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes", self.key)
     epidb.add_project("Mouse ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse", self.key)
     epidb.add_project("epigenomic landscape - hematopoiesis - mouse - pilot", "", self.key)
+    epidb.add_project("DEEP", "DEEP - Deutsches Epigenom Programm", self.key)
 
   def create_columns(self):
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)

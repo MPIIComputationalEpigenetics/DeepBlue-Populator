@@ -14,5 +14,7 @@ def load(project, genome, url, user_key):
         return RoadmapRepository(project, genome, url, user_key)
     elif project == 'Epigenomic Landscape':
         return EpigenomicLandscapeRepository(project, genome, url, user_key)
+    elif project == 'DEEP':
+        return EpigenomicLandscapeRepository("DEEP - Deutsches Epigenom Programm", genome, url, user_key)
     else:
         log.error("Invalid project %s", project)
