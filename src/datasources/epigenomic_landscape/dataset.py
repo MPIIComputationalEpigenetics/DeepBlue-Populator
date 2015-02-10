@@ -65,6 +65,12 @@ class EpigenomicLandscapeDataset(Dataset):
             		if line.startswith("NA"):
                 		file_content.remove(line)
                 		na_linecount += 1
+			
+			if line.split()[0].endswith("_random"):
+				print  "remove random"
+				file_content.remove(line)
+				na_linecount += 1
+
         	if na_linecount:
             		log.info("NA lines removed: %d from %s", na_linecount, self.download_path)
 

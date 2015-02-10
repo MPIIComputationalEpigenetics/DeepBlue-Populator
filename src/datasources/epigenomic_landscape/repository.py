@@ -32,6 +32,11 @@ class EpigenomicLandscapeRepository(Repository):
 
         epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
 
+        for file_name in os.listdir(os.path.join(self.path, _folder_samples)):
+           sample_file = os.path.join(self.path, _folder_samples, file_name)
+           print self._get_sample_id(sample_file)
+
+
         for file_name in os.listdir(os.path.join(self.path, _folder_experiments)):
             if os.path.splitext(file_name)[1][1:] == _fileending_experiments:
 
@@ -81,12 +86,12 @@ class EpigenomicLandscapeRepository(Repository):
 			directory = os.path.join(self.path, _folder_data)
 
 		if file_type == "bg":
-		  file_type = "bedgraph"
+			file_type = "bedgraph"
 
-        dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
+        	dataset = EpigenomicLandscapeDataset(file_path, file_type, meta,
                                                      file_directory=directory,
                                                      sample_id=sample_id, repo_id=self.id)
-        self.add_dataset(dataset)
+        	self.add_dataset(dataset)
 
     def process_datasets(self, key=None):
 
@@ -149,6 +154,8 @@ class EpigenomicLandscapeRepository(Repository):
             return ""
 
         extra_metadata["source"] = self.project
+	print biosource
+	print extra_metadata
         (s, sample_id) = epidb.add_sample(biosource, extra_metadata, self.user_key)
         print "new sample:" , sample_id
         if util.has_error(s, sample_id, []):
