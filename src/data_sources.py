@@ -115,13 +115,13 @@ encode_mm9 = [
 
 epigenomic_landscape = [
     ('Epigenomic Landscape', 'None',
-     '/TL/deep-external01/nobackup/forDeepBlue/epigenland/')
+     '/local/data/DeepBlue-Populator/data/forDeepBlue')
 ]
 
 project_sources = [
-    # blueprint_source,
-    # encode_source,
-    # encode_mm9
-    # roadmap_source
-    epigenomic_landscape
+     # blueprint_source,
+     # encode_source
+     # encode_mm9,
+     epigenomic_landscape
+     # roadmap_source
 ]
