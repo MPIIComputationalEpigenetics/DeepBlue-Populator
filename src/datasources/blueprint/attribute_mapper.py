@@ -43,6 +43,15 @@ class BlueprintMapper(AttributeMapper):
         if self.name.find("bs_call") != -1:
             return "blueprint_bs_call"
 
+        if self.dataset.type == "bigwig":
+            return "wig"
+
+        if self.dataset.type == "gtf":
+            return "gff"
+
+        if self.dataset.type == "gff":
+            return "gff"
+
         if self.epigenetic_mark == "mRNA-seq":
             return "encode_rna"
 
@@ -54,9 +63,6 @@ class BlueprintMapper(AttributeMapper):
 
         if self.epigenetic_mark == "DNaseI":
             return "bed"
-
-        if self.dataset.meta["type"] == "bigwig":
-            return "wig"
 
         print "Unknown format for %s epigenetic mark %s and type %s" % (
             self.name, self.epigenetic_mark, self.dataset.meta["type"])
