@@ -111,6 +111,7 @@ class Populator:
     epidb.add_epigenetic_mark("TFBS", "Transcription factor binding sites", self.key)
     epidb.add_epigenetic_mark("Chromatin State Segmentation",  "A common set of states across the cell types were learned by computationally integrating ChIP-seq data for nine factors plus input using a Hidden Markov Model (HMM). In total, fifteen states were used to segment the genome.", self.key)
     epidb.add_epigenetic_mark("mRNA-seq", "Messenger RNA", self.key)
+    epidb.add_epigenetic_mark("flRNA-seq", "Full length RNA", self.key)
     epidb.add_epigenetic_mark("Input", "Experiment Input Data. It is not an epigenetic mark", self.key)
     epidb.add_epigenetic_mark("Control", "Experiment Control Data. It is not an epigenetic mark", self.key)
     epidb.add_epigenetic_mark("mRNA expression", "mRNA expression levels", self.key)
