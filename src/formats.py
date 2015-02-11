@@ -142,6 +142,18 @@ blueprint_bs_call = [
     "REF_GENES"
 ]
 
+gff = [
+    "CHROMOSOME",
+    "SOURCE",
+    "FEATURE",
+    "START",
+    "END",
+    "GFF_SCORE",
+    "STRAND",
+    "FRAME",
+    "ATTRIBUTE"
+]
+
 formats = {
     "simple": simple,
     "bed": bed,
@@ -154,7 +166,8 @@ formats = {
     "lamin_b1": lamin_b1,
     "conservation_elements": conservation_elements,
     "rmsk": rmsk,
-    "blueprint_bs_call": blueprint_bs_call
+    "blueprint_bs_call": blueprint_bs_call,
+    "gff": gff
 }
 
 
