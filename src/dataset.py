@@ -112,6 +112,10 @@ class Dataset:
         return self._repository
 
 
+    @property
+    def type(self):
+        return self.type_
+
     """
     exists checks if the Dataset with its unique attributes `repository_id' and
     'file_name' exists in the database.
@@ -221,7 +225,7 @@ class Dataset:
             raise MissingFile(self.download_path, self.file_name)
 
         # Handle crazy ENCODE big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
-        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type_ == "bigwig":
+        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type == "bigwig":
             print "../third_party/bigWigToWig." + OS + " " + self.download_path + " " + self.download_path + ".wig"
             call(["../third_party/bigWigToWig." + OS, self.download_path, self.download_path + ".wig"])
 
@@ -301,8 +305,8 @@ class Dataset:
             self.save()
             log.info("dataset %s inserted ", exp_name)
         else:
-            msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s" % (
-            res, am.name, frmt, file_content[0:500], self.download_path)
+            msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s\ntype:%s" % (
+            res, am.name, frmt, file_content[0:500], self.download_path, self.type)
             self.insert_error = msg
             self.save()
             log.info(msg)
