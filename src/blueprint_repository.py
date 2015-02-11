@@ -16,7 +16,7 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
     def __init__(self, proj, genome, path, user_key):
         super(BlueprintRepository, self).__init__(proj, genome,
-                                                  ["bed", "bigwig"], path,
+                                                  ["bed", "bigwig", "gtf", "gff"], path,
                                                   user_key)
 
     def __str__(self):
@@ -40,12 +40,12 @@ class BlueprintRepository(Repository):
     def read_datasets(self):
         # TODO: convert to the predefined keys
         sample_extra_info_keys = ["SAMPLE_ID", "SAMPLE_NAME", "DISEASE",
-                                  "BIOMATERIAL_PROVIDER",
+                                  "BIOMATERIAL_PROVIDER", "CELL_TYPE", "TISSUE_TYPE",
                                   "BIOMATERIAL_TYPE", "DONOR_ID", "DONOR_SEX",
                                   "DONOR_AGE", "DONOR_HEALTH_STATUS",
                                   "DONOR_ETHNICITY",
                                   "DONOR_REGION_OF_RESIDENCE",
-                                  "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE", "DISEASE"]
+                                  "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE"]
 
         epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
