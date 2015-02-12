@@ -16,7 +16,8 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
     def __init__(self, proj, genome, path, user_key):
         super(BlueprintRepository, self).__init__(proj, genome,
-                                                  ["bed", "bigwig", "gtf", "gff"], path,
+                                                #  ["bed", "bigwig", "gtf", "gff"], path,
+                                                  ["gtf", "gff"], path,
                                                   user_key)
 
     def __str__(self):
@@ -29,8 +30,8 @@ class BlueprintRepository(Repository):
 
     @property
     def index_path(self):
-        # return self.path + "blueprint/releases/current_release/homo_sapiens/20140811.data.index
-        return self.path + "releases/20150128/data_files.index"
+        return self.path + "blueprint/releases/current_release/homo_sapiens/20150128.data.index"
+        #return self.path + "releases/20150128/data_files.index"
 
 
     """

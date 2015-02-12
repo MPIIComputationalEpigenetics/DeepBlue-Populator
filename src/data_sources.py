@@ -43,8 +43,8 @@ encode_source = [
 ]
 
 blueprint_source = [
-    #('Blueprint Epigenetics', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
-    ('Blueprint Epigenetics', "hg19", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
+     ('Blueprint Epigenetics', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
+#    ('Blueprint Epigenetics', "hg19", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
 ]
 
 roadmap_source = [
@@ -124,10 +124,10 @@ deep = [
 ]
 
 project_sources = [
-     # blueprint_source,
+     blueprint_source,
      # encode_source
      # encode_mm9,
      # epigenomic_landscape
-     deep
+     # deep
      # roadmap_source
 ]
