@@ -17,7 +17,7 @@ class RoadmapMapper(AttributeMapper):
     def epigenetic_mark(self):
         em = self.dataset.meta['epigenetic_mark']
         if em == 'mRNA-Seq':
-            return 'mRNA-seq'
+            return 'mRNA'
         return em
 
     @property
