@@ -174,7 +174,7 @@ def insert_sample(i, user_key):
     # Manual check
     else:
         new_biosource_name = _adjust_datasource_name(biosource_name)
-        if new_biosource_name == biosource_name:
+        if not new_biosource_name == biosource_name:
             (s, s_id) = epidb.add_sample(new_biosource_name, sample_fields, user_key)
             if util.has_error(s, s_id, []):
                 log.error("Error while creating sample for this term: %s", biosource_name)
