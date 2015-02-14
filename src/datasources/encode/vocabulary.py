@@ -1,33 +1,33 @@
+from __future__ import absolute_import
+
 import os
 import urllib
 
 import settings
 import util
+
 from client import EpidbClient
 from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
 from log import log
 
 
-"""
-A Vocabulary has a source which is a file or an URL. It can read cell line
-and antibody entries from the source.
-"""
-
-
 class ControledVocabulary:
+    """
+    A Vocabulary has a source which is a file or an URL. It can read cell line
+    and antibody entries from the source.
+    """
     def __init__(self, fromURL=False):
         self.biosources = []
         self.antibodies = {}
 
         f = self._load_data(fromURL)
-        self.data = self._process_data(f)
+        self._process_data(f)
         f.close()
 
-    """
-    parses the data in the provided file and fills the antibody and cell line lists.
-    """
-
     def _process_data(self, f):
+        """
+        parses the data in the provided file and fills the antibody and cell line lists.
+        """
         current = None
 
         for line in f:
@@ -45,17 +45,17 @@ class ControledVocabulary:
                     if current["type"] == "Cell Line":
                         self.biosources.append(current)
                     elif current["type"] == "Antibody":
-                        if not "_(" in current["term"]:
+                        if "_(" not in current["term"]:
                             self.antibodies[current["term"]] = current
                         else:
                             label = current["term"].split("_(")[0]
-                            if not self.antibodies.has_key(label):
+                            if label not in self.antibodies:
                                 self.antibodies[label] = current
 
-
                 # start a new object
-                current = {}
-                current["term"] = value
+                current = {
+                    "term": value
+                }
 
             # normalize key
             if key == "targetDescription":
@@ -67,145 +67,120 @@ class ControledVocabulary:
         if current:
             if current["type"] == "Cell Line":
                 self.biosources.append(current)
-            elif current["type"] == "Antibody" and not "_(" in current["term"]:
-                self.antibodies.append(current)
+            elif current["type"] == "Antibody" and "_(" not in current["term"]:
+                self.antibodies[current["term"]] = current
 
 
-    """
-    retrieves the file from the filesystem or URL and returns it
-    """
-
-    def _load_data(self, fromURL):
-        if fromURL:
+    def _load_data(self, from_url):
+        """
+        retrieves the file from the filesystem or URL and returns it
+        """
+        if from_url:
             f = urllib.urlopen(settings.VOCAB_URL)
         else:
             f = file(os.path.join(settings.DATA_DIR, "cv/cv.ra"))
         return f
 
 
-def process_biosource(i, user_key):
+def _adjust_sample_fields(sample):
+
+    new_sample = {
+        "term": sample["term"]
+    }
+
+    if "karyotype" in sample:
+        new_sample["karyotype"] = sample["karyotype"]
+
+    if "lab" in sample:
+        new_sample["lab"] = sample["lab"]
+
+    if "organism" in sample:
+        new_sample["organism"] = sample["organism"]
+
+    if "sex" in sample and sample["sex"] != "U":
+        new_sample["sex"] = sample["sex"]
+
+    if "tier" in sample:
+        new_sample["tier"] = sample["tier"]
+
+    if "age" in sample and sample["age"] != "ageUnknown":
+        new_sample["age"] = sample["age"]
+
+    if "strain" in sample and sample["strain"] != "Unknown":
+        new_sample["strain"] = sample["strain"]
+
+    if "description" in sample:
+        new_sample["description"] = sample["description"]
+
+    if "tissue" in sample:
+        new_sample["tissue"] = sample["description"]
+
+    if "lineage" in sample and sample["lineage"] != "missing":
+        new_sample["lineage"] = sample["lineage"]
+
+    if "childOf" in sample:
+        new_sample["childOf"] = sample["childOf"]
+
+    if new_sample["organism"] == "human":
+        new_sample["source"] = "ENCODE"
+    elif new_sample["organism"] == "mouse":
+        new_sample["source"] = "Mouse ENCODE"
+
+    return new_sample
+
+
+_datasource_name_adjustments = [
+    [["H7-hESC"], "embryonic stem cell"],
+    [["HVMF", "MEF"], "fibroblast"],
+    [["Mel_2183"], "melanoma cell line"],
+    [["Olf_neurosphere"], "neuronal stem cell"],
+    [["Pons_OC"], "brain"],
+    [["Urothelia"], "urothelial cell"],
+    [["EpiSC-5", "EpiSC-7"], "epidermal stem cell"],
+    [["ES-46C", "ES-CJ7", "ES-D3", "ES-E14", "ES-EM5Sox17huCD25", "ES-TT2", "ES-WW6",
+      "ES-WW6_F1KO", "ZhBTc4"], "embryonic stem cell"]
+]
+
+
+def _adjust_datasource_name(biosource):
+    for i in range(0, len(_datasource_name_adjustments)):
+        if biosource in _datasource_name_adjustments[i][0]:
+            return _datasource_name_adjustments[i][1]
+    return biosource
+
+
+def insert_sample(i, user_key):
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
-    biosource_name = i["term"]
+    sample_fields = _adjust_sample_fields(i)
+    biosource_name = sample_fields["term"]
 
-    fields = {}
-
-    fields["term"] = biosource_name
-
-    if i.has_key("karyotype"):
-        fields["karyotype"] = i["karyotype"]
-
-    if i.has_key("lab"):
-        fields["lab"] = i["lab"]
-
-    if i.has_key("organism"):
-        fields["organism"] = i["organism"]
-
-    if i.has_key("sex") and i["sex"] != "U":
-        fields["sex"] = i["sex"]
-
-    if i.has_key("tier"):
-        fields["tier"] = i["tier"]
-
-    if i.has_key("age") and i["age"] != "ageUnknown":
-        fields["age"] = i["age"]
-
-    if i.has_key("strain") and i["strain"] != "Unknown":
-        fields["strain"] = i["strain"]
-
-    if i.has_key("description"):
-        fields["description"] = i["description"]
-
-    if i.has_key("tissue"):
-        fields["tissue"] = i["description"]
-
-    if i.has_key("lineage") and i["lineage"] != "missing":
-        fields["lineage"] = i["lineage"]
-
-    if i.has_key("childOf"):
-        fields["childOf"] = i["childOf"]
-
-    if fields["organism"] == "human":
-        fields["source"] = "ENCODE"
-    elif fields["organism"] == "mouse":
-        fields["source"] = "Mouse ENCODE"
+    print(sample_fields)
 
     if epidb.is_biosource(biosource_name, user_key)[0] == 'okay':
-        (s, s_id) = epidb.add_sample(biosource_name, fields, user_key)
+        (s, s_id) = epidb.add_sample(biosource_name, sample_fields, user_key)
         if util.has_error(s, s_id, []):
-            print "(term) Error while creating sample from the given biosource term"
-            print s_id
-            print biosource_name
-            print fields
-    elif i.has_key("tissue") and epidb.is_biosource(i["tissue"], user_key)[0] == 'okay':
-        (s, s_id) = epidb.add_sample(i["tissue"], fields, user_key)
+            log.error("(term) Error while creating sample from the given biosource term: "
+                      "%s %s", s_id, biosource_name)
+            print sample_fields
+    elif "tissue" in i and epidb.is_biosource(i["tissue"], user_key)[0] == 'okay':
+        (s, s_id) = epidb.add_sample(i["tissue"], sample_fields, user_key)
         print s, s_id
         if util.has_error(s, s_id, []):
-            print "(tissue) Error while creating sample from the given biosource term"
-            print s_id
-            print biosource_name
+            log.error("(tissue) Error while creating sample from the given biosource term: "
+                      "%s %s", s_id, biosource_name)
             print i["tissue"]
-            print fields
+            print sample_fields
     # Manual check
-    elif biosource_name == "H7-hESC":
-        (s, s_id) = epidb.add_sample("embryonic stem cell", fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
-    elif biosource_name in ["HVMF", "MEF"]:
-        (s, s_id) = epidb.add_sample("fibroblast", fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
-    elif biosource_name == "Mel_2183":
-        (s, s_id) = epidb.add_sample("melanoma cell line", fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
-    elif biosource_name == "Olf_neurosphere":
-        (s, s_id) = epidb.add_sample("neuronal stem cell", fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
-    elif biosource_name == "Pons_OC":
-        (s, s_id) = epidb.add_sample("brain", fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
-    elif biosource_name == "Urothelia":
-        (s, s_id) = epidb.add_sample("urothelial cell", fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
-    elif biosource_name in ["EpiSC-5", "EpiSC-7"]:
-        (s, s_id) = epidb.add_sample("epidermal stem cell", fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
-    elif biosource_name in ["ES-46C", "ES-CJ7", "ES-D3", "ES-E14", "ES-EM5Sox17huCD25", "ES-TT2", "ES-WW6",
-                            "ES-WW6_F1KO", "ZhBTc4"]:
-        (s, s_id) = epidb.add_sample('embryonic stem cell', fields, user_key)
-        if util.has_error(s, s_id, []):
-            print "Error while creating sample for this term"
-            print biosource_name
-            print fields
-
     else:
-        print "Invalid term ", biosource_name, "Please, check the ENCODE CV and include this term."
+        new_biosource_name = _adjust_datasource_name(biosource_name)
+        if new_biosource_name == biosource_name:
+            (s, s_id) = epidb.add_sample(new_biosource_name, sample_fields, user_key)
+            if util.has_error(s, s_id, []):
+                log.error("Error while creating sample for this term: %s", biosource_name)
+                print sample_fields
+        else:
+            print "Invalid term ", biosource_name, "Please, check the ENCODE CV and include this term."
 
 
 def manual_curation(user_key):
@@ -226,15 +201,13 @@ def manual_curation(user_key):
     print epidb.set_biosource_parent("cerebrum", "frontal cerebrum", user_key)
 
 
-"""
-ensure_vocabulary retrieves a set of cell line and antibody vocabulary and
-adds them to Epidb.
-Note: This method should be called initially. Datasets with unknown vocabulary
-will be rejected by Epidb.
-"""
-
-
 def ensure_vocabulary(user_key):
+    """
+    ensure_vocabulary retrieves a set of cell line and antibody vocabulary and
+    adds them to Epidb.
+    Note: This method should be called initially. Datasets with unknown vocabulary
+    will be rejected by Epidb.
+    """
     epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
 
     voc = ControledVocabulary()
@@ -243,14 +216,15 @@ def ensure_vocabulary(user_key):
 
     # add biosources to epidb
     for cl in voc.biosources:
-        process_biosource(cl, user_key)
+        insert_sample(cl, user_key)
 
     # add antibodies to epidb
     for ab in voc.antibodies:
         antibody = voc.antibodies[ab]
         log.debug("(Encode) Inserting epigenetic_mark %s", antibody["target"])
         (s, em_id) = epidb.add_epigenetic_mark(antibody["target"], antibody["description"], user_key=user_key)
-        if util.has_error(s, em_id, ["105001"]): print "(ENCODE CV Error 8): ", em_id
+        if util.has_error(s, em_id, ["105001"]):
+            print "(ENCODE CV Error 8): ", em_id
 
     log.info("vocabulary added successfully")
 
@@ -288,15 +262,13 @@ _antibodyToTarget = {
     "ZNF-MIZD-CP1": "ZMIZ1",
     "RevXlinkChromatin": "Control",
     "ERRA": "ESRRA",
-    "AP-2gamma" :"TFAP2C",
-    "ERalpha_a": "ESR1",
-    "AP-2alpha":"TFAP2A",
     "AP-2gamma": "TFAP2C",
+    "ERalpha_a": "ESR1",
+    "AP-2alpha": "TFAP2A",
     "BAF155": "SMARCC1",
     "BAF170": "SMARCC2",
     "Brg1": "SMARCA4",
     "CDP": "CUX1",
-    "ERalpha_a": "ESR1",
     "GABP": "GABPA",
     "GR": "NR3C1",
     "Ini1": "SMARCB1",
@@ -304,7 +276,7 @@ _antibodyToTarget = {
     "PAX5-C20": "PAX5",
     "PAX5-N19": "PAX5",
     "PGC1A": "PPARGC1A",
-    "PU.1" : "SPI1",
+    "PU.1": "SPI1",
     "Pol3": "POLR3G",
     "SPT20": "FAM48A",
     "TBLR1": "TBL1XR1",
@@ -315,8 +287,8 @@ _antibodyToTarget = {
     "c-Fos": "FOS"
 }
 
-"""Returns the target-name for an antibody-name used in ENCODE"""
 def antibodyToTarget(antibody):
+    """Returns the target-name for an antibody-name used in ENCODE"""
     if antibody in _antibodyToTarget:
         return _antibodyToTarget[antibody]
     else:
