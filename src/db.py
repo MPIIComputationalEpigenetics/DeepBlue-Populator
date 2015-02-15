@@ -31,34 +31,8 @@ def count_unimported(id, data_types):
 def repo_id(project, path):
     return mdb.repositories.find_one({"project": project, "path": path}, ["_id"])
 
-
-def repo_exists(project, path, genome=None, data_types=None):
-    """Checks whether a repository with given parameters exists in DB
-    """
-    search_for = {
-        "project": project,
-        "path": path
-    }
-    if genome:
-        search_for["genome"] = genome
-    if data_types:
-        search_for["data_types"] = data_types
-
-    return mdb.repositories.find(search_for).count() > 0
-
-def repo_remove(project, path, genome=None, data_types=None):
-    """Removes all repositories which match the given criteria
-    """
-    to_remove = {
-        "project": project,
-        "path": path
-    }
-    if genome:
-        to_remove["genome"] = genome
-    if data_types:
-        to_remove["data_types"] = data_types
-
-    mdb.repositories.remove(to_remove)
+def repo_exists(project, path):
+    return mdb.repositories.find({"project": project, "path": path}).count() > 0
 
 def repo_save(doc):
     mdb.repositories.save(doc)

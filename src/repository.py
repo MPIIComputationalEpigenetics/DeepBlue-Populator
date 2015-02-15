@@ -7,7 +7,6 @@ from dataset import Dataset
 from settings import max_threads, max_downloads
 from log import log
 
-
 class NonpersistantRepository(Exception):
     """
     NonpersistantRepository exception is raised if certain operations on a
@@ -73,11 +72,13 @@ class Repository(object):
         """
         pass
 
+
     def exists(self):
         """
         exists checks if the repository has already been added to the database.
         """
-        return db.repo_exists(self.project, self.genome, self.data_types, self.path)
+        return db.repo_exists(self.project, self.path)
+
 
     def has_unimported(self):
         """
@@ -85,16 +86,13 @@ class Repository(object):
         """
         return db.count_unimported(self.project, self.path)
 
+
     def save(self):
         """
         save saves the repository to the database if it doesn't exist already.
         """
         if self.exists():
             return
-
-        #If repository of the same project with same path exists: update it
-        if db.repo_exists(self.project, self.path):
-            db.repo_remove(self.project, self.path)
 
         doc = {
             "project": self.project,
