@@ -26,7 +26,7 @@ class Repository(object):
     """
     A Repository refers to a source of datasets belonging to a certain project.
     It detects the available datasets in the repository and can coordinate their
-    retrival and processing.
+    retrieval and processing.
     """
     __metaclass__ = abc.ABCMeta
 
@@ -68,7 +68,7 @@ class Repository(object):
     @abc.abstractmethod
     def read_datasets(self):
         """
-        read_datasets analyses the repositorie's index file and flags
+        read_datasets analyses the repository's index file and flags
         new datasets.
         """
         pass
