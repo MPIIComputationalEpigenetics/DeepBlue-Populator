@@ -77,7 +77,7 @@ class Repository(object):
         """
         exists checks if the repository has already been added to the database.
         """
-        return db.repo_exists(self.project, self.path)
+        return db.repo_exists(self.project, self.path, self.genome, self.data_types)
 
 
     def has_unimported(self):
@@ -89,22 +89,16 @@ class Repository(object):
 
     def save(self):
         """
-        save saves the repository to the database if it doesn't exist already.
+        Saves the repository to the database if it doesn't exist already. Updates it if
+        project attributes changed slightly.
         """
         if self.exists():
             return
 
-        doc = {
-            "project": self.project,
-            "genome": self.genome,
-            "data_types": self.data_types,
-            "path": self.path
-        }
-        if self.id:
-            doc["_id"] = self.id
-
-        log.debug("saving repository: %s", doc)
-        db.repo_save(doc)
+        if db.repo_exists(self.project, self.path):
+            db.repo_update(self)
+        else:
+            db.repo_save(self)
 
 
     def add_dataset(self, dataset):
