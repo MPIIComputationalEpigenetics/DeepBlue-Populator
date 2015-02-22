@@ -2,9 +2,8 @@ import os.path
 import re
 import urllib
 
-from client import EpidbClient
+from epidb_interaction import PopulatorEpidbClient
 from dataset import Dataset
-from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
 from log import log
 from repository import Repository
 
@@ -36,7 +35,7 @@ class EncodeRepository(Repository):
         read_datasets analyses the repositorie's index file and flags
         new datasets.
         """
-        epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+        epidb = PopulatorEpidbClient()
 
         epigenetic_mark = None
 
@@ -81,7 +80,7 @@ class EncodeRepository(Repository):
             if epigenetic_mark == "Histone" and meta["antibody"].find("_") != -1:
                 meta["antibody"] = meta["antibody"].split("_")[0]
 
-            (status, samples_id) = epidb.list_samples("", {"term": meta["cell"]}, self.user_key)
+            (status, samples_id) = epidb.list_samples("", {"term": meta["cell"]})
             if status != "okay" or not len(samples_id):
                 log.critical("Sample for biosource %s was not found", meta["cell"])
                 log.critical(samples_id)

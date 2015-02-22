@@ -6,8 +6,7 @@ import urllib
 import settings
 import util
 
-from client import EpidbClient
-from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
+from epidb_interaction import PopulatorEpidbClient
 from log import log
 
 
@@ -150,21 +149,21 @@ def _adjust_datasource_name(biosource):
 
 
 def insert_sample(i, user_key):
-    epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+    epidb = PopulatorEpidbClient()
 
     sample_fields = _adjust_sample_fields(i)
     biosource_name = sample_fields["term"]
 
     print(sample_fields)
 
-    if epidb.is_biosource(biosource_name, user_key)[0] == 'okay':
-        (s, s_id) = epidb.add_sample(biosource_name, sample_fields, user_key)
+    if epidb.is_biosource(biosource_name)[0] == 'okay':
+        (s, s_id) = epidb.add_sample(biosource_name, sample_fields)
         if util.has_error(s, s_id, []):
             log.error("(term) Error while creating sample from the given biosource term: "
                       "%s %s", s_id, biosource_name)
             print sample_fields
-    elif "tissue" in i and epidb.is_biosource(i["tissue"], user_key)[0] == 'okay':
-        (s, s_id) = epidb.add_sample(i["tissue"], sample_fields, user_key)
+    elif "tissue" in i and epidb.is_biosource(i["tissue"])[0] == 'okay':
+        (s, s_id) = epidb.add_sample(i["tissue"], sample_fields)
         print s, s_id
         if util.has_error(s, s_id, []):
             log.error("(tissue) Error while creating sample from the given biosource term: "
@@ -175,7 +174,7 @@ def insert_sample(i, user_key):
     else:
         new_biosource_name = _adjust_datasource_name(biosource_name)
         if not new_biosource_name == biosource_name:
-            (s, s_id) = epidb.add_sample(new_biosource_name, sample_fields, user_key)
+            (s, s_id) = epidb.add_sample(new_biosource_name, sample_fields)
             if util.has_error(s, s_id, []):
                 log.error("Error while creating sample for this term: %s", biosource_name)
                 print sample_fields
@@ -184,21 +183,21 @@ def insert_sample(i, user_key):
 
 
 def manual_curation(user_key):
-    epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+    epidb = PopulatorEpidbClient()
 
-    print epidb.set_biosource_synonym("MEL cell line", "MEL", user_key)  # "http://www.ebi.ac.uk/efo/EFO_0003971"
-    print epidb.set_biosource_synonym("CH12.LX", "CH12", user_key)  # "http://www.ebi.ac.uk/efo/EFO_0005233"
-    print epidb.set_biosource_synonym("hippocampus", "brain hippocampus", user_key)
-    print epidb.add_biosource("embryonic lung", "", {"SOURCE": "MPI internal"}, user_key)
+    print epidb.set_biosource_synonym("MEL cell line", "MEL")  # "http://www.ebi.ac.uk/efo/EFO_0003971"
+    print epidb.set_biosource_synonym("CH12.LX", "CH12")  # "http://www.ebi.ac.uk/efo/EFO_0005233"
+    print epidb.set_biosource_synonym("hippocampus", "brain hippocampus")
+    print epidb.add_biosource("embryonic lung", "", {"SOURCE": "MPI internal"})
     print epidb.add_biosource("chordoma", "Neoplasm arising from cellular remnants of the notochord; cancer",
-                              {"SOURCE": "MPI internal"}, user_key)
-    print epidb.set_biosource_synonym("induced pluripotent stem cell", "induced pluripotent cell (iPS)", user_key)
-    print epidb.set_biosource_synonym("neuron", "neurons", user_key)  # CL0000540
-    print epidb.set_biosource_synonym("enucleate erythrocyte", "enucleated erythrocyte", user_key)
+                              {"SOURCE": "MPI internal"})
+    print epidb.set_biosource_synonym("induced pluripotent stem cell", "induced pluripotent cell (iPS)")
+    print epidb.set_biosource_synonym("neuron", "neurons")  # CL0000540
+    print epidb.set_biosource_synonym("enucleate erythrocyte", "enucleated erythrocyte")
 
     # Cerebrum_frontal_OC
-    print epidb.add_biosource("frontal cerebrum", "", {"SOURCE": "MPI internal"}, user_key)
-    print epidb.set_biosource_parent("cerebrum", "frontal cerebrum", user_key)
+    print epidb.add_biosource("frontal cerebrum", "", {"SOURCE": "MPI internal"})
+    print epidb.set_biosource_parent("cerebrum", "frontal cerebrum")
 
 
 def ensure_vocabulary(user_key):
@@ -208,7 +207,7 @@ def ensure_vocabulary(user_key):
     Note: This method should be called initially. Datasets with unknown vocabulary
     will be rejected by Epidb.
     """
-    epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+    epidb = PopulatorEpidbClient()
 
     voc = ControledVocabulary()
     log.info("adding %d biosource to the vocabulary", len(voc.biosources))
@@ -222,7 +221,7 @@ def ensure_vocabulary(user_key):
     for ab in voc.antibodies:
         antibody = voc.antibodies[ab]
         log.debug("(Encode) Inserting epigenetic_mark %s", antibody["target"])
-        (s, em_id) = epidb.add_epigenetic_mark(antibody["target"], antibody["description"], user_key=user_key)
+        (s, em_id) = epidb.add_epigenetic_mark(antibody["target"], antibody["description"])
         if util.has_error(s, em_id, ["105001"]):
             print "(ENCODE CV Error 8): ", em_id
 

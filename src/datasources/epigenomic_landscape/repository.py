@@ -6,8 +6,8 @@ import re
 
 from log import log
 import db
+from epidb_interaction import PopulatorEpidbClient
 import settings
-import client
 import util
 from repository import Repository
 from datasources.epigenomic_landscape.dataset import EpigenomicLandscapeDataset
@@ -30,7 +30,7 @@ class EpigenomicLandscapeRepository(Repository):
 
     def read_datasets(self):
 
-        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
+        epidb = PopulatorEpidbClient()
 
         for file_name in os.listdir(os.path.join(self.path, _folder_samples)):
            sample_file = os.path.join(self.path, _folder_samples, file_name)
@@ -60,7 +60,7 @@ class EpigenomicLandscapeRepository(Repository):
                             sample_id = self._get_sample_id(path)
                         elif sample_line.startswith("GSM"):
                             #Line is Sample ID from GSM
-                            (status, id) = epidb.add_sample_from_gsm(biosource, sample_line, self.user_key)
+                            (status, id) = epidb.add_sample_from_gsm(biosource, sample_line)
                             if id.startswith("The ID"):
                                 id_split = id.split(" ")
                                 sample_id = id_split[len(id_split) - 1]
@@ -129,7 +129,7 @@ class EpigenomicLandscapeRepository(Repository):
         :param path: path to .sample-file
         :return: SampleID
         """
-        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
+        epidb = PopulatorEpidbClient()
 
         lines = open(path).readlines()
 
@@ -156,7 +156,7 @@ class EpigenomicLandscapeRepository(Repository):
         extra_metadata["source"] = self.project
 	print biosource
 	print extra_metadata
-        (s, sample_id) = epidb.add_sample(biosource, extra_metadata, self.user_key)
+        (s, sample_id) = epidb.add_sample(biosource, extra_metadata)
         print "new sample:" , sample_id
         if util.has_error(s, sample_id, []):
             log.error("Sample not inserted " + path + " - " + sample_id)

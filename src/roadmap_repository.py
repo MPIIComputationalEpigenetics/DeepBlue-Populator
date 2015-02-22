@@ -5,10 +5,10 @@ import pprint
 
 from ftplib import FTP
 
-from client import EpidbClient
+from epidb_interaction import PopulatorEpidbClient
 from dataset import Dataset
 from repository import Repository
-from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
+from settings import DOWNLOAD_PATH
 
 pp = pprint.PrettyPrinter(depth=6)
 
@@ -189,7 +189,7 @@ class RoadmapRepository(Repository):
     if not os.path.exists(files_path):
       os.makedirs(files_path)
 
-    server = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+    server = PopulatorEpidbClient()
     self.set_up_project(server, self.user_key)
     self.set_up_biosources(server, self.user_key)
     self.set_up_samples_fields(server, self.user_key)
@@ -247,13 +247,13 @@ class RoadmapRepository(Repository):
         else:
           pp.pprint(sample_metada)
           break
-        (s, _ids) = server.get_biosource_related(biosource_name, user_key)
+        (s, _ids) = server.get_biosource_related(biosource_name)
 
         if s == "error":
           print _ids
           pp.pprint(sample_metada)
 
-        (s, sample_id) = server.add_sample(biosource_name, sample_metada, user_key)
+        (s, sample_id) = server.add_sample(biosource_name, sample_metada)
 
         files = [v for k,v in roadmap_sample.iteritems() if
           type(v) is str and

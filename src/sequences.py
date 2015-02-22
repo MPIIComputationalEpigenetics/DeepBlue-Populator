@@ -3,8 +3,8 @@ import os
 import itertools
 from multiprocessing import Pool
 
-from client import EpidbClient
-from settings import DATA_DIR, DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
+from epidb_interaction import PopulatorEpidbClient
+from settings import DATA_DIR, max_threads
 from log import log
 
 
@@ -18,9 +18,9 @@ def insert_sequence(t):
 
     sequence = gzip.open(seq_info["sequence_path"]).read()
 
-    epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+    epidb = PopulatorEpidbClient()
 
-    print epidb.upload_chromosome(seq_info["genome"], seq_info["chromosome"], sequence, user_key)
+    print epidb.upload_chromosome(seq_info["genome"], seq_info["chromosome"], sequence)
 
 
 def insert_chromosome_sequences(epidb, genome, user_key):

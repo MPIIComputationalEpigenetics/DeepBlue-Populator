@@ -7,9 +7,7 @@ import xml.etree.ElementTree as ET
 from multiprocessing import Pool
 
 
-from client import EpidbClient
-from settings import max_threads, DEEPBLUE_HOST, DEEPBLUE_PORT
-#from db import mdb
+from epidb_interaction import PopulatorEpidbClient
 from log import log
 
 Efo = "http://www.ebi.ac.uk/efo/"
@@ -560,20 +558,20 @@ def load_owl(user_key):
 		set_alread_in_semaphore.release()
 
 	def insert_syns(_class):
-		syns_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+		syns_epidb = PopulatorEpidbClient()
 		for syn in _class.syns:
 			if not alread_in.has_key(syn) :
 				log.info("setting syn " + syn + " to " + _class.label)
-				status, _id = syns_epidb.set_biosource_synonym(_class.label, syn, _class.user_key)
+				status, _id = syns_epidb.set_biosource_synonym(_class.label, syn)
 				if status == 'error' and not _id.startswith('104400'):
 					print _class, syn, _id
 					log.info("error on setting syn" + _class.label + " syn " + syn + " msg: " + _id)
 				set_alread_in(syn)
 
 	def set_parent(_class, sub):
-		scope_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+		scope_epidb = PopulatorEpidbClient()
 		log.info("setting parent " + _class.label + " sub " + sub.label)
-		status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
+		status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label)
 		cache_key = _class.label + " " + sub.label
 		if status == 'okay':
 			more_embrancing_cache[cache_key] = True
@@ -600,7 +598,7 @@ def load_owl(user_key):
 
 			extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
 			log.info("add biosource " + _class.label + " - " + _class.formalDefinition + " - " + str(extra_metadata))
-			status, _id = epidb.add_biosource(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
+			status, _id = epidb.add_biosource(_class.label, _class.formalDefinition, extra_metadata)
 			if status == 'error':
 				log.info("error on inserting biosource " + _class.label + " msg: " + _id)
 
@@ -625,7 +623,7 @@ def load_owl(user_key):
 	#print_biosources(no_parents, biosources, f)
 	#print f.write('}')
 
-	epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+	epidb = PopulatorEpidbClient()
 	insert_biosources(no_parents, biosources, epidb)
 
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()

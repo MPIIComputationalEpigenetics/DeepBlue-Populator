@@ -4,8 +4,7 @@ import os
 import gzip
 
 from log import log
-import settings
-import client
+from epidb_interaction import PopulatorEpidbClient
 from dataset import Dataset
 from datasources.epigenomic_landscape.attribute_mapper import EpigenomicLandscapeAttributeMapper
 
@@ -76,12 +75,12 @@ class EpigenomicLandscapeDataset(Dataset):
 
         	file_content = "".join(file_content)
 
-        epidb = client.EpidbClient(settings.DEEPBLUE_HOST, settings.DEEPBLUE_PORT)
+        epidb = PopulatorEpidbClient()
 
         if self.sample_id:
             sample_id = self.sample_id
         else:
-            (status, samples_id) = epidb.list_samples(am.biosource, {}, user_key)
+            (status, samples_id) = epidb.list_samples(am.biosource, {})
             if status != "okay" or not len(samples_id):
                 log.critical("Sample for biosource %s was not found", am.biosource)
                 log.critical(samples_id)
@@ -96,8 +95,7 @@ class EpigenomicLandscapeDataset(Dataset):
             exp_name = am.name + ".bed"
 
         args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
-                am.project, am.description, file_content, format, extra_metadata,
-                user_key)
+                am.project, am.description, file_content, format, extra_metadata)
 
         res = epidb.add_experiment(*args)
 
