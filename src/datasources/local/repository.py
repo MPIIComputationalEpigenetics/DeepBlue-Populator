@@ -10,7 +10,7 @@ from epidb_interaction import PopulatorEpidbClient
 import settings
 import util
 from repository import Repository
-from datasources.epigenomic_landscape.dataset import EpigenomicLandscapeDataset
+from datasources.local.dataset import EpigenomicLandscapeDataset
 
 
 _regex_eq = re.compile("(.*?)=(.*)")

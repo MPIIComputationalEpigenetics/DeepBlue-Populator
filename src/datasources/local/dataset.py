@@ -6,7 +6,7 @@ import gzip
 from log import log
 from epidb_interaction import PopulatorEpidbClient
 from dataset import Dataset
-from datasources.epigenomic_landscape.attribute_mapper import \
+from datasources.local.attribute_mapper import \
     EpigenomicLandscapeAttributeMapper
 
 
