@@ -132,7 +132,7 @@ H2A.J H2A histone family, member J
 H2B 	type F-M	H2B histone family, member M"""
 
 
-def insert_histones(epidb, key):
+def insert_histones(epidb):
     for line in histones_ptm.split("\n"):
         s = line.split()
         desc = d_ptm + s[1] + " " + s[2] + source

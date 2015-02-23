@@ -7,6 +7,7 @@ import column_definitions
 import repository_factory
 from annotations import insert_annotations
 from epidb_interaction import PopulatorEpidbClient
+from client import EpidbClient
 from data_sources import project_sources
 from genomes import hg19_info, mm9_info, mm10_info
 from histones import insert_histones
@@ -48,7 +49,7 @@ class Populator:
             # XXX: exit?
             return False
 
-        epidb = PopulatorEpidbClient()
+        epidb = EpidbClient(address=settings.DEEPBLUE_HOST, port=settings.DEEPBLUE_PORT)
         res, admin_key = epidb.init_system(*settings.EPIDB_INIT_USER)
         if res == "error":
             log.error("error while initializing the system: %s", admin_key)
@@ -56,6 +57,7 @@ class Populator:
 
         log.info("admin user created successfully")
 
+        epidb.set_key(admin_key)
         res, u = epidb.add_user(self.username, self.email, self.institution)
         if (res == "error"):
             log.error("error while adding populator user: %s", u)
@@ -121,7 +123,7 @@ class Populator:
                                   "Experiment Control Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("mRNA expression", "mRNA expression levels")
 
-        insert_histones(epidb, self.key)
+        insert_histones(epidb)
 
     def insert_technologies(self):
         epidb = PopulatorEpidbClient()
@@ -177,8 +179,8 @@ class Populator:
 
     def process_ontology(self):
         load_owl(self.key)
-        datasources.encode.vocabulary.manual_curation(self.key)
-        datasources.encode.vocabulary.ensure_vocabulary(self.key)
+        datasources.encode.vocabulary.manual_curation()
+        datasources.encode.vocabulary.ensure_vocabulary()
 
     """
     setup_collections configures database internals for the Populator database
@@ -191,7 +193,7 @@ class Populator:
     def load_repositories(self):
         for sources in project_sources:
             for (proj, genome, url) in sources:
-                r = repository_factory.load(proj, genome, url, self.key)
+                r = repository_factory.load(proj, genome, url)
                 log.info("%s loaded", str(r))
                 self.repositories.add(r)
                 r.save()
@@ -220,7 +222,7 @@ class Populator:
     def process_repositories(self):
         log.info("processing repositories")
         for rep in self.repositories:
-            rep.process_datasets(self.key)
+            rep.process_datasets()
 
         log.info("repositories processed successfully")
 

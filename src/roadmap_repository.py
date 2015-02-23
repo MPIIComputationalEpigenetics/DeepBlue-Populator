@@ -14,8 +14,8 @@ pp = pprint.PrettyPrinter(depth=6)
 
 class RoadmapRepository(Repository):
 
-  def __init__(self, proj, genome, path, user_key):
-    super(RoadmapRepository, self).__init__(proj, genome, ["wig"], path, user_key)
+  def __init__(self, proj, genome, path):
+    super(RoadmapRepository, self).__init__(proj, genome, ["wig"], path)
 
   def __str__(self):
     return "<Roadmap Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -25,39 +25,39 @@ class RoadmapRepository(Repository):
     return self.path
 
 
-  def set_up_project(self, server, user_key):
-    print server.add_project("Roadmap Epigenomics", "", user_key)
+  def set_up_project(self, server):
+    print server.add_project("Roadmap Epigenomics", "")
 
-  def set_up_biosources(self,server, user_key):
-    (s, r) = server.set_biosource_synonym('Stomach', "Gastric", user_key)
+  def set_up_biosources(self,server):
+    (s, r) = server.set_biosource_synonym('Stomach', "Gastric")
     if s != 'okay' and not r.startswith('104400'): print r
 
-    (s, r) = server.add_biosource('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"}, user_key)
+    (s, r) = server.add_biosource('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'Induced pluripotent stem cell. Described by Yu, J. et al. Human induced pluripotent stem cells free of vector and transgene sequences. Science 324, 797-801 (2009).', {"source": "Roadmap Epigenomics"})
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts', user_key)
+    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell', 'Induced pluripotent stem cell line derived from foreskin fibroblasts')
     if s != 'okay' and not r.startswith('104901'): print r
 
-    (s, r) = server.add_biosource('iPS DF 19.11 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
+    (s, r) = server.add_biosource('iPS DF 19.11 Cell Line', None, {"source": "Roadmap Epigenomics"})
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_biosource_synonym('iPS DF 19.11 Cell Line', 'iPS 19.11', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 19.11 Cell Line', 'iPS 19.11')
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_biosource_synonym('iPS DF 19.11 Cell Line', 'iPS DF 19.11', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 19.11 Cell Line', 'iPS DF 19.11')
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 19.11 Cell Line', user_key)
+    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 19.11 Cell Line')
     if s != 'okay' and not r.startswith('104901'): print r
 
-    (s, r) = server.add_biosource('iPS DF 6.9 Cell Line', None, {"source": "Roadmap Epigenomics"}, user_key)
+    (s, r) = server.add_biosource('iPS DF 6.9 Cell Line', None, {"source": "Roadmap Epigenomics"})
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_biosource_synonym('iPS DF 6.9 Cell Line', 'iPS 6.9', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 6.9 Cell Line', 'iPS 6.9')
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_biosource_synonym('iPS DF 6.9 Cell Line', 'iPS DF 6.9', user_key)
+    (s, r) = server.set_biosource_synonym('iPS DF 6.9 Cell Line', 'iPS DF 6.9')
     if s != 'okay' and not r.startswith('104400'): print r
-    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 6.9 Cell Line', user_key)
+    (s, r) = server.set_biosource_parent('Induced pluripotent stem cell line derived from foreskin fibroblasts', 'iPS DF 6.9 Cell Line')
     if s != 'okay' and not r.startswith('104901'): print r
 
-    (s, r) = server.add_biosource('hSKM', "HSkM-S (Cat. no. A12555) are normal human skeletal myoblasts developed to undergo highly efficient differentiation directly following plating of cryopreserved cells.", {"source": "Roadmap Epigenomics", "more_info":"http://tools.lifetechnologies.com/content/sfs/manuals/HSkM_S.pdf"}, user_key)
+    (s, r) = server.add_biosource('hSKM', "HSkM-S (Cat. no. A12555) are normal human skeletal myoblasts developed to undergo highly efficient differentiation directly following plating of cryopreserved cells.", {"source": "Roadmap Epigenomics", "more_info":"http://tools.lifetechnologies.com/content/sfs/manuals/HSkM_S.pdf"})
     if s != 'okay' and not r.startswith('104001'): print r
-    (s, r) = server.set_biosource_parent('HSMM', 'hSKM', user_key)
+    (s, r) = server.set_biosource_parent('HSMM', 'hSKM')
     if s != 'okay' and not r.startswith('104901'): print r
 
   def process_matrix_file(self, _file):
@@ -169,7 +169,6 @@ class RoadmapRepository(Repository):
 
 
   def read_datasets(self):
-    user_key = self.user_key
     files = []
     def add_file(f):
       files.append(f)
@@ -190,9 +189,9 @@ class RoadmapRepository(Repository):
       os.makedirs(files_path)
 
     server = PopulatorEpidbClient()
-    self.set_up_project(server, self.user_key)
-    self.set_up_biosources(server, self.user_key)
-    self.set_up_samples_fields(server, self.user_key)
+    self.set_up_project(server)
+    self.set_up_biosources(server)
+    self.set_up_samples_fields(server)
 
     total = 0
     for file_name in files:

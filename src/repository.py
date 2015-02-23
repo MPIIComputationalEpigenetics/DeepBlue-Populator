@@ -29,12 +29,11 @@ class Repository(object):
     """
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, proj, genome, data_types, path, user_key):
+    def __init__(self, proj, genome, data_types, path):
         self.project = proj
         self.genome = genome
         self.data_types = data_types
         self.path = path
-        self.user_key = user_key
 
     def __str__(self):
         return "<Repository: [%s, %s]>" % (self.project, self.path)
@@ -111,7 +110,7 @@ class Repository(object):
         return False
 
 
-    def process_datasets(self, key=None):
+    def process_datasets(self):
         """
         process_datasets starts downloading and processing of all datasets in the
         database that belong to the repository and have not been inserted yet.
@@ -129,7 +128,7 @@ class Repository(object):
         def process(dataset):
             try:
                 dataset.load(load_sem)
-                dataset.process(key, process_sem)
+                dataset.process(process_sem)
                 dataset.save()
             except IOError as ex:
                 log.exception("error on downloading or reading dataset of %s failed: %s", dataset, ex)

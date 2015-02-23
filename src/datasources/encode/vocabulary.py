@@ -148,7 +148,7 @@ def _adjust_datasource_name(biosource):
     return biosource
 
 
-def insert_sample(i, user_key):
+def insert_sample(i):
     epidb = PopulatorEpidbClient()
 
     sample_fields = _adjust_sample_fields(i)
@@ -182,7 +182,7 @@ def insert_sample(i, user_key):
             print "Invalid term ", biosource_name, "Please, check the ENCODE CV and include this term."
 
 
-def manual_curation(user_key):
+def manual_curation():
     epidb = PopulatorEpidbClient()
 
     print epidb.set_biosource_synonym("MEL cell line", "MEL")  # "http://www.ebi.ac.uk/efo/EFO_0003971"
@@ -200,7 +200,7 @@ def manual_curation(user_key):
     print epidb.set_biosource_parent("cerebrum", "frontal cerebrum")
 
 
-def ensure_vocabulary(user_key):
+def ensure_vocabulary():
     """
     ensure_vocabulary retrieves a set of cell line and antibody vocabulary and
     adds them to Epidb.
@@ -215,7 +215,7 @@ def ensure_vocabulary(user_key):
 
     # add biosources to epidb
     for cl in voc.biosources:
-        insert_sample(cl, user_key)
+        insert_sample(cl)
 
     # add antibodies to epidb
     for ab in voc.antibodies:

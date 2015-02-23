@@ -31,6 +31,6 @@ get_key.key = ""
 
 class PopulatorEpidbClient(EpidbClient):
     def __init__(self):
-        super(PopulatorEpidbClient, self).__init__(get_key(),
-                                                   settings.DEEPBLUE_HOST,
-                                                   settings.DEEPBLUE_PORT)
+        super(PopulatorEpidbClient, self).__init__(key=get_key(),
+                                                   address=settings.DEEPBLUE_HOST,
+                                                   port=settings.DEEPBLUE_PORT)

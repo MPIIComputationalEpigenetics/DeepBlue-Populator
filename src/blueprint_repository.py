@@ -13,11 +13,10 @@ pp = pprint.PrettyPrinter(depth=6)
 
 
 class BlueprintRepository(Repository):
-    def __init__(self, proj, genome, path, user_key):
+    def __init__(self, proj, genome, path):
         super(BlueprintRepository, self).__init__(proj, genome,
                                                 #  ["bed", "bigwig", "gtf", "gff"], path,
-                                                  ["gtf", "gff"], path,
-                                                  user_key)
+                                                  ["gtf", "gff"], path)
 
     def __str__(self):
         return "<Blueprint Repository: [%s, %s]>" % (self.path, self.data_types)

@@ -204,14 +204,14 @@ class Dataset:
     Note: the file must have been downloaded before (c.f. load) method.
     """
 
-    def process(self, user_key=None, sem=None):
+    def process(self, sem=None):
         if sem:
             with sem:
-                self._process(user_key)
+                self._process()
         else:
-            self._process(user_key)
+            self._process()
 
-    def _process(self, user_key=None):
+    def _process(self):
         log.info("processing dataset %s", self)
 
         project = self.repository["project"]

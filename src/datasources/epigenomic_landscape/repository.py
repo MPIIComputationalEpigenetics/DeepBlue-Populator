@@ -24,8 +24,8 @@ _fileending_samples = "sample"
 
 class EpigenomicLandscapeRepository(Repository):
 
-    def __init__(self, project, genome, path, user_key):
-        super(EpigenomicLandscapeRepository, self).__init__(project, genome, ["bed", "bedgraph", "wig"], path, user_key)
+    def __init__(self, project, genome, path):
+        super(EpigenomicLandscapeRepository, self).__init__(project, genome, ["bed", "bedgraph", "wig"], path)
 
 
     def read_datasets(self):
