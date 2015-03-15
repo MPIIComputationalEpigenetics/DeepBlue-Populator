@@ -7,7 +7,7 @@ import column_definitions
 import repository_factory
 from annotations import insert_annotations
 from epidb_interaction import PopulatorEpidbClient
-from client import EpidbClient
+from client import DeepBlueClient
 from data_sources import project_sources
 from genomes import hg19_info, mm9_info, mm10_info
 from histones import insert_histones
@@ -49,7 +49,7 @@ class Populator:
             # XXX: exit?
             return False
 
-        epidb = EpidbClient(address=settings.DEEPBLUE_HOST, port=settings.DEEPBLUE_PORT)
+        epidb = DeepBlueClient(address=settings.DEEPBLUE_HOST, port=settings.DEEPBLUE_PORT)
         res, admin_key = epidb.init_system(*settings.EPIDB_INIT_USER)
         if res == "error":
             log.error("error while initializing the system: %s", admin_key)

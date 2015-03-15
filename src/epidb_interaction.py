@@ -2,7 +2,7 @@ import os
 
 import settings
 from log import log
-from client import EpidbClient
+from client import DeepBlueClient
 
 
 def get_key():
@@ -29,7 +29,7 @@ def get_key():
 get_key.key = ""
 
 
-class PopulatorEpidbClient(EpidbClient):
+class PopulatorEpidbClient(DeepBlueClient):
     def __init__(self):
         super(PopulatorEpidbClient, self).__init__(key=get_key(),
                                                    address=settings.DEEPBLUE_HOST,
