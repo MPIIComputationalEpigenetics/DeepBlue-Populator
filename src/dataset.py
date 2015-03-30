@@ -5,11 +5,11 @@ from subprocess import call
 import util
 import attribute_mapper_factory
 from formats import format_builder
-from settings import DOWNLOAD_PATH, DEEPBLUE_HOST, DEEPBLUE_PORT, OS
+from settings import DOWNLOAD_PATH, OS
 from log import log
 from db import mdb
 from bedgraphtowig import try_to_convert
-from client import EpidbClient
+from epidb_interaction import PopulatorEpidbClient
 
 
 """
@@ -204,14 +204,14 @@ class Dataset:
     Note: the file must have been downloaded before (c.f. load) method.
     """
 
-    def process(self, user_key=None, sem=None):
+    def process(self, sem=None):
         if sem:
             with sem:
-                self._process(user_key)
+                self._process()
         else:
-            self._process(user_key)
+            self._process()
 
-    def _process(self, user_key=None):
+    def _process(self):
         log.info("processing dataset %s", self)
 
         project = self.repository["project"]
@@ -278,12 +278,12 @@ class Dataset:
             data_splited.sort()
             file_content = "\n".join(data_splited)
 
-        epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+        epidb = PopulatorEpidbClient()
 
         if self.sample_id:
             sample_id = self.sample_id
         else:
-            (status, samples_id) = epidb.list_samples(am.biosource, {}, user_key)
+            (status, samples_id) = epidb.list_samples(am.biosource, {})
             if status != "okay" or not len(samples_id):
                 log.critical("Sample for biosource %s was not found", am.biosource)
                 log.critical(samples_id)
@@ -296,7 +296,7 @@ class Dataset:
             exp_name = am.name + ".bed"
 
         args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
-                am.project, am.description, file_content, frmt, am.extra_metadata, user_key)
+                am.project, am.description, file_content, frmt, am.extra_metadata)
 
         res = epidb.add_experiment(*args)
         if res[0] == "okay" or res[1].startswith("102001"):

@@ -1,16 +1,11 @@
-import sys
 import gzip
 import threading
 import xml.etree.ElementTree as ET
 
+from epidb_interaction import PopulatorEpidbClient
 
-from multiprocessing import Pool
-
-
-from client import EpidbClient
-from settings import max_threads, DEEPBLUE_HOST, DEEPBLUE_PORT
-#from db import mdb
 from log import log
+
 
 Efo = "http://www.ebi.ac.uk/efo/"
 Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -38,7 +33,6 @@ RdfRDF = "{%s}RDF" % Rdf
 RdfResource = "{%s}resource" % Rdf
 RdfDescription = "{%s}Description" % Rdf
 
-
 RdfsLabel = "{%s}label" % Rdfs
 RdfsComment = "{%s}comment" % Rdfs
 RdfsSubClass = "{%s}subClassOf" % Rdfs
@@ -51,582 +45,618 @@ OboInOwlHasOBONamespace = "{%s}hasOBONamespace" % OboInOwl
 OboInOwlHasRelatedSynonym = "{%s}hasRelatedSynonym" % OboInOwl
 
 # Specific Ontologies Attributes
-EfoAlternativeTerm  = "{%s}alternative_term" % Efo
+EfoAlternativeTerm = "{%s}alternative_term" % Efo
 EfoDefinition = "{%s}definition" % Efo
 
 
 class Ontology:
-	def __init__(self, name, address, imports, classes):
-		self.name = name
-		self.address = address
-		self.imports = imports
-		self.classes = classes
+    def __init__(self, name, address, imports, classes):
+        self.name = name
+        self.address = address
+        self.imports = imports
+        self.classes = classes
 
-	def __str__(self):
-		s = "%s\t%s\t%s" % (self.name, self.address, self.imports)
-		for _class in self.classes:
-			s += repr(_class)
-			s += "\n-----\n"
-		return s
+    def __str__(self):
+        s = "%s\t%s\t%s" % (self.name, self.address, self.imports)
+        for _class in self.classes:
+            s += repr(_class)
+            s += "\n-----\n"
+        return s
 
-	def __repr__(self):
-		s = "%s\t%s\t%s" % (self.name, self.address, self.imports)
-		for _class in classes:
-			s += repr(_class)
-			s += "\n-----\n"
-		return s
+    def __repr__(self):
+        s = "%s\t%s\t%s" % (self.name, self.address, self.imports)
+        for _class in classes:
+            s += repr(_class)
+            s += "\n-----\n"
+        return s
 
 
 class Class:
-	def __init__(self, namespace, ontology, about, label, superclasses, formalDefinition, syns, comment, deprecated):
-		self.namespace = namespace
-		self.ontology_merges = []
-		self.ontology = ontology
-		self.about = about
-		self.about_merges = []
-		self.label = label
-		self.superclasses = superclasses
-		self.superclasses_names = []
-		self.formalDefinition = formalDefinition
-		self.syns = syns
-		self.comment = comment
-		self.sub = []
-		self.deprecated = deprecated
+    def __init__(self, namespace, ontology, about, label, superclasses, formalDefinition,
+                 syns, comment, deprecated):
+        self.namespace = namespace
+        self.ontology_merges = []
+        self.ontology = ontology
+        self.about = about
+        self.about_merges = []
+        self.label = label
+        self.superclasses = superclasses
+        self.superclasses_names = []
+        self.formalDefinition = formalDefinition
+        self.syns = syns
+        self.comment = comment
+        self.sub = []
+        self.deprecated = deprecated
 
-	def __str__(self):
-		subs_label = ",".join([s.label for s in self.sub])
-		return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s\tsubs %s" % (self.namespace, self.ontology, self.about, self.label, self.superclasses, self.formalDefinition, self.syns, self.comment, subs_label)
+    def __str__(self):
+        subs_label = ",".join([s.label for s in self.sub])
+        return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s\tsubs %s" % (
+        self.namespace, self.ontology, self.about, self.label, self.superclasses,
+        self.formalDefinition, self.syns, self.comment, subs_label)
 
-	def __repr__(self):
-		subs_label = ",".join([s.label for s in self.sub])
-		return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s\tsubs %s" % (self.namespace, self.ontology, self.about, self.label, self.superclasses, self.formalDefinition, self.syns, self.comment, subs_label)
+    def __repr__(self):
+        subs_label = ",".join([s.label for s in self.sub])
+        return "namespace %s\tontology %s\tabout %s\tlabel %s\tsuperclasses %s\tformaldefinition %s\tsysns %s\tcomment %s\tsubs %s" % (
+        self.namespace, self.ontology, self.about, self.label, self.superclasses,
+        self.formalDefinition, self.syns, self.comment, subs_label)
+
 
 def process_owl_class(_owl_class, label, about, superclasses):
-	found = False
-	for _class_intersection_of in _owl_class.findall(OwlIntersectionOf):
-		process_intersection_or_union_of(_class_intersection_of, label, about, superclasses)
-		found = True
+    found = False
+    for _class_intersection_of in _owl_class.findall(OwlIntersectionOf):
+        process_intersection_or_union_of(_class_intersection_of, label, about,
+                                         superclasses)
+        found = True
 
-	for _class_union_of in _owl_class.findall(OwlUnionOf):
-		# The Union informs sub classes. We are looking for super classes here.
-		#	process_intersection_or_union_of(_class_union_of, label, about, superclasses)
-		found = True
+    for _class_union_of in _owl_class.findall(OwlUnionOf):
+        # The Union informs sub classes. We are looking for super classes here.
+        # process_intersection_or_union_of(_class_union_of, label, about, superclasses)
+        found = True
 
-	if not found:
-		print 'Nothing found at process_owl_class', label, about
+    if not found:
+        print 'Nothing found at process_owl_class', label, about
+
 
 def process_restriction_sub(_class_retriction_sub, label, about, superclasses):
-	found = False
-	_owl_all_values_from_value = _class_retriction_sub.get(RdfResource)
-	if _owl_all_values_from_value is not None:
-		superclasses.append(_owl_all_values_from_value.encode('utf-8').strip())
-		found = True
+    found = False
+    _owl_all_values_from_value = _class_retriction_sub.get(RdfResource)
+    if _owl_all_values_from_value is not None:
+        superclasses.append(_owl_all_values_from_value.encode('utf-8').strip())
+        found = True
 
-	for owl_class in _class_retriction_sub.findall(OwlClass):
-		process_owl_class(owl_class, label, about, superclasses)
-		found = True
+    for owl_class in _class_retriction_sub.findall(OwlClass):
+        process_owl_class(owl_class, label, about, superclasses)
+        found = True
 
-	for _in_restriction in _class_retriction_sub.findall(OwlRestriction):
-		process_restriction(_in_restriction, label, about, superclasses)
-		found = True
+    for _in_restriction in _class_retriction_sub.findall(OwlRestriction):
+        process_restriction(_in_restriction, label, about, superclasses)
+        found = True
 
-	if not found:
-		print 'Nothing found at process_restriction_sub'
+    if not found:
+        print 'Nothing found at process_restriction_sub'
+
 
 def process_restriction(_class_retriction, label, about, superclasses):
-	found = False
+    found = False
 
-	is_accepted_property = False
-	for _on_property in _class_retriction.findall(OwlOnProperty):
-		_property = _on_property.get(RdfResource).encode('utf-8')
+    is_accepted_property = False
+    for _on_property in _class_retriction.findall(OwlOnProperty):
+        _property = _on_property.get(RdfResource).encode('utf-8')
 
-		if _property in on_propery_whitelist:
-			is_accepted_property = True
-		elif _property in on_propery_blacklist:
-			is_accepted_property = False
-		else:
-			print 'onProperty ', _property, ' is not know. Insert into on_propery_blacklist or on_propery_blacklist'
-			is_accepted_property = False
+        if _property in on_propery_whitelist:
+            is_accepted_property = True
+        elif _property in on_propery_blacklist:
+            is_accepted_property = False
+        else:
+            print 'onProperty ', _property, ' is not know. Insert into on_propery_blacklist or on_propery_blacklist'
+            is_accepted_property = False
 
-	if not is_accepted_property:
-		return
+    if not is_accepted_property:
+        return
 
-	for _on_class in _class_retriction.findall(OwlOnClass):
-		_resource = _on_class.get(RdfResource)
-		if _resource is not None:
-			superclasses.append(_resource.encode('utf-8').strip())
-			found = True
+    for _on_class in _class_retriction.findall(OwlOnClass):
+        _resource = _on_class.get(RdfResource)
+        if _resource is not None:
+            superclasses.append(_resource.encode('utf-8').strip())
+            found = True
 
-	for _owl_all_values_from in _class_retriction.findall(OwlAllValuesFrom):
-		process_restriction_sub(_owl_all_values_from, label, about, superclasses)
-		found = True
+    for _owl_all_values_from in _class_retriction.findall(OwlAllValuesFrom):
+        process_restriction_sub(_owl_all_values_from, label, about, superclasses)
+        found = True
 
-	for _owl_has_value in _class_retriction.findall(OwlHasValue):
-		process_restriction_sub(_owl_has_value, label, about, superclasses)
-		found = True
+    for _owl_has_value in _class_retriction.findall(OwlHasValue):
+        process_restriction_sub(_owl_has_value, label, about, superclasses)
+        found = True
 
-	for _owl_some_value_of in _class_retriction.findall(OwlSomeValuesFrom):
-		process_restriction_sub(_owl_some_value_of, label, about, superclasses)
-		found = True
+    for _owl_some_value_of in _class_retriction.findall(OwlSomeValuesFrom):
+        process_restriction_sub(_owl_some_value_of, label, about, superclasses)
+        found = True
 
-	if not found:
-		print 'Nothing found at process_restriction', label, about
+    if not found:
+        print 'Nothing found at process_restriction', label, about
+
 
 def process_intersection_or_union_of(_class_intersection_of, label, about, superclasses):
-	found = False
-	for _class_equivalent_description in _class_intersection_of.findall(RdfDescription):
-		_class_equivalent_description_about = _class_equivalent_description.get(RdfAbout)
-		if _class_equivalent_description_about is not None:
-			superclasses.append(_class_equivalent_description_about.encode('utf-8').strip())
-			found = True
+    found = False
+    for _class_equivalent_description in _class_intersection_of.findall(RdfDescription):
+        _class_equivalent_description_about = _class_equivalent_description.get(RdfAbout)
+        if _class_equivalent_description_about is not None:
+            superclasses.append(
+                _class_equivalent_description_about.encode('utf-8').strip())
+            found = True
 
-	for _class_retriction in _class_intersection_of.findall(OwlRestriction):
-		process_restriction(_class_retriction, label, about, superclasses)
-		found = True
+    for _class_retriction in _class_intersection_of.findall(OwlRestriction):
+        process_restriction(_class_retriction, label, about, superclasses)
+        found = True
 
-	for owl_class in _class_intersection_of.findall(OwlClass):
-		process_owl_class(owl_class, label, about, superclasses)
-		found = True
+    for owl_class in _class_intersection_of.findall(OwlClass):
+        process_owl_class(owl_class, label, about, superclasses)
+        found = True
 
-	if not found:
-		print 'Not found content for the insersection or union', label, about, _class_intersection_of
+    if not found:
+        print 'Not found content for the insersection or union', label, about, _class_intersection_of
+
 
 def load_classes(ontology, _file):
-	#log.info("Loading ontology " + ontology + " from file " + _file)
+    # log.info("Loading ontology " + ontology + " from file " + _file)
 
-	file_type = _file.split(".")[-1]
-  	if file_type == "gz":
-  		binary = gzip.open(_file).read()
-  		root = ET.fromstring(binary)
-	else:
-		tree = ET.parse(_file)
-		root = tree.getroot()
+    file_type = _file.split(".")[-1]
+    if file_type == "gz":
+        binary = gzip.open(_file).read()
+        root = ET.fromstring(binary)
+    else:
+        tree = ET.parse(_file)
+        root = tree.getroot()
 
-	_header = root.find(OwlOntology)
-	if _header is not None:
-		address = _header.get(RdfAbout).encode('utf-8').strip()
-	else:
-		address = ""
+    _header = root.find(OwlOntology)
+    if _header is not None:
+        address = _header.get(RdfAbout).encode('utf-8').strip()
+    else:
+        address = ""
 
-	imports = []
-	for _import in _header.findall(OwlImports):
-		imports.append(_import.get(RdfResource).encode('utf-8').strip())
+    imports = []
+    for _import in _header.findall(OwlImports):
+        imports.append(_import.get(RdfResource).encode('utf-8').strip())
 
-	classes = []
+    classes = []
 
-	for child in root.findall(OwlClass):
-		_namespace = child.find(OboInOwlHasOBONamespace)
-		if _namespace is not None:
-			namespace = _namespace.text.encode('utf-8').strip()
-		else:
-			namespace = ""
+    for child in root.findall(OwlClass):
+        _namespace = child.find(OboInOwlHasOBONamespace)
+        if _namespace is not None:
+            namespace = _namespace.text.encode('utf-8').strip()
+        else:
+            namespace = ""
+
+        _about = child.get(RdfAbout)
+        if _about is not None:
+            about = _about.encode('utf-8').strip()
+        else:
+            about = ""
+
+        _label = child.find(RdfsLabel)
+        if _label is not None:
+            label = _label.text.encode('utf-8').strip()
+        else:
+            label = ""
+
+        if not label:
+            continue
+
+        superclasses = []
+
+        for _subclass in child.findall(RdfsSubClass):
+            ref = _subclass.get(RdfResource)
+            if ref is not None:
+                sub_ref = ref.encode('utf-8').strip()
+                if sub_ref == _about:
+                    print 'This class (', label, ontology, ') is a sub class of... itself!'
+                    continue
+                superclasses.append(sub_ref)
+
+            for _owl_class in _subclass.findall(OwlClass):
+                process_owl_class(_owl_class, label, about, superclasses)
+                found = True
+
+            for _owl_restriction in _subclass.findall(OwlRestriction):
+                process_restriction(_owl_restriction, label, about, superclasses)
+
+        _comment = child.find(RdfsComment)
+        if _comment is not None and _comment.text is not None:
+            comment = _comment.text.encode('utf-8').strip()
+        else:
+            comment = ""
+
+        for _equivalentClass in child.findall(OwlEquivalentClass):
+            found = False
+
+            for _class_retriction in _equivalentClass.findall(OwlRestriction):
+                found = True
+                process_restriction(_class_retriction, label, about, superclasses)
+
+            for _class_equivalent_class in _equivalentClass.findall(OwlClass):
+                for _class_intersection_of in _class_equivalent_class.findall(
+                        OwlIntersectionOf):
+                    process_intersection_or_union_of(_class_intersection_of, label, about,
+                                                     superclasses)
+                    found = True
+
+                for _class_union_of in _class_equivalent_class.findall(OwlUnionOf):
+                    # The Union informs sub classes. We are looking for super classes here.
+                    found = True
+
+                if not found:
+                    print 'Not found: _class_intersection_of or _class_union_of', label, about
+
+            if not found:
+                _resource = _equivalentClass.get(RdfResource)
+                if _resource is not None:
+                    pass
+                    print 'equivalent to ', _resource.encode(
+                        'utf-8').strip(), label, about
+                else:
+                    pass
+                    print 'AAAAAAA not found _class_equivalent_class', label, about
+
+        _deprecated = child.find(OwlDeprecated)
+        if _deprecated is not None and _deprecated.text is not None:
+            deprecated = True
+        else:
+            deprecated = False
+
+        _formalDefinition = child.find(OboFormalDefinition)
+        if _formalDefinition is not None and _formalDefinition.text is not None:
+            formalDefinition = _formalDefinition.text.encode('utf-8').strip()
+        else:
+            _formalDefinition = child.find(EfoDefinition)
+            if _formalDefinition is not None and _formalDefinition.text is not None:
+                formalDefinition = _formalDefinition.text.encode('utf-8').strip()
+            else:
+                formalDefinition = ""
+
+        syns = []
+
+        for syn in child.findall(OboInOwlHasRelatedSynonym):
+            syns.append(syn.text.encode('utf-8').strip())
+
+        for syn in child.findall(OboInOwlHasExactSynonym):
+            syns.append(syn.text.encode('utf-8').strip())
+
+        for syn in child.findall(EfoAlternativeTerm):
+            syns.append(syn.text.encode('utf-8').strip())
+
+        for syn in child.findall(HasRelationalAdjective):
+            syns.append(syn.text.encode('utf-8').strip())
+
+        # Remove duplicates
+        syns = list(set(syns))
+        superclasses = list(set(superclasses))
+
+        _class = Class(namespace, ontology, about, label, superclasses, formalDefinition,
+                       syns, comment, deprecated)
+        if not _class.label.startswith('obsolete') and not _class.deprecated:
+            classes.append(_class)
+
+    return Ontology(ontology, address, imports, classes)
 
 
-		_about = child.get(RdfAbout)
-		if _about is not None:
-			about = _about.encode('utf-8').strip()
-		else:
-			about = ""
+def load_blacklist():
+    # print 'loading blacklist terms (terms that arent biosources) from ontologies_blacklist.txt'
+    f = open("ontologies_blacklist.txt")
+    blacklist = []
 
-		_label = child.find(RdfsLabel)
-		if _label is not None:
-			label = _label.text.encode('utf-8').strip()
-		else:
-			label = ""
+    for term in f.readlines():
+        blacklist.append(term.strip())
 
-		if not label:
-			continue
-
-		superclasses = []
-
-		for _subclass in child.findall(RdfsSubClass):
-			ref = _subclass.get(RdfResource)
-			if ref is not None:
-				sub_ref = ref.encode('utf-8').strip()
-				if sub_ref == _about:
-					print 'This class (', label, ontology,') is a sub class of... itself!'
-					continue
-				superclasses.append(sub_ref)
-
-			for _owl_class in _subclass.findall(OwlClass):
-				process_owl_class(_owl_class, label, about, superclasses)
-				found = True
-
-			for _owl_restriction in _subclass.findall(OwlRestriction):
-				process_restriction(_owl_restriction, label, about, superclasses)
-
-		_comment = child.find(RdfsComment)
-		if _comment is not None and _comment.text is not None:
-			comment = _comment.text.encode('utf-8').strip()
-		else:
-			comment = ""
+    return blacklist
 
 
-		for _equivalentClass in child.findall(OwlEquivalentClass):
-			found = False
+def load_on_propery_lists():
+    f = open("on_property_black_list.txt")
+    blacklist = []
 
-			for _class_retriction in _equivalentClass.findall(OwlRestriction):
-				found = True
-				process_restriction(_class_retriction, label, about, superclasses)
+    for term in f.readlines():
+        blacklist.append(term.strip())
 
-			for _class_equivalent_class in _equivalentClass.findall(OwlClass):
-				for _class_intersection_of in _class_equivalent_class.findall(OwlIntersectionOf):
-					process_intersection_or_union_of(_class_intersection_of, label, about, superclasses)
-					found = True
+    f = open("on_property_white_list.txt")
+    whitelist = []
 
-				for	_class_union_of in _class_equivalent_class.findall(OwlUnionOf):
-					# The Union informs sub classes. We are looking for super classes here.
-					found = True
+    for term in f.readlines():
+        whitelist.append(term.strip())
 
-				if not found:
-					print 'Not found: _class_intersection_of or _class_union_of', label, about
+    return blacklist, whitelist
 
-			if not found:
-				_resource = _equivalentClass.get(RdfResource)
-				if _resource is not None:
-					pass
-					print 'equivalent to ', _resource.encode('utf-8').strip(), label, about
-				else:
-					pass
-					print 'AAAAAAA not found _class_equivalent_class', label, about
-
-		_deprecated = child.find(OwlDeprecated)
-		if _deprecated is not None and _deprecated.text is not None:
-			deprecated = True
-		else:
-			deprecated = False
-
-		_formalDefinition = child.find(OboFormalDefinition)
-		if _formalDefinition is not None and _formalDefinition.text is not None:
-			formalDefinition = _formalDefinition.text.encode('utf-8').strip()
-		else:
-			_formalDefinition = child.find(EfoDefinition)
-			if _formalDefinition is not None and _formalDefinition.text is not None:
-				formalDefinition = _formalDefinition.text.encode('utf-8').strip()
-			else:
-				formalDefinition = ""
-
-		syns = []
-
-		for syn in child.findall(OboInOwlHasRelatedSynonym):
-			syns.append(syn.text.encode('utf-8').strip())
-
-		for syn in child.findall(OboInOwlHasExactSynonym):
-			syns.append(syn.text.encode('utf-8').strip())
-
-		for syn in child.findall(EfoAlternativeTerm):
-			syns.append(syn.text.encode('utf-8').strip())
-
-		for syn in child.findall(HasRelationalAdjective):
-			syns.append(syn.text.encode('utf-8').strip())
-
-		# Remove duplicates
-		syns = list(set(syns))
-		superclasses = list(set(superclasses))
-
-		_class = Class(namespace, ontology, about, label, superclasses, formalDefinition, syns, comment, deprecated)
-		if not _class.label.startswith('obsolete') and not _class.deprecated:
-			classes.append(_class)
-
-	return Ontology(ontology, address, imports, classes )
-
-
-def load_blacklist() :
-	#print 'loading blacklist terms (terms that arent biosources) from ontologies_blacklist.txt'
-	f = open("ontologies_blacklist.txt")
-	blacklist = []
-
-	for term in f.readlines():
-		blacklist.append(term.strip())
-
-	return blacklist
-
-def load_on_propery_lists() :
-	f = open("on_property_black_list.txt")
-	blacklist = []
-
-	for term in f.readlines():
-		blacklist.append(term.strip())
-
-	f = open("on_property_white_list.txt")
-	whitelist = []
-
-	for term in f.readlines():
-		whitelist.append(term.strip())
-
-	return blacklist, whitelist
 
 already_filtered = {}
-def filter_classes(classes, blacklist, count = 0):
-	result = []
-	for _class in classes:
-		if _class.label in blacklist:
-			continue
-		if already_filtered.has_key(_class.label):
-			continue
 
-		result.append(_class)
-		already_filtered[_class.label] = True
-		sub_result = filter_classes(_class.sub, blacklist, count + 1)
-		result += sub_result
-		result = list(set(result))
-	return result
+
+def filter_classes(classes, blacklist, count=0):
+    result = []
+    for _class in classes:
+        if _class.label in blacklist:
+            continue
+        if already_filtered.has_key(_class.label):
+            continue
+
+        result.append(_class)
+        already_filtered[_class.label] = True
+        sub_result = filter_classes(_class.sub, blacklist, count + 1)
+        result += sub_result
+        result = list(set(result))
+    return result
+
 
 def load_owl(user_key):
-	log.info("Loading ontologies")
+    log.info("Loading ontologies")
 
-	cl_classes = load_classes("CL", "../data/ontologies/cl.owl.gz")
-	efo_classes = load_classes("EFO", "../data/ontologies/efo.owl.gz")
-	uberon_classes = load_classes("uberon", "../data/ontologies/uberon.owl.gz")
+    cl_classes = load_classes("CL", "../data/ontologies/cl.owl.gz")
+    efo_classes = load_classes("EFO", "../data/ontologies/efo.owl.gz")
+    uberon_classes = load_classes("uberon", "../data/ontologies/uberon.owl.gz")
 
-	all_classes = {}
-	all_classes_names= {}
-	all_ontologies = [i for i in cl_classes.classes if i.label] + [i for i in efo_classes.classes if i.label] + [i for i in uberon_classes.classes if i.label]
+    all_classes = {}
+    all_classes_names = {}
+    all_ontologies = [i for i in cl_classes.classes if i.label] + \
+                     [i for i in efo_classes.classes if i.label] + \
+                     [i for i in uberon_classes.classes if i.label]
 
-	print "Before merge", len(all_ontologies)
+    print "Before merge", len(all_ontologies)
 
-	for _class in all_ontologies:
-		if all_classes_names.has_key(_class.label):
-			duplicated_class = all_classes_names[_class.label]
-			duplicated_class.superclasses = list(set(duplicated_class.superclasses + _class.superclasses))
-			duplicated_class.superclasses_names = list(set(duplicated_class.superclasses_names + _class.superclasses_names))
-			duplicated_class.syns = list(set(duplicated_class.syns + _class.syns))
-			duplicated_class.sub = list(set(duplicated_class.sub + _class.sub))
-			all_classes_names[_class.label] = duplicated_class
-			all_classes[_class.about] = _class.label
-		else:
-			all_classes[_class.about] = _class.label
-			all_classes_names[_class.label] = _class
+    for _class in all_ontologies:
+        if all_classes_names.has_key(_class.label):
+            duplicated_class = all_classes_names[_class.label]
+            duplicated_class.superclasses = list(
+                set(duplicated_class.superclasses + _class.superclasses))
+            duplicated_class.superclasses_names = list(
+                set(duplicated_class.superclasses_names + _class.superclasses_names))
+            duplicated_class.syns = list(set(duplicated_class.syns + _class.syns))
+            duplicated_class.sub = list(set(duplicated_class.sub + _class.sub))
+            all_classes_names[_class.label] = duplicated_class
+            all_classes[_class.about] = _class.label
+        else:
+            all_classes[_class.about] = _class.label
+            all_classes_names[_class.label] = _class
 
-	all_ontologies = []
-	for v in all_classes_names.itervalues():
-		all_ontologies.append(v)
-	print "After merge",  len(all_ontologies)
+    all_ontologies = []
+    for v in all_classes_names.itervalues():
+        all_ontologies.append(v)
+    print "After merge", len(all_ontologies)
 
-	# Linking references
-	print 'Linking'
-	for _class in all_ontologies:
-		_class.user_key = user_key
-		for ref in _class.superclasses:
-			if all_classes.has_key(ref):
-				_class.superclasses_names.append(all_classes[ref])
-			else:
-				print "refence %s for the class '%s' not found" %(ref, _class.label)
+    # Linking references
+    print 'Linking'
+    for _class in all_ontologies:
+        _class.user_key = user_key
+        for ref in _class.superclasses:
+            if all_classes.has_key(ref):
+                _class.superclasses_names.append(all_classes[ref])
+            else:
+                print "refence %s for the class '%s' not found" % (ref, _class.label)
 
-	no_parents = []
+    no_parents = []
 
-	# Build the relationship
-	for _class in all_ontologies:
-		if not _class.label:
-			continue
-		if not _class.superclasses_names:
-			no_parents.append(_class)
-		else :
-			for parent in _class.superclasses_names:
-				parent_class = all_classes_names[parent]
-				parent_class.sub.append(_class)
+    # Build the relationship
+    for _class in all_ontologies:
+        if not _class.label:
+            continue
+        if not _class.superclasses_names:
+            no_parents.append(_class)
+        else:
+            for parent in _class.superclasses_names:
+                parent_class = all_classes_names[parent]
+                parent_class.sub.append(_class)
 
-		if _class.label in _class.syns:
-			_class.syns.remove(_class.label)
+        if _class.label in _class.syns:
+            _class.syns.remove(_class.label)
 
-	# Remove weird relationships, if the class is sub and synonym, remove the synonym
-	for _class in [_class for _class in all_ontologies if _class.sub and _class.syns]:
-		def is_in_sub(x):
-			for sub in _class.sub:
-				if x == sub.label:
-					return True
-			return False
+    # Remove weird relationships, if the class is sub and synonym, remove the synonym
+    for _class in [_class for _class in all_ontologies if _class.sub and _class.syns]:
+        def is_in_sub(x):
+            for sub in _class.sub:
+                if x == sub.label:
+                    return True
+            return False
 
-		_class.syns = [x for x in _class.syns if not is_in_sub(x)]
+        _class.syns = [x for x in _class.syns if not is_in_sub(x)]
 
-	# Remove classes that are synonyms of other classes
-	_synonymn_classes = []
-	print 'searching  for synonyms that are also defined as classes'
-	#All ontologies
-	for _class in all_ontologies:
-		# That have synonyms
-		to_merge_syns = []
-		to_merge_superclasses = []
-		to_merge_about = []
-		to_merge_ontology = []
+    # Remove classes that are synonyms of other classes
+    _synonymn_classes = []
+    print 'searching  for synonyms that are also defined as classes'
+    # All ontologies
+    for _class in all_ontologies:
+        # That have synonyms
+        to_merge_syns = []
+        to_merge_superclasses = []
+        to_merge_about = []
+        to_merge_ontology = []
 
-		for synonym in _class.syns:
-			# if there is a class with the same name as the synonym
-			if all_classes_names.has_key(synonym):
+        for synonym in _class.syns:
+            # if there is a class with the same name as the synonym
+            if all_classes_names.has_key(synonym):
 
-				# Class with the same name of the synonym
-				found = all_classes_names[synonym]
+                # Class with the same name of the synonym
+                found = all_classes_names[synonym]
 
-				# Dont do anything if the synonym is the name of its own class (Thanks, ontologies)
-				if _class.about == found.about:
-					continue
+                # Dont do anything if the synonym is the name of its own class (Thanks, ontologies)
+                if _class.about == found.about:
+                    continue
 
-				# merge the found synonyms with the class that has the synonyms
-				for found_syn in found.syns:
-					if not found in _class.syns:
-						to_merge_syns.append(found_syn)
+                # merge the found synonyms with the class that has the synonyms
+                for found_syn in found.syns:
+                    if found not in _class.syns:
+                        to_merge_syns.append(found_syn)
 
-				for superclass in found.superclasses:
-					if not superclass in _class.superclasses:
-						to_merge_superclasses.append(superclass)
+                for superclass in found.superclasses:
+                    if not superclass in _class.superclasses:
+                        to_merge_superclasses.append(superclass)
 
-				if found.about is not _class.about:
-					to_merge_about.append(found.about)
+                if found.about is not _class.about:
+                    to_merge_about.append(found.about)
 
-				if found.ontology is not _class.ontology:
-					to_merge_ontology.append(found.ontology)
+                if found.ontology is not _class.ontology:
+                    to_merge_ontology.append(found.ontology)
 
-				_synonymn_classes.append(found)
+                _synonymn_classes.append(found)
 
-		if to_merge_syns:
-			_class.syns = list(set(_class.syns + to_merge_syns))
+        if to_merge_syns:
+            _class.syns = list(set(_class.syns + to_merge_syns))
 
-		if to_merge_superclasses:
-			_class.superclasses = list(set(_class.syns + to_merge_superclasses))
+        if to_merge_superclasses:
+            _class.superclasses = list(set(_class.syns + to_merge_superclasses))
 
-		if to_merge_about:
-			_class.about_merges = list(set(_class.about_merges + to_merge_about))
+        if to_merge_about:
+            _class.about_merges = list(set(_class.about_merges + to_merge_about))
 
-		if to_merge_ontology:
-			_class.ontology_merges = list(set(_class.ontology_merges + to_merge_ontology))
+        if to_merge_ontology:
+            _class.ontology_merges = list(set(_class.ontology_merges + to_merge_ontology))
 
-	print 'total: ', len(all_classes)
-	print 'no_parent: ', len(no_parents)
-	print 'duplicated (synonym and class): ', len(_synonymn_classes)
+    print 'total: ', len(all_classes)
+    print 'no_parent: ', len(no_parents)
+    print 'duplicated (synonym and class): ', len(_synonymn_classes)
 
-	print 'Roots:'
-	for no_parent in no_parents:
-		print no_parent.label, no_parent.ontology
-	print '-' * 20
+    print 'Roots:'
+    for no_parent in no_parents:
+        print no_parent.label, no_parent.ontology
+    print '-' * 20
 
-	blacklist_terms = load_blacklist()
-	full_blacklist_terms = blacklist_terms + _synonymn_classes
-	print 'filtering.. '
-	biosources = filter_classes(no_parents, full_blacklist_terms)
-	print 'total biosources:', len(biosources)
+    blacklist_terms = load_blacklist()
+    full_blacklist_terms = blacklist_terms + _synonymn_classes
+    print 'filtering.. '
+    biosources = filter_classes(no_parents, full_blacklist_terms)
+    print 'total biosources:', len(biosources)
 
-	alread_in = {}
+    alread_in = {}
 
-	def print_biosources(no_parents, biosources, f, parent = None, deep = 0):
-		first_1 = True
+    def print_biosources(no_parents, biosources, f, parent=None, deep=0):
+        first_1 = True
 
-		f.write('[')
-		for _class in no_parents:
-			if _class not in biosources:
-				continue
+        f.write('[')
+        for _class in no_parents:
+            if _class not in biosources:
+                continue
 
-			if not first_1:
-				f.write(',')
-			first_1 = False
-			f.write('\n')
-			f.write(' ' * (deep))
-			f.write('{')
-			f.write('\n')
-			f.write(' ' * (deep+1))
-			f.write('"label": "%s",' %(_class.label))
-			f.write('\n')
-			f.write(' ' * (deep+1))
-			f.write('"about": "%s",' %(_class.about))
-			f.write('\n')
-			f.write(' ' * (deep+1))
-			f.write('"synonyms": [')
-			first_2 = True
-			for syn in _class.syns:
-				if not alread_in.has_key(syn):
-					if not first_2:
-						f.write(',')
-					f.write('"%s"' %syn)
-					first_2 = False
+            if not first_1:
+                f.write(',')
+            first_1 = False
+            f.write('\n')
+            f.write(' ' * (deep))
+            f.write('{')
+            f.write('\n')
+            f.write(' ' * (deep + 1))
+            f.write('"label": "%s",' % (_class.label))
+            f.write('\n')
+            f.write(' ' * (deep + 1))
+            f.write('"about": "%s",' % (_class.about))
+            f.write('\n')
+            f.write(' ' * (deep + 1))
+            f.write('"synonyms": [')
+            first_2 = True
+            for syn in _class.syns:
+                if not alread_in.has_key(syn):
+                    if not first_2:
+                        f.write(',')
+                    f.write('"%s"' % syn)
+                    first_2 = False
 
-			f.write('],')
-			f.write('\n')
+            f.write('],')
+            f.write('\n')
 
-			f.write(' ' * (deep+1))
-			f.write('"subs":')
-			print_biosources(_class.sub, biosources, f, _class, deep + 1)
-			f.write('\n')
-			f.write(' ' * (deep))
-			f.write('}')
-		f.write(']\n')
-
-
-	more_embrancing_cache = {}
-
-	""" Laziness to write a better synchronizer """
-	set_alread_in_semaphore = threading.BoundedSemaphore()
-	def set_alread_in(label):
-		set_alread_in_semaphore.acquire()
-		alread_in[label] = True
-		set_alread_in_semaphore.release()
-
-	def insert_syns(_class):
-		syns_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
-		for syn in _class.syns:
-			if not alread_in.has_key(syn) :
-				log.info("setting syn " + syn + " to " + _class.label)
-				status, _id = syns_epidb.set_biosource_synonym(_class.label, syn, _class.user_key)
-				if status == 'error' and not _id.startswith('104400'):
-					print _class, syn, _id
-					log.info("error on setting syn" + _class.label + " syn " + syn + " msg: " + _id)
-				set_alread_in(syn)
-
-	def set_parent(_class, sub):
-		scope_epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
-		log.info("setting parent " + _class.label + " sub " + sub.label)
-		status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label, _class.user_key)
-		cache_key = _class.label + " " + sub.label
-		if status == 'okay':
-			more_embrancing_cache[cache_key] = True
-			log.info("OKAY on setting parent " + _class.label + " sub " + sub.label + " msg: " + str(_id))
-		elif status == 'error' and _id.startswith('104901'):
-			log.info("error expected on setting parent " + _class.label + " sub " + sub.label + " msg: " + _id)
-		else:
-			log.info("error on setting parent " + _class.label + " sub " + sub.label + " msg: " + str(_id))
-
-	def set_scope(_class):
-		for sub in _class.sub:
-			cache_key = _class.label + " " + sub.label
-			if not more_embrancing_cache.has_key(cache_key):
-				set_parent(_class, sub)
-
-	threads = []
-	def insert_biosources(no_parents, biosources, epidb):
-		for _class in no_parents:
-			if alread_in.has_key(_class.label):
-				continue
-
-			if _class not in biosources:
-				continue
-
-			extra_metadata = {"url":_class.about, "namespace":_class.namespace, "ontology":_class.ontology, "comment": _class.comment}
-			log.info("add biosource " + _class.label + " - " + _class.formalDefinition + " - " + str(extra_metadata))
-			status, _id = epidb.add_biosource(_class.label, _class.formalDefinition, extra_metadata, _class.user_key)
-			if status == 'error':
-				log.info("error on inserting biosource " + _class.label + " msg: " + _id)
-
-			insert_syns(_class)
-
-			set_alread_in(_class.label)
-			insert_biosources(_class.sub, biosources, epidb)
-
-			t = threading.Thread(target=set_scope, args=(_class,))
-			t.start()
-			threads.append(t)
-
-	print 'Waiting for threads..',
-	for t in threads:
-		print '.',
-		t.join()
+            f.write(' ' * (deep + 1))
+            f.write('"subs":')
+            print_biosources(_class.sub, biosources, f, _class, deep + 1)
+            f.write('\n')
+            f.write(' ' * (deep))
+            f.write('}')
+        f.write(']\n')
 
 
-	#print "Output json"
-	#f = open("imported_biosources.json", "w+")
-	#print f.write('{ "data":\n')
-	#print_biosources(no_parents, biosources, f)
-	#print f.write('}')
+    more_embrancing_cache = {}
 
-	epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
-	insert_biosources(no_parents, biosources, epidb)
+    """ Laziness to write a better synchronizer """
+    set_alread_in_semaphore = threading.BoundedSemaphore()
+
+    def set_alread_in(label):
+        set_alread_in_semaphore.acquire()
+        alread_in[label] = True
+        set_alread_in_semaphore.release()
+
+    def insert_syns(_class):
+        syns_epidb = PopulatorEpidbClient()
+        for syn in _class.syns:
+            if not alread_in.has_key(syn):
+                log.info("setting syn " + syn + " to " + _class.label)
+                status, _id = syns_epidb.set_biosource_synonym(_class.label, syn)
+                if status == 'error' and not _id.startswith('104400'):
+                    print _class, syn, _id
+                    log.info(
+                        "error on setting syn" + _class.label + " syn " + syn + " msg: " + _id)
+                set_alread_in(syn)
+
+    def set_parent(_class, sub):
+        scope_epidb = PopulatorEpidbClient()
+        log.info("setting parent " + _class.label + " sub " + sub.label)
+        status, _id = scope_epidb.set_biosource_parent(_class.label, sub.label)
+        cache_key = _class.label + " " + sub.label
+        if status == 'okay':
+            more_embrancing_cache[cache_key] = True
+            log.info(
+                "OKAY on setting parent " + _class.label + " sub " + sub.label + " msg: " + str(
+                    _id))
+        elif status == 'error' and _id.startswith('104901'):
+            log.info(
+                "error expected on setting parent " + _class.label + " sub " + sub.label + " msg: " + _id)
+        else:
+            log.info(
+                "error on setting parent " + _class.label + " sub " + sub.label + " msg: " + str(
+                    _id))
+
+    def set_scope(_class):
+        for sub in _class.sub:
+            cache_key = _class.label + " " + sub.label
+            if not more_embrancing_cache.has_key(cache_key):
+                set_parent(_class, sub)
+
+    threads = []
+
+    def insert_biosources(no_parents, biosources, epidb):
+        for _class in no_parents:
+            if alread_in.has_key(_class.label):
+                continue
+
+            if _class not in biosources:
+                continue
+
+            extra_metadata = {"url": _class.about, "namespace": _class.namespace,
+                              "ontology": _class.ontology, "comment": _class.comment}
+            log.info(
+                "add biosource " + _class.label + " - " + _class.formalDefinition + " - " + str(
+                    extra_metadata))
+            status, _id = epidb.add_biosource(_class.label, _class.formalDefinition,
+                                              extra_metadata)
+            if status == 'error':
+                log.info("error on inserting biosource " + _class.label + " msg: " + _id)
+
+            insert_syns(_class)
+
+            set_alread_in(_class.label)
+            insert_biosources(_class.sub, biosources, epidb)
+
+            t = threading.Thread(target=set_scope, args=(_class,))
+            t.start()
+            threads.append(t)
+
+    print 'Waiting for threads..',
+    for t in threads:
+        print '.',
+        t.join()
+
+
+    #print "Output json"
+    #f = open("imported_biosources.json", "w+")
+    #print f.write('{ "data":\n')
+    #print_biosources(no_parents, biosources, f)
+    #print f.write('}')
+
+    epidb = PopulatorEpidbClient()
+    insert_biosources(no_parents, biosources, epidb)
+
 
 on_propery_blacklist, on_propery_whitelist = load_on_propery_lists()
 

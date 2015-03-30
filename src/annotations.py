@@ -2,10 +2,10 @@ import itertools
 import gzip
 from multiprocessing import Pool
 
-from client import EpidbClient
+from epidb_interaction import PopulatorEpidbClient
 from downloader import download
 from log import log
-from settings import DEEPBLUE_HOST, DEEPBLUE_PORT, max_threads
+from settings import max_threads
 from sources_annotation import annotations
 
 
@@ -25,9 +25,9 @@ def insert_annotation(t):
         file_data = open(file_path
                          , 'r').read()
 
-    epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+    epidb = PopulatorEpidbClient()
     r = epidb.add_annotation(annotation.name, annotation.genome, annotation.description,
-                             file_data, annotation.file_format, annotation.extra_metadata, key)
+                             file_data, annotation.file_format, annotation.extra_metadata)
     if r[0] == "error":
         log.info("Error while inserting annotation %s: %s" % (annotation.name, r[1]))
     else:

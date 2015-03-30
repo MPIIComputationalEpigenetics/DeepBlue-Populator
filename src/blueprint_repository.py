@@ -5,20 +5,18 @@ import pprint
 
 from dataset import Dataset
 from repository import Repository
-from settings import DEEPBLUE_HOST, DEEPBLUE_PORT
 import util
-from client import EpidbClient
+from epidb_interaction import PopulatorEpidbClient
 
 
 pp = pprint.PrettyPrinter(depth=6)
 
 
 class BlueprintRepository(Repository):
-    def __init__(self, proj, genome, path, user_key):
+    def __init__(self, proj, genome, path):
         super(BlueprintRepository, self).__init__(proj, genome,
                                                 #  ["bed", "bigwig", "gtf", "gff"], path,
-                                                  ["gtf", "gff"], path,
-                                                  user_key)
+                                                  ["gtf", "gff"], path)
 
     def __str__(self):
         return "<Blueprint Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -48,7 +46,7 @@ class BlueprintRepository(Repository):
                                   "DONOR_REGION_OF_RESIDENCE",
                                   "SPECIMEN_PROCESSING", "SPECIMEN_STORAGE"]
 
-        epidb = EpidbClient(DEEPBLUE_HOST, DEEPBLUE_PORT)
+        epidb = PopulatorEpidbClient()
 
         new = 0
 
@@ -99,17 +97,16 @@ class BlueprintRepository(Repository):
 
             sample_extra_info["source"] = "BLUEPRINT Epigenomics"
 
-            epidb.add_biosource(biosource_name, None, {}, self.user_key)
+            epidb.add_biosource(biosource_name, None, {})
 
             (s, samples) = epidb.list_samples(biosource_name,
-                                              sample_extra_info, self.user_key)
+                                              sample_extra_info)
             if samples:
                 sample_id = samples[0][0]
             else:
                 sample_extra_info["source"] = "BLUEPRINT Epigenomics"
                 (s, sample_id) = epidb.add_sample(biosource_name,
-                                                  sample_extra_info,
-                                                  self.user_key)
+                                                  sample_extra_info)
                 if util.has_error(s, sample_id, []):
                     print "Error while loading BluePrint sample:"
                     print biosource_name

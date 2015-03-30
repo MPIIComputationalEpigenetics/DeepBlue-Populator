@@ -25,16 +25,15 @@ class Repository(object):
     """
     A Repository refers to a source of datasets belonging to a certain project.
     It detects the available datasets in the repository and can coordinate their
-    retrival and processing.
+    retrieval and processing.
     """
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, proj, genome, data_types, path, user_key):
+    def __init__(self, proj, genome, data_types, path):
         self.project = proj
         self.genome = genome
         self.data_types = data_types
         self.path = path
-        self.user_key = user_key
 
     def __str__(self):
         return "<Repository: [%s, %s]>" % (self.project, self.path)
@@ -67,7 +66,7 @@ class Repository(object):
     @abc.abstractmethod
     def read_datasets(self):
         """
-        read_datasets analyses the repositorie's index file and flags
+        read_datasets analyses the repository's index file and flags
         new datasets.
         """
         pass
@@ -77,7 +76,7 @@ class Repository(object):
         """
         exists checks if the repository has already been added to the database.
         """
-        return db.repo_exists(self.project, self.path)
+        return db.repo_exists(self.project, self.path, self.genome, self.data_types)
 
 
     def has_unimported(self):
@@ -89,22 +88,16 @@ class Repository(object):
 
     def save(self):
         """
-        save saves the repository to the database if it doesn't exist already.
+        Saves the repository to the database if it doesn't exist already. Updates it if
+        project attributes changed slightly.
         """
         if self.exists():
             return
 
-        doc = {
-            "project": self.project,
-            "genome": self.genome,
-            "data_types": self.data_types,
-            "path": self.path
-        }
-        if self.id:
-            doc["_id"] = self.id
-
-        log.debug("saving repository: %s", doc)
-        db.repo_save(doc)
+        if db.repo_exists(self.project, self.path):
+            db.repo_update(self)
+        else:
+            db.repo_save(self)
 
 
     def add_dataset(self, dataset):
@@ -117,7 +110,7 @@ class Repository(object):
         return False
 
 
-    def process_datasets(self, key=None):
+    def process_datasets(self):
         """
         process_datasets starts downloading and processing of all datasets in the
         database that belong to the repository and have not been inserted yet.
@@ -135,7 +128,7 @@ class Repository(object):
         def process(dataset):
             try:
                 dataset.load(load_sem)
-                dataset.process(key, process_sem)
+                dataset.process(process_sem)
                 dataset.save()
             except IOError as ex:
                 log.exception("error on downloading or reading dataset of %s failed: %s", dataset, ex)
