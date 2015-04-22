@@ -171,14 +171,7 @@ class Dataset:
     been loaded already.
     """
 
-    def load(self, sem=None):
-        if sem:
-            with sem:
-                self._load()
-        else:
-            self._load()
-
-    def _load(self):
+    def load(self):
         if os.path.exists(self.download_path):
             log.info("%s already downloaded", self)
             return
@@ -203,15 +196,7 @@ class Dataset:
     process inserts the downloaded file and specific meta data into Epidb.
     Note: the file must have been downloaded before (c.f. load) method.
     """
-
-    def process(self, sem=None):
-        if sem:
-            with sem:
-                self._process()
-        else:
-            self._process()
-
-    def _process(self):
+    def process(self):
         log.info("processing dataset %s", self)
 
         project = self.repository["project"]
@@ -220,6 +205,8 @@ class Dataset:
             am = attribute_mapper_factory.get(project, mark)(self)
         else:
             am = attribute_mapper_factory.get(project)(self)
+
+        print "*** AM: ", str(am)
 
         if not os.path.exists(self.download_path):
             raise MissingFile(self.download_path, self.file_name)

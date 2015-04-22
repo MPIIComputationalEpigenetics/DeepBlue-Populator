@@ -161,6 +161,7 @@ class Populator:
                           "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse")
         epidb.add_project("epigenomic landscape - hematopoiesis - mouse - pilot", "")
         epidb.add_project("DEEP", "DEEP - Deutsches Epigenom Programm")
+        epidb.add_project("Roadmap Epigenomics", "NIH Roadmap Epigenomics Mapping Consortium")
 
     def create_columns(self):
         epidb = PopulatorEpidbClient()

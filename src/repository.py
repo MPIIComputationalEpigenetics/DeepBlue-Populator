@@ -7,6 +7,8 @@ from dataset import Dataset
 from settings import max_threads, max_downloads
 from log import log
 
+from multiprocessing import Pool
+
 class NonpersistantRepository(Exception):
     """
     NonpersistantRepository exception is raised if certain operations on a
@@ -19,6 +21,16 @@ class NonpersistantRepository(Exception):
 
     def __str__(self):
         return "%s has not been stored: %s" % os.path.join(self.repository, self.msg)
+
+def process(dataset):
+    try:
+        dataset.load()
+        dataset.process()
+        dataset.save()
+    except IOError as ex:
+        log.exception("error on downloading or reading dataset of %s failed: %s", dataset, ex)
+    except Exception as ex:
+        log.exception("processing of %s failed %s", dataset, repr(ex))
 
 
 class Repository(object):
@@ -121,20 +133,7 @@ class Repository(object):
         c = list(db.find_not_inserted(self.id, self.data_types))
         log.info("%d datasets in %s require processing", len(c), self)
 
-        threads = []
-        load_sem = threading.Semaphore(max_downloads)
-        process_sem = threading.Semaphore(max_threads)
-
-        def process(dataset):
-            try:
-                dataset.load(load_sem)
-                dataset.process(process_sem)
-                dataset.save()
-            except IOError as ex:
-                log.exception("error on downloading or reading dataset of %s failed: %s", dataset, ex)
-            except Exception as ex:
-                log.exception("processing of %s failed %s", dataset, repr(ex))
-
+        datasets = []
         for e in db.find_not_inserted(self.id, self.data_types):
             # reconstruct Datasets from database
             ds = self._make_dataset(e["file_name"], e["type"], e["meta"], e["file_directory"], e["sample_id"], e["repository_id"])
@@ -144,12 +143,12 @@ class Repository(object):
             if not os.path.exists(p):
                 os.makedirs(p)
             # start processing
-            t = threading.Thread(target=process, args=(ds,))
-            t.start()
-            threads.append(t)
+            datasets.append(ds)
 
-        for t in threads:
-            t.join()
+        p = Pool(max_threads)
+        p.map(process, datasets)
+        p.close()
+        p.join()
 
 
     def _make_dataset(self, file_name, type, meta, file_directory, sample_id, repository):

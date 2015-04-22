@@ -17,7 +17,8 @@ retrival and processing.
 
 class EncodeRepository(Repository):
     def __init__(self, proj, genome, path):
-        super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
+        #super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
+        super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed"], path)
 
     def __str__(self):
         return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)

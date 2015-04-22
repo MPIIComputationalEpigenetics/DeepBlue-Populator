@@ -4,28 +4,27 @@ from attribute_mapper import AttributeMapper
 
 class RoadmapMapper(AttributeMapper):
     """
-    RoadmapMapper is the basic AttributeMapper for Roadmap repositories.
+    RoadmapMapper is the basic AttributeMapper for Geo repositories.
     """
     def __init__(self, dataset):
         super(RoadmapMapper, self).__init__(dataset)
 
     @property
     def name(self):
-        return self.dataset.meta['experiment_name']
+        file_full_name = self.dataset.file_name.split("/")[-1]
+        file_type = file_full_name.split(".")[-1]
+        if file_type == "gz":
+            return ".".join(file_full_name.split(".")[:-2])
+        else:
+            return ".".join(file_full_name.split(".")[:-1])
 
     @property
     def epigenetic_mark(self):
-        em = self.dataset.meta['epigenetic_mark']
-        if em == 'mRNA-Seq':
-            return 'mRNA'
-        return em
+        return self.dataset.meta['epigenetic_mark']
 
     @property
     def technique(self):
-        technique = self.dataset.meta['technique']
-        if (technique == 'mRNA-Seq'):
-            return 'RNASeq'
-        return technique
+        return self.dataset.meta['technique']
 
     @property
     def project(self):
@@ -33,8 +32,8 @@ class RoadmapMapper(AttributeMapper):
 
     @property
     def format(self):
-        return "wig"
+        return self.dataset.meta["type"]
 
     @property
     def extra_metadata(self):
-        return self.dataset.meta['extra_metadata']
+        return self.dataset.meta["extra"]
