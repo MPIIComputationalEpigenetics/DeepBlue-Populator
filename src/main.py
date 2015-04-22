@@ -39,7 +39,7 @@ def main(init=False, insert_annotations=False, insert_datasets=False,
 
 
 if __name__ == '__main__':
-    parser = OptionParser()
+    parser = OptionParser(version="DeepBlue-Populator 0.9")
 
     parser.add_option("--init", action="store_true", dest="init",
                       default=False,
@@ -77,4 +77,9 @@ if __name__ == '__main__':
         insert_ontology = True
         insert_datasets = True
 
-    main(init, insert_annotations, insert_datasets, insert_ontology, insert_basic_data)
+    if init or insert_annotations or insert_datasets or insert_ontology or insert_basic_data:
+      main(init, insert_annotations, insert_datasets, insert_ontology, insert_basic_data)
+    else:
+      parser.print_version()
+      parser.print_help()
+
