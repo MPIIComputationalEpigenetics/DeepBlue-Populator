@@ -147,6 +147,7 @@ class Populator:
         epidb.add_technique("Microarray", "Various microarray techniques", {})
         epidb.add_technique("Affymetrix Mouse Genome 430 2.0 Array", "", {})
         epidb.add_technique("WGBS", "Whole-genome bisulfite sequencing", {})
+        epidb.add_technique("MeDIP/MRE", "MeDIP/MRE methylation data we used the output of the mCRF tool (Stevens et al. (2013)) that reports fractional methylation in the range from 0 to 1 and uses an internal BWA mapping.", {})
 
 
     def insert_projects(self):
