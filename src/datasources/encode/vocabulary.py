@@ -112,7 +112,7 @@ def _adjust_sample_fields(sample):
         new_sample["description"] = sample["description"]
 
     if "tissue" in sample:
-        new_sample["tissue"] = sample["description"]
+        new_sample["tissue"] = sample["tissue"]
 
     if "lineage" in sample and sample["lineage"] != "missing":
         new_sample["lineage"] = sample["lineage"]
