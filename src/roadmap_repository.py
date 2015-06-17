@@ -71,6 +71,7 @@ class RoadmapRepository(Repository):
     # Histone data
     consolidated_narrow_peaks = ("http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/narrowPeak/",  "histones")
     consolidated_broad_peaks = ("http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/broadPeak/", "histones")
+    consolidated_gapped_peaks = ("http://egg2.wustl.edu/roadmap/data/byFileType/peaks/consolidated/gappedPeak/", "histones")
     consolidated_signal = ("http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/pval/", "histones") # -log10(p-value)
     consolidated_signal_fold_change = ("http://egg2.wustl.edu/roadmap/data/byFileType/signal/consolidated/macs2signal/foldChange/", "histones")
 
@@ -81,7 +82,7 @@ class RoadmapRepository(Repository):
     read_coverage_bigwig_rrbs = ("http://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/RRBS/ReadCoverage_bigwig/", "methylation")
     fractional_methylation_mcrf = ("http://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/mCRF/FractionalMethylation_bigwig/", "methylation")
 
-    sources = (consolidated_narrow_peaks, consolidated_broad_peaks, consolidated_signal, consolidated_signal_fold_change, fractional_methylation_wgbs, read_coverage_wgbs, fractional_methylation_rrbs, read_coverage_bigwig_rrbs, fractional_methylation_mcrf )
+    sources = (consolidated_narrow_peaks, consolidated_broad_peaks, consolidated_gapped_peaks, consolidated_signal, consolidated_signal_fold_change, fractional_methylation_wgbs, read_coverage_wgbs, fractional_methylation_rrbs, read_coverage_bigwig_rrbs, fractional_methylation_mcrf )
 
     return sources
 
@@ -160,7 +161,7 @@ class RoadmapRepository(Repository):
 
 
   def build_epigenetic_mark_technique_and_type(self, v1, v2, file):
-    if v2 == "broadPeak" or v2 == "narrowPeak":
+    if v2 == "broadPeak" or v2 == "narrowPeak" or v2 == "gappedPeak"
       return v1, "ChIP-seq", v2
 
     if v2 == "pval":
@@ -206,6 +207,7 @@ class RoadmapRepository(Repository):
     extra["type"] = v2
     extra["url"] = file
     extra["roadmap epigenome"] = eid
+    extra[""]
 
     meta["extra"] = extra
 

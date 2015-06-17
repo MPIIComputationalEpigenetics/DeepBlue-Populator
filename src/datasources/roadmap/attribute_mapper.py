@@ -12,11 +12,7 @@ class RoadmapMapper(AttributeMapper):
     @property
     def name(self):
         file_full_name = self.dataset.file_name.split("/")[-1]
-        file_type = file_full_name.split(".")[-1]
-        if file_type == "gz":
-            return ".".join(file_full_name.split(".")[:-2])
-        else:
-            return ".".join(file_full_name.split(".")[:-1])
+        return ".".join(file_full_name.split(".")[:-1])
 
     @property
     def epigenetic_mark(self):
