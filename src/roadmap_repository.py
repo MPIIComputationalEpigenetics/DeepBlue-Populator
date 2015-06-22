@@ -61,7 +61,7 @@ def parse_data(link, experiments):
 
 class RoadmapRepository(Repository):
   def __init__(self, proj, genome, path):
-    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bigWig"], path)
+    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig"], path)
 
   def __str__(self):
     return "<Roadmap Epigenomics Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -161,7 +161,7 @@ class RoadmapRepository(Repository):
 
 
   def build_epigenetic_mark_technique_and_type(self, v1, v2, file):
-    if v2 == "broadPeak" or v2 == "narrowPeak" or v2 == "gappedPeak"
+    if v2 == "broadPeak" or v2 == "narrowPeak" or v2 == "gappedPeak":
       return v1, "ChIP-seq", v2
 
     if v2 == "pval":
@@ -207,7 +207,6 @@ class RoadmapRepository(Repository):
     extra["type"] = v2
     extra["url"] = file
     extra["roadmap epigenome"] = eid
-    extra[""]
 
     meta["extra"] = extra
 
