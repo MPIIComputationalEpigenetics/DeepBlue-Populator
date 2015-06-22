@@ -42,6 +42,24 @@ broad_peak_format = [
     "Q_VALUE",
 ]
 
+gapped_peak_format = [
+    "CHROMOSOME",
+    "START",
+    "END",
+    "NAME",
+    "SCORE",
+    "STRAND",
+    "THICK_START",
+    "THICK_END",
+    "ITEM_RGB",
+    "BLOCK_COUNT",
+    "BLOCK_SIZES",
+    "BLOCK_STARTS",
+    "SIGNAL_VALUE",
+    "P_VALUE",
+    "Q_VALUE"
+]
+
 encode_rna = [
     "CHROMOSOME",
     "START",
@@ -159,6 +177,7 @@ formats = {
     "bed": bed,
     "broadPeak": broad_peak_format,
     "narrowPeak": narrow_peak_format,
+    "gappedPeak": gapped_peak_format,
     "encode_rna": encode_rna,
     "cpgIsland": cpg_island,
     "genes": genes,
