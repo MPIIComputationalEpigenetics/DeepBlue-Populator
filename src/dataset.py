@@ -206,8 +206,6 @@ class Dataset:
         else:
             am = attribute_mapper_factory.get(project)(self)
 
-        print "*** AM: ", str(am)
-
         if not os.path.exists(self.download_path):
             raise MissingFile(self.download_path, self.file_name)
 
