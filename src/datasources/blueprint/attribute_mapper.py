@@ -22,7 +22,7 @@ class BlueprintMapper(AttributeMapper):
     def epigenetic_mark(self):
         e = self.dataset.meta["EXPERIMENT_TYPE"]
         if e == "Ribo Minus RNA sequencing":
-            return "mRNA"
+            return "mRNA-seq"
 
         if e == "Chromatin Accessibility":
             return "DNaseI"
@@ -52,7 +52,7 @@ class BlueprintMapper(AttributeMapper):
         if self.dataset.type == "gff":
             return "gff"
 
-        if self.epigenetic_mark == "mRNA-seq":
+        if self.epigenetic_mark == "mRNA":
             return "encode_rna"
 
         if self.epigenetic_mark in ["H3K27me3", "H3K36me3", "H3K9me3", "H3K4me1"]:
@@ -64,7 +64,7 @@ class BlueprintMapper(AttributeMapper):
         if self.epigenetic_mark == "DNaseI":
             return "bed"
 
-        print "Unknown format for %s epigenetic mark %s and type %s" % (
-            self.name, self.epigenetic_mark, self.dataset.meta["type"])
+        print "Unknown format for %s epigenetic mark %s and meta %s" % (
+            self.name, self.epigenetic_mark, str(self.dataset.meta))
 
         return None
