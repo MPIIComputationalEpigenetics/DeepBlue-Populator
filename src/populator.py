@@ -121,7 +121,6 @@ class Populator:
                                   "Experiment Input Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Control",
                                   "Experiment Control Data. It is not an epigenetic mark")
-        epidb.add_epigenetic_mark("mRNA expression", "mRNA expression levels")
 
         insert_histones(epidb)
 
@@ -156,13 +155,18 @@ class Populator:
         epidb = PopulatorEpidbClient()
 
         epidb.add_project("ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements")
+        epidb.server.set_project_public("ENCODE", True)
         epidb.add_project("Blueprint Epigenetics",
                           "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes")
+        epidb.server.set_project_public("Blueprint Epigenetics", True)
         epidb.add_project("Mouse ENCODE",
                           "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse")
+        epidb.server.set_project_public("Mouse ENCODE", True)
         epidb.add_project("epigenomic landscape - hematopoiesis - mouse - pilot", "")
         epidb.add_project("DEEP", "DEEP - Deutsches Epigenom Programm")
+        epidb.server.set_project_public("DEEP", True)
         epidb.add_project("Roadmap Epigenomics", "NIH Roadmap Epigenomics Mapping Consortium")
+        epidb.server.set_project_public("Roadmap Epigenomics", True)
 
     def create_columns(self):
         epidb = PopulatorEpidbClient()
