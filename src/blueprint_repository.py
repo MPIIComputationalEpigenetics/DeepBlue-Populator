@@ -15,8 +15,8 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
     def __init__(self, proj, genome, path):
         super(BlueprintRepository, self).__init__(proj, genome,
-                                                #  ["bed", "bigwig", "gtf", "gff"], path,
-                                                  ["gtf", "gff"], path)
+                                                  ["bed", "bigwig", "gtf", "gff"], path)
+                                                  #["gtf", "gff"], path)
 
     def __str__(self):
         return "<Blueprint Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -28,7 +28,7 @@ class BlueprintRepository(Repository):
 
     @property
     def index_path(self):
-        return self.path + "blueprint/releases/current_release/homo_sapiens/20150128.data.index"
+        return self.path + "blueprint/releases/20150128/homo_sapiens/20150128.data.index"
         #return self.path + "releases/20150128/data_files.index"
 
 
@@ -81,9 +81,9 @@ class BlueprintRepository(Repository):
             else:
                 print 'Invalid BIOMATERIAL_TYPE: ', line_info['BIOMATERIAL_TYPE']
                 print line_info
-                print line_info["CELL_TYPE"]
-                print line_info["TISSUE_LINE"]
-                print line_info["CELL_LINE"]
+                print line_info.get("CELL_TYPE", "-")
+                print line_info.get("TISSUE_LINE", "-")
+                print line_info.get("CELL_LINE", "-")
 
             if biosource_name.lower() == "none" or not biosource_name.strip():
                 print "Invalid biosource name:", biosource_name
