@@ -18,10 +18,10 @@ EPIDB_AUTHKEY_FILE = ".populator.epidb"
 LOG_LEVEL = logging.DEBUG
 
 MDB_HOST = "localhost"
-MDB_PORT = 27017
+MDB_PORT = 27027
 
 DEEPBLUE_HOST = "localhost"
-DEEPBLUE_PORT = 31415
+DEEPBLUE_PORT = 56573
 
 VOCAB_URL = "ftp://hgdownload.cse.ucsc.edu/apache/cgi-bin/encode/cv.ra"
 
@@ -32,5 +32,4 @@ DATA_DIR = os.path.join(ROOT, "../data/")
 """
 Threads
 """
-max_downloads = 8
-max_threads = 4
+max_threads = 8

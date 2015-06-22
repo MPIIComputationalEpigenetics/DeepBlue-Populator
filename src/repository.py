@@ -4,7 +4,7 @@ import abc
 
 import db
 from dataset import Dataset
-from settings import max_threads, max_downloads
+from settings import max_threads
 from log import log
 
 from multiprocessing import Pool
