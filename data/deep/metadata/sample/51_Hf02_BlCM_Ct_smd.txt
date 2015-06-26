@@ -1,0 +1,14 @@
+DEEP_SAMPLE_ID	51_Hf02_BlCM_Ct
+ORGANISM	Homo sapiens
+POOL	yes
+DISEASE	none
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	central memory CD4-positive, alpha-beta T cell
+MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CCR7+
+DONOR_ID	51_Hf02
+DONOR_AGE	55 (mean of pool)
+DONOR_HEALTH_STATUS	healthy
+DONOR_SEX	female 
+DONOR_ETHNICITY	NA
+COMMENT	

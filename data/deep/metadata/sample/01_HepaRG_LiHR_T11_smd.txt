@@ -1,0 +1,16 @@
+DEEP_SAMPLE_ID	01_HepaRG_LiHR_T11
+ORGANISM	Homo sapiens
+STRAIN	NA
+STATUS	untreated
+DISEASE	Hepatocellular carcinoma
+BIOMATERIAL_PROVIDER	Biopredic
+BIOMATERIAL_TYPE	cell culture
+LINE	HepaRG
+LINEAGE	NA
+DIFFERENTIATION_STATE	undifferentiated
+DIFFERENTIATION_METHOD	NA
+PASSAGE	15
+MEDIUM	William's E + 10% FCS + 1% Pen/Strep + 0.5ppm Insulin + 1ppm Hydrocortisone
+SEX	female
+BATCH	NA
+COMMENT	sampled after 7 days

@@ -1,0 +1,14 @@
+DEEP_SAMPLE_ID	41_Hf02_LiHe_Ct
+ORGANISM	Homo sapiens
+POOL	no
+DISEASE	none
+BIOMATERIAL_PROVIDER	Klinikum Uni München
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	hepatocyte
+MARKERS	none
+DONOR_ID	41_Hf02
+DONOR_AGE	51-60 yrs
+DONOR_HEALTH_STATUS	non steatotic (metastasis segment 5-8 upon bronchial carcinoma)
+DONOR_SEX	female
+DONOR_ETHNICITY	european
+

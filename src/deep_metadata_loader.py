@@ -1,7 +1,10 @@
+import re
 import xmlrpclib
 import os
 import codecs
 import subprocess
+import ConfigParser
+
 
 srv = xmlrpclib.Server('http://deep01.mpi-inf.mpg.de:50005')
 deepblue = xmlrpclib.Server("http://deepblue.mpi-inf.mpg.de/xmlrpc")
@@ -11,7 +14,17 @@ ssh_server = "infcontact1"
 ssh_user = "albrecht"
 ssh_download = "download/"
 
+SAMPLE_METADATA_DIRECTORY = "../data/deep/metadata/sample/"
+EXPERIMENT_METADATA_DIRECTORY = "../data/deep/metadata/experiment/"
+
 file_types = ['signal', 'region']
+
+config = ConfigParser.ConfigParser()
+config.read("../data/deep/deep_generic_re_python2.ini")
+deep_id_string = config.get("DEEPsample", "deep_id")
+deep_id_pattern = re.compile(deep_id_string)
+
+experiment_metadata = {}
 
 print deepblue.echo(user_key)
 
@@ -42,7 +55,15 @@ class Sample:
   def data(self):
     return self._data;
 
-def process_sample(file_location):
+class Experiment:
+  def __init__(self, data):
+    self._data = data
+
+  def data(self):
+    return self._data
+
+
+def process_metadata(file_location):
   data = {}
 
   # Check the encoding
@@ -69,28 +90,76 @@ for s in samples[1]["p_iofiles_col"]:
   if s["active"] == "N":
     continue
 
-  s["filepath"] = "/Users/albrecht/mpi/DeepBlue-Populator/data/deep/metadata/sample/"
+  s["filepath"] = SAMPLE_METADATA_DIRECTORY
   sample_location = os.path.join(s["filepath"], s["filename"])
 
-  sample = Sample(process_sample(sample_location))
+  sample = Sample(process_metadata(sample_location))
 
   bs = sample.biosource()
   s, b = deepblue.is_biosource(bs, user_key)
   if (s == "error"):
     print bs
-  else:
-    deep_sample_id = sample.data()["DEEP_SAMPLE_ID"]
+    continue
 
-    for type in file_types:
-      files = srv.get_files_by_type(type, deep_sample_id)
-      print files
-      for file_info in files[1]["p_iofiles_col"]:
-        #print file_info
-        file = file_info["filepath"] + file_info["filename"]
+  deep_sample_id = sample.data()["DEEP_SAMPLE_ID"]
 
-        scp_command = "scp " + ssh_user+"@"+ssh_server+file+" "+ssh_download
-        print scp_command
-        subprocess.Popen(["scp", "%s@%s:%s" % (ssh_user, ssh_server, file), "%s" % (ssh_download)]).wait()
+  sample_experiments_metadata = srv.get_files_by_type("Experiment", deep_sample_id)
+  for experiment_metadata_info in sample_experiments_metadata[1]["p_iofiles_col"]:
+    #print experiment_metadata_info
+
+    file_path = experiment_metadata_info["filepath"]
+    base_path = os.path.basename(os.path.normpath(file_path))
+
+    experiment_sample_path = os.path.join(EXPERIMENT_METADATA_DIRECTORY, base_path, experiment_metadata_info["filename"])
+
+    experiment = Experiment(process_metadata(experiment_sample_path))
+    experiment_metadata[base_path] = experiment
+
+  for type in file_types:
+    files = srv.get_files_by_type(type, deep_sample_id)
+
+    for file_info in files[1]["p_iofiles_col"]:
+      #print file_info
+      file_name = file_info["filename"]
+      #print os.path.splitext(file_name)
+      file = file_info["filepath"] + file_info["filename"]
+      scp_command = "scp " + ssh_user+"@"+ssh_server+file+" "+ssh_download
+      #print scp_command
+      #subprocess.Popen(["scp", "%s@%s:%s" % (ssh_user, ssh_server, file), "%s" % (ssh_download)]).wait()
+
+      res = re.match(deep_id_pattern, file_name)
+      if not res:
+        continue
+
+      SAMPLEID = res.group('SAMPLEID')
+      DONORID = res.group('DONORID')
+      SUBPROJECT = res.group('SUBPROJECT')
+      DONOR = res.group('DONOR')
+      ORGAN = res.group('ORGAN')
+      CELLTYPE = res.group('CELLTYPE')
+      STATUS = res.group("STATUS")
+      LIBRARY = res.group('LIBRARY')
+      SEQCENTER = res.group('SEQCENTER')
+      REPNUM = res.group('REPNUM')
+
+      print "-" * 30
+      print DEEPID
+      print SAMPLEID
+      print DONORID
+      print SUBPROJECT
+      print DONOR
+      print ORGAN
+      print CELLTYPE
+      print STATUS
+      print LIBRARY
+      print SEQCENTER
+      print REPNUM
+      print "-" * 30
+
+
+
+
+
 
 
 

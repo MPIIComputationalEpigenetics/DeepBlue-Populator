@@ -1,0 +1,13 @@
+DEEP_SAMPLE_ID	41_Hf05_LiHe_St
+ORGANISM	Homo sapiens
+POOL	no
+DISEASE	none
+BIOMATERIAL_PROVIDER	Biopredic
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	hepatocyte
+MARKERS	none
+DONOR_ID	41_Hf05
+DONOR_AGE	47 yrs
+DONOR_HEALTH_STATUS	steatosis, metastasis from breast cancer
+DONOR_SEX	female
+DONOR_ETHNICITY	NA

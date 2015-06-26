@@ -1,0 +1,15 @@
+DEEP_SAMPLE_ID	41_Hf01_LiHe_Ct
+ORGANISM	Homo sapiens
+POOL	no
+DISEASE	none
+BIOMATERIAL_PROVIDER	Charite-Berlin (Campus Virchow Klinikum)
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	hepatocyte
+MARKERS	none
+DONOR_ID	41_Hf01
+DONOR_AGE	28 yrs
+DONOR_HEALTH_STATUS	non steatotic (liver adenome, liver hemangioma)
+DONOR_SEX	female
+DONOR_ETHNICITY	NA
+COMMENT	
+

@@ -1,0 +1,16 @@
+DEEP_SAMPLE_ID	01_HepaRG_LiHR_D31
+ORGANISM	Homo sapiens
+STRAIN	NA
+STATUS	untreated
+DISEASE	Hepatocellular carcinoma
+BIOMATERIAL_PROVIDER	Biopredic
+BIOMATERIAL_TYPE	cell culture
+LINE	HepaRG
+LINEAGE	NA
+DIFFERENTIATION_STATE	differentiated
+DIFFERENTIATION_METHOD	DMSO for 14 days
+PASSAGE	15
+MEDIUM	William's E + 10% FCS + 1.7% DMSO + 1% Pen/Strep + 1ppm Hydrocortisone
+SEX	female
+BATCH	NA
+COMMENT	mixture of hepatocytes and biliary cells, sampled after 30 days

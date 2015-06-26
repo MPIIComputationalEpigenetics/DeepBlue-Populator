@@ -1,0 +1,15 @@
+DEEP_SAMPLE_ID	52_Hm1a_CoMu_Ct
+ORGANISM	Homo sapiens
+POOL	no	
+DISEASE	none
+BIOMATERIAL_PROVIDER	IKMB, Robert Häsler
+BIOMATERIAL_TYPE	primary tissue
+TISSUE_TYPE	mucosa
+TISSUE_DEPOT	sigma
+COLLECTION_METHOD	colonoscopy
+DONOR_ID	Twin09A
+DONOR_AGE	23
+DONOR_HEALTH_STATUS	no medication
+DONOR_SEX	male
+DONOR_ETHNICITY	caucasian
+COMMENT	discordant Twin to Twin09B(52_Hm1b_CoMu_UC)

@@ -1,0 +1,13 @@
+DEEP_SAMPLE_ID	41_Hm04_LiHe_St
+ORGANISM	Homo sapiens
+POOL	no
+DISEASE	none
+BIOMATERIAL_PROVIDER	Klinikum München
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	hepatocyte
+DONOR_ID	41_Hm04
+DONOR_AGE	71-80 yrs (range)
+DONOR_HEALTH_STATUS	intrahepatic metastasis
+DONOR_SEX	male
+DONOR_ETHNICITY	NA
+COMMENT	

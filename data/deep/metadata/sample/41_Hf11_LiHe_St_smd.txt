@@ -1,0 +1,15 @@
+DEEP_SAMPLE_ID	41_Hf11_LiHe_St
+ORGANISM	Homo sapiens
+POOL	no
+DISEASE	none
+BIOMATERIAL_PROVIDER	Charité Berlin
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	hepatocyte
+MARKERS	none
+DONOR_ID	41_Hf11
+DONOR_AGE	40 yrs
+DONOR_HEALTH_STATUS	steatosis, metastasis from sigma carcinome
+DONOR_SEX	female
+DONOR_ETHNICITY	NA
+COMMENT	
+SORTING_PARAMETERS	none
