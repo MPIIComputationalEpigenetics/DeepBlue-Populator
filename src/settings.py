@@ -29,6 +29,8 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 DOWNLOAD_PATH = os.path.join(ROOT, "download/")
 DATA_DIR = os.path.join(ROOT, "../data/")
 
+DEEP_XMLRPC_SERVER = "http://deep01.mpi-inf.mpg.de:50005"
+
 """
 Threads
 """

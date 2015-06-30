@@ -123,16 +123,15 @@ epigenomic_landscape = [
 ]
 
 deep = [
-    ('DEEP', 'None',
-     '/local/data/DeepBlue-Populator/data/deep/forDeepBlue')
+    ('DEEP', 'hs37d5', '')
 ]
 
 project_sources = [
-    roadmap
+     # roadmap
      # blueprint_source,
      # encode_source
      # encode_mm9,
      # epigenomic_landscape
-     # deep
+     deep
      # geo_source
 ]
