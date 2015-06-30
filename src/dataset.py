@@ -188,9 +188,8 @@ class Dataset:
       if self.file_name.startswith("/TL") or self.file_name.startswith("/DEEP_fhgfs"): # Hardcode fix for DEEP Data
         ssh_server = "139.19.33.32" ## Deep32 machine
         ssh_user = "albrecht"
-        print "download", self.file_name
-        print "%s@%s:%s" % (ssh_user, ssh_server, self.file_name)
-        print "%s" % (self.download_path)
+        print "copying", self.file_name
+        print "scp %s@%s:%s %s" % (ssh_user, ssh_server, self.file_name, self.download_path)
         subprocess.Popen(["scp", "%s@%s:%s" % (ssh_user, ssh_server, self.file_name), "%s" % (self.download_path)]).wait()
 
       else:

@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from datasources.geo.attribute_mapper import GeoMapper
 from datasources.blueprint.attribute_mapper import BlueprintMapper
+from datasources.deep.attribute_mapper import DEEPMapper
 from datasources.encode.attribute_mapper import encode_mappers
 from datasources.roadmap.attribute_mapper import RoadmapMapper
 
@@ -14,4 +15,6 @@ def get(project, epigenetic_mark=None):
     return BlueprintMapper
   if project == "Roadmap Epigenomics":
     return RoadmapMapper
+  if project == "DEEP":
+    return DEEPMapper
   print 'Invalid Project:', project

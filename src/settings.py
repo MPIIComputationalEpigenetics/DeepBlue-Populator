@@ -34,4 +34,4 @@ DEEP_XMLRPC_SERVER = "http://deep01.mpi-inf.mpg.de:50005"
 """
 Threads
 """
-max_threads = 8
+max_threads = 1

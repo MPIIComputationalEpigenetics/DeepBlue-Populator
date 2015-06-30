@@ -169,7 +169,7 @@ class DeepRepository(Repository):
           #print experiment_data_file_path
           #print type
           #print experiment_metadata
-          ds = Dataset(experiment_data_file_path, type, experiment_metadata, sample_id=sample.id())
+          ds = Dataset(experiment_data_file_path, type, experiment_metadata, sample_id=deepblue_sample[sample.id()])
           if self.add_dataset(ds):
             new += 1
             self.has_updates = True

@@ -17,7 +17,7 @@ def load(project, genome, url):
     elif project == 'Epigenomic Landscape':
         return EpigenomicLandscapeRepository(project, genome, url)
     elif project == 'DEEP':
-        return DeepRepository("DEEP - DEutsches Epigenom Programm", genome, url)
+        return DeepRepository("DEEP", genome, url)
     elif project == "Roadmap Epigenomics":
         return RoadmapRepository("Roadmap Epigenomics", genome, url)
     else:
