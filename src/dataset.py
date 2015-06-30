@@ -1,9 +1,10 @@
 import os
 import gzip
-from subprocess import call
-
 import util
 import attribute_mapper_factory
+import subprocess
+
+from subprocess import call
 from formats import format_builder
 from settings import DOWNLOAD_PATH, OS
 from log import log
@@ -172,21 +173,31 @@ class Dataset:
     """
 
     def load(self):
-        if os.path.exists(self.download_path):
-            log.info("%s already downloaded", self)
-            return
+      if os.path.exists(self.download_path):
+        log.info("%s already downloaded", self)
+        return
 
-        if not self.repository_id:
-            raise OrphanedDataset(self, "cannot load dataset for unknown repository.")
+      if not self.repository_id:
+        raise OrphanedDataset(self, "cannot load dataset for unknown repository.")
 
         rep = mdb.repositories.find_one({"_id": self.repository_id})
         if not rep:
-            raise OrphanedDataset(self, "coresponding repository doesn't exist.")
+          raise OrphanedDataset(self, "coresponding repository doesn't exist.")
 
+
+      if self.file_name.startswith("/TL") or self.file_name.startswith("/DEEP_fhgfs"): # Hardcode fix for DEEP Data
+        ssh_server = "139.19.33.32" ## Deep32 machine
+        ssh_user = "albrecht"
+        print "download", self.file_name
+        print "%s@%s:%s" % (ssh_user, ssh_server, self.file_name)
+        print "%s" % (self.download_path)
+        subprocess.Popen(["scp", "%s@%s:%s" % (ssh_user, ssh_server, self.file_name), "%s" % (self.download_path)]).wait()
+
+      else:
         if self.file_name.startswith("http://") or self.file_name.startswith("ftp://"):
-            url = self.file_name
+          url = self.file_name
         else:
-            url = os.path.join(rep["path"], self.file_name)
+          url = os.path.join(rep["path"], self.file_name)
 
         log.info("Downloading %s", url)
         util.download_file(url, self.download_path)

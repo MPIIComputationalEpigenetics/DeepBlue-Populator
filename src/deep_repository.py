@@ -31,8 +31,6 @@ def process_metadata(file_location):
     s = l.split("\t", 1)
     if (len(s) == 2) :
       data[s[0]] = s[1]
-    elif (len(s) == 1):
-      data[s[0]] = "-"
   return data
 
 def extension_to_type(extension):
@@ -59,7 +57,8 @@ class Experiment:
 
 class DeepRepository(Repository):
   def __init__(self, proj, genome, path):
-    super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedGraph"], path)
+    super(DeepRepository, self).__init__(proj, genome, ["broadPeak"], path)
+    #super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedGraph"], path)
     self._samples = {}
 
   def __str__(self):
@@ -75,9 +74,6 @@ class DeepRepository(Repository):
     samples = DeepSamples(epidb, DEEP_XMLRPC_SERVER)
     samples = samples.process()
 
-    ssh_server = "infcontact1"
-    ssh_user = "albrecht"
-    ssh_download = "download/"
     EXPERIMENT_METADATA_DIRECTORY = "../data/deep/metadata/experiment/"
 
     file_types = ['signal', 'region']
@@ -117,7 +113,7 @@ class DeepRepository(Repository):
           file_name = file_info["filename"]
 
           experiment_data_file_path = os.path.join(file_info["filepath"], file_info["filename"])
-          print experiment_data_file_path
+          #print experiment_data_file_path
 
           _sub, file_extension = os.path.splitext(file_name)
           if file_extension == ".gz":
@@ -166,13 +162,13 @@ class DeepRepository(Repository):
           experiment_metadata["TECHNOLOGY"] = get_epigenetic_mark_technology(LIBRARY)[1]
           experiment_metadata["SEQCENTER"] = get_sequencing_center(SEQCENTER)
           experiment_metadata["REPNUM"] = REPNUM
-          #experiment_metadata["extra"] = experiment_metadata_collection[exp_name].data()
+          experiment_metadata["extra"] = experiment_metadata_collection[exp_name].data()
           experiment_metadata["location"] = experiment_data_file_path
 
           type = extension_to_type(file_extension)
-          print experiment_data_file_path
-          print type
-          print experiment_metadata
+          #print experiment_data_file_path
+          #print type
+          #print experiment_metadata
           ds = Dataset(experiment_data_file_path, type, experiment_metadata, sample_id=sample.id())
           if self.add_dataset(ds):
             new += 1
