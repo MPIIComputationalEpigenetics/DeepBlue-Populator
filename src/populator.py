@@ -106,8 +106,8 @@ class Populator:
         epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
         epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
 
-        insert_chromosome_sequences(epidb, "hg19", self.key)
-        insert_chromosome_sequences(epidb, "hs37d5", self.key)
+        #insert_chromosome_sequences(epidb, "hg19", self.key)
+        #insert_chromosome_sequences(epidb, "hs37d5", self.key)
 
 
     def insert_epigenetic_marks(self):
@@ -122,6 +122,7 @@ class Populator:
         epidb.add_epigenetic_mark("mRNA-seq", "Messenger RNA")
         epidb.add_epigenetic_mark("flRNA-seq", "Full length RNA")
         epidb.add_epigenetic_mark("tRNA", "Transfer ribonucleic acid")
+        epidb.add_epigenetic_mark("snRNA", "small nuclear RNA")
         epidb.add_epigenetic_mark("Input",
                                   "Experiment Input Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Control",
