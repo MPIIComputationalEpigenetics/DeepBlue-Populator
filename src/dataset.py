@@ -3,8 +3,6 @@ import gzip
 import util
 import attribute_mapper_factory
 import subprocess
-import cStringIO
-io_method = cStringIO.StringIO
 
 from subprocess import call
 from formats import format_builder
@@ -251,30 +249,22 @@ class Dataset:
             file_type = self.download_path.split(".")[-1]
             file_content = ""
             if file_type == "gz":
-                p = subprocess.Popen(["zcat", self.download_path], stdout = subprocess.PIPE)
-                file_content = p.communicate()[0]
+                print "gunzip" + " " + self.download_path
+                call(["gunzip", self.download_path])
+                am.extra_metadata['__local_file__'] = self.download_path[:-3]
             else:
                 f = open(self.download_path, 'r')
-                file_content = f.read()
-                f.close()
+                am.extra_metadata['__local_file__'] = self.download_path
 
-            file_split = file_content.split("\n", 1)
-            first_line = file_split[0]
+            f = open(am.extra_metadata['__local_file__'])
+            first_line = f.readline()
 
-            while (first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser"):
-                file_content = file_split[1]
-                file_split = file_content.split("\n", 1)
-                first_line = file_split[0]
+            while (first_line[0] == "#" or first_line[:5] == "track" or first_line[:7] == "browser"):
+                first_line = f.readline()
                 log.debug(first_line)
 
             extra_info_size = len(first_line.split())
-
             frmt = format_builder(am.format, extra_info_size)
-
-            data_splited = file_content.split("\n")
-            data_splited = [x for x in data_splited if x]
-            data_splited.sort()
-            file_content = "\n".join(data_splited)
 
         epidb = PopulatorEpidbClient()
 
@@ -309,7 +299,12 @@ class Dataset:
             self.save()
             log.info(msg)
 
-        os.remove(self.download_path)
+        if os.path.exists(self.download_path):
+            os.remove(self.download_path)
+
+        if os.path.exists(self.download_path[:-3]):
+            os.remove(self.download_path[:-3])
+
         if frmt == "wig" or frmt == "bedgraph":
             os.remove(file_name)
 
