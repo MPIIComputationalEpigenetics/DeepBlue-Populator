@@ -60,6 +60,12 @@ class DeepRepository(Repository):
     super(DeepRepository, self).__init__(proj, genome, ["broadPeak"], path)
     #super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedGraph"], path)
     self._samples = {}
+    if genome == "hs37d5":
+      self.organism = "homo sapiens"
+    elif genome == "GRCm38mm10":
+      self.organism = "mus musculus"
+    else:
+      print "Unknow genome", genome
 
   def __str__(self):
     return "<DEEP Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -83,11 +89,10 @@ class DeepRepository(Repository):
     deep_sample_id_pattern = re.compile(config.get("DEEPsample", "deep_id"))
     deep_cl_id_pattern = re.compile(config.get("DEEPcline", "deep_id"))
 
-
-
     srv = xmlrpclib.Server(DEEP_XMLRPC_SERVER)
 
-    for sample in samples:
+    for sample in [s for s in samples if s.is_organism(self.organism)] :
+      print sample.id()
       (s, s_id) = epidb.add_sample(sample.biosource(), sample.data())
       deepblue_sample[sample.id()] = s_id
 
@@ -130,13 +135,15 @@ class DeepRepository(Repository):
           exp_name = os.path.splitext(file_name)[0].split(".")[0]
           if not experiment_metadata_collection.has_key(exp_name):
             print "Experiment metadata not found:", exp_name
-            continue
+            emd = {"WARNING": "Metadata for this experiment was not found."}
+          else:
+            emd = experiment_metadata_collection[exp_name].data()
 
           res = re.match(deep_sample_id_pattern, file_name)
           if not res:
             res = re.match(deep_cl_id_pattern, file_name)
             if not res:
-              print file_name, " not matched with regular expressions"
+              print file_name, " not matched with the sample or cell line regular expressions"
               continue
 
           DEEPID = res.group("DEEPID")
@@ -162,7 +169,7 @@ class DeepRepository(Repository):
           experiment_metadata["TECHNOLOGY"] = get_epigenetic_mark_technology(LIBRARY)[1]
           experiment_metadata["SEQCENTER"] = get_sequencing_center(SEQCENTER)
           experiment_metadata["REPNUM"] = REPNUM
-          experiment_metadata["extra"] = experiment_metadata_collection[exp_name].data()
+          experiment_metadata["extra"] = emd
           experiment_metadata["location"] = experiment_data_file_path
 
           type = extension_to_type(file_extension)
