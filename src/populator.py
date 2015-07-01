@@ -121,6 +121,7 @@ class Populator:
                                   "A common set of states across the cell types were learned by computationally integrating ChIP-seq data for nine factors plus input using a Hidden Markov Model (HMM). In total, fifteen states were used to segment the genome.")
         epidb.add_epigenetic_mark("mRNA-seq", "Messenger RNA")
         epidb.add_epigenetic_mark("flRNA-seq", "Full length RNA")
+        epidb.add_epigenetic_mark("tRNA", "Transfer ribonucleic acid")
         epidb.add_epigenetic_mark("Input",
                                   "Experiment Input Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Control",
