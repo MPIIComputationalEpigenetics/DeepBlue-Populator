@@ -3,6 +3,8 @@ import gzip
 import util
 import attribute_mapper_factory
 import subprocess
+import cStringIO
+io_method = cStringIO.StringIO
 
 from subprocess import call
 from formats import format_builder
@@ -180,9 +182,9 @@ class Dataset:
       if not self.repository_id:
         raise OrphanedDataset(self, "cannot load dataset for unknown repository.")
 
-        rep = mdb.repositories.find_one({"_id": self.repository_id})
-        if not rep:
-          raise OrphanedDataset(self, "coresponding repository doesn't exist.")
+      rep = mdb.repositories.find_one({"_id": self.repository_id})
+      if not rep:
+        raise OrphanedDataset(self, "coresponding repository doesn't exist.")
 
 
       if self.file_name.startswith("/TL") or self.file_name.startswith("/DEEP_fhgfs"): # Hardcode fix for DEEP Data
@@ -247,13 +249,14 @@ class Dataset:
 
         else:
             file_type = self.download_path.split(".")[-1]
+            file_content = ""
             if file_type == "gz":
-                f = gzip.open(self.download_path, 'rb')  # gzip doc says `with' is supported - seems its not
+                p = subprocess.Popen(["zcat", self.download_path], stdout = subprocess.PIPE)
+                file_content = p.communicate()[0]
             else:
                 f = open(self.download_path, 'r')
-
-            file_content = f.read()
-            f.close()
+                file_content = f.read()
+                f.close()
 
             file_split = file_content.split("\n", 1)
             first_line = file_split[0]
