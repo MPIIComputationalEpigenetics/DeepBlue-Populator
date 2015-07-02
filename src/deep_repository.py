@@ -43,7 +43,7 @@ def extension_to_type(extension):
   if extension == ".narrowPeak":
     return "narrowPeak"
   if extension == ".bedGraph":
-    return "bedGraph"
+    return "bedgraph"
 
   else:
     print "unknow", extension
@@ -57,8 +57,7 @@ class Experiment:
 
 class DeepRepository(Repository):
   def __init__(self, proj, genome, path):
-    super(DeepRepository, self).__init__(proj, genome, ["broadPeak"], path)
-    #super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedGraph"], path)
+    super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedgraph"], path)
     self._samples = {}
     if genome == "hs37d5":
       self.organism = "homo sapiens"
@@ -92,14 +91,11 @@ class DeepRepository(Repository):
     srv = xmlrpclib.Server(DEEP_XMLRPC_SERVER)
 
     for sample in [s for s in samples if s.is_organism(self.organism)] :
-      print sample.id()
       (s, s_id) = epidb.add_sample(sample.biosource(), sample.data())
       deepblue_sample[sample.id()] = s_id
 
       sample_experiments_metadata = srv.get_files_by_type("Experiment", sample.id())
       for experiment_metadata_info in sample_experiments_metadata[1]["p_iofiles_col"]:
-        #print experiment_metadata_info
-
         file_path = experiment_metadata_info["filepath"]
         experiment_sample_id = os.path.basename(os.path.normpath(file_path))
         experiment_sample_path = os.path.join(EXPERIMENT_METADATA_DIRECTORY, experiment_sample_id, experiment_metadata_info["filename"])
@@ -114,11 +110,8 @@ class DeepRepository(Repository):
         files = srv.get_files_by_type(type, sample.id())
 
         for file_info in files[1]["p_iofiles_col"]:
-          #print file_info
           file_name = file_info["filename"]
-
           experiment_data_file_path = os.path.join(file_info["filepath"], file_info["filename"])
-          #print experiment_data_file_path
 
           _sub, file_extension = os.path.splitext(file_name)
           if file_extension == ".gz":
@@ -173,9 +166,7 @@ class DeepRepository(Repository):
           experiment_metadata["location"] = experiment_data_file_path
 
           type = extension_to_type(file_extension)
-          #print experiment_data_file_path
-          #print type
-          #print experiment_metadata
+
           ds = Dataset(experiment_data_file_path, type, experiment_metadata, sample_id=deepblue_sample[sample.id()])
           if self.add_dataset(ds):
             new += 1

@@ -219,8 +219,10 @@ class Dataset:
         if not os.path.exists(self.download_path):
             raise MissingFile(self.download_path, self.file_name)
 
+        converted_file_name = ""
+
         # Handle crazy ENCODE big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
-        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type == "bigwig":
+        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type.lower() == "bigwig":
             print "../third_party/bigWigToWig." + OS + " " + self.download_path + " " + self.download_path + ".wig"
             call(["../third_party/bigWigToWig." + OS, self.download_path, self.download_path + ".wig"])
 
@@ -229,21 +231,33 @@ class Dataset:
 
             if datatype == "wig_converted":
                 frmt = "wig"
-                file_name = tmp_file
+                converted_file_name = tmp_file
             elif datatype == "wig_input":
-                file_name = wig_file
+                converted_file_name = wig_file
                 frmt = "wig"
             else:
-                file_name = wig_file
+                converted_file_name = wig_file
                 frmt = "bedgraph"
 
-            am.extra_metadata['__local_file__'] = file_name
+            am.extra_metadata['__local_file__'] = converted_file_name
             file_content = ""
 
         elif self.type_ == "wig":
             am.extra_metadata['__local_file__'] = wig_file
             file_content = ""
             frmt = "wig"
+
+        elif self.type_ == "bedgraph":
+            f = open(self.download_path)
+            lines = f.readlines()
+            lines.sort()
+            f.close()
+            f = open(self.download_path+".out", "w")
+            f.writelines(lines)
+            f.close()
+            am.extra_metadata['__local_file__'] = self.download_path+".out"
+            file_content = ""
+            frmt = "bedgraph"
 
         else:
             file_type = self.download_path.split(".")[-1]
@@ -305,6 +319,12 @@ class Dataset:
         if os.path.exists(self.download_path[:-3]):
             os.remove(self.download_path[:-3])
 
+        if am.extra_metadata.has_key('__local_file__') and os.path.exists(am.extra_metadata['__local_file__']):
+            os.remove(am.extra_metadata['__local_file__'])
+
+        print am.extra_metadata.get('__local_file__', "")
+
         if frmt == "wig" or frmt == "bedgraph":
-            os.remove(file_name)
+            if os.path.exists(converted_file_name):
+                os.remove(converted_file_name)
 

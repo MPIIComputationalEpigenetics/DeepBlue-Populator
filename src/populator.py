@@ -123,6 +123,7 @@ class Populator:
         epidb.add_epigenetic_mark("flRNA-seq", "Full length RNA")
         epidb.add_epigenetic_mark("tRNA", "Transfer ribonucleic acid")
         epidb.add_epigenetic_mark("snRNA", "small nuclear RNA")
+        epidb.add_epigenetic_mark("NOMe-seq", "Nucleosome Occupancy and Methylome sequencing")
         epidb.add_epigenetic_mark("Input",
                                   "Experiment Input Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Control",
