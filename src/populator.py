@@ -119,11 +119,10 @@ class Populator:
         epidb.add_epigenetic_mark("TFBS", "Transcription factor binding sites")
         epidb.add_epigenetic_mark("Chromatin State Segmentation",
                                   "A common set of states across the cell types were learned by computationally integrating ChIP-seq data for nine factors plus input using a Hidden Markov Model (HMM). In total, fifteen states were used to segment the genome.")
-        epidb.add_epigenetic_mark("mRNA-seq", "Messenger RNA")
-        epidb.add_epigenetic_mark("flRNA-seq", "Full length RNA")
+        epidb.add_epigenetic_mark("mRNA", "Messenger RNA")
+        epidb.add_epigenetic_mark("flRNA", "Full length RNA")
         epidb.add_epigenetic_mark("tRNA", "Transfer ribonucleic acid")
         epidb.add_epigenetic_mark("snRNA", "small nuclear RNA")
-        epidb.add_epigenetic_mark("NOMe-seq", "Nucleosome Occupancy and Methylome sequencing")
         epidb.add_epigenetic_mark("Input",
                                   "Experiment Input Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Control",
@@ -154,6 +153,7 @@ class Populator:
         epidb.add_technique("Affymetrix Mouse Genome 430 2.0 Array", "", {})
         epidb.add_technique("WGBS", "Whole-genome bisulfite sequencing", {})
         epidb.add_technique("MeDIP/MRE", "MeDIP/MRE methylation data we used the output of the mCRF tool (Stevens et al. (2013)) that reports fractional methylation in the range from 0 to 1 and uses an internal BWA mapping.", {})
+        epidb.add_technique("NOMe-seq", "Nucleosome Occupancy and Methylome sequencing", {})
 
 
     def insert_projects(self):
