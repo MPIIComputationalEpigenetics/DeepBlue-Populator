@@ -30,7 +30,7 @@ class BlueprintMapper(AttributeMapper):
         if e == "mRNA-seq":
             return "mRNA"
 
-        if e = "flRNA-seq":
+        if e == "flRNA-seq":
             return "flRNA"
         return e
 

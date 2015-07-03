@@ -43,9 +43,7 @@ encode_source = [
 ]
 
 blueprint_source = [
-     ('Blueprint Epigenetics', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
-#    ('Blueprint Epigenetics', "hg19", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
-     ('BLUEPRINT Epigenome', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/")
+     ('BLUEPRINT Epigenome', "hg19", "ftp://ftp.ebi.ac.uk/pub/databases/"),
 #    ('BLUEPRINT Epigenome', "hg19", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
 ]
 
