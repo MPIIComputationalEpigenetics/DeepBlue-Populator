@@ -163,9 +163,9 @@ class Populator:
 
         epidb.add_project("ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements")
         epidb.server.set_project_public("ENCODE", True)
-        epidb.add_project("Blueprint Epigenetics",
+        epidb.add_project("BLUEPRINT Epigenome",
                           "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes")
-        epidb.server.set_project_public("Blueprint Epigenetics", True)
+        epidb.server.set_project_public("BLUEPRINT Epigenome", True)
         epidb.add_project("Mouse ENCODE",
                           "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse")
         epidb.server.set_project_public("Mouse ENCODE", True)

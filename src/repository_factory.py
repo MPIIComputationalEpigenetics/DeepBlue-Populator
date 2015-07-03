@@ -10,7 +10,7 @@ from log import log
 def load(project, genome, url):
     if project == "ENCODE" or project == "Mouse ENCODE":
         return EncodeRepository(project, genome, url)
-    elif project == "Blueprint Epigenetics":
+    elif project == "BLUEPRINT Epigenome":
         return BlueprintRepository(project, genome, url)
     elif project == 'GEO':
         return GeoRepository(project, genome, url)

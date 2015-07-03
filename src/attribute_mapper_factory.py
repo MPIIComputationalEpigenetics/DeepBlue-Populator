@@ -11,7 +11,7 @@ def get(project, epigenetic_mark=None):
     return encode_mappers[epigenetic_mark]
   if project == "GEP":
     return GeoMapper
-  if project == "Blueprint Epigenetics":
+  if project == "BLUEPRINT Epigenome":
     return BlueprintMapper
   if project == "Roadmap Epigenomics":
     return RoadmapMapper

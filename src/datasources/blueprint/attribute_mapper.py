@@ -27,6 +27,11 @@ class BlueprintMapper(AttributeMapper):
         if e == "Chromatin Accessibility":
             return "DNaseI"
 
+        if e == "mRNA-seq":
+            return "mRNA"
+
+        if e = "flRNA-seq":
+            return "flRNA"
         return e
 
     @property
