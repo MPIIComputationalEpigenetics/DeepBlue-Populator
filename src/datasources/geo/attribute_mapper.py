@@ -24,7 +24,7 @@ class GeoMapper(AttributeMapper):
     def technique(self):
         technique = self.dataset.meta['technique']
         if (technique == 'mRNA-Seq'):
-            return 'RNASeq'
+            return 'RNA-Seq'
         return technique
 
     @property

@@ -109,20 +109,20 @@ def get_disease_status(_id):
       return "Timepoint (x= " + _id[1] + ")"
 
 library= {}
-library["DNase"] = ("DNaseI", "DNaseSeq")
+library["DNase"] = ("DNaseI", "DNase-Seq")
 library["NOMe"] = ("DNA Methylation", "NOMe-seq")
 library["WGBS"] = ("DNA Methylation", "WGBS")
-library["Input"] = ("Input", "ChIPseq")
-library["H3K4me3"] = ("H3K4me3", "ChIPseq")
-library["H3K4me1"] = ("H3K4me1", "ChIPseq")
-library["H3K9me3"] = ("H3K9me3", "ChIPseq")
-library["H3K36me3"] = ("H3K36me3", "ChIPseq")
-library["H3K27ac"] = ("H3K27ac", "ChIPseq")
-library["H3K27me3"] = ("H3K27me3", "ChIPseq")
+library["Input"] = ("Input", "ChIP-seq")
+library["H3K4me3"] = ("H3K4me3", "ChIP-seq")
+library["H3K4me1"] = ("H3K4me1", "ChIP-seq")
+library["H3K9me3"] = ("H3K9me3", "ChIP-seq")
+library["H3K36me3"] = ("H3K36me3", "ChIP-seq")
+library["H3K27ac"] = ("H3K27ac", "ChIP-seq")
+library["H3K27me3"] = ("H3K27me3", "ChIP-seq")
 library["mRNA"] = ("mRNA", "RNA-Seq")
 library["tRNA"] = ("tRNA", "RNA-Seq")
 library["snRNA"] = ("snRNA", "RNA-Seq")
-library["CTCF"] = ("CTCF", "ChIPseq")
+library["CTCF"] = ("CTCF", "ChIP-seq")
 
 def get_epigenetic_mark_technology(library_id):
   return library[library_id]

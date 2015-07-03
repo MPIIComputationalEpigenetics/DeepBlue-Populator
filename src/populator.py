@@ -137,18 +137,18 @@ class Populator:
         epidb.add_technique("Infinium 450k", "Infinium HumanMethylation450", {})
         epidb.add_technique("BisulfiteSeq",
                             "Bisulfite sequencing or Bisulphite sequencing", {})
-        epidb.add_technique("ChIPseq", "ChIP-sequencing", {})
-        epidb.add_technique("ChIPseq Uniform",
+        epidb.add_technique("ChIP-seq", "ChIP-sequencing", {})
+        epidb.add_technique("ChIP-seq Uniform",
                             "ChIP-sequencing performed uniform processing on datasets produced by multiple data production groups in the ENCODE Consortium",
             {})
-        epidb.add_technique("DNaseSeq", "DNase I hypersensitive sites sequencing", {})
-        epidb.add_technique("DNaseSeq Uniform",
+        epidb.add_technique("DNase-seq", "DNase I hypersensitive sites sequencing", {})
+        epidb.add_technique("DNase-seq Uniform",
                             "DNase I hypersensitive sites sequencing performed uniform processing on datasets produced by multiple data production groups in the ENCODE Consortium",
             {})
         epidb.add_technique("Chromatin State Segmentation by HMM",
                             "ChIP-seq data from the Broad Histone track was used to generate this track. Data for nine factors plus input and nine cell types was binarized separately at a 200 base pair resolution based on a Poisson background model. The chromatin states were learned from this binarized data using a multivariate Hidden Markov Model (HMM) that explicitly models the combinatorial patterns of observed modifications (Ernst and Kellis, 2010). To learn a common set of states across the nine cell types, first the genomes were concatenated across the cell types. For each of the nine cell types, each 200 base pair interval was then assigned to its most likely state under the model. Detailed information about the model parameters and state enrichments can be found in (Ernst et al, accepted).",
             {})
-        epidb.add_technique("RNASeq", "RNA sequencing", {})
+        epidb.add_technique("RNA-seq", "RNA sequencing", {})
         epidb.add_technique("Microarray", "Various microarray techniques", {})
         epidb.add_technique("Affymetrix Mouse Genome 430 2.0 Array", "", {})
         epidb.add_technique("WGBS", "Whole-genome bisulfite sequencing", {})

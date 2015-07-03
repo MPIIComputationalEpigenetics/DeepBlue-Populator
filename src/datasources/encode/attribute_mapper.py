@@ -81,7 +81,7 @@ class EncodeHistoneMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "ChIPseq"
+        return "ChIP-seq"
 
 
 class EncodeDNaseIMapper(EncodeMapper):
@@ -90,7 +90,7 @@ class EncodeDNaseIMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "DNaseSeq"
+        return "DNase-seq"
 
     @property
     def epigenetic_mark(self):
@@ -103,7 +103,7 @@ class EncodeDNaseIUniformMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "DNaseSeq Uniform"
+        return "DNase-Seq Uniform"
 
     @property
     def epigenetic_mark(self):
@@ -142,7 +142,7 @@ class EncodeTfbsMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "ChIPseq"
+        return "ChIP-seq"
 
 
 class EncodeTfbsUniformMapper(EncodeMapper):
@@ -164,7 +164,7 @@ class EncodeTfbsUniformMapper(EncodeMapper):
 
     @property
     def technique(self):
-        return "ChIPseq Uniform"
+        return "ChIP-seq Uniform"
 
 
 encode_mappers = {

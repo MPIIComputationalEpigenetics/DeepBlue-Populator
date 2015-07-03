@@ -22,7 +22,7 @@ class BlueprintMapper(AttributeMapper):
     def epigenetic_mark(self):
         e = self.dataset.meta["EXPERIMENT_TYPE"]
         if e == "Ribo Minus RNA sequencing":
-            return "mRNA-seq"
+            return "mRNA"
 
         if e == "Chromatin Accessibility":
             return "DNaseI"
@@ -33,7 +33,7 @@ class BlueprintMapper(AttributeMapper):
     def technique(self):
         t = self.dataset.meta["LIBRARY_STRATEGY"]
         if t == "DNase-Hypersensitivity":
-            return "DNaseSeq"
+            return "DNase-Seq"
 
         return t
 
