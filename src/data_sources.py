@@ -128,10 +128,10 @@ deep = [
 
 project_sources = [
      # roadmap
-     # blueprint_source,
+     blueprint_source,
      # encode_source
      # encode_mm9,
      # epigenomic_landscape
-     deep
+     # deep
      # geo_source
 ]
