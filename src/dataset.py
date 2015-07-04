@@ -165,7 +165,8 @@ class Dataset:
             raise OrphanedDataset(self, "download path cannot be determined without repository.")
 
         return os.path.join(DOWNLOAD_PATH, str(self.repository_id),
-                            self.file_name.replace("ftp://", "").replace("http://", ""))
+                            # do not remove the "." it is used to transform the absolute paths
+                            "."+self.file_name.replace("ftp://", "").replace("http://", ""))
 
     """
     load downloads the actual data this dataset refers to if it hasn't
@@ -273,7 +274,7 @@ class Dataset:
             f = open(am.extra_metadata['__local_file__'])
             first_line = f.readline()
 
-            while (first_line[0] == "#" or first_line[:5] == "track" or first_line[:7] == "browser"):
+            while (first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser"):
                 first_line = f.readline()
                 log.debug(first_line)
 
