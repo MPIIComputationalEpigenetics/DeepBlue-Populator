@@ -29,8 +29,8 @@ def insert_chromosome_sequences(epidb, genome, user_key):
     seq_infos = []
 
     for file_name in os.listdir(seqs_dir):
-        if file_name.endswith(".gz"):
-            chromosome = file_name.split(".")[0]
+        if file_name.endswith(".fa.gz"):
+            chromosome = file_name[:-6] # remove .fa.gz
             f_full = os.path.join(seqs_dir, file_name)
 
             seq_info = {}
