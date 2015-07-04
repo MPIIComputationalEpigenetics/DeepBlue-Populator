@@ -9,7 +9,7 @@ from annotations import insert_annotations
 from epidb_interaction import PopulatorEpidbClient
 from client import DeepBlueClient
 from data_sources import project_sources
-from genomes import hg19_info, mm9_info, mm10_info, hs37d5_info
+from genomes import hg19_info, mm9_info, mm10_info, hs37d5_info, GRCm38mm10_info
 from histones import insert_histones
 from owl_loader import load_owl
 from log import log
@@ -105,9 +105,11 @@ class Populator:
         epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info)
         epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
         epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
+        epidb.add_genome("GRCm38mm10", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38mm10_info)
 
         #insert_chromosome_sequences(epidb, "hg19", self.key)
-        #insert_chromosome_sequences(epidb, "hs37d5", self.key)
+        insert_chromosome_sequences(epidb, "hs37d5", self.key)
+        insert_chromosome_sequences(epidb, "GRCm38mm10", self.key)
 
 
     def insert_epigenetic_marks(self):
