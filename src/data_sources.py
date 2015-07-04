@@ -123,7 +123,8 @@ epigenomic_landscape = [
 ]
 
 deep = [
-    ('DEEP', 'hs37d5', '')
+    ('DEEP', 'hs37d5', ''),
+    ('DEEP', 'GRCm38mm10', '')
 ]
 
 project_sources = [
