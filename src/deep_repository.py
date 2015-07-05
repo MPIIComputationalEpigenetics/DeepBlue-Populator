@@ -67,7 +67,7 @@ class DeepRepository(Repository):
       print "Unknow genome", genome
 
   def __str__(self):
-    return "<DEEP Repository: [%s, %s]>" % (self.path, self.data_types)
+    return "<DEEP Repository: [%s, %s, %s]>" % (self.genome, self.path, self.data_types)
 
   def read_datasets(self):
     new = 0
