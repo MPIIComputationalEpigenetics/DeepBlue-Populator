@@ -100,6 +100,9 @@ class DeepRepository(Repository):
         experiment_sample_id = os.path.basename(os.path.normpath(file_path))
         experiment_sample_path = os.path.join(EXPERIMENT_METADATA_DIRECTORY, experiment_sample_id, experiment_metadata_info["filename"])
         experiment_file_name = experiment_metadata_info["filename"]
+        if not os.path.exists(experiment_file_name):
+          print "Path: " + experiment_file_name + " does not exists."
+          continue
         experiment = Experiment(process_metadata(experiment_sample_path))
         experiment_name = os.path.splitext(experiment_file_name)[0]
         key = experiment_name[:-4] #-4 to remove "_emd"
