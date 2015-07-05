@@ -48,12 +48,12 @@ class Repository(object):
         self.path = path
 
     def __str__(self):
-        return "<Repository: [%s, %s]>" % (self.project, self.path)
+        return "<Repository: [%s, %s, %s]>" % (self.genome, self.project, self.path)
 
     def __eq__(self, other):
         if not isinstance(other, Repository):
             return False
-        return self.path == other.path and self.genome == oter.genome
+        return self.path == other.path and self.genome == other.genome
 
     def __hash__(self):
         return hash(self.path)
