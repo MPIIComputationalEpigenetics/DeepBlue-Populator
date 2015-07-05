@@ -69,7 +69,7 @@ class Repository(object):
 
     @property
     def id(self):
-        idl = db.repo_id(self.project, self.path)
+        idl = db.repo_id(self.project, self.path, self.genome)
         if not idl:
             return None
         return idl["_id"]

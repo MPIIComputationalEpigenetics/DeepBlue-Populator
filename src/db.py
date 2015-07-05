@@ -30,8 +30,8 @@ def count_unimported(id, data_types):
                 {"inserted": {"$inserted": False}}]}
         ]}).count() > 0
 
-def repo_id(project, path):
-    return mdb.repositories.find_one({"project": project, "path": path}, ["_id"])
+def repo_id(project, path, genome):
+    return mdb.repositories.find_one({"project": project, "path": path, "genome": genome}, ["_id"])
 
 
 def repo_exists(project, path, genome = None, data_types = None):
