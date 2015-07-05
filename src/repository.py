@@ -106,7 +106,7 @@ class Repository(object):
         if self.exists():
             return
 
-        if db.repo_exists(self.project, self.path):
+        if db.repo_exists(self.project, self.path, self.genome):
             db.repo_update(self)
         else:
             db.repo_save(self)

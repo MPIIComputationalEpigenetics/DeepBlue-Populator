@@ -34,12 +34,13 @@ def repo_id(project, path, genome):
     return mdb.repositories.find_one({"project": project, "path": path, "genome": genome}, ["_id"])
 
 
-def repo_exists(project, path, genome = None, data_types = None):
+def repo_exists(project, path, genome, data_types = None):
     """Checks whether a repository with given parameters exists in DB
     """
     search_for = {
         "project": project,
-        "path": path
+        "path": path,
+        "genome": genome,
     }
     if genome:
         search_for["genome"] = genome
