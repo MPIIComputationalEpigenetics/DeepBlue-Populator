@@ -101,13 +101,13 @@ class Populator:
     def insert_genomes(self):
         epidb = PopulatorEpidbClient()
 
-        epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info)
-        epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info)
-        epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
-        epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
-        epidb.add_genome("GRCm38mm10", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38mm10_info)
+        print epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info)
+        print epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info)
+        print  epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
+        print epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
+        print epidb.add_genome("GRCm38mm10", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38mm10_info)
 
-        #insert_chromosome_sequences(epidb, "hg19", self.key)
+        insert_chromosome_sequences(epidb, "hg19", self.key)
         insert_chromosome_sequences(epidb, "hs37d5", self.key)
         insert_chromosome_sequences(epidb, "GRCm38mm10", self.key)
 
@@ -202,7 +202,7 @@ class Populator:
     """
 
     def setup_collections(self):
-        mdb.repositories.ensure_index([("path", 1)], unique=True)
+        mdb.repositories.ensure_index([("project", 1),("path", 1), ("genome", 1)], unique=True)
         mdb.datasets.ensure_index([("file_name", 1), ("repository_id", 1)], unique=True)
 
     def load_repositories(self):
