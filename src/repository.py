@@ -53,7 +53,7 @@ class Repository(object):
     def __eq__(self, other):
         if not isinstance(other, Repository):
             return False
-        return self.path == other.path
+        return self.path == other.path and self.genome == oter.genome
 
     def __hash__(self):
         return hash(self.path)
