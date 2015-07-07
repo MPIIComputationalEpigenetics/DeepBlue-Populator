@@ -87,6 +87,7 @@ class Class:
         self.comment = comment
         self.sub = []
         self.deprecated = deprecated
+        self.term_id = about.split("/")[-1].replace("_",":")
 
     def __str__(self):
         subs_label = ",".join([s.label for s in self.sub])
@@ -316,16 +317,20 @@ def load_classes(ontology, _file):
         syns = []
 
         for syn in child.findall(OboInOwlHasRelatedSynonym):
-            syns.append(syn.text.encode('utf-8').strip())
+            if syn.text:
+                syns.append(syn.text.encode('utf-8').strip())
 
         for syn in child.findall(OboInOwlHasExactSynonym):
-            syns.append(syn.text.encode('utf-8').strip())
+            if syn.text:
+                syns.append(syn.text.encode('utf-8').strip())
 
         for syn in child.findall(EfoAlternativeTerm):
-            syns.append(syn.text.encode('utf-8').strip())
+            if syn.text:
+                syns.append(syn.text.encode('utf-8').strip())
 
         for syn in child.findall(HasRelationalAdjective):
-            syns.append(syn.text.encode('utf-8').strip())
+            if syn.text:
+                syns.append(syn.text.encode('utf-8').strip())
 
         # Remove duplicates
         syns = list(set(syns))
@@ -623,8 +628,12 @@ def load_owl(user_key):
             if _class not in biosources:
                 continue
 
-            extra_metadata = {"url": _class.about, "namespace": _class.namespace,
-                              "ontology": _class.ontology, "comment": _class.comment}
+            extra_metadata = { "url": _class.about,
+                               "namespace": _class.namespace,
+                               "term_id" : _class.term_id,
+                               "ontology": _class.ontology,
+                               "comment": _class.comment
+                             }
             log.info(
                 "add biosource " + _class.label + " - " + _class.formalDefinition + " - " + str(
                     extra_metadata))
