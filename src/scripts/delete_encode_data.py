@@ -26,7 +26,7 @@ def remove_biosource(biosource_id, name):
 	print server.remove(biosource_id, user_key)
 
 
-for bs in server.list_biosources(user_key)[1]:
+for bs in server.list_biosources(None, user_key)[1]:
 	_id = bs[0]
 
 	status, info = server.info(_id, user_key)
