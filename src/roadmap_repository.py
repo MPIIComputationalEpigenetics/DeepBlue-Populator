@@ -9,6 +9,8 @@ import urllib2
 from collections import defaultdict
 from HTMLParser import HTMLParser
 
+from cStringIO import StringIO
+
 
 """
 A Repository refers to a source of datasets belonging to a certain project.
@@ -61,7 +63,8 @@ def parse_data(link, experiments):
 
 class RoadmapRepository(Repository):
   def __init__(self, proj, genome, path):
-    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig"], path)
+    #super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig"], path)
+    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak"], path)
 
   def __str__(self):
     return "<Roadmap Epigenomics Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -87,77 +90,81 @@ class RoadmapRepository(Repository):
     return sources
 
   def samples(self):
-    with open('datasources/roadmap/jul2013.roadmapData.qc - Consolidated_EpigenomeIDs_summary_Table.csv', 'r') as csvfile:
-      reader = csv.DictReader(csvfile)
-      keys = reader.fieldnames
+    f = urllib2.urlopen("http://egg2.wustl.edu/roadmap/data/byFileType/metadata/EID_metadata.tab")
+    csvfile = f.read().decode("utf-8", "ignore")
+    reader = csv.DictReader(StringIO(csvfile), delimiter='\t')
+    keys = reader.fieldnames
 
-      # Some header as multiple lines. Keep just the first line.
-      new_keys = []
-      for k in keys:
-        if "\n" in k:
-          new_keys.append( k.split("\n")[0] )
-        else:
-          new_keys.append(k)
-      reader = csv.DictReader(csvfile, new_keys)
+    # Some header as multiple lines. Keep just the first line.
+    new_keys = []
+    for k in keys:
+      if "\n" in k:
+        new_keys.append( k.split("\n")[0] )
+      else:
+        new_keys.append(k)
+    reader = csv.DictReader(StringIO(csvfile), new_keys, delimiter='\t')
 
-      samples = []
-      ids = {}
-      reader.next() # header
-      reader.next() # sub header
+    samples = []
+    ids = {}
+    reader.next() # header
 
-      for line in reader:
-        sample_info = {}
+    for line in reader:
+      sample_info = {}
+      sample_keys = ["EID", "GROUP", "MNEMONIC", "STD_NAME", "EDACC_NAME", "ANATOMY", "TYPE", "AGE", "SEX", "SOLID_LIQUID", "ETHNICITY", "SINGLEDONOR_COMPOSITE"]
 
-        sample_keys = ["Comments", "Epigenome ID (EID)", "GROUP", "COLOR", "Epigenome Mnemonic", "Under Seq", "Quality Rating", "Auto Use Train (Core)", "Manual Use Train (Core)", "Train Core + K27ac", "Standardized Epigenome name", "Epigenome name (from EDACC Release 9 directory)", "ANATOMY", "TYPE", "LAB", "AGE", "SEX", "SOLID / LIQUID", "ETHNICITY", "Single Donor (SD) /Composite (C)", "DONOR / SAMPLE ALIAS", "CLASS"]
+      for key in sample_keys:
+        if line[key]:
+          sample_info[key] = line[key]
 
-        for key in sample_keys:
-          if line[key]:
-            sample_info[key] = line[key]
+      eid = sample_info["EID"]
+      ids[eid] = sample_info
+      samples.append(sample_info)
 
-        eid = sample_info["Epigenome ID (EID)"]
-        ids[eid] = sample_info
-        samples.append(sample_info)
+    total = 0
+    found = 0
+    epidb = PopulatorEpidbClient()
 
-      total = 0
-      found = 0
-      epidb = PopulatorEpidbClient()
+    mapped = {}
+    for s in samples:
+      eid = s["EID"]
+      #original_name = biosource_name = s["Epigenome name (from EDACC Release 9 directory)"]
+      biosource_name = s["ANATOMY"]
 
-      mapped = {}
-      for s in samples:
-        eid = s["Epigenome ID (EID)"]
-        #original_name = biosource_name = s["Epigenome name (from EDACC Release 9 directory)"]
-        biosource_name = s["ANATOMY"]
+      if biosource_name == "IPSC":
+        biosource_name = "induced pluripotent stem cell"
+      elif biosource_name == "ESC_DERIVED":
+        biosource_name = "embryonic stem cell"
+      elif biosource_name == "MUSCLE_LEG":
+        biosource_name = "MUSCLE"
+      elif biosource_name == "STROMAL_CONNECTIVE":
+        if s["EDACC_NAME"] == "Bone_Marrow_Derived_Mesenchymal_Stem_Cell_Cultured_Cells":
+          biosource_name = "stromal cell of bone marrow"
+        if s["EDACC_NAME"] == "Chondrocytes_from_Bone_Marrow_Derived_Mesenchymal_Stem_Cell_Cultured_Cells":
+          biosource_name = "chondrocyte"
+      elif biosource_name == "VASCULAR":
+        if s["EDACC_NAME"] == "Aorta":
+          biosource_name = "Aorta"
+        if s["EDACC_NAME"] == "HUVEC_Umbilical_Vein_Endothelial_Cells":
+          biosource_name = "HUVEC"
+      elif biosource_name.startswith("GI_"):
+        biosource_name = biosource_name[len("GI_"):]
+      if epidb.is_biosource(biosource_name)[0] == "okay":
+       # print "found",
+        found = found + 1
+        #print "inserting sample for ", eid, " under biosource ", biosource_name, "content: ", s
+        s["source"] = "Roadmap Epigenomics"
+        s, _id = epidb.add_sample(biosource_name, s)
+        if s == "okay":
+          mapped[eid] = _id
+      else:
+        print biosource_name, " not mapped"
 
-        if biosource_name == "IPSC":
-          biosource_name = "induced pluripotent stem cell"
-        elif biosource_name == "ESC_DERIVED":
-          biosource_name = "embryonic stem cell"
-        elif biosource_name == "MUSCLE_LEG":
-          biosource_name = "MUSCLE"
-        elif biosource_name == "STROMAL_CONNECTIVE":
-          if s["Epigenome name (from EDACC Release 9 directory)"] == "Bone_Marrow_Derived_Mesenchymal_Stem_Cell_Cultured_Cells":
-            biosource_name = "stromal cell of bone marrow"
-          if s["Epigenome name (from EDACC Release 9 directory)"] == "Chondrocytes_from_Bone_Marrow_Derived_Mesenchymal_Stem_Cell_Cultured_Cells":
-            biosource_name = "chondrocyte"
-        elif biosource_name.startswith("GI_"):
-          biosource_name = biosource_name[len("GI_"):]
-        if epidb.is_biosource(biosource_name)[0] == "okay":
-         # print "found",
-          found = found + 1
-          #print "inserting sample for ", eid, " under biosource ", biosource_name, "content: ", s
-          s["source"] = "Roadmap Epigenomics"
-          s, _id = epidb.add_sample(biosource_name, s)
-          if s == "okay":
-            mapped[eid] = _id
-        else:
-          print biosource_name, " not mapped"
+      total = total + 1
 
-        total = total + 1
+    if total - found > 0:
+      print "** Roadmap: Not mapped " , str(total - found), " from ", total
 
-      if total - found > 0:
-        print "** Roadmap: Not mapped " , str(total - found), " from ", total
-
-      return mapped
+    return mapped
 
 
   def build_epigenetic_mark_technique_and_type(self, v1, v2, file):
