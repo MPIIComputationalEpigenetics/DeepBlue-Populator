@@ -1,4 +1,4 @@
-import urllib
+import urllib2
 import os.path
 
 
@@ -55,9 +55,10 @@ def download_file(url, localFile):
     if os.path.isfile(localFile):
         raise Exception("Error: File already exists " + localFile)
 
-    # a special opener to simulate firefox queries
-    class Opener(urllib.FancyURLopener):
-        version = 'Mozilla/5.0'
-
-    myopener = Opener()
-    myopener.retrieve(url, localFile)
+    req = urllib2.urlopen(url, timeout=60)
+    CHUNK_SIZE = 16 * 1024
+    with open(localFile, 'wb') as fp:
+        while True:
+            chunk = req.read(CHUNK_SIZE)
+            if not chunk: break
+            fp.write(chunk)
