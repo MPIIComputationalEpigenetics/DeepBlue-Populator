@@ -14,3 +14,5 @@ http://purl.obolibrary.org/obo/core#subdivision_of
 http://purl.obolibrary.org/obo/UBREL_0000002
 http://purl.obolibrary.org/obo/RO_0002177
 http://purl.obolibrary.org/obo/RO_0002202
+http://purl.obolibrary.org/obo/bto#part_of
+http://www.obofoundry.org/ro/ro.owl#derives_from

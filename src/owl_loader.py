@@ -72,7 +72,7 @@ class Ontology:
 
 
 class Class:
-    def __init__(self, namespace, ontology, about, label, superclasses, formalDefinition,
+    def __init__(self, namespace, ontology, about, ontology_id, term_id, label, superclasses, formalDefinition,
                  syns, comment, deprecated):
         self.namespace = namespace
         self.ontology_merges = []
@@ -87,7 +87,8 @@ class Class:
         self.comment = comment
         self.sub = []
         self.deprecated = deprecated
-        self.term_id = about.split("/")[-1].replace("_",":")
+        self.ontology_id = ontology_id
+        self.term_id = term_id
 
     def __str__(self):
         subs_label = ",".join([s.label for s in self.sub])
@@ -222,18 +223,6 @@ def load_classes(ontology, _file):
     classes = []
 
     for child in root.findall(OwlClass):
-        _namespace = child.find(OboInOwlHasOBONamespace)
-        if _namespace is not None:
-            namespace = _namespace.text.encode('utf-8').strip()
-        else:
-            namespace = ""
-
-        _about = child.get(RdfAbout)
-        if _about is not None:
-            about = _about.encode('utf-8').strip()
-        else:
-            about = ""
-
         _label = child.find(RdfsLabel)
         if _label is not None:
             label = _label.text.encode('utf-8').strip()
@@ -242,6 +231,25 @@ def load_classes(ontology, _file):
 
         if not label:
             continue
+
+        _about = child.get(RdfAbout)
+        if _about is not None:
+            about = _about.encode('utf-8').strip()
+        else:
+            about = ""
+
+        term_id = about.split("/")[-1].replace("_",":")
+        ontology_id = term_id.split(":")[0]
+
+        if ontology_id != ontology:
+            print "Term " + term_id + " (" + label + ") ignored because it is not part of the " + ontology
+            continue
+
+        _namespace = child.find(OboInOwlHasOBONamespace)
+        if _namespace is not None and _namespace.text:
+            namespace = _namespace.text.encode('utf-8').strip()
+        else:
+            namespace = ""
 
         superclasses = []
 
@@ -336,7 +344,7 @@ def load_classes(ontology, _file):
         syns = list(set(syns))
         superclasses = list(set(superclasses))
 
-        _class = Class(namespace, ontology, about, label, superclasses, formalDefinition,
+        _class = Class(namespace, ontology,  about, ontology_id, term_id, label, superclasses, formalDefinition,
                        syns, comment, deprecated)
         if not _class.label.startswith('obsolete') and not _class.deprecated:
             classes.append(_class)
@@ -379,7 +387,18 @@ def filter_classes(classes, blacklist, count=0):
     for _class in classes:
         if _class.label in blacklist:
             continue
+
         if already_filtered.has_key(_class.label):
+            continue
+
+        ignore = False
+        for ignore_super in ["http://purl.obolibrary.org/obo/OBI_0000070", "http://purl.obolibrary.org/obo/UO_0000186", "http://www.ifomis.org/bfo/1.1/snap#Site", "http://purl.obolibrary.org/obo/UO_0000109", "http://purl.obolibrary.org/obo/GO_0007610", "http://purl.obolibrary.org/obo/PATO_0000051", "http://purl.obolibrary.org/obo/CHEBI_37577", "http://purl.obolibrary.org/obo/UO_0000051", "http://purl.obolibrary.org/obo/CHEBI_16113", "http://purl.obolibrary.org/obo/GO_0097327", "http://purl.obolibrary.org/obo/GO_0061476","http://purl.obolibrary.org/obo/CHEBI_36080", "http://purl.obolibrary.org/obo/UO_0000001", "http://purl.obolibrary.org/obo/GO_0036276",  "http://purl.obolibrary.org/obo/UO_0000055", "http://purl.obolibrary.org/obo/HP_0001871", "http://purl.obolibrary.org/obo/IAO_0000098", "http://purl.obolibrary.org/obo/CHEBI_36080", "http://purl.obolibrary.org/obo/CHEBI_24432", "http://purl.obolibrary.org/obo/OBI_0000272", "http://purl.obolibrary.org/obo/OBI_0200000", "http://purl.obolibrary.org/obo/UO_0000055", "http://www.ifomis.org/bfo/1.1/span#ProcessualEntity", "http://purl.obolibrary.org/obo/IAO_0000030", "http://mged.sourceforge.net/ontologies/MGEDOntology.owl#developmental_stage", "http://purl.obolibrary.org/obo/IAO_0000030", "http://purl.obolibrary.org/obo/OBI_0001620", "http://purl.obolibrary.org/obo/HP_0000153", "http://purl.obolibrary.org/obo/UO_0000187", "http://purl.obolibrary.org/obo/GO_0050896", "http://purl.obolibrary.org/obo/OBI_0000245", "http://purl.obolibrary.org/obo/UO_0000187", "http://purl.obolibrary.org/obo/UO_0000046", "http://purl.obolibrary.org/obo/IAO_0000030", "http://purl.obolibrary.org/obo/OBI_0100051", "http://www.ifomis.org/bfo/1.1/span#ProcessualEntity", "http://purl.obolibrary.org/obo/UO_0000007", "http://purl.obolibrary.org/obo/IAO_0000030", "http://www.ifomis.org/bfo/1.1/snap#Quality", "http://purl.obolibrary.org/obo/GO_0042592", "http://purl.obolibrary.org/obo/GO_0042493", "http://purl.obolibrary.org/obo/GO_0036277", "http://purl.obolibrary.org/obo/HP_0002715", "http://purl.obolibrary.org/obo/OBI_0000869", 'http://purl.obolibrary.org/obo/OBI_0001621', "http://purl.obolibrary.org/obo/GO_0000003", "http://purl.obolibrary.org/obo/HP_0001626", "http://purl.obolibrary.org/obo/OBI_1110122", "http://purl.obolibrary.org/obo/PO_0000025", 'http://purl.obolibrary.org/obo/HP_0004936', "http://purl.obolibrary.org/obo/CHEBI_17089", "http://purl.obolibrary.org/obo/CHEBI_17089", "http://purl.obolibrary.org/obo/HP_0011024", "http://purl.obolibrary.org/obo/DOID_10113", "http://purl.obolibrary.org/obo/CHEBI_33697", "http://purl.obolibrary.org/obo/GO_0007568", "http://purl.obolibrary.org/obo/HP_0002373", "http://purl.obolibrary.org/obo/GO_0097332", "http://purl.obolibrary.org/obo/HP_0001657", "http://purl.obolibrary.org/obo/OBI_0600002", "http://purl.obolibrary.org/obo/HP_0001679"]:
+            if ignore_super in _class.superclasses:
+                print "ignore " , _class.label, _class.superclasses
+                ignore = True
+                break
+
+        if ignore:
             continue
 
         result.append(_class)
@@ -395,13 +414,15 @@ def load_owl(user_key):
 
     cl_classes = load_classes("CL", "../data/ontologies/cl.owl.gz")
     efo_classes = load_classes("EFO", "../data/ontologies/efo.owl.gz")
-    uberon_classes = load_classes("uberon", "../data/ontologies/uberon.owl.gz")
+    uberon_classes = load_classes("UBERON", "../data/ontologies/uberon.owl.gz")
+    ncbitaxon = load_classes("NCBITaxon", "../data/ontologies/ncbi_taxon_selection2.owl.gz")
 
     all_classes = {}
     all_classes_names = {}
     all_ontologies = [i for i in cl_classes.classes if i.label] + \
                      [i for i in efo_classes.classes if i.label] + \
-                     [i for i in uberon_classes.classes if i.label]
+                     [i for i in uberon_classes.classes if i.label] + \
+                     [i for i in ncbitaxon.classes if i.label]
 
     print "Before merge", len(all_ontologies)
 
@@ -415,9 +436,9 @@ def load_owl(user_key):
             duplicated_class.syns = list(set(duplicated_class.syns + _class.syns))
             duplicated_class.sub = list(set(duplicated_class.sub + _class.sub))
             all_classes_names[_class.label] = duplicated_class
-            all_classes[_class.about] = _class.label
+            all_classes[_class.term_id] = _class.label
         else:
-            all_classes[_class.about] = _class.label
+            all_classes[_class.term_id] = _class.label
             all_classes_names[_class.label] = _class
 
     all_ontologies = []
@@ -429,7 +450,8 @@ def load_owl(user_key):
     print 'Linking'
     for _class in all_ontologies:
         _class.user_key = user_key
-        for ref in _class.superclasses:
+        for superclass in _class.superclasses:
+            ref = superclass.split("/")[-1].replace("_",":")
             if all_classes.has_key(ref):
                 _class.superclasses_names.append(all_classes[ref])
             else:
@@ -516,16 +538,20 @@ def load_owl(user_key):
     print 'no_parent: ', len(no_parents)
     print 'duplicated (synonym and class): ', len(_synonymn_classes)
 
-    print 'Roots:'
-    for no_parent in no_parents:
-        print no_parent.label, no_parent.ontology
-    print '-' * 20
-
     blacklist_terms = load_blacklist()
     full_blacklist_terms = blacklist_terms + _synonymn_classes
     print 'filtering.. '
     biosources = filter_classes(no_parents, full_blacklist_terms)
     print 'total biosources:', len(biosources)
+
+    print "Roots:"
+    r = 0
+    for biosource in biosources:
+        if not biosource.superclasses_names:
+            r += 1
+            print biosource.superclasses
+
+    print "Total roots: " + str(r)
 
     alread_in = {}
 
@@ -628,12 +654,17 @@ def load_owl(user_key):
             if _class not in biosources:
                 continue
 
+
             extra_metadata = { "url": _class.about,
-                               "namespace": _class.namespace,
-                               "term_id" : _class.term_id,
-                               "ontology": _class.ontology,
+                               "ontology_id" : _class.term_id,
                                "comment": _class.comment
                              }
+
+            if _class.namespace:
+                extra_metadata["namespace"] = _class.namespace
+            if _class.comment:
+                extra_metadata["comment"] = _class.comment
+
             log.info(
                 "add biosource " + _class.label + " - " + _class.formalDefinition + " - " + str(
                     extra_metadata))
