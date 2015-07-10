@@ -103,7 +103,7 @@ class Populator:
 
         print epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info)
         print epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info)
-        print  epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
+        print epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
         print epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
         print epidb.add_genome("GRCm38mm10", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38mm10_info)
 
@@ -194,7 +194,6 @@ class Populator:
 
     def process_ontology(self):
         load_owl(self.key)
-        datasources.encode.vocabulary.manual_curation()
         datasources.encode.vocabulary.ensure_vocabulary()
 
     """
