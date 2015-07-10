@@ -182,24 +182,6 @@ def insert_sample(i):
             print "Invalid term ", biosource_name, "Please, check the ENCODE CV and include this term."
 
 
-def manual_curation():
-    epidb = PopulatorEpidbClient()
-
-    print epidb.set_biosource_synonym("MEL cell line", "MEL")  # "http://www.ebi.ac.uk/efo/EFO_0003971"
-    print epidb.set_biosource_synonym("CH12.LX", "CH12")  # "http://www.ebi.ac.uk/efo/EFO_0005233"
-    print epidb.set_biosource_synonym("hippocampus", "brain hippocampus")
-    print epidb.add_biosource("embryonic lung", "", {"SOURCE": "MPI internal"})
-    print epidb.add_biosource("chordoma", "Neoplasm arising from cellular remnants of the notochord; cancer",
-                              {"SOURCE": "MPI internal"})
-    print epidb.set_biosource_synonym("induced pluripotent stem cell", "induced pluripotent cell (iPS)")
-    print epidb.set_biosource_synonym("neuron", "neurons")  # CL0000540
-    print epidb.set_biosource_synonym("enucleate erythrocyte", "enucleated erythrocyte")
-
-    # Cerebrum_frontal_OC
-    print epidb.add_biosource("frontal cerebrum", "", {"SOURCE": "MPI internal"})
-    print epidb.set_biosource_parent("cerebrum", "frontal cerebrum")
-
-
 def ensure_vocabulary():
     """
     ensure_vocabulary retrieves a set of cell line and antibody vocabulary and
@@ -210,12 +192,7 @@ def ensure_vocabulary():
     epidb = PopulatorEpidbClient()
 
     voc = ControledVocabulary()
-    log.info("adding %d biosource to the vocabulary", len(voc.biosources))
     log.info("adding %d antibodies to the vocabulary", len(voc.antibodies))
-
-    # add biosources to epidb
-    for cl in voc.biosources:
-        insert_sample(cl)
 
     # add antibodies to epidb
     for ab in voc.antibodies:
