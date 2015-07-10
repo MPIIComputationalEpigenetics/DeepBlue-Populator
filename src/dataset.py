@@ -194,10 +194,10 @@ class Dataset:
         subprocess.Popen(["scp", "%s@%s:%s" % (ssh_user, ssh_server, self.file_name), "%s" % (self.download_path)]).wait()
 
       else:
-        if self.file_name.startswith("http://") or self.file_name.startswith("ftp://"):
+        if self.file_name.startswith("http://") or self.file_name.startswith("ftp://") or self.file_name.startswith("https://"):
           url = self.file_name
         else:
-          url = os.path.join(rep["path"], self.file_name)
+          url = "/".join(map(lambda x: str(x).rstrip('/'), [rep["path"], self.file_name]))
 
         log.info("Downloading %s", url)
         util.download_file(url, self.download_path)
