@@ -1,6 +1,9 @@
 import os.path
 import re
-import urllib
+import requests
+import json
+
+import pprint
 
 from epidb_interaction import PopulatorEpidbClient
 from dataset import Dataset
@@ -14,99 +17,100 @@ It detects the available datasets in the repository and can coordinate their
 retrival and processing.
 """
 
+# Insert samples
+# Get size
+# Put the entire line in the extra_metadata !
+
+"""
+payload = {'assembly': 'hg19',
+           'type': 'experiment',
+           'status': 'released',
+           'frame':'embedded',
+           'format':'json'}
+
+
+https://www.encodeproject.org/search/?type=experiment&status=released&assembly=hg19&files.file_type=bigWig&files.file_type=bed%20narrowPeak&files.file_type=bed%20broadPeak&files.file_type=bigBed%20broadPeak&files.file_type=bigBed%20narrowPeak&files.file_type=bigBed%20bedRnaElements&files.file_type=gtf&files.file_type=bed%20bedRnaElements&files.file_type=tsv&files.file_type=bigBed%20bedMethyl&files.file_type=bed%20bedMethyl&files.file_type=bigBed%20bedLogR&files.file_type=bigBed%20bed12&files.file_type=bed%20bed12&files.file_type=bigBed%20bedExonScore&files.file_type=bed%20bed9&files.file_type=bigBed%20bed9&files.file_type=bigBed%20peptideMapping&limit=all
+
+"""
+
+payload = {'type': 'experiment',
+           'status': 'released',
+           'frame':'object', # embedded
+           'format':'json',
+           'limit': 'all'}
 
 class EncodeRepository(Repository):
-    def __init__(self, proj, genome, path):
-        #super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
-        super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed"], path)
+  def __init__(self, proj, genome, path):
+    super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
 
-    def __str__(self):
-        return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)
+  def __str__(self):
+    return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)
 
-    @property
-    def index_path(self):
+  @property
+  def index_path(self):
+    """
+    index_path is the path to the file which contains information of all datasets in the repository.
+    """
+    return None
+
+  def read_datasets(self):
+    new = 0
+    epidb = PopulatorEpidbClient()
+
+    file_types = ['bigWig', 'bed narrowPeak', 'bed broadPeak', 'bigBed broadPeak', 'bigBed narrowPeak', 'bigBed bedRnaElements', 'gtf', 'bed bedRnaElements', 'tsv', 'bigBed bedMethyl', 'bed bedMethyl', 'bigBed bedLogR', 'bigBed bed12', 'bed bed12', 'bigBed bedExonScore', 'bed bed9', 'bigBed bed9', 'bigBed peptideMapping']
+
+    HEADERS = {'accept': 'application/json'}
+
+    total = 0
+    for file_type in file_types:
+      payload["files.file_type"] = file_type
+      response = requests.get(self.path+"/search", params=payload)
+      print file_type, response.url
+      response_json_dict = response.json()
+
+      for experiment in response_json_dict["@graph"]:
+        #print experiment
+        self.process_encode_experiment(experiment["@id"])
+
         """
-        index_path is the path to the file which contains information of all
-        datasets in the repository.
-        """
-        return os.path.join(self.path, "files.txt")
+        for file in graph.get("files", []):
+          total =+ 1
 
-    def read_datasets(self):
-        """
-        read_datasets analyses the repositorie's index file and flags
-        new datasets.
-        """
-        epidb = PopulatorEpidbClient()
+          if file['file_type'] in ["fastq", "bam"]: continue
 
-        epigenetic_mark = None
+          pprint.pprint(file)
 
-        new = 0
-        f = urllib.urlopen(self.index_path)
-        for line in f:
-            s = line.strip().split(None, 1)
-            file_name, meta_s = s[0], s[1]
+          replicate = file.get("replicate", {})
+          if not replicate: continue
 
-            meta = {}
-            for kv in meta_s.split("; "):
-                fs = kv.split("=")
-                meta[fs[0]] = fs[1]
+          library = replica.get("library", {})
+          if not library: continue
 
-            if "objStatus" in meta:
-                # do not include obsolete datasets
-                if meta["objStatus"].startswith("renamed") or \
-                        meta["objStatus"].startswith("replaced") or \
-                        meta["objStatus"].startswith("revoked"):
-                    log.info("Not including obsolete dataset %s", line.strip())
-                    continue
+          biosample = library.get("biosample", {})
+          if not biosample: continue
 
-            if "dataType" not in meta:
-                log.info("Line %s from %s does not have datatype" % (line, self.path))
-                continue
+          sample = replicate["library"]["biosample"]
+          biosource_term_id = sample["biosample_term_id"]
+          (status, (bs,)) = epidb.list_biosources({"ontology_id":biosource_term_id})
+          (s, sid) = epidb.add_sample(bs[1], sample)
+          #print sample
+          print s, sid
 
-            r = re.findall('[A-Z][a-z]*', meta["composite"])
+          experiment = replicate.get("experiment", {})
+          files = replicate.get("files", {})
 
-            if r[-2] in ["Haib", "Sydh", "Broad", "Uw", "Uchicago", "Psu", "Licr", "Caltech"]:
-                # filter out project/instutute names
-                em = r[-1]
-            else:
-                em = r[-2] + r[-1]
-
-            if not epigenetic_mark:
-                epigenetic_mark = em
-            elif epigenetic_mark and epigenetic_mark != em:
-                print "datatype was set %s but new is %s" % (epigenetic_mark, em)
-
-            meta["epigenetic_mark"] = epigenetic_mark
-
-            if epigenetic_mark == "Histone" and meta["antibody"].find("_") != -1:
-                meta["antibody"] = meta["antibody"].split("_")[0]
-
-            (status, samples_id) = epidb.list_samples("", {"term": meta["cell"]})
-            if status != "okay" or not len(samples_id):
-                log.critical("Sample for biosource %s was not found", meta["cell"])
-                log.critical(samples_id)
-
-            # First (and only element) and them get its ID
-            sample_id = samples_id[0][0]
-
-            size = meta["size"]
-            suf = size[-1].lower()
-            value = float(size[:-1])
-
-            if suf == 'k':
-                s = value * 1024
-            elif suf == 'm':
-                s = value * 1024 * 1024
-            elif suf == 'g':
-                s = value * 1024 * 1024 * 1024
-            else:
-                s = value
-
-            meta["size"] = s
-
-            ds = Dataset(file_name, meta["type"], meta, sample_id=sample_id)
-            if self.add_dataset(ds):
-                new += 1
-                self.has_updates = True
-
+          ds = Dataset(file["href"], file["file_format"], file, sample_id=sid)
+          if self.add_dataset(ds):
+            new += 1
+            self.has_updates = True
         log.info("found %d new datasets in %s", new, self)
+        """
+
+  def process_encode_experiment(self, _id) :
+    url = self.path + _id
+    response = requests.get(url, params={'format':'json'})
+    print response.url
+    print response
+    response_json_dict = response.json()
+    print response_json_dict
+

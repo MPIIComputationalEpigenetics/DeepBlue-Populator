@@ -25,7 +25,7 @@ class EncodeMapper(AttributeMapper):
 
     @property
     def format(self):
-        return self.dataset.meta["type"]
+        return self.dataset.meta["file_format"]
 
 
 class EncodeRrbsMethylationMapper(EncodeMapper):
@@ -165,18 +165,3 @@ class EncodeTfbsUniformMapper(EncodeMapper):
     @property
     def technique(self):
         return "ChIP-seq Uniform"
-
-
-encode_mappers = {
-    "MethylRrbs": EncodeRrbsMethylationMapper,
-    "Methyl": EncodeMethyl450KMapper,
-    "Histone": EncodeHistoneMapper,
-    "Hist": EncodeHistoneMapper,  # only in mm9
-    "Dnase": EncodeDNaseIMapper,
-    "ChromDnase": EncodeDNaseIMapper,
-    "Dgf": EncodeDNaseIMapper,  # only in mm9
-    "UniPk": EncodeDNaseIUniformMapper,
-    "Hmm": EncodeHMMMapper,
-    "Tfbs": EncodeTfbsMapper,
-    "TfbsUniform": EncodeTfbsUniformMapper
-}
