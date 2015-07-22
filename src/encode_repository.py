@@ -39,6 +39,115 @@ payload = {'type': 'experiment',
            'format':'json',
            'limit': 'all'}
 
+class EncodeExperimentFile:
+  def __init__(self, data, experiment, derived_from_id, shared_data):
+    self.__data__ = data
+    self.__experiment__ = experiment
+    self.__derived_from_id__ = derived_from_id
+    self.__shared_data__ = shared_data
+    self.__is_derived__ = derived_from_id != None
+
+    self.__replicate__ = None
+    self.__target__ = None
+    self.__epigenetic_mark__ = None
+    self.__library__ = None
+    self.__biosample__ = None
+
+    self.__biosample_term_id__ = None
+
+    self.__replicate__ = data.get("replicate", None)
+
+    if self.__replicate__:
+      self.__experiment__ = self.__replicate__.get("experiment", None)
+
+    if self.__experiment__:
+        self.__target__ = self.__experiment__.get("target", None)
+
+    if self.__target__:
+      self.__epigenetic_mark__ = self.__target__.get("label", None)
+
+    if self.__replicate__ and self.__replicate__.has_key("library"):
+      self.__library__ = self.__replicate__["library"]
+
+    if self.__library__ and self.__library__.has_key("biosample"):
+      self.__biosample__ = self.__library__["biosample"]
+
+    if self.__biosample__:
+      self.__biosample_term_id__ = self.__biosample__["biosample_term_id"]
+
+    if not self.__biosample_term_id__:
+      self.__biosample_term_id__ = self.__experiment__.get("biosample_term_id", None)
+
+
+  def name(self):
+    return self.__data__["@id"]
+
+  def description(self):
+    return self.__experiment__["description"]
+
+  def epigenetic_mark(self, searched = []):
+    if self.name() in searched:
+      return None
+    searched.append(self.name())
+
+    if self.technique() == "RNA-seq":
+      return "Transcriptome" ## TODO: Add to epigenetic mark
+
+    if self.__epigenetic_mark__:
+      return self.__epigenetic_mark__
+
+    if self.__is_derived__:
+      for d in self.__derived_from_id__:
+        em = None
+        if self.__shared_data__.has_key(d):
+          em = self.__shared_data__[d].epigenetic_mark()
+        if em:
+          return em
+
+    return None
+
+  def biosample_term_id(self, searched = []):
+    if self.name() in searched:
+      return None
+    searched.append(self.name())
+
+    if self.__biosample_term_id__:
+      return self.__biosample_term_id__
+
+    if self.__is_derived__:
+      for d in self.__derived_from_id__:
+        ti = None
+        if self.__shared_data__.has_key(d):
+          ti = self.__shared_data__[d].biosample_term_id()
+        if ti:
+          return ti
+
+    return None
+
+  def technique(self):
+    return self.__experiment__["assay_term_name"]
+
+  def biosample(self):
+    pass
+
+  def sample_data(self):
+    pass
+
+  def url(self):
+    return self.__data__["href"]
+
+  def format(self):
+    return self.__data__["file_format"]
+
+  def size(self):
+    return self.__data__["file_size"]
+
+  def extra_metadata(self):
+    pass
+
+
+
+
 class EncodeRepository(Repository):
   def __init__(self, proj, genome, path):
     super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
@@ -70,7 +179,9 @@ class EncodeRepository(Repository):
 
       for experiment in response_json_dict["@graph"]:
         #print experiment
+
         self.process_encode_experiment(experiment["@id"])
+        #self.process_encode_experiment("ENCSR973AYQ")
 
         """
         for file in graph.get("files", []):
@@ -111,6 +222,52 @@ class EncodeRepository(Repository):
     response = requests.get(url, params={'format':'json'})
     print response.url
     print response
-    response_json_dict = response.json()
-    print response_json_dict
+    experiment = response.json()
+    #pprint.pprint(experiment)
+    experiment["description"]
+
+    files = experiment["files"]
+    r = 0
+    d_total = 0
+
+    shared_data = {}
+
+    for f in files:
+      #pprint.pprint(f)
+
+      _id = f["@id"]
+      derived_from_id = None
+
+      if f.has_key("replicate"):
+        #print f["href"], f["replicate"]["experiment"]["description"], f["replicate"]["experiment"]["target"]["label"]
+        r += 1
+
+      if f.has_key("derived_from"):
+        #print f["href"], len(f["derived_from"]), f["derived_from"][0]["@id"]
+        d_total += 1
+        derived_from_id = [d["@id"] for d in f["derived_from"]]
+
+      if derived_from_id:
+        print _id, str(derived_from_id), _id in derived_from_id
+      #print "derived_from_id: " + str(derived_from_id)
+
+      ee = EncodeExperimentFile(f, experiment, derived_from_id, shared_data)
+      shared_data[_id] = ee
+
+    for k in shared_data.keys():
+      file = shared_data[k]
+      print file.name(), file.description(), file.epigenetic_mark(), file.technique(), file.url(), file.format(), file.size(), file.biosample_term_id()
+
+    #print len(files)
+    #print r
+    #print d_total
+    """
+    u'biosample_term_id': u'UBERON:0001049',
+    u'biosample_term_name': u'neural tube',
+    u'biosample_type': u'tissue',
+    u'date_created': u'2015-06-09T20:45:27.136359+00:00',
+    u'assay_term_name': u'ChIP-seq',
+    u'developmental_slims': [u'ectoderm'],
+    """
+
 
