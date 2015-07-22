@@ -40,9 +40,9 @@ RdfsSubClass = "{%s}subClassOf" % Rdfs
 OboFormalDefinition = "{%s}IAO_0000115" % Obo
 HasRelationalAdjective = "{%s}UBPROP_0000007" % Obo
 
-OboInOwlHasExactSynonym = "{%s}hasExactSynonym" % OboInOwl
+#OboInOwlHasExactSynonym = "{%s}hasExactSynonym" % OboInOwl
 OboInOwlHasOBONamespace = "{%s}hasOBONamespace" % OboInOwl
-OboInOwlHasRelatedSynonym = "{%s}hasRelatedSynonym" % OboInOwl
+## OboInOwlHasRelatedSynonym = "{%s}hasRelatedSynonym" % OboInOwl
 
 # Specific Ontologies Attributes
 EfoAlternativeTerm = "{%s}alternative_term" % Efo
@@ -324,13 +324,15 @@ def load_classes(ontology, _file):
 
         syns = []
 
-        for syn in child.findall(OboInOwlHasRelatedSynonym):
-            if syn.text:
-                syns.append(syn.text.encode('utf-8').strip())
-
-        for syn in child.findall(OboInOwlHasExactSynonym):
-            if syn.text:
-                syns.append(syn.text.encode('utf-8').strip())
+        # Removed because: anatomical cluster is a entity and was being syn of multi organ part structure
+        # I believe tat this property is used for **cross** ontology link and not for internal names
+        # for syn in child.findall(OboInOwlHasRelatedSynonym):
+        #    if syn.text:
+        #        syns.append(syn.text.encode('utf-8').strip())
+        #
+        # for syn in child.findall(OboInOwlHasExactSynonym):
+        #    if syn.text:
+        #        syns.append(syn.text.encode('utf-8').strip())
 
         for syn in child.findall(EfoAlternativeTerm):
             if syn.text:
@@ -385,10 +387,13 @@ already_filtered = {}
 def filter_classes(classes, blacklist, count=0):
     result = []
     for _class in classes:
+        print _class.label, _class.term_id,
         if _class.label in blacklist:
+            print "blacklist"
             continue
 
         if already_filtered.has_key(_class.label):
+            print "already_filtered"
             continue
 
         ignore = False
@@ -399,8 +404,10 @@ def filter_classes(classes, blacklist, count=0):
                 break
 
         if ignore:
+            print "ignore_super"
             continue
 
+        print "ok"
         result.append(_class)
         already_filtered[_class.label] = True
         sub_result = filter_classes(_class.sub, blacklist, count + 1)
@@ -542,6 +549,10 @@ def load_owl(user_key):
     full_blacklist_terms = blacklist_terms + _synonymn_classes
     print 'filtering.. '
     biosources = filter_classes(no_parents, full_blacklist_terms)
+    for bs in biosources:
+        if bs.term_id == "UBERON:0000477":
+            print "aaaaaaaaa"
+            print bs
     print 'total biosources:', len(biosources)
 
     print "Roots:"
