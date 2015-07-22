@@ -85,7 +85,10 @@ class EncodeExperimentFile:
   def description(self):
     return self.__experiment__["description"]
 
-  def epigenetic_mark(self, searched = []):
+  def epigenetic_mark(self, searched = None):
+    if searched is None:
+      searched = []
+
     if self.name() in searched:
       return None
     searched.append(self.name())
@@ -100,13 +103,16 @@ class EncodeExperimentFile:
       for d in self.__derived_from_id__:
         em = None
         if self.__shared_data__.has_key(d):
-          em = self.__shared_data__[d].epigenetic_mark()
+          em = self.__shared_data__[d].epigenetic_mark(searched)
         if em:
           return em
 
     return None
 
-  def biosample_term_id(self, searched = []):
+  def biosample_term_id(self, searched = None):
+    if searched is None:
+      searched = []
+
     if self.name() in searched:
       return None
     searched.append(self.name())
@@ -118,7 +124,7 @@ class EncodeExperimentFile:
       for d in self.__derived_from_id__:
         ti = None
         if self.__shared_data__.has_key(d):
-          ti = self.__shared_data__[d].biosample_term_id()
+          ti = self.__shared_data__[d].biosample_term_id(searched)
         if ti:
           return ti
 
@@ -128,7 +134,9 @@ class EncodeExperimentFile:
     return self.__experiment__["assay_term_name"]
 
   def biosample(self):
-    pass
+    if self.__biosample__:
+      return self.__biosample__
+    return {}
 
   def sample_data(self):
     pass
@@ -180,32 +188,10 @@ class EncodeRepository(Repository):
       for experiment in response_json_dict["@graph"]:
         #print experiment
 
-        self.process_encode_experiment(experiment["@id"])
+        total = self.process_encode_experiment(epidb, experiment["@id"])
         #self.process_encode_experiment("ENCSR973AYQ")
 
         """
-        for file in graph.get("files", []):
-          total =+ 1
-
-          if file['file_type'] in ["fastq", "bam"]: continue
-
-          pprint.pprint(file)
-
-          replicate = file.get("replicate", {})
-          if not replicate: continue
-
-          library = replica.get("library", {})
-          if not library: continue
-
-          biosample = library.get("biosample", {})
-          if not biosample: continue
-
-          sample = replicate["library"]["biosample"]
-          biosource_term_id = sample["biosample_term_id"]
-          (status, (bs,)) = epidb.list_biosources({"ontology_id":biosource_term_id})
-          (s, sid) = epidb.add_sample(bs[1], sample)
-          #print sample
-          print s, sid
 
           experiment = replicate.get("experiment", {})
           files = replicate.get("files", {})
@@ -216,8 +202,10 @@ class EncodeRepository(Repository):
             self.has_updates = True
         log.info("found %d new datasets in %s", new, self)
         """
+    print total
 
-  def process_encode_experiment(self, _id) :
+  def process_encode_experiment(self, epidb, _id) :
+    new = 0
     url = self.path + _id
     response = requests.get(url, params={'format':'json'})
     print response.url
@@ -247,8 +235,8 @@ class EncodeRepository(Repository):
         d_total += 1
         derived_from_id = [d["@id"] for d in f["derived_from"]]
 
-      if derived_from_id:
-        print _id, str(derived_from_id), _id in derived_from_id
+      #if derived_from_id:
+        #print _id, str(derived_from_id), _id in derived_from_id
       #print "derived_from_id: " + str(derived_from_id)
 
       ee = EncodeExperimentFile(f, experiment, derived_from_id, shared_data)
@@ -257,6 +245,26 @@ class EncodeRepository(Repository):
     for k in shared_data.keys():
       file = shared_data[k]
       print file.name(), file.description(), file.epigenetic_mark(), file.technique(), file.url(), file.format(), file.size(), file.biosample_term_id()
+
+      x = epidb.list_biosources({"ontology_id":file.biosample_term_id()})
+      print x
+      if len(x[1]) == 0:
+        print "not found: ", file.biosample_term_id()
+        ss = file.biosample()
+        print ss.get("biosample_term_name", "not")
+        print epidb.is_biosource("biosample_term_name")
+
+      else:
+        continue
+        (status, (bs,)) = x
+        (s, sid) = epidb.add_sample(bs[1], file.biosample() )
+        print s, sid
+
+        metadata = {"description": file.description(), "epigenetic_mark": file.epigenetic_mark(), "technique": file.technique(), "size": file.size()}
+        ds = Dataset(file.url(), file.format(), metadata, sample_id=sid)
+        if self.add_dataset(ds):
+          new += 1
+          self.has_updates = True
 
     #print len(files)
     #print r
