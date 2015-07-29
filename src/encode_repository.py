@@ -191,6 +191,9 @@ class EncodeExperimentFile:
   def format(self):
     return self.__data__["file_format"]
 
+  def file_type(self):
+    return self.__data__["file_type"]
+
   def size(self):
     return self.__data__["file_size"]
 
@@ -205,6 +208,8 @@ class EncodeExperimentFile:
 
     emd["file_url"] = "https://www.encodeproject.org" + self.__data__["@id"]
     emd["experiment_url"] = "https://www.encodeproject.org" + self.__experiment__["@id"]
+
+    emd["file_type"] = self.file_type()
 
     lab = self.__experiment__.get("lab", {})
     for k in lab.keys():
