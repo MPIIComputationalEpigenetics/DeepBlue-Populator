@@ -65,6 +65,8 @@ class Populator:
             return False
 
         user_id, key = u
+        res, u = epidb.modify_user_admin(key, "permission_level", "INCLUDE_COLLECTION_TERMS", admin_key)
+
 
         self.key = key
         log.info("populator user created successfully")
@@ -121,6 +123,7 @@ class Populator:
         epidb.add_epigenetic_mark("TFBS", "Transcription factor binding sites")
         epidb.add_epigenetic_mark("Chromatin State Segmentation",
                                   "A common set of states across the cell types were learned by computationally integrating ChIP-seq data for nine factors plus input using a Hidden Markov Model (HMM). In total, fifteen states were used to segment the genome.")
+        epidb.add_epigenetic_mark("RNA", "RNA data - Transcriptome")
         epidb.add_epigenetic_mark("mRNA", "Messenger RNA")
         epidb.add_epigenetic_mark("flRNA", "Full length RNA")
         epidb.add_epigenetic_mark("tRNA", "Transfer ribonucleic acid")
@@ -129,6 +132,7 @@ class Populator:
                                   "Experiment Input Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Control",
                                   "Experiment Control Data. It is not an epigenetic mark")
+        epidb.add_epigenetic_mark("Regulatory Elements", "General term used by FAIRE-Seq")
 
         insert_histones(epidb)
 
@@ -139,6 +143,7 @@ class Populator:
         epidb.add_technique("Infinium 450k", "Infinium HumanMethylation450", {})
         epidb.add_technique("BisulfiteSeq",
                             "Bisulfite sequencing or Bisulphite sequencing", {})
+        epidb.add_technique("WGSBS", "Whole genome shotgun bisulfite sequencing (WGSBS) is every bit as fierce as its name suggests. Shotgun sequencing is a processes for sequencing a lot DNA, such as a whole genome. The DNA is broken up into short fragments which are then sequenced in parallel. The many short fragments (or \"reads\") are then aligned in a computer program to recreate the entire sequence (Anderson, 1981). http://epigenie.com/epigenetics-research-methods-and-technology/methylcytosine-5mc-analysis/bisulfite-conversion/wgsbs-whole-genome-shotgun-bisulfite-sequencing/", {})
         epidb.add_technique("ChIP-seq", "ChIP-sequencing", {})
         epidb.add_technique("ChIP-seq Uniform",
                             "ChIP-sequencing performed uniform processing on datasets produced by multiple data production groups in the ENCODE Consortium",
@@ -156,6 +161,7 @@ class Populator:
         epidb.add_technique("WGBS", "Whole-genome bisulfite sequencing", {})
         epidb.add_technique("MeDIP/MRE", "MeDIP/MRE methylation data we used the output of the mCRF tool (Stevens et al. (2013)) that reports fractional methylation in the range from 0 to 1 and uses an internal BWA mapping.", {})
         epidb.add_technique("NOMe-seq", "Nucleosome Occupancy and Methylome sequencing", {})
+        epidb.add_technique("FAIRE-seq", "FAIRE-Seq (Formaldehyde-Assisted Isolation of Regulatory Elements) is a method in molecular biology used for determining the sequences of those DNA regions in the genome associated with regulatory activity.", {})
 
 
     def insert_projects(self):
