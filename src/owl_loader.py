@@ -222,7 +222,8 @@ def load_classes(ontology, _file):
 
     classes = []
 
-    for child in root.findall(OwlClass):
+    # Load the class and the RdfDescription, because the UBERON defines somes classes inside RdfDescription
+    for child in root.findall(OwlClass) + root.findall(RdfDescription):
         _label = child.find(RdfsLabel)
         if _label is not None:
             label = _label.text.encode('utf-8').strip()
@@ -364,6 +365,15 @@ def load_blacklist():
 
     return blacklist
 
+def load_whitelist():
+    f = open("ontologies_whitelist.txt")
+    whitelist = []
+
+    for term in f.readlines():
+        whitelist.append(term.strip())
+
+    return whitelist
+
 
 def load_on_propery_lists():
     f = open("on_property_black_list.txt")
@@ -383,6 +393,19 @@ def load_on_propery_lists():
 
 already_filtered = {}
 
+def get_whitelist(classes, whitelist, is_sub_whitelist=False, count=0):
+    result = []
+    roots = []
+    for _class in classes:
+        if _class.label in whitelist or is_sub_whitelist:
+            print _class.label, _class.term_id, "whitelist"
+            result.append(_class)
+            if count == 0:
+                roots.append(_class)
+            sub_result, _ = get_whitelist(_class.sub, whitelist, True, count + 1)
+            result += sub_result
+            result = list(set(result))
+    return result, roots
 
 def filter_classes(classes, blacklist, count=0):
     result = []
@@ -546,13 +569,18 @@ def load_owl(user_key):
     print 'duplicated (synonym and class): ', len(_synonymn_classes)
 
     blacklist_terms = load_blacklist()
+    whitelist_terms = load_whitelist()
+
     full_blacklist_terms = blacklist_terms + _synonymn_classes
     print 'filtering.. '
     biosources = filter_classes(no_parents, full_blacklist_terms)
-    for bs in biosources:
-        if bs.term_id == "UBERON:0000477":
-            print "aaaaaaaaa"
-            print bs
+
+    whitelist, white_roots = get_whitelist(all_ontologies, whitelist_terms)
+    print 'total whitelist:', len(whitelist)
+
+    biosources = list(set(whitelist+biosources))
+    no_parents = list(set(no_parents + white_roots))
+
     print 'total biosources:', len(biosources)
 
     print "Roots:"
@@ -611,6 +639,8 @@ def load_owl(user_key):
 
     more_embrancing_cache = {}
 
+
+
     """ Laziness to write a better synchronizer """
     set_alread_in_semaphore = threading.BoundedSemaphore()
 
@@ -656,7 +686,6 @@ def load_owl(user_key):
                 set_parent(_class, sub)
 
     threads = []
-
     def insert_biosources(no_parents, biosources, epidb):
         for _class in no_parents:
             if alread_in.has_key(_class.label):
@@ -697,6 +726,7 @@ def load_owl(user_key):
     for t in threads:
         print '.',
         t.join()
+
 
 
     #print "Output json"
