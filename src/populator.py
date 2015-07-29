@@ -2,7 +2,6 @@ import os
 import os.path
 
 import settings
-import datasources.encode.vocabulary
 import column_definitions
 import repository_factory
 from annotations import insert_annotations
@@ -134,6 +133,7 @@ class Populator:
                                   "Experiment Control Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Regulatory Elements", "General term used by FAIRE-Seq")
 
+
         insert_histones(epidb)
 
     def insert_technologies(self):
@@ -200,7 +200,6 @@ class Populator:
 
     def process_ontology(self):
         load_owl(self.key)
-        datasources.encode.vocabulary.ensure_vocabulary()
 
     """
     setup_collections configures database internals for the Populator database
