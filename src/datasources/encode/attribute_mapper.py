@@ -13,9 +13,6 @@ class EncodeMapper(AttributeMapper):
 
     @property
     def name(self):
-        if self.dataset.meta.has_key("tableName"):
-            return self.dataset.meta["tableName"]
-
         file_full_name = self.dataset.file_name.split("/")[-1]
         file_type = file_full_name.split(".")[-1]
         if file_type == "gz":
@@ -24,144 +21,31 @@ class EncodeMapper(AttributeMapper):
             return ".".join(file_full_name.split(".")[:-1])
 
     @property
+    def description(self):
+        return self.dataset.meta["description"]
+
+    @property
     def format(self):
-        return self.dataset.meta["file_format"]
-
-
-class EncodeRrbsMethylationMapper(EncodeMapper):
-    """
-    EncodeMethylationMapper is the AttributeMapper for ENCODE repositories with
-    Methylation.
-    """
-    def __init__(self, dataset):
-        super(EncodeRrbsMethylationMapper, self).__init__(dataset)
+        return self.dataset.type
 
     @property
     def epigenetic_mark(self):
-        return "DNA Methylation"
+        return self.dataset.meta["epigenetic_mark"]
 
     @property
     def technique(self):
-        return "RRBS"
-
-
-class EncodeMethyl450KMapper(EncodeMapper):
-    def __init__(self, dataset):
-        super(EncodeMethyl450KMapper, self).__init__(dataset)
+        return self.dataset.meta["technique"]
 
     @property
-    def epigenetic_mark(self):
-        return "DNA Methylation"
+    def extra_metadata(self):
+        return self.dataset.meta["extra_metadata"]
 
     @property
-    def technique(self):
-        return "Infinium 450k"
+    def genome(self):
+        specie = self.dataset.repository["genome"]
+        if specie == "Mus musculus":
+            return "mm9"
+        elif specie == "Homo sapiens":
+            return "hg19"
 
-
-class EncodeHistoneMapper(EncodeMapper):
-    """
-    EncodeHistoneMapper is the AttributeMapper for ENCODE repositories with
-    histone modification.
-    """
-    def __init__(self, dataset):
-        super(EncodeHistoneMapper, self).__init__(dataset)
-
-    @property
-    def epigenetic_mark(self):
-        antibody = self.dataset.meta["antibody"]
-        if "_(" in antibody:
-            antibody = antibody.split("_(")[0]
-        else:
-            antibody = antibody
-        target = antibodyToTarget(antibody)
-        if target is None:
-            return antibody
-        else:
-            return target
-
-    @property
-    def technique(self):
-        return "ChIP-seq"
-
-
-class EncodeDNaseIMapper(EncodeMapper):
-    def __init__(self, dataset):
-        super(EncodeDNaseIMapper, self).__init__(dataset)
-
-    @property
-    def technique(self):
-        return "DNase-seq"
-
-    @property
-    def epigenetic_mark(self):
-        return "DNaseI"
-
-
-class EncodeDNaseIUniformMapper(EncodeMapper):
-    def __init__(self, dataset):
-        super(EncodeDNaseIUniformMapper, self).__init__(dataset)
-
-    @property
-    def technique(self):
-        return "DNase-Seq Uniform"
-
-    @property
-    def epigenetic_mark(self):
-        return "DNaseI"
-
-
-class EncodeHMMMapper(EncodeMapper):
-    def __init__(self, dataset):
-        super(EncodeHMMMapper, self).__init__(dataset)
-
-    @property
-    def epigenetic_mark(self):
-        return "Chromatin State Segmentation"
-
-    @property
-    def technique(self):
-        return "Chromatin State Segmentation by HMM"
-
-
-class EncodeTfbsMapper(EncodeMapper):
-    def __init__(self, dataset):
-        super(EncodeTfbsMapper, self).__init__(dataset)
-
-    @property
-    def epigenetic_mark(self):
-        antibody = self.dataset.meta["antibody"]
-        if "_(" in antibody:
-            antibody = antibody.split("_(")[0]
-        else:
-            antibody = antibody
-        target = antibodyToTarget(antibody)
-        if target is None:
-            return antibody
-        else:
-            return target
-
-    @property
-    def technique(self):
-        return "ChIP-seq"
-
-
-class EncodeTfbsUniformMapper(EncodeMapper):
-    def __init__(self, dataset):
-        super(EncodeTfbsUniformMapper, self).__init__(dataset)
-
-    @property
-    def epigenetic_mark(self):
-        antibody = self.dataset.meta["antibody"]
-        if "_(" in antibody:
-            antibody = antibody.split("_(")[0]
-        else:
-            antibody = antibody
-        target = antibodyToTarget(antibody)
-        if target is None:
-            return antibody
-        else:
-            return target
-
-    @property
-    def technique(self):
-        return "ChIP-seq Uniform"
+        return "Unknown specie " + specie
