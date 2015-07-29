@@ -49,3 +49,21 @@ class EncodeMapper(AttributeMapper):
             return "hg19"
 
         return "Unknown specie " + specie
+
+    @property
+    def format(self):
+        file_type = self.dataset.meta["extra_metadata"]["file_type"]
+
+        if file_type[:3] == "bed":
+            _, bed_format = file_type.split()
+            if bed_format == "narrowPeak":
+                return "narrowPeak"
+            if bed_format == "broadPeak":
+                return "broadPeak"
+            if bed_format == "bed12" or bed_format == "bed9" or bed_format == "bed3":
+                return "bed"
+            if bed_format == "bedRnaElements":
+                return "encode_rna"
+
+        print "type not found: " + file_type
+        return file_type
