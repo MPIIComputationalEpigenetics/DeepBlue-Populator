@@ -2,7 +2,7 @@ import requests
 
 class EncodeTFs:
 	def __init__(self, specie):
-		self.__url__ = "https://www.encodeproject.org/search/?type=target&investigated_as=transcription%20factor&limit=all&format=json"
+		self.__url__ = "https://www.encodeproject.org/search/?type=target&limit=all&format=json"
 		self.__specie__ = specie
 		self.__tfs__ = {}
 
@@ -18,11 +18,15 @@ class EncodeTFs:
 			metadata = {}
 			metadata["encode_id"] = tf["@id"]
 
+			for k in xrange(len(tf.get("investigated_as", []))):
+				metadata["investigated_as_"+str(k)] = tf["investigated_as"][k]
+
 			for k in xrange(len(tf["dbxref"])):
 				metadata["dbxref_"+str(k)] = tf["dbxref"][k]
 
 			metadata["organism"] = tf["organism"]["scientific_name"]
-			metadata["gene_name"] = tf["gene_name"]
+			if tf.has_key("gene_name"):
+				metadata["gene_name"] = tf["gene_name"]
 
 			self.__tfs__[tf["label"]] = metadata
 
