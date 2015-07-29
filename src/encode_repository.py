@@ -7,6 +7,7 @@ from threading import Thread
 from Queue import Queue
 
 from datasources.encode.vocabulary import antibodyToTarget
+from datasources.encode.transcription_factors import EncodeTFs
 from epidb_interaction import PopulatorEpidbClient
 
 from dataset import Dataset
@@ -68,9 +69,9 @@ class EncodeExperimentFile:
 
     if self.__target__:
       self.__epigenetic_mark__ = self.__target__.get("label", None)
-      tf = antibodyToTarget(self.__epigenetic_mark__)
-      if tf:
-        self.__epigenetic_mark__ = tf
+      #tf = antibodyToTarget(self.__epigenetic_mark__)
+      #if tf:
+        #self.__epigenetic_mark__ = tf
 
     if self.__replicate__ and self.__replicate__.has_key("library"):
       self.__library__ = self.__replicate__["library"]
@@ -230,7 +231,9 @@ class EncodeRepository(Repository):
   def __init__(self, proj, genome, path):
     #super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
     super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed"], path)
+    self.epigenetic_marks = None
     self.q = None
+    self.encode_tfs = EncodeTFs(genome)
 
   def __str__(self):
     return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -277,12 +280,28 @@ class EncodeRepository(Repository):
 
     self.q.join()
 
+  def check_target(self, target_name):
+    epidb = PopulatorEpidbClient()
+
+    if not self.epigenetic_marks:
+      (s, ems) = epidb.list_epigenetic_marks()
+      self.epigenetic_marks = [em[1] for em in ems]
+
+    if target_name not in self.epigenetic_marks:
+      log.info("it is not in " + target_name)
+      tf_metadata = self.encode_tfs[target_name]
+
+      (s, em) = epidb.add_epigenetic_mark(target_name, str(tf_metadata))
+      if (s == "okay"):
+        self.epigenetic_marks.append(target_name)
+      else:
+        log.error("Still missing %s %s", target_name, em)
+
   def process_encode_experiment(self, experiment_id) :
     epidb = PopulatorEpidbClient()
     new = 0
     url = self.path + experiment_id
     response = requests.get(url, params={'format':'json'})
-    #log.info("%s %s", response.url, response)
     experiment = response.json()
 
     files = experiment["files"]
@@ -348,6 +367,8 @@ class EncodeRepository(Repository):
         biosource = biosource[1]
 
       (s, sid) = epidb.add_sample(biosource, file.biosample() )
+
+      self.check_target(file.epigenetic_mark())
 
       metadata = {"description": file.description(), "epigenetic_mark": file.epigenetic_mark(), "technique": file.technique(),  "extra_metadata": file.extra_metadata()}
       ds = Dataset(file.url(), file.format(), metadata, sample_id=sid)

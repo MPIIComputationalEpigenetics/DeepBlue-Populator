@@ -10,7 +10,6 @@ class EncodeTFs:
 		payload = {}
 		payload["organism.scientific_name"] = self.__specie__
 		response = requests.get(self.__url__, params=payload)
-		print response.url
 		experiment = response.json()
 		tfs = experiment["@graph"]
 
