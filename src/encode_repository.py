@@ -290,6 +290,9 @@ class EncodeRepository(Repository):
     if target_name not in self.epigenetic_marks:
       log.info("it is not in " + target_name)
       tf_metadata = self.encode_tfs[target_name]
+      if not tf_metadata:
+        log.error("Metadata for " + target_name + " not found")
+        return
 
       (s, em) = epidb.add_epigenetic_mark(target_name, str(tf_metadata))
       if (s == "okay"):
