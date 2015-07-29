@@ -142,7 +142,7 @@ class EncodeExperimentFile:
       return "DNA Methylation"
 
     if self.technique() == "RRBS":
-      return "DN Methylation"
+      return "DNA Methylation"
 
     if self.technique() == "5C":
       return "Chromosome conformation capture"
@@ -337,6 +337,9 @@ class EncodeRepository(Repository):
         continue
 
       if file.technique() == "MNase-seq":
+        continue
+
+      if file.technique() == "ChIA-PET":
         continue
 
       if file.name() is None or file.epigenetic_mark() is None or file.technique() is None or file.url() is None or file.format() is None or file.biosample_term_id() is None:
