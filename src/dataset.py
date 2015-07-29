@@ -211,11 +211,7 @@ class Dataset:
         log.info("processing dataset %s", self)
 
         project = self.repository["project"]
-        if self.meta.has_key("epigenetic_mark"):
-            mark = self.meta["epigenetic_mark"]
-            am = attribute_mapper_factory.get(project, mark)(self)
-        else:
-            am = attribute_mapper_factory.get(project)(self)
+        am = attribute_mapper_factory.get(project)(self)
 
         if not os.path.exists(self.download_path):
             raise MissingFile(self.download_path, self.file_name)
