@@ -64,6 +64,8 @@ class EncodeMapper(AttributeMapper):
                 return "bed"
             if bed_format == "bedRnaElements":
                 return "encode_rna"
+            if bed_format == "bedMethyl":
+                return "bed"
 
         print "type not found: " + file_type
         return file_type
