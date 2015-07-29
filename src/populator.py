@@ -64,7 +64,7 @@ class Populator:
             return False
 
         user_id, key = u
-        res, u = epidb.modify_user_admin(key, "permission_level", "INCLUDE_COLLECTION_TERMS", admin_key)
+        res, u = epidb.modify_user_admin(user_id, "permission_level", "INCLUDE_COLLECTION_TERMS", admin_key)
 
 
         self.key = key
