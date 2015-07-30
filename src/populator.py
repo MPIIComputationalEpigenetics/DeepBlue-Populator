@@ -166,7 +166,7 @@ class Populator:
         epidb.add_technique("FAIRE-seq", "FAIRE-Seq (Formaldehyde-Assisted Isolation of Regulatory Elements) is a method in molecular biology used for determining the sequences of those DNA regions in the genome associated with regulatory activity.", {})
         epidb.add_technique("RNA profiling by array assay", "", {})
         epidb.add_technique("shRNA knockdown followed by RNA-seq", "", {})
-
+        epidb.add_technique("CAGE", "Cap Analysis of Gene Expression. http://www.osc.riken.jp/english/activity/cage/basic/", {})
 
     def insert_projects(self):
         # TODO: Load these information from the source file.
