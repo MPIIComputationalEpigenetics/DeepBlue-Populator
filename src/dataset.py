@@ -297,6 +297,8 @@ class Dataset:
         args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
                 am.project, am.description, file_content, frmt, am.extra_metadata)
 
+        am.extra_metadata["__ignore_unknow_chromosomes__"] = True
+
         res = epidb.add_experiment(*args)
         if res[0] == "okay" or res[1].startswith("102001"):
             self.inserted = True
