@@ -166,7 +166,7 @@ class Dataset:
 
         return os.path.join(DOWNLOAD_PATH, str(self.repository_id),
                             # do not remove the "." it is used to transform the absolute paths
-                            "./"+self.file_name.replace("ftp://", "").replace("http://", ""))
+                            "./"+self.file_name.replace("ftp://", "").replace("http://", "").replace("https://", ""))
 
     """
     load downloads the actual data this dataset refers to if it hasn't
