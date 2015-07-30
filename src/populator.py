@@ -132,6 +132,8 @@ class Populator:
         epidb.add_epigenetic_mark("Control",
                                   "Experiment Control Data. It is not an epigenetic mark")
         epidb.add_epigenetic_mark("Regulatory Elements", "General term used by FAIRE-Seq")
+        epidb.add_epigenetic_mark("Chromosome conformation capture", "Chromosome conformation capture,[1] or 3C, is a high-throughput molecular biology technique used to analyze the organization of chromosomes in a cell's natural state. (Wikipedia)")
+        epidb.add_epigenetic_mark("Gene Expression", "Gene expression is the process by which information from a gene is used in the synthesis of a functional gene product. These products are often proteins, but in non-protein coding genes such as transfer RNA (tRNA) or small nuclear RNA (snRNA) genes, the product is a functional RNA. (Wikipedia)")
 
 
         insert_histones(epidb)
@@ -162,6 +164,7 @@ class Populator:
         epidb.add_technique("MeDIP/MRE", "MeDIP/MRE methylation data we used the output of the mCRF tool (Stevens et al. (2013)) that reports fractional methylation in the range from 0 to 1 and uses an internal BWA mapping.", {})
         epidb.add_technique("NOMe-seq", "Nucleosome Occupancy and Methylome sequencing", {})
         epidb.add_technique("FAIRE-seq", "FAIRE-Seq (Formaldehyde-Assisted Isolation of Regulatory Elements) is a method in molecular biology used for determining the sequences of those DNA regions in the genome associated with regulatory activity.", {})
+        epidb.add_technique("RNA profiling by array assay", "", {})
 
 
     def insert_projects(self):
