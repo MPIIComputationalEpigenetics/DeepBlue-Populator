@@ -211,6 +211,8 @@ class EncodeExperimentFile:
     emd["experiment_url"] = "https://www.encodeproject.org" + self.__experiment__["@id"]
 
     emd["file_type"] = self.file_type()
+    if self.__data__.has_key("submitted_file_name"):
+      emd["submitted_file_name"] = self.__data__["submitted_file_name"]
 
     lab = self.__experiment__.get("lab", {})
     for k in lab.keys():
