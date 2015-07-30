@@ -108,9 +108,9 @@ class Populator:
         print epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
         print epidb.add_genome("GRCm38mm10", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38mm10_info)
 
-        insert_chromosome_sequences(epidb, "hg19", self.key)
-        insert_chromosome_sequences(epidb, "hs37d5", self.key)
-        insert_chromosome_sequences(epidb, "GRCm38mm10", self.key)
+        #insert_chromosome_sequences(epidb, "hg19", self.key)
+        #insert_chromosome_sequences(epidb, "hs37d5", self.key)
+        #insert_chromosome_sequences(epidb, "GRCm38mm10", self.key)
 
 
     def insert_epigenetic_marks(self):

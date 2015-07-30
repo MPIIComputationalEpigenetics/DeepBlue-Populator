@@ -298,6 +298,7 @@ class Dataset:
                 am.project, am.description, file_content, frmt, am.extra_metadata)
 
         am.extra_metadata["__ignore_unknow_chromosomes__"] = True
+        print am.extra_metadata
 
         res = epidb.add_experiment(*args)
         if res[0] == "okay" or res[1].startswith("102001"):
