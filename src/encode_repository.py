@@ -2,6 +2,7 @@ import os.path
 import re
 import requests
 import json
+import collections
 
 from threading import Thread
 from Queue import Queue
@@ -13,6 +14,8 @@ from epidb_interaction import PopulatorEpidbClient
 from dataset import Dataset
 from log import log
 from repository import Repository
+
+import flatdict
 
 """
 A Repository refers to a source of datasets belonging to a certain project.
@@ -60,17 +63,11 @@ class EncodeExperimentFile:
 
     self.__replicate__ = data.get("replicate", None)
 
-    if self.__replicate__:
-      self.__experiment__ = self.__replicate__.get("experiment", None)
-
     if self.__experiment__:
         self.__target__ = self.__experiment__.get("target", None)
 
     if self.__target__:
       self.__epigenetic_mark__ = self.__target__.get("label", None)
-      #tf = antibodyToTarget(self.__epigenetic_mark__)
-      #if tf:
-        #self.__epigenetic_mark__ = tf
 
     if self.__replicate__ and self.__replicate__.has_key("library"):
       self.__library__ = self.__replicate__["library"]
@@ -188,10 +185,80 @@ class EncodeExperimentFile:
 
     return assay_term_name
 
-  def biosample(self):
+  def process_biosample(self, bs):
+    flat = flatdict.FlatDict(bs, delimiter=":").as_dict()
+    flat_bs = {}
+    for k in flat.keys():
+      if flat[k]:
+        if isinstance(flat[k], list):
+          for p in range(len(flat[k])):
+            flat_bs[k+":"+str(p)] = flat[k][p]
+        else:
+          flat_bs[k] = flat[k]
+    return flat_bs
+
+  def biosample(self, searched = None):
+    if searched is None:
+      searched = []
+
+    if self.name() in searched:
+      return {}
+
+    searched.append(self.name())
+
+    # If the file has biosample
     if self.__biosample__:
-      return self.__biosample__
+      return self.process_biosample(self.__biosample__)
+
+    # If the file that it does derive
+    if self.__is_derived__:
+      for d in self.__derived_from_id__:
+        ti = None
+        if self.__shared_data__.has_key(d):
+          ti = self.__shared_data__[d].biosample(searched)
+        if ti:
+          return ti
+
+    # get biosample from
+    replicates = self.__experiment__.get("replicates", None)
+    s = "from experiment"
+    if replicates and len(replicates) > 0:
+      s = "unicode"
+      if not isinstance(replicates[0], unicode):
+        s = "replicates"
+        library = replicates[0].get("library", None)
+        if library:
+          s = "library"
+          biosample = library.get("biosample", {})
+          s = "biosamples"
+          if biosample:
+            return self.process_biosample(biosample)
+
+    print s
+
+    s = "from files"
+    # get biosample from the files of the same experiment
+    import pprint
+    pprint.pprint( self.__experiment__)
+    for f in self.__experiment__.get("files"):
+      print "file unicode"
+      if not isinstance(f, unicode):
+        replicate = f.get("replicate")
+        if replicate:
+          s = "replicate unicode"
+          if not isinstance(replicates[0], unicode):
+              print "library"
+              library = replicate.get("library")
+              if library:
+                biosample = library.get("biosample")
+                print "biosamples"
+                if biosample:
+                  return self.process_biosample(biosample)
+
+    print s
+
     return {}
+
 
   def url(self):
     return "https://www.encodeproject.org" + self.__data__["href"]
@@ -345,6 +412,9 @@ class EncodeRepository(Repository):
     for k in shared_data.keys():
       file = shared_data[k]
 
+      if file.format() not in self.data_types:
+        continue
+
       if file.technique() == "Repli-chip": # This track shows genome-wide assessment of DNA replication timing in cell lines using NimbleGen tiling CGH microarrays.
         continue
 
@@ -392,6 +462,11 @@ class EncodeRepository(Repository):
       if len(biosurce_info[1]) == 1:
         (status, (biosource,)) = biosurce_info
         biosource = biosource[1]
+
+      import pprint
+      if not file.biosample():
+        print file.name(), experiment_id, file.format()
+        pprint.pprint(file.biosample())
 
       (s, sid) = epidb.add_sample(biosource, file.biosample() )
 
