@@ -1,0 +1,14 @@
+DEEP_SAMPLE_ID	51_Hf05_BlEM_Ct
+ORGANISM	Homo sapiens
+POOL	yes
+DISEASE	none
+BIOMATERIAL_PROVIDER	Birgit Sawitzki, Stephan Schlickeiser, Charité; Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	effector memory CD4-positive, alpha-beta T cell
+MARKERS	CD3+, CD4+, CD25-, CD45RA-, CCR7-
+DONOR_ID	51_Hf05
+DONOR_AGE	45
+DONOR_HEALTH_STATUS	healthy
+DONOR_SEX	female 
+DONOR_ETHNICITY	NA
+COMMENT	

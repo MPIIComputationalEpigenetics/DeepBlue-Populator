@@ -1,0 +1,14 @@
+DEEP_SAMPLE_ID	51_Hf08_BmTM4_SP1
+ORGANISM	Homo sapiens
+POOL	yes
+DISEASE	none
+BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ; Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	CD4-positive alpha-beta memory T cell
+MARKERS	CD3+, CD4+, CD45RA-, CD45RO+, CD69+
+DONOR_ID	51_Hf08
+DONOR_AGE	61
+DONOR_HEALTH_STATUS	healthy
+DONOR_SEX	female 
+DONOR_ETHNICITY	NA
+COMMENT	sorted from bone-marrow, CD69+
