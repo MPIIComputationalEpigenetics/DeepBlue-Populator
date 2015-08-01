@@ -250,8 +250,8 @@ class EncodeExperimentFile:
 
 class EncodeRepository(Repository):
   def __init__(self, proj, genome, path):
-    #super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
-    super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed"], path)
+    super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig"], path)
+    #super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed"], path)
     self.epigenetic_marks = None
     self.q = None
     self.encode_tfs = EncodeTFs(genome)
