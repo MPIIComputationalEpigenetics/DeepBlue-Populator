@@ -42,13 +42,7 @@ class EncodeMapper(AttributeMapper):
 
     @property
     def genome(self):
-        specie = self.dataset.repository["genome"]
-        if specie == "Mus musculus":
-            return "mm9"
-        elif specie == "Homo sapiens":
-            return "hg19"
-
-        return "Unknown specie " + specie
+        return self.dataset.meta["extra_metadata"]["assembly"]
 
     @property
     def format(self):

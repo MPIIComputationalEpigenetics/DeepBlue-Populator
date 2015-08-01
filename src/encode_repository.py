@@ -14,7 +14,6 @@ from dataset import Dataset
 from log import log
 from repository import Repository
 
-
 """
 A Repository refers to a source of datasets belonging to a certain project.
 It detects the available datasets in the repository and can coordinate their
@@ -100,6 +99,14 @@ class EncodeExperimentFile:
     if self.__biosample_term_id__ == "CL:0002539": # http://www.ebi.ac.uk/ontology-lookup/?termId=CL:0002539 - aortic smooth muscle cell
       self.__biosample_term_id__ = "EFO:0002775"
 
+    if self.__biosample_term_id__ == "NTR:0001510": # ES-E14
+      self.__biosample_term_id__ = "EFO:0003074" # Mouse embryonic stem cell line
+
+    if self.__biosample_term_id__ == "NTR:0000741": # splenic B cell (not defined in any of ours ontology)
+      self.__biosample_term_id__ = "CL:0000236" # B Cell
+
+    if self.__biosample_term_id__ == "NTR:0001510": # (ES-E14 - error)
+      self.__biosample_term_id__ = "EFO:0003074"
 
   def name(self):
     return self.__data__["@id"]
@@ -213,6 +220,18 @@ class EncodeExperimentFile:
     emd["file_type"] = self.file_type()
     if self.__data__.has_key("submitted_file_name"):
       emd["submitted_file_name"] = self.__data__["submitted_file_name"]
+
+
+    assembly = self.__data__.get("assembly", None)
+    if not assembly:
+      assembly = self.__experiment__.get("assembly", None)
+      if len(assembly) > 0:
+        assembly = assembly[0]
+      else:
+          log.error("Assembly not found for %s", self.__data__["@id"])
+          return None
+
+    emd["assembly"] = assembly
 
     lab = self.__experiment__.get("lab", {})
     for k in lab.keys():
@@ -377,6 +396,9 @@ class EncodeRepository(Repository):
       (s, sid) = epidb.add_sample(biosource, file.biosample() )
 
       self.check_target(file.epigenetic_mark())
+
+      if not file.extra_metadata():
+        continue
 
       metadata = {"description": file.description(), "epigenetic_mark": file.epigenetic_mark(), "technique": file.technique(),  "extra_metadata": file.extra_metadata()}
       ds = Dataset(file.url(), file.format(), metadata, sample_id=sid)
