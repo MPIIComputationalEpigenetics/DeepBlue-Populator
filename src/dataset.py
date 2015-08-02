@@ -289,10 +289,13 @@ class Dataset:
                 return
             sample_id = samples_id[0][0]
 
-        if frmt == "bedgraph" or frmt == "wig":
-            exp_name = am.name + "." + frmt
-        else:
-            exp_name = am.name + ".bed"
+        # Do not include file extension on ENCODE files
+        exp_name = am.name
+        if am.project != "ENCODE":
+            if frmt == "bedgraph" or frmt == "wig":
+                exp_name = am.name + "." + frmt
+            else:
+                exp_name = am.name + ".bed"
 
         args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
                 am.project, am.description, file_content, frmt, am.extra_metadata)
