@@ -178,9 +178,6 @@ class Populator:
         epidb.add_project("BLUEPRINT Epigenome",
                           "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes")
         epidb.server.set_project_public("BLUEPRINT Epigenome", True)
-        epidb.add_project("Mouse ENCODE",
-                          "The ENCODE Project: ENCyclopedia Of DNA Elements - Mouse")
-        epidb.server.set_project_public("Mouse ENCODE", True)
         epidb.add_project("epigenomic landscape - hematopoiesis - mouse - pilot", "")
         epidb.add_project("DEEP", "DEEP - Deutsches Epigenom Programm")
         epidb.server.set_project_public("DEEP", True)
