@@ -316,18 +316,21 @@ class Dataset:
             self.save()
             log.info(msg)
 
+        print self.download_path, os.path.exists(self.download_path)
         if os.path.exists(self.download_path):
             os.remove(self.download_path)
 
+        print self.download_path[:-3],  os.path.exists(self.download_path[:-3])
         if os.path.exists(self.download_path[:-3]):
             os.remove(self.download_path[:-3])
 
+        if am.extra_metadata.has_key('__local_file__'):
+          print am.extra_metadata['__local_file__'], os.path.exists(am.extra_metadata['__local_file__'])
         if am.extra_metadata.has_key('__local_file__') and os.path.exists(am.extra_metadata['__local_file__']):
             os.remove(am.extra_metadata['__local_file__'])
 
-        print am.extra_metadata.get('__local_file__', "")
-
         if frmt == "wig" or frmt == "bedgraph":
+            print converted_file_name, os.path.exists(converted_file_name)
             if os.path.exists(converted_file_name):
                 os.remove(converted_file_name)
 
