@@ -105,6 +105,9 @@ class EncodeExperimentFile:
     if self.__biosample_term_id__ == "NTR:0001510": # (ES-E14 - error)
       self.__biosample_term_id__ = "EFO:0003074"
 
+    if self.__biosample_term_id__ == "NTR:0001521": # "ZHBTc4-mESC",
+      self.__biosample_term_id__ = "EFO:0005914"
+
   def name(self):
     return self.__data__["@id"]
 
@@ -463,8 +466,8 @@ class EncodeRepository(Repository):
         (status, (biosource,)) = biosurce_info
         biosource = biosource[1]
 
-      import pprint
       if not file.biosample():
+        import pprint
         print file.name(), experiment_id, file.format()
         pprint.pprint(file.biosample())
 
