@@ -277,7 +277,10 @@ class EncodeExperimentFile:
 
   def extra_metadata(self):
     emd = {}
-    emd["encode_accession"] = self.__experiment__["accession"]
+    emd["file_encode_accession"] = self.__data__["accession"]
+    emd["experiment_encode_accession"] = self.__experiment__["@id"]
+    emd["experiment_url"] = "https://www.encodeproject.org" + self.__experiment__["@id"]
+
     emd["status"] = self.__experiment__["status"]
     emd["original_file_size"] = self.size()
     emd["original_file_url"] = self.url()
@@ -285,12 +288,13 @@ class EncodeExperimentFile:
     emd["output_category"] = self.__data__["output_category"]
 
     emd["file_url"] = "https://www.encodeproject.org" + self.__data__["@id"]
-    emd["experiment_url"] = "https://www.encodeproject.org" + self.__experiment__["@id"]
 
     emd["file_type"] = self.file_type()
     if self.__data__.has_key("submitted_file_name"):
       emd["submitted_file_name"] = self.__data__["submitted_file_name"]
 
+    if self.__data__.has_key("output_type"):
+      emd["output_type"] = self.__data__["output_type"]
 
     assembly = self.__data__.get("assembly", None)
     if not assembly:
@@ -414,9 +418,6 @@ class EncodeRepository(Repository):
 
     for k in shared_data.keys():
       file = shared_data[k]
-
-      if file.format() not in self.data_types:
-        continue
 
       if file.technique() == "Repli-chip": # This track shows genome-wide assessment of DNA replication timing in cell lines using NimbleGen tiling CGH microarrays.
         continue
