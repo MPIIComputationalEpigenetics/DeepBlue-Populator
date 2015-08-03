@@ -285,6 +285,8 @@ class EncodeExperimentFile:
     emd["original_file_size"] = self.size()
     emd["original_file_url"] = self.url()
 
+    emd["file_status"] = self.__data__["status"]
+
     emd["output_category"] = self.__data__["output_category"]
 
     emd["file_url"] = "https://www.encodeproject.org" + self.__data__["@id"]
