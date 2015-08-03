@@ -256,7 +256,7 @@ class Dataset:
             file_content = ""
             frmt = "bedgraph"
 
-        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigbed") or self.type.lower() == "bigbed":
+        elif (self.meta.has_key("type") and self.meta["type"].lower() == "bigbed") or self.type.lower() == "bigbed":
             print "../third_party/bigBedToBed." + OS + " " + self.download_path + " " + self.download_path + ".bed"
             call(["../third_party/bigBedToBed." + OS, self.download_path, self.download_path + ".bed"])
 
