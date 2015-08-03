@@ -303,34 +303,30 @@ class Dataset:
         am.extra_metadata["__ignore_unknow_chromosomes__"] = True
         print am.extra_metadata
 
-        res = epidb.add_experiment(*args)
-        if res[0] == "okay" or res[1].startswith("102001"):
-            self.inserted = True
-            self.insert_error = ""
-            self.save()
-            log.info("dataset %s inserted ", exp_name)
-        else:
-            msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s\ntype:%s" % (
-            res, am.name, frmt, file_content[0:500], self.download_path, self.type)
-            self.insert_error = msg
-            self.save()
-            log.info(msg)
+        try:
+            res = epidb.add_experiment(*args)
+            if res[0] == "okay" or res[1].startswith("102001"):
+                self.inserted = True
+                self.insert_error = ""
+                self.save()
+                log.info("dataset %s inserted ", exp_name)
+            else:
+                msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s\ntype:%s" % (
+                res, am.name, frmt, file_content[0:500], self.download_path, self.type)
+                self.insert_error = msg
+                self.save()
+                log.info(msg)
 
-        print self.download_path, os.path.exists(self.download_path)
-        if os.path.exists(self.download_path):
-            os.remove(self.download_path)
+        finally:
+            if os.path.exists(self.download_path):
+                os.remove(self.download_path)
 
-        print self.download_path[:-3],  os.path.exists(self.download_path[:-3])
-        if os.path.exists(self.download_path[:-3]):
-            os.remove(self.download_path[:-3])
+            if os.path.exists(self.download_path[:-3]):
+                os.remove(self.download_path[:-3])
 
-        if am.extra_metadata.has_key('__local_file__'):
-          print am.extra_metadata['__local_file__'], os.path.exists(am.extra_metadata['__local_file__'])
-        if am.extra_metadata.has_key('__local_file__') and os.path.exists(am.extra_metadata['__local_file__']):
-            os.remove(am.extra_metadata['__local_file__'])
+            if am.extra_metadata.has_key('__local_file__') and os.path.exists(am.extra_metadata['__local_file__']):
+                os.remove(am.extra_metadata['__local_file__'])
 
-        if frmt == "wig" or frmt == "bedgraph":
-            print converted_file_name, os.path.exists(converted_file_name)
-            if os.path.exists(converted_file_name):
-                os.remove(converted_file_name)
-
+            if frmt == "wig" or frmt == "bedgraph":
+                if os.path.exists(converted_file_name):
+                    os.remove(converted_file_name)
