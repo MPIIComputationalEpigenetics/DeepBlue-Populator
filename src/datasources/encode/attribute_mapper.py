@@ -48,7 +48,7 @@ class EncodeMapper(AttributeMapper):
     def format(self):
         file_type = self.dataset.meta["extra_metadata"]["file_type"]
 
-        if file_type[:3] == "bed":
+        if file_type[:3] == "bed" or file_type[:6] == "bigBed":
             _, bed_format = file_type.split()
             if bed_format == "narrowPeak":
                 return "narrowPeak"

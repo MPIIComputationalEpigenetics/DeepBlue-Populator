@@ -256,6 +256,24 @@ class Dataset:
             file_content = ""
             frmt = "bedgraph"
 
+        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigbed") or self.type.lower() == "bigbed":
+            print "../third_party/bigBedToBed." + OS + " " + self.download_path + " " + self.download_path + ".bed"
+            call(["../third_party/bigBedToBed." + OS, self.download_path, self.download_path + ".bed"])
+
+            converted_file_name = self.download_path + ".bed"
+            am.extra_metadata['__local_file__'] = converted_file_name
+            file_content = ""
+
+            f = open(am.extra_metadata['__local_file__'])
+            first_line = f.readline()
+
+            while (first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser"):
+                first_line = f.readline()
+                log.debug(first_line)
+
+            extra_info_size = len(first_line.split())
+            frmt = format_builder(am.format, extra_info_size)
+
         else:
             file_type = self.download_path.split(".")[-1]
             file_content = ""
@@ -301,7 +319,6 @@ class Dataset:
                 am.project, am.description, file_content, frmt, am.extra_metadata)
 
         am.extra_metadata["__ignore_unknow_chromosomes__"] = True
-        print am.extra_metadata
 
         try:
             res = epidb.add_experiment(*args)
