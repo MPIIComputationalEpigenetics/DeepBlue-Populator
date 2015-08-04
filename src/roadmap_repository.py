@@ -130,6 +130,10 @@ class RoadmapRepository(Repository):
       #original_name = biosource_name = s["Epigenome name (from EDACC Release 9 directory)"]
       biosource_name = s["ANATOMY"]
 
+      if biosource_name == "ESC":
+        biosource_name = "embryonic stem cell"
+      if biosource_name == "FAT":
+        biosource_name = "fat cell"
       if biosource_name == "IPSC":
         biosource_name = "induced pluripotent stem cell"
       elif biosource_name == "ESC_DERIVED":
