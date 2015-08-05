@@ -101,7 +101,7 @@ class DeepRepository(Repository):
         experiment_emd_path = os.path.join(EXPERIMENT_METADATA_DIRECTORY, experiment_sample_id, experiment_metadata_info["filename"])
         experiment_emd_key = experiment_metadata_info["filename"][:-8] # remove _emd.csv
         if not os.path.exists(experiment_emd_path):
-          print "Path: " + experiment_file_name + " does not exists."
+          print "Path: " + experiment_emd_path + " does not exists."
           continue
         experiment = Experiment(process_metadata(experiment_emd_path))
         experiment_metadata_collection[experiment_emd_key] = experiment
