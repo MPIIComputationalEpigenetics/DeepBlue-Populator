@@ -473,7 +473,9 @@ class EncodeRepository(Repository):
         print file.name(), experiment_id, file.format()
         pprint.pprint(file.biosample())
 
-      (s, sid) = epidb.add_sample(biosource, file.biosample() )
+      _biosample = file.biosample()
+      _biosample["source"] = "ENCODE"
+      (s, sid) = epidb.add_sample(biosource, _biosample )
 
       self.check_target(file.epigenetic_mark())
 
