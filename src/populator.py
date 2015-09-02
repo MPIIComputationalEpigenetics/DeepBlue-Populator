@@ -167,6 +167,8 @@ class Populator:
         epidb.add_technique("RNA profiling by array assay", "", {})
         epidb.add_technique("shRNA knockdown followed by RNA-seq", "", {})
         epidb.add_technique("CAGE", "Cap Analysis of Gene Expression. http://www.osc.riken.jp/english/activity/cage/basic/", {})
+        epidb.add_technique("transcription profiling by array assay", "", {})
+        epidb.add_technique("single cell isolation followed by RNA-seq", "", {})
 
     def insert_projects(self):
         # TODO: Load these information from the source file.

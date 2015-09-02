@@ -171,6 +171,12 @@ class EncodeExperimentFile:
     if self.technique() == "RNA profiling by array assay":
       return "Gene Expression"
 
+    if self.technique() == "transcription profiling by array assay":
+      return "Gene Expression"
+
+    if self.technique() == "single cell isolation followed by RNA-seq":
+      return "RNA"
+
     return None
 
   def library(self, searched = None):
