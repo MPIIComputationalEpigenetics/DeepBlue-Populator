@@ -4,6 +4,7 @@ import requests
 import json
 import collections
 
+from threading import Lock
 from threading import Thread
 from Queue import Queue
 
@@ -61,13 +62,13 @@ class EncodeExperimentFile:
 
     self.__biosample_term_id__ = None
 
-    self.__replicate__ = data.get("replicate", None)
-
     if self.__experiment__:
         self.__target__ = self.__experiment__.get("target", None)
 
     if self.__target__:
       self.__epigenetic_mark__ = self.__target__.get("label", None)
+
+    self.__replicate__ = data.get("replicate", None)
 
     if self.__replicate__ and self.__replicate__.has_key("library"):
       self.__library__ = self.__replicate__["library"]
@@ -107,6 +108,9 @@ class EncodeExperimentFile:
 
     if self.__biosample_term_id__ == "NTR:0001521": # "ZHBTc4-mESC",
       self.__biosample_term_id__ = "EFO:0005914"
+
+    if self.__biosample_term_id__ == "NTR:0000554":  # Oci-Ly-7
+      self.__biosample_term_id__ = "EFO:0005905"
 
   def name(self):
     return self.__data__["@id"]
@@ -158,6 +162,28 @@ class EncodeExperimentFile:
       return "Gene Expression"
 
     return None
+
+  def library(self, searched = None):
+    if searched is None:
+      searched = []
+
+    if self.name() in searched:
+      return None
+    searched.append(self.name())
+
+    if self.__library__:
+      return self.__library__
+
+    if self.__is_derived__:
+      for d in self.__derived_from_id__:
+        ti = None
+        if self.__shared_data__.has_key(d):
+          ti = self.__shared_data__[d].library(searched)
+        if ti:
+          return ti
+
+    return None
+
 
   def biosample_term_id(self, searched = None):
     if searched is None:
@@ -291,6 +317,38 @@ class EncodeExperimentFile:
 
     emd["file_url"] = "https://www.encodeproject.org" + self.__data__["@id"]
 
+
+    f_library = self.library()
+    if not f_library:
+      #import pprint
+      #pprint.pprint(self.__experiment__)
+      f_library = self.__experiment__["replicates"][0]["library"]
+
+    if not f_library: print "**********************", self.__data__["@id"]
+
+    if f_library.has_key("nucleic_acid_term_name"):
+      emd["nucleic_acid_term_name"] = f_library["nucleic_acid_term_name"]
+    else:
+      print "nucleic_acid_term_name not found"
+
+
+    if f_library.has_key("depleted_in_term_name"):
+      emd["depleted_in_term_name"] = f_library["depleted_in_term_name"]
+    else:
+      print "depleted_in_term_name not found"
+
+    if f_library.has_key("depleted_in_term_id"):
+      emd["depleted_in_term_id"] = f_library["depleted_in_term_id"]
+    else:
+      print "depleted_in_term_id not found"
+
+    if f_library.has_key("depleted_in_term_id"):
+      emd["depleted_in_term_id"] = f_library["depleted_in_term_id"]
+    else:
+      print "depleted_in_term_id not found"
+
+    emd["status"] = self.__experiment__["status"]
+
     emd["file_type"] = self.file_type()
     if self.__data__.has_key("submitted_file_name"):
       emd["submitted_file_name"] = self.__data__["submitted_file_name"]
@@ -329,12 +387,14 @@ class EncodeRepository(Repository):
     super(EncodeRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigBed", "bigWig"], path)
     self.epigenetic_marks = None
     self.q = None
+    self.lock = Lock()
     self.encode_tfs = EncodeTFs(genome)
 
   def __str__(self):
     return "<ENCODE Repository: [%s, %s]>" % (self.path, self.data_types)
 
   def worker(self):
+
     while True:
         item = self.q.get()
         self.process_encode_experiment(item)
@@ -456,7 +516,7 @@ class EncodeRepository(Repository):
         (s, biosource_similar) = epidb.is_biosource(biosample_term_name)
 
         if s == "okay":
-          biosource = biosource_similar[0]
+          biosource = biosource_similar
         else:
           if not biosample_term_name:
             log.error("ontology term ID not found: %s (no biosample name was define)", file.biosample_term_id())
@@ -466,6 +526,7 @@ class EncodeRepository(Repository):
 
       if len(biosurce_info[1]) == 1:
         (status, (biosource,)) = biosurce_info
+        if status == "error": print biosource
         biosource = biosource[1]
 
       if not file.biosample():
@@ -474,8 +535,26 @@ class EncodeRepository(Repository):
         pprint.pprint(file.biosample())
 
       _biosample = file.biosample()
-      _biosample["source"] = "ENCODE"
-      (s, sid) = epidb.add_sample(biosource, _biosample )
+      accession = _biosample["accession"]
+
+      self.lock.acquire()
+      s, samples = epidb.list_samples(biosource, {"accession":accession})
+      if s == "error": print samples
+      if len(samples) == 0:
+        _biosample["source"] = "ENCODE"
+        (s, sid) = epidb.add_sample(biosource, _biosample )
+      elif len(samples) == 1:
+        sid = samples[0][0]
+      elif len(samples) > 1:
+        print "ERROR: multiple samples wit the same ENCODE accession: ",  samples
+      else:
+        print "samples: ", samples
+        print "biosource: ", biosource
+        print "biosource_info: ",biosurce_info
+        print "file.biosample_term_id ",file.biosample_term_id()
+        print "file.biosample_term_name ",biosample_term_name
+        print "ERROR: more than one sample with the same accession"
+      self.lock.release()
 
       self.check_target(file.epigenetic_mark())
 
