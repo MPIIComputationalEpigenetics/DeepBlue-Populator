@@ -564,9 +564,9 @@ class EncodeRepository(Repository):
         print "file.biosample_term_id ",file.biosample_term_id()
         print "file.biosample_term_name ",biosample_term_name
         print "ERROR: more than one sample with the same accession"
-      self.lock.release()
 
       self.check_target(file.epigenetic_mark())
+      self.lock.release()
 
       if not file.extra_metadata():
         continue
