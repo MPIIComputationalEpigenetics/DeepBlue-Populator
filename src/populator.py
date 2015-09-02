@@ -173,16 +173,15 @@ class Populator:
         # TODO: put in the source
         epidb = PopulatorEpidbClient()
 
-        epidb.add_project("ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements")
-        epidb.server.set_project_public("ENCODE", True)
-        epidb.add_project("BLUEPRINT Epigenome",
+        print epidb.add_project("ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements")
+        print epidb.set_project_public("ENCODE", True)
+        print epidb.add_project("BLUEPRINT Epigenome",
                           "BLUEPRINT - A BLUEPRINT of Haematopoietic Epigenomes")
-        epidb.server.set_project_public("BLUEPRINT Epigenome", True)
-        epidb.add_project("epigenomic landscape - hematopoiesis - mouse - pilot", "")
-        epidb.add_project("DEEP", "DEEP - Deutsches Epigenom Programm")
-        epidb.server.set_project_public("DEEP", True)
-        epidb.add_project("Roadmap Epigenomics", "NIH Roadmap Epigenomics Mapping Consortium")
-        epidb.server.set_project_public("Roadmap Epigenomics", True)
+        print epidb.set_project_public("BLUEPRINT Epigenome", True)
+        print epidb.add_project("DEEP", "DEEP - Deutsches Epigenom Programm")
+        print epidb.set_project_public("DEEP", True)
+        print epidb.add_project("Roadmap Epigenomics", "NIH Roadmap Epigenomics Mapping Consortium")
+        print epidb.set_project_public("Roadmap Epigenomics", True)
 
     def create_columns(self):
         epidb = PopulatorEpidbClient()
