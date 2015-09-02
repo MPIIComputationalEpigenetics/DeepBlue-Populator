@@ -112,6 +112,16 @@ class EncodeExperimentFile:
     if self.__biosample_term_id__ == "NTR:0000554":  # Oci-Ly-7
       self.__biosample_term_id__ = "EFO:0005905"
 
+    if self.__biosample_term_id__ == "NTR:0000711": # neural progenitor cell to embryonic stem cell derived neuronal stem cell
+      self.__biosample_term_id__ = "EFO:0002968"
+
+    if self.__biosample_term_id__ == "NTR:0000560": # bipolar neuron
+      self.__biosample_term_id__ = "CL:0000103"
+
+    if self.__biosample_term_id__ == "NTR:0001484": # progenitor cell of endocrine pancreas"
+      self.__biosample_term_id__ = "CL:0002351"
+
+
   def name(self):
     return self.__data__["@id"]
 
