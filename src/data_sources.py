@@ -1,8 +1,8 @@
 from password_manager import PROJECT_USER, PROJECT_PASSWORD
 
 encode = [
-    ('ENCODE', "Mus musculus", "https://www.encodeproject.org/"),
-    #('ENCODE', "Homo sapiens", "https://www.encodeproject.org/"),
+    #('ENCODE', "Mus musculus", "https://www.encodeproject.org/"),
+    ('ENCODE', "Homo sapiens", "https://www.encodeproject.org/"),
 ]
 
 blueprint_source = [

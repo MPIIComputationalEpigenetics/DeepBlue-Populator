@@ -1,5 +1,6 @@
 import os
 import os.path
+import gzip
 
 import settings
 import column_definitions
@@ -98,6 +99,7 @@ class Populator:
         self.insert_epigenetic_marks()
         self.insert_technologies()
         self.insert_projects()
+        self.insert_gene_sets()
 
     def insert_genomes(self):
         epidb = PopulatorEpidbClient()
@@ -114,7 +116,6 @@ class Populator:
 
 
     def insert_epigenetic_marks(self):
-        # TODO: enforce in the datasource the epigenetic mark
         epidb = PopulatorEpidbClient()
 
         epidb.add_epigenetic_mark("DNA Methylation", "DNA Methylation")
@@ -172,8 +173,6 @@ class Populator:
         epidb.add_technique("RIP-seq", "RNA Immunoprecipitation followed by sequencing", {})
 
     def insert_projects(self):
-        # TODO: Load these information from the source file.
-        # TODO: put in the source
         epidb = PopulatorEpidbClient()
 
         print epidb.add_project("ENCODE", "The ENCODE Project: ENCyclopedia Of DNA Elements")
@@ -185,6 +184,14 @@ class Populator:
         print epidb.set_project_public("DEEP", True)
         print epidb.add_project("Roadmap Epigenomics", "NIH Roadmap Epigenomics Mapping Consortium")
         print epidb.set_project_public("Roadmap Epigenomics", True)
+
+    def insert_gene_sets(self):
+        epidb = PopulatorEpidbClient()
+
+        genes = gzip.open("../data/gene_sets/gencode.v23.basic.annotation.ONLY_GENES.gtf.gz").read()
+        print epidb.add_gene_set("gencode.v23.basic.annotation", "gencode.v23.basic.annotation - only genes",
+                                  genes, "GTF",
+                                  {"name":"gencode", "release":"23", "content":"Basic gene annotation", "genome":"GRCh38.p3"})
 
     def create_columns(self):
         epidb = PopulatorEpidbClient()
