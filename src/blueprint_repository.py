@@ -28,7 +28,7 @@ class BlueprintRepository(Repository):
 
     @property
     def index_path(self):
-        return self.path + "blueprint/releases/20150128/homo_sapiens/20150128.data.index"
+        return self.path + "blueprint/releases/20150820/homo_sapiens/20150820.data.index"
         #return self.path + "releases/20150128/data_files.index"
 
 
