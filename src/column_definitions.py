@@ -71,10 +71,6 @@ SIMPLE = [
     ("DNA_METH_T", "Number of total reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER),
     ("GENE_ID_ENTREZ", "Gene ID in Entrez", Type.STRING),
     ("EXPRESSION_NORM", "", Type.DOUBLE),
-    ("SOURCE", "name of the program that generated this feature, or the data source (database or project name)", Type.STRING),
-    ("FEATURE", "feature type name, e.g. Gene, Variation, Similarity", Type.STRING),
-    ("FRAME", "One of '0', '1' or '2'. '0' indicates that the first base of the feature is the first base of a codon, '1' that the second base is the first base of a codon, and so on.. The type is a string because the value '.' is also acceptable.", Type.STRING),
-    ("ATTRIBUTE", "A semicolon-separated list of tag-value pairs, providing additional information about each feature.", Type.STRING),
     ("GFF_SCORE", "A floating point value. The type is a string because the value '.' is also acceptable.", Type.STRING)
 ]
 

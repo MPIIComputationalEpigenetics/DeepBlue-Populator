@@ -169,7 +169,7 @@ gff = [
     "GFF_SCORE",
     "STRAND",
     "FRAME",
-    "ATTRIBUTE"
+    "ATTRIBUTES"
 ]
 
 formats = {
