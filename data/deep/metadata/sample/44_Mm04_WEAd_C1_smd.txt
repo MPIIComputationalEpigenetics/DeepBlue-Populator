@@ -1,0 +1,17 @@
+DEEP_SAMPLE_ID	44_Mm04_WEAd_C1
+ORGANISM	Mus musculus
+STRAIN	C57BL/6J
+POOL	yes
+STATUS	Scotophase (Fed)
+DISEASE	none
+BIOMATERIAL_PROVIDER	MPI Freiburg in-house colony
+BIOMATERIAL_TYPE	primary tissue
+TISSUE_TYPE	white adipose
+TISSUE_DEPOT	epididymal
+COLLECTION_METHOD	collagenase digestion & adipocyte purification
+DONOR_ID	44_Mm04
+DONOR_AGE	10 weeks
+DONOR_HEALTH_STATUS	NA
+DONOR_SEX	male
+DONOR_ETHNICITY	NA
+COMMENT	Pool of 10 mice.
