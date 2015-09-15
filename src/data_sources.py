@@ -58,16 +58,16 @@ epigenomic_landscape = [
 ]
 
 deep = [
-    ('DEEP', 'hs37d5', ''),
-    ('DEEP', 'GRCm38', '')
+    ('DEEP', 'hs37d5', '')
+   # ('DEEP', 'GRCm38', '')
 ]
 
 project_sources = [
      # roadmap
      # blueprint_source,
-     encode
+     # encode
      # encode_mm9,
      # epigenomic_landscape
-     # deep
+     deep
      # geo_source
 ]

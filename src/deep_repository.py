@@ -105,6 +105,7 @@ class DeepRepository(Repository):
           continue
         experiment = Experiment(process_metadata(experiment_emd_path))
         experiment_metadata_collection[experiment_emd_key] = experiment
+        print "Including: ", experiment_emd_key, " - ", experiment
 
       for type in file_types:
         files = srv.get_files_by_type(type, sample.id())
@@ -115,12 +116,11 @@ class DeepRepository(Repository):
 
           experiment_genome = None
           if "GRCh37" in experiment_data_file_path:
-            experiment_genome = "GRCh37"
+            experiment_genome = "hs37d5"
           elif "GRCh38" in experiment_data_file_path:
             experiment_genome = "GRCh38"
           elif "GRCm38" in experiment_data_file_path:
             experiment_genome = "GRCm38"
-
 
           _sub, file_extension = os.path.splitext(file_name)
           if file_extension == ".gz":
