@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 from attribute_mapper import AttributeMapper
 
+from log import log
+
 class BlueprintMapper(AttributeMapper):
     """
     BlueprintMapper is the basic AttributeMapper for Blueprint repositories.
@@ -30,7 +32,7 @@ class BlueprintMapper(AttributeMapper):
         if e == "mrna-seq":
             return "mRNA"
 
-        if e == "flrnaa-seq":
+        if e == "flrna-seq":
             return "flRNA"
         return e
 
@@ -44,10 +46,6 @@ class BlueprintMapper(AttributeMapper):
 
     @property
     def format(self):
-
-        if self.name.find("bs_call") != -1:
-            return "blueprint_bs_call"
-
         if self.dataset.type == "bigwig":
             return "wig"
 
@@ -57,19 +55,20 @@ class BlueprintMapper(AttributeMapper):
         if self.dataset.type == "gff":
             return "gff"
 
-        if self.epigenetic_mark == "mRNA":
+        if self.epigenetic_mark == "mrna":
             return "encode_rna"
 
-        if self.epigenetic_mark in ["H3K27me3", "H3K36me3", "H3K9me3", "H3K4me1"]:
+        if self.epigenetic_mark in ["h3k27me3", "h3k36me3", "h3k9me3", "h3k4me1"]:
             return "broadPeak"
 
-        if self.epigenetic_mark in ["H3K27ac", "H3K4me3", "H3K9/14ac", "H2A.Zac"]:
+        if self.epigenetic_mark in ["h3k27ac", "h3k4me3", "h3k9/14ac", "h2a.zac"]:
             return "narrowPeak"
 
-        if self.epigenetic_mark == "DNaseI":
+        if self.epigenetic_mark == "dnaseI":
             return "bed"
 
-        print "Unknown format for %s epigenetic mark %s and meta %s" % (
+        msg = "Unknown format for %s epigenetic mark %s and meta %s" % ( 
             self.name, self.epigenetic_mark, str(self.dataset.meta))
+        log.critical(msg)
 
         return None

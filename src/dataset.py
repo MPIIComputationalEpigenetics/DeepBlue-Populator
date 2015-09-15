@@ -328,11 +328,11 @@ class Dataset:
                 self.save()
                 log.info("dataset %s inserted ", exp_name)
             else:
-                msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nfile_content: %s\ndownload_path: %s\ntype:%s" % (
-                res, am.name, frmt, file_content[0:500], self.download_path, self.type)
+                msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s(%s)\nfile_content: %s\ndownload_path: %s\ntype:%s\nepigenetic_mark:%s\ntechnique:%s\ndescription:%s" % (
+                res, am.name, frmt, am.format, file_content[0:500], self.download_path, self.type, am.epigenetic_mark, am.technique, am.description)
+                log.info(msg)
                 self.insert_error = msg
                 self.save()
-                log.info(msg)
 
         finally:
             if os.path.exists(self.download_path):
