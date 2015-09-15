@@ -91,7 +91,13 @@ class DeepRepository(Repository):
     srv = xmlrpclib.Server(DEEP_XMLRPC_SERVER)
 
     for sample in [s for s in samples if s.is_organism(self.organism)] :
-      (s, s_id) = epidb.add_sample(sample.biosource(), sample.data())
+      biosource = sample.biosource()
+      if biosource == "Naive CD4-positive T cell":
+        biosource = "CD4-positive, alpha-beta T cell"
+      elif biosource == "white adipose":
+        biosource = "white adipose tissue"
+
+      (s, s_id) = epidb.add_sample(biosurce, sample.data())
       deepblue_sample[sample.id()] = s_id
 
       sample_experiments_metadata = srv.get_files_by_type("Experiment", sample.id())
