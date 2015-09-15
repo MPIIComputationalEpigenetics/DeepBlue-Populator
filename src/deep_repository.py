@@ -113,6 +113,15 @@ class DeepRepository(Repository):
           file_name = file_info["filename"]
           experiment_data_file_path = os.path.join(file_info["filepath"], file_info["filename"])
 
+          experiment_genome = None
+          if "GRCh37" in experiment_data_file_path:
+            experiment_genome = "GRCh37"
+          elif "GRCh38" in experiment_data_file_path:
+            experiment_genome = "GRCh38"
+          elif "GRCm38" in experiment_data_file_path:
+            experiment_genome = "GRCm38"
+
+
           _sub, file_extension = os.path.splitext(file_name)
           if file_extension == ".gz":
             _sub, file_extension = os.path.splitext(_sub)
@@ -152,6 +161,7 @@ class DeepRepository(Repository):
           REPNUM = res.group('REPNUM')
 
           experiment_metadata = {}
+          experiment_metadata["GENOME"] = experiment_genome
           experiment_metadata["DEEPID"] = DEEPID
           experiment_metadata["SAMPLEID"] = SAMPLEID
           experiment_metadata["SUBPROJECT"] = get_subproject(SUBPROJECT)

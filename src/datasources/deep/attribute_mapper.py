@@ -35,3 +35,7 @@ class DEEPMapper(AttributeMapper):
     @property
     def extra_metadata(self):
         return self.dataset.meta["extra"]
+
+    @property
+    def genome(self):
+        return self.dataset.meta["GENOME"]
