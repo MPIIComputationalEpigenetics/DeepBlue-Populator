@@ -319,8 +319,6 @@ class Dataset:
                 am.project, am.description, file_content, frmt, am.extra_metadata)
 
         am.extra_metadata["__ignore_unknow_chromosomes__"] = True
-        msg = "inserting dataset: experiment_name: %s\nformat:%s(%s)\nfile_content: %s\ndownload_path: %s\ntype:%s\nepigenetic_mark:%s\ntechnique:%s\ndescription:%s" % (am.name, frmt, am.format, file_content[0:500], self.download_path, self.type, am.epigenetic_mark, am.technique, am.description)
-        print msg
 
         try:
             res = epidb.add_experiment(*args)
