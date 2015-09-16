@@ -19,13 +19,32 @@ retrival and processing.
 """
 
 def parse_file_name(file_name, mark):
-  if not file_name.endswith("gz") and not file_name.endswith('bigwig'): return None
+  print file_name
+  if not file_name.endswith("gz") and \
+     not file_name.endswith('bigwig') and \
+     not file_name.endswith("bw"):
+      return None
 
   name, extension = file_name.split(".", 1)
 
-  if (mark == "methylation"):
+  if mark == "methylation":
     eid, emark, ext = name.split("_", 2)
     return eid, emark, ext, file_name
+
+  elif mark == "rna":
+    s = file_name.split(".")
+    if len(s) == 5:
+      #E004.H1_BMP4_Derived_Mesendoderm_Cultured_Cells.norm.neg.bw
+      eid, biosource, norm, direction, ext = s
+      return eid, "rna", ext, file_name
+    elif len(s) == 4:
+      #E028.Breast_vHMEC.norm.bw
+      eid, biosource, norm, ext = s
+      return eid, "rna", ext, file_name
+    else:
+      print "Unknown file_name format: ", s, len(s)
+      return None
+
   else:
     eid, emark, = name.split("-", 1)
 
@@ -51,9 +70,10 @@ class MyHTMLParser(HTMLParser):
       file = parse_file_name(attrs[0][1], self.__mark__)
       if file:
         (eid, emark, ext, file_name) = file
-        self.__experiments__[eid][emark][ext] = self.__root__ + file_name
+        self.__experiments__[eid][emark][ext].append(self.__root__ + file_name)
 
 def parse_data(link, experiments):
+    print link
     (root_address, mark) = link
     parser = MyHTMLParser(root_address, mark, experiments)
     f = urllib2.urlopen(root_address)
@@ -63,8 +83,7 @@ def parse_data(link, experiments):
 
 class RoadmapRepository(Repository):
   def __init__(self, proj, genome, path):
-    #super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig"], path)
-    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak"], path)
+    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig"], path)
 
   def __str__(self):
     return "<Roadmap Epigenomics Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -85,7 +104,13 @@ class RoadmapRepository(Repository):
     read_coverage_bigwig_rrbs = ("http://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/RRBS/ReadCoverage_bigwig/", "methylation")
     fractional_methylation_mcrf = ("http://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/mCRF/FractionalMethylation_bigwig/", "methylation")
 
+
+    rna = ("http://egg2.wustl.edu/roadmap/data/byDataType/rna/signal/normalized_bigwig/stranded/", "rna")
+
     sources = (consolidated_narrow_peaks, consolidated_broad_peaks, consolidated_gapped_peaks, consolidated_signal, consolidated_signal_fold_change, fractional_methylation_wgbs, read_coverage_wgbs, fractional_methylation_rrbs, read_coverage_bigwig_rrbs, fractional_methylation_mcrf )
+
+    sources = (rna,)
+
 
     return sources
 
@@ -197,6 +222,8 @@ class RoadmapRepository(Repository):
       if "signal" in file:
         return "H2A.Z", "ChIP-seq", "bigWig"
 
+    if v1 == "rna" and v2 == "bw":
+      return "rna", "rna-seq", "bigWig"
 
     print "Not found:", v1, v2
     return None, None, None
@@ -233,26 +260,28 @@ class RoadmapRepository(Repository):
     new = 0
     samples = self.samples()
 
-    experiments = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
+    experiments = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     for s in self.sources:
       parse_data(s, experiments)
 
     #pprint.pprint(dict(experiments))
 
     for epigenome in experiments:
+      if epigenome == "E000": continue
       #print epigenome
       for epigenetic_mark in experiments[epigenome]:
         #print " ", epigenetic_mark
         for technique in experiments[epigenome][epigenetic_mark]:
           #print "   ", technique
           #print experiments[epigenome][epigenetic_mark][technique],
-          meta = self.build_metadata(epigenome, samples[epigenome], epigenetic_mark, technique, experiments[epigenome][epigenetic_mark][technique])
-          #print "      ", str(meta)
-          ds = Dataset(meta["file"], meta["type"], meta, sample_id=meta["sample"])
-          #print ds
+          for file_info in experiments[epigenome][epigenetic_mark][technique]:
+            meta = self.build_metadata(epigenome, samples[epigenome], epigenetic_mark, technique, file_info)
+            #print "      ", str(meta)
+            ds = Dataset(meta["file"], meta["type"], meta, sample_id=meta["sample"])
+            #print ds
 
-          if self.add_dataset(ds):
-            new += 1
-            self.has_updates = True
+            if self.add_dataset(ds):
+              new += 1
+              self.has_updates = True
 
 
