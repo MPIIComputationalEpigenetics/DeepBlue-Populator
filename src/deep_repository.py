@@ -61,7 +61,7 @@ class DeepRepository(Repository):
     self._samples = {}
     if genome == "hs37d5":
       self.organism = "homo sapiens"
-    elif genome == "GRCm38mm10":
+    elif genome == "GRCm38":
       self.organism = "mus musculus"
     else:
       print "Unknow genome", genome
