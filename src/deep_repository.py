@@ -97,7 +97,7 @@ class DeepRepository(Repository):
       elif biosource == "white adipose":
         biosource = "white adipose tissue"
 
-      (s, s_id) = epidb.add_sample(biosurce, sample.data())
+      (s, s_id) = epidb.add_sample(biosource, sample.data())
       deepblue_sample[sample.id()] = s_id
 
       sample_experiments_metadata = srv.get_files_by_type("Experiment", sample.id())
