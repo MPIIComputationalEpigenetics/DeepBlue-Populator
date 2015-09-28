@@ -27,10 +27,7 @@ class Annotation:
 
     @property
     def extra_metadata(self):
-        if self.props.has_key("extra_metadata"):
-            return self.props["extra_metadata"]
-        else:
-            return {}
+        self.props.get("extra_metadata", {}):
 
     @property
     def local(self):
