@@ -247,6 +247,7 @@ class RoadmapRepository(Repository):
     extra["type"] = v2
     extra["url"] = file
     extra["roadmap epigenome"] = eid
+    extra["__trim_to_chromosome_size__"] = True
 
     meta["extra"] = extra
 
