@@ -166,6 +166,7 @@ narrow_peaks_fdr_1perc_hotspot = [
     "CHROMOSOME",
     "START",
     "END",
+    "IGNORE",
     "PEAK_TAG_DENSITY",
     "Z_SCORE"
 ]
