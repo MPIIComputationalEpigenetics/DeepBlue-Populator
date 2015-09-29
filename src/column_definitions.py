@@ -71,7 +71,9 @@ SIMPLE = [
     ("DNA_METH_T", "Number of total reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER),
     ("GENE_ID_ENTREZ", "Gene ID in Entrez", Type.STRING),
     ("EXPRESSION_NORM", "", Type.DOUBLE),
-    ("GFF_SCORE", "A floating point value. The type is a string because the value '.' is also acceptable.", Type.STRING)
+    ("GFF_SCORE", "A floating point value. The type is a string because the value '.' is also acceptable.", Type.STRING),
+    ("PEAK_TAG_DENSITY", "Peak tag density", Type.DOUBLE),
+    ("Z_SCORE", "Z-Score", Type.DOUBLE)
 ]
 
 CATEGORY = [
