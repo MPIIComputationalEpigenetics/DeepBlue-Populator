@@ -109,9 +109,6 @@ class RoadmapRepository(Repository):
 
     sources = (consolidated_narrow_peaks, consolidated_broad_peaks, consolidated_gapped_peaks, consolidated_signal, consolidated_signal_fold_change, fractional_methylation_wgbs, read_coverage_wgbs, fractional_methylation_rrbs, read_coverage_bigwig_rrbs, fractional_methylation_mcrf )
 
-    sources = (rna,)
-
-
     return sources
 
   def samples(self):
