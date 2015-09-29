@@ -83,7 +83,7 @@ def parse_data(link, experiments):
 
 class RoadmapRepository(Repository):
   def __init__(self, proj, genome, path):
-    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig"], path)
+    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig", "narrow_peaks_fdr_1perc_hotspot"], path)
 
   def __str__(self):
     return "<Roadmap Epigenomics Repository: [%s, %s]>" % (self.path, self.data_types)
