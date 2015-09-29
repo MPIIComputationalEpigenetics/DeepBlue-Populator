@@ -160,6 +160,16 @@ blueprint_bs_call = [
     "REF_GENES"
 ]
 
+# From ROADMAP
+# DNase*hotspot.all.fdr0.01.pks.bed.gz: narrow Peaks in FDR 1% hotspots (i.e., FDR 1% peaks). 5th column score is peak tag density, 6th column score is z-score.
+narrow_peaks_fdr_1perc_hotspot = [
+    "CHROMOSOME",
+    "START",
+    "END",
+    "PEAK_TAG_DENSITY",
+    "Z_SCORE"
+]
+
 gff = [
     "CHROMOSOME",
     "SOURCE",
@@ -186,6 +196,7 @@ formats = {
     "conservation_elements": conservation_elements,
     "rmsk": rmsk,
     "blueprint_bs_call": blueprint_bs_call,
+    "narrow_peaks_fdr_1perc_hotspot": narrow_peaks_fdr_1perc_hotspot,
     "gff": gff
 }
 
