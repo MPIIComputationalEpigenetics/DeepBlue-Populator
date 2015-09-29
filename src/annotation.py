@@ -27,7 +27,7 @@ class Annotation:
 
     @property
     def extra_metadata(self):
-        self.props.get("extra_metadata", {}):
+        self.props.get("extra_metadata", {})
 
     @property
     def local(self):
