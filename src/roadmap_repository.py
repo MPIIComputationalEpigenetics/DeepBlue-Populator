@@ -215,6 +215,8 @@ class RoadmapRepository(Repository):
       return v1, "ChIP-seq", "narrowPeak"
 
     if v1 == "DNase" and v2 == "hotspot":
+      if "fdr0" in file_name and "peaks" in file_name:
+        return v1, "ChIP-seq", "narrow_peaks_fdr_1perc_hotspot"
       return v1, "ChIP-seq", "broadPeak"
 
     if v1 == "H2A" and v2 == "Z":
