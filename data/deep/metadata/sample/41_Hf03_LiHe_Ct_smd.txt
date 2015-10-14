@@ -7,7 +7,8 @@ BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
 MARKERS	none
 DONOR_ID	41_Hf03
-DONOR_AGE	70 yrs
+DONOR_AGE	70
+DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	non steatotic (metastasis sigma carcinoma)
 DONOR_SEX	female
 DONOR_ETHNICITY	NA

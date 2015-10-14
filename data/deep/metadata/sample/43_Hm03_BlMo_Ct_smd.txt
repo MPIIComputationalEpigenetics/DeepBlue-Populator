@@ -7,8 +7,9 @@ BIOMATERIAL_PROVIDER	Stefan Wallner/Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	monocyte
 MARKERS	Flow scatter analysis
-DONOR_ID	Hm03
+DONOR_ID	43_Hm03
 DONOR_AGE	31
+DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
 DONOR_SEX	male
 DONOR_ETHNICITY	caucasian

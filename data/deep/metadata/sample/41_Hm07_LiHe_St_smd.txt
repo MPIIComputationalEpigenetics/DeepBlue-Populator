@@ -7,9 +7,9 @@ BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
 MARKERS	none
 DONOR_ID	41_Hm07
-DONOR_AGE	75 yrs
+DONOR_AGE	75
+DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	kidney carcinoma with liver metastasis, liver steatosis, hypothyroidism
 DONOR_SEX	male
 DONOR_ETHNICITY	NA
 COMMENT	
-41_Hm07_LiHe_St

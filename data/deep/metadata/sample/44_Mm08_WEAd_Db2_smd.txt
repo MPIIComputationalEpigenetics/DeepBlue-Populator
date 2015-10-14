@@ -6,11 +6,13 @@ STATUS	Photophase (Fasted)
 DISEASE	obesity
 BIOMATERIAL_PROVIDER	MPI Freiburg in-house colony
 BIOMATERIAL_TYPE	primary tissue
-TISSUE_TYPE	white adipose
+CELL_TYPE	white fat cell
+TISSUE_TYPE	white adipose tissue
 TISSUE_DEPOT	epididymal
 COLLECTION_METHOD	collagenase digestion & adipocyte purification
 DONOR_ID	44_Mm08
-DONOR_AGE	10 weeks
+DONOR_AGE	10
+DONOR_AGE_UNIT	week
 DONOR_HEALTH_STATUS	NA
 DONOR_SEX	male
 DONOR_ETHNICITY	NA

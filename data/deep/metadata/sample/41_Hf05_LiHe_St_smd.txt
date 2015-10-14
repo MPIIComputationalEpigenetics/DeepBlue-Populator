@@ -7,7 +7,8 @@ BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
 MARKERS	none
 DONOR_ID	41_Hf05
-DONOR_AGE	47 yrs
+DONOR_AGE	47
+DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	steatosis, metastasis from breast cancer
 DONOR_SEX	female
 DONOR_ETHNICITY	NA

@@ -1,15 +1,16 @@
-DEEP_SAMPLE_ID	41_Hm08_LiHe_St
+DEEP_SAMPLE_ID	41_Hf14_LiHe_St
 ORGANISM	Homo sapiens
 POOL	no
+MOLECULE	genomic DNA
 DISEASE	none
 BIOMATERIAL_PROVIDER	Charité Berlin
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
 MARKERS	none
-DONOR_ID	41_Hm08
-DONOR_AGE	76
+DONOR_ID	41_Hf14
+DONOR_AGE	42
 DONOR_AGE_UNIT	year
-DONOR_HEALTH_STATUS	adipositas, Klatskin tumor
-DONOR_SEX	male
+DONOR_HEALTH_STATUS	symptomatic cavernous hemangioma of the liver, steatosis
+DONOR_SEX	female
 DONOR_ETHNICITY	NA
 COMMENT	

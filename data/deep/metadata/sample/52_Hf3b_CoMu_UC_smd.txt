@@ -1,4 +1,4 @@
-DEEP_SAMPLE_ID	52_Hm3b_CoMu_UC
+DEEP_SAMPLE_ID	52_Hf3b_CoMu_UC
 ORGANISM	Homo sapiens
 POOL	no	
 DISEASE	ulcerative colitis
@@ -9,7 +9,8 @@ TISSUE_DEPOT	sigma
 COLLECTION_METHOD	colonoscopy
 DONOR_ID	Twin07B
 DONOR_AGE	18
+DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	Mesazilin 3 g
 DONOR_SEX	female
 DONOR_ETHNICITY	caucasian
-COMMENT	discordant Twin to Twin07A(52_Hm3a_CoMu_Ct)
+COMMENT	discordant Twin to Twin07A(52_Hf3a_CoMu_Ct)

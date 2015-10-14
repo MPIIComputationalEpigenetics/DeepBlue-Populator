@@ -9,6 +9,7 @@ CELL_TYPE	monocyte
 MARKERS	Flow scatter analysis
 DONOR_ID	43_Hm01
 DONOR_AGE	28
+DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
 DONOR_SEX	male
 DONOR_ETHNICITY	caucasian

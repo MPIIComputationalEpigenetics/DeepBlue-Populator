@@ -6,7 +6,8 @@ BIOMATERIAL_PROVIDER	Klinikum München
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
 DONOR_ID	41_Hm04
-DONOR_AGE	71-80 yrs (range)
+DONOR_AGE	71-80
+DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	intrahepatic metastasis
 DONOR_SEX	male
 DONOR_ETHNICITY	NA
