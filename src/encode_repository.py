@@ -466,7 +466,7 @@ class EncodeRepository(Repository):
         log.error("Metadata for " + target_name + " not found")
         return
 
-      (s, em) = epidb.add_epigenetic_mark(target_name, str(tf_metadata))
+      (s, em) = epidb.add_epigenetic_mark(target_name, str(tf_metadata), {"category": "Transcription Factor"})
       if (s == "okay"):
         self.epigenetic_marks.append(target_name)
       else:

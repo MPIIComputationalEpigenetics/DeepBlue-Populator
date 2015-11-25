@@ -120,23 +120,29 @@ class Populator:
     def insert_epigenetic_marks(self):
         epidb = PopulatorEpidbClient()
 
-        epidb.add_epigenetic_mark("DNA Methylation", "DNA Methylation")
-        epidb.add_epigenetic_mark("DNaseI", "DNaseI hypersensitive sites")
-        epidb.add_epigenetic_mark("TFBS", "Transcription factor binding sites")
+        epidb.add_epigenetic_mark("DNA Methylation", "DNA Methylation", {"category": "DNA Methylation"})
+        epidb.add_epigenetic_mark("DNaseI", "DNaseI hypersensitive sites", {"category": "Hypersensitive sites"})
+        epidb.add_epigenetic_mark("TFBS", "Transcription factor binding sites", {"category": "Transcription Factor"})
         epidb.add_epigenetic_mark("Chromatin State Segmentation",
-                                  "A common set of states across the cell types were learned by computationally integrating ChIP-seq data for nine factors plus input using a Hidden Markov Model (HMM). In total, fifteen states were used to segment the genome.")
-        epidb.add_epigenetic_mark("RNA", "RNA data - Transcriptome")
-        epidb.add_epigenetic_mark("mRNA", "Messenger RNA")
-        epidb.add_epigenetic_mark("flRNA", "Full length RNA")
-        epidb.add_epigenetic_mark("tRNA", "Transfer ribonucleic acid")
-        epidb.add_epigenetic_mark("snRNA", "small nuclear RNA")
+                                  "A common set of states across the cell types were learned by computationally integrating ChIP-seq data for nine factors plus input using a Hidden Markov Model (HMM). In total, fifteen states were used to segment the genome.",
+                                  {"category": "State Segmentation"})
+        epidb.add_epigenetic_mark("RNA", "RNA data - Transcriptome", {"category": "RNA Expression"})
+        epidb.add_epigenetic_mark("mRNA", "Messenger RNA", {"category": "RNA Expression"})
+        epidb.add_epigenetic_mark("flRNA", "Full length RNA", {"category": "RNA Expression"})
+        epidb.add_epigenetic_mark("tRNA", "Transfer ribonucleic acid", {"category": "RNA Expression"})
+        epidb.add_epigenetic_mark("snRNA", "small nuclear RNA", {"category": "RNA Expression"})
         epidb.add_epigenetic_mark("Input",
-                                  "Experiment Input Data. It is not an epigenetic mark")
+                                  "Experiment Input Data. It is not an epigenetic mark",
+                                  {"category": "Experiment Control"})
         epidb.add_epigenetic_mark("Control",
-                                  "Experiment Control Data. It is not an epigenetic mark")
-        epidb.add_epigenetic_mark("Regulatory Elements", "General term used by FAIRE-Seq")
-        epidb.add_epigenetic_mark("Chromosome conformation capture", "Chromosome conformation capture,[1] or 3C, is a high-throughput molecular biology technique used to analyze the organization of chromosomes in a cell's natural state. (Wikipedia)")
-        epidb.add_epigenetic_mark("Gene Expression", "Gene expression is the process by which information from a gene is used in the synthesis of a functional gene product. These products are often proteins, but in non-protein coding genes such as transfer RNA (tRNA) or small nuclear RNA (snRNA) genes, the product is a functional RNA. (Wikipedia)")
+                                  "Experiment Control Data. It is not an epigenetic mark",
+                                  {"category": "Experiment Control"})
+        epidb.add_epigenetic_mark("Regulatory Elements", "General term used by FAIRE-Seq",
+                                 {"category": "Hypersensitive sites"})
+        epidb.add_epigenetic_mark("Chromosome conformation capture", "Chromosome conformation capture or 3C, is a high-throughput molecular biology technique used to analyze the organization of chromosomes in a cell's natural state. (Wikipedia)",
+            {"category": "Chromosomes Organization"})
+        epidb.add_epigenetic_mark("Gene Expression", "Gene expression is the process by which information from a gene is used in the synthesis of a functional gene product. These products are often proteins, but in non-protein coding genes such as transfer RNA (tRNA) or small nuclear RNA (snRNA) genes, the product is a functional RNA. (Wikipedia)",
+            {"category": "Gene Expression"})
 
 
         insert_histones(epidb)

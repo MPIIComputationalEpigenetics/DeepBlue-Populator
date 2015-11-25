@@ -136,9 +136,9 @@ def insert_histones(epidb):
     for line in histones_ptm.split("\n"):
         s = line.split()
         desc = d_ptm + s[1] + " " + s[2] + source
-        epidb.add_epigenetic_mark(s[0], desc)
+        epidb.add_epigenetic_mark(s[0], desc, {"category": "Histone Post-Translational Modification"})
 
     for line in histones_variants.split("\n"):
         s = line.split()
         desc = d_hav + " ".join(s[1:]) + source
-        epidb.add_epigenetic_mark(s[0], desc)
+        epidb.add_epigenetic_mark(s[0], desc, {"category": "Histone Variant"})
