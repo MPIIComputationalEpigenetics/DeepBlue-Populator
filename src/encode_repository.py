@@ -456,7 +456,7 @@ class EncodeRepository(Repository):
     epidb = PopulatorEpidbClient()
 
     if not self.epigenetic_marks:
-      (s, ems) = epidb.list_epigenetic_marks()
+      (s, ems) = epidb.list_epigenetic_marks({})
       self.epigenetic_marks = [em[1] for em in ems]
 
     if target_name not in self.epigenetic_marks:
