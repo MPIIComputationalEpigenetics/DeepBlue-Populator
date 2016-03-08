@@ -49,7 +49,7 @@ if __name__ == '__main__':
                       help="Insert DeepBlue Basic Data. Usefull when new genomes, columns, epigenetic marks, projects or samples were included into populator")
     parser.add_option("--ontology", action="store_true", dest="ontology",
                       default=False,
-                      help="Insert Ontologies and ENCODE controlled vocabulary terms inside the controlled vocabulary")
+                      help="Insert Ontologies terms into the controlled vocabulary")
     parser.add_option("--annotations", action="store_true",
                       dest="insert_annotations", default=False,
                       help="Insert annotations")
