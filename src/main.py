@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     parser.add_option("--init", action="store_true", dest="init",
                       default=False,
-                      help="Init EpiDB, creating default users")
+                      help="Initialize DeepBlue, creating default users")
     parser.add_option("--basic_data", action="store_true", dest="insert_basic_data",
                       default=False,
                       help="Insert DeepBlue Basic Data. Usefull when new genomes, columns, epigenetic marks, projects or samples were included into populator")
