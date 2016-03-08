@@ -8,7 +8,6 @@ from threading import Lock
 from threading import Thread
 from Queue import Queue
 
-from datasources.encode.vocabulary import antibodyToTarget
 from datasources.encode.transcription_factors import EncodeTFs
 from epidb_interaction import PopulatorEpidbClient
 

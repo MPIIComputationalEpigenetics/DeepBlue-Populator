@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 from attribute_mapper import AttributeMapper
-from datasources.encode.vocabulary import antibodyToTarget
 
 
 class EncodeMapper(AttributeMapper):
