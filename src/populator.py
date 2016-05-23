@@ -179,6 +179,7 @@ class Populator:
         epidb.add_technique("transcription profiling by array assay", "", {})
         epidb.add_technique("single cell isolation followed by RNA-seq", "", {})
         epidb.add_technique("RIP-seq", "RNA Immunoprecipitation followed by sequencing", {})
+        epidb.add_technique("RAMPAGE", "RAMPAGE (RNA Annotation and Mapping of Promoters for the Analysis of Gene Expression) is a very accurate sequencing approach to identify transcription start sites (TSSs) at base-pair resolution, the quantification of their expression and the characterization of their transcripts. This assay uses direct cDNA evidence to link specific genes and their regulatory TSSs.", {})
 
     def insert_projects(self):
         epidb = PopulatorEpidbClient()
