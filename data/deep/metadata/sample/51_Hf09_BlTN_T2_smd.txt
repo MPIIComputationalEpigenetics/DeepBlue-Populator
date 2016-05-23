@@ -1,0 +1,18 @@
+DEEP_SAMPLE_ID	51_Hf09_BlTN_T2
+ORGANISM	Homo sapiens
+STRAIN	
+POOL	yes
+STATUS	
+DISEASE	none
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	Naive CD4-positive T cell
+TISSUE_TYPE	Blood
+MARKERS	CD3+ CD4+ CD45RO- CD45RA+ CCR7+
+DONOR_ID	
+DONOR_AGE	34
+DONOR_HEALTH_STATUS	healthy
+DONOR_SEX	female 
+DONOR_ETHNICITY	NA
+COMMENT	cultured for 14 days, sorted for CFSE low on day 7, sorted for CFSE low on day 14, approx. 7-8 devisions
+SORTING_PARAMETERS	

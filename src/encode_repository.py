@@ -175,6 +175,15 @@ class EncodeExperimentFile:
 
     if self.technique() == "single cell isolation followed by RNA-seq":
       return "RNA"
+    
+    if self.technique() == "RAMPAGE":
+      return "RNA"
+    
+    if self.technique() == "microRNA-seq":
+      return "mRNA"
+    
+    if self.technique() == "ATAC-seq":
+      return "DNaseI"
 
     return None
 

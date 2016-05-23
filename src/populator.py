@@ -167,6 +167,7 @@ class Populator:
                             "ChIP-seq data from the Broad Histone track was used to generate this track. Data for nine factors plus input and nine cell types was binarized separately at a 200 base pair resolution based on a Poisson background model. The chromatin states were learned from this binarized data using a multivariate Hidden Markov Model (HMM) that explicitly models the combinatorial patterns of observed modifications (Ernst and Kellis, 2010). To learn a common set of states across the nine cell types, first the genomes were concatenated across the cell types. For each of the nine cell types, each 200 base pair interval was then assigned to its most likely state under the model. Detailed information about the model parameters and state enrichments can be found in (Ernst et al, accepted).",
             {})
         epidb.add_technique("RNA-seq", "RNA sequencing", {})
+        epidb.add_technique("ATAC-seq", "ATAC-seq stands for Assay for Transposase-Accessible Chromatin with high throughput sequencing. It is a technique used to study chromatin accessibility. The technique was first described as an alternative or complementary method to MNase-seq (sequencing of micrococcal nuclease sensitive sites), FAIRE-seq and DNAse-seq. It aims to identify accessible DNA regions, equivalent to DNase I hypersensitive sites.", {})
         epidb.add_technique("Microarray", "Various microarray techniques", {})
         epidb.add_technique("Affymetrix Mouse Genome 430 2.0 Array", "", {})
         epidb.add_technique("WGBS", "Whole-genome bisulfite sequencing", {})
@@ -179,6 +180,8 @@ class Populator:
         epidb.add_technique("transcription profiling by array assay", "", {})
         epidb.add_technique("single cell isolation followed by RNA-seq", "", {})
         epidb.add_technique("RIP-seq", "RNA Immunoprecipitation followed by sequencing", {})
+        epidb.add_technique("microRNA-seq", "MicroRNA sequencing (miRNA-seq), a type of RNA-Seq, is the use of next-generation sequencing or massively parallel high-throughput DNA sequencing to sequence microRNAs, also called miRNAs. miRNA-seq differs from other forms of RNA-seq in that input material is often enriched for small RNAs.", {})
+        epidb.add_technique("RAMPAGE", "RAMPAGE (RNA Annotation and Mapping of Promoters for the Analysis of Gene Expression) is a very accurate sequencing approach to identify transcription start sites (TSSs) at base-pair resolution, the quantification of their expression and the characterization of their transcripts. This assay uses direct cDNA evidence to link specific genes and their regulatory TSSs.", {})
 
     def insert_projects(self):
         epidb = PopulatorEpidbClient()

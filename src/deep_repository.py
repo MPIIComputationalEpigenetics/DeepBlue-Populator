@@ -22,7 +22,12 @@ def process_metadata(file_location):
     f.readlines()
     f = codecs.open(file_location, encoding='utf-16')
   except UnicodeError as e:
-    f = codecs.open(file_location, encoding='utf-8')
+    try:
+      f = codecs.open(file_location, encoding='utf-8')
+      f.readlines()
+      f = codecs.open(file_location, encoding='utf-8')
+    except UnicodeError as e:
+      f = codecs.open(file_location, encoding='latin-1')
 
   for l in f.readlines():
     l = l.strip()
@@ -105,6 +110,7 @@ class DeepRepository(Repository):
         file_path = experiment_metadata_info["filepath"]
         experiment_sample_id = os.path.basename(os.path.normpath(file_path))
         experiment_emd_path = os.path.join(EXPERIMENT_METADATA_DIRECTORY, experiment_sample_id, experiment_metadata_info["filename"])
+        print experiment_metadata_info["filename"]
         experiment_emd_key = experiment_metadata_info["filename"][:-8] # remove _emd.csv
         if not os.path.exists(experiment_emd_path):
           print "Path: " + experiment_emd_path + " does not exists."
