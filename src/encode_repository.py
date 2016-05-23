@@ -176,6 +176,9 @@ class EncodeExperimentFile:
 
     if self.technique() == "single cell isolation followed by RNA-seq":
       return "RNA"
+    
+    if self.technique() == "RAMPAGE":
+      return "RNA"
 
     return None
 
