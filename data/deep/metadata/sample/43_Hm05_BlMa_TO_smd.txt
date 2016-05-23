@@ -6,6 +6,7 @@ DISEASE	obesity
 BIOMATERIAL_PROVIDER	Stefan Wallner / Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell culture
 CELL_TYPE	macrophage
+TISSUE_TYPE	blood
 MARKERS	
 CULTURE_CONDITIONS	5d MCSF + 1d oxLDL
 DONOR_ID	43_Hm05

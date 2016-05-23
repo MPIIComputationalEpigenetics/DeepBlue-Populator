@@ -4,7 +4,7 @@ POOL	no
 DISEASE	none
 BIOMATERIAL_PROVIDER	IKMB, Robert Häsler
 BIOMATERIAL_TYPE	primary tissue
-TISSUE_TYPE	mucosa
+TISSUE_TYPE	mucosa of large intestine
 TISSUE_DEPOT	sigma
 COLLECTION_METHOD	colonoscopy
 DONOR_ID	Twin07A

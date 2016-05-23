@@ -1,12 +1,12 @@
 DEEP_SAMPLE_ID	43_Hm05_BlMo_Ct
 ORGANISM	Homo sapiens
-STRAIN	
 POOL	no
 STATUS	control
 DISEASE	none
 BIOMATERIAL_PROVIDER	Stefan Wallner / Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	monocyte
+TISSUE_TYPE	blood
 MARKERS	Flow scatter analysis
 DONOR_ID	43_Hm05
 DONOR_AGE	25
