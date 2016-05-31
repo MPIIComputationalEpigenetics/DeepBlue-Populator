@@ -4,7 +4,7 @@ STRAIN	NA
 STATUS	untreated
 DISEASE	Hepatocellular carcinoma
 BIOMATERIAL_PROVIDER	Biopredic
-BIOMATERIAL_TYPE	cell culture
+BIOMATERIAL_TYPE	cell line
 LINE	HepaRG
 LINEAGE	NA
 DIFFERENTIATION_STATE	differentiated

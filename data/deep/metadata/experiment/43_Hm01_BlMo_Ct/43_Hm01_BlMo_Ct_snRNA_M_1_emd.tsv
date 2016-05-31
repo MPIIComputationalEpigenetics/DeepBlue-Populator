@@ -3,6 +3,7 @@ CONTACT_LAB	MDC
 SAMPLE_ID	43_Hm01_BlMo_Ct
 EXPERIMENT_DATE	2013-09-26
 EXPERIMENT_ID	43_Hm01_BlMo_Ct_snRNA_M_1
+EXPERIMENT_TYPE small RNA-Seq
 TECHNICAL_REPLICATE_ID	0
 FULL_LENGTH_PROTOCOL_LINK	http://supportres.illumina.com/documents/documentation/chemistry_documentation/samplepreps_truseq/truseqsmallrna/truseq_smallrna_sampleprep_guide_15004197_e.pdf
 BIOLOGICAL_REPLICATE_ID	0

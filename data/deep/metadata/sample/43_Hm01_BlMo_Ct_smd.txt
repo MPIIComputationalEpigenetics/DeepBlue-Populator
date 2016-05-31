@@ -3,6 +3,7 @@ ORGANISM	Homo sapiens
 POOL	no
 STATUS	control
 DISEASE	none
+DISEASE_ONTOLOGY	https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=CL473288
 BIOMATERIAL_PROVIDER	Stefan Wallner/Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	monocyte
