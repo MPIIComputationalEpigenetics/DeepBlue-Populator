@@ -120,6 +120,17 @@ class EncodeExperimentFile:
     if self.__biosample_term_id__ == "NTR:0001484": # progenitor cell of endocrine pancreas"
       self.__biosample_term_id__ = "CL:0002351"
 
+    if self.__biosample_term_id__ == "NTR:0000714": # leukemia stem cell 
+      self.__biosample_term_id__ = "EFO:0000565" # leukemia
+    
+    if self.__biosample_term_id__ == "NTR:0000720": # c-Kit-positive CD71-negative TER-119-negative erythroid progenitor cells
+      self.__biosample_term_id__ = "CL:0002000" # Kit-positive erythroid progenitor cell
+    
+    if self.__biosample_term_id__ == "NTR:0002656": # suprapubic skin - error
+      self.__biosample_term_id__ = "EFO:0000962" # Skin
+
+    if self.__biosample_term_id__ == "NTR:0002899": # suprapubic skin - erro
+      self.__biosample_term_id__ = "UBERON:0010414" # omental fat pad
 
   def name(self):
     return self.__data__["@id"]
