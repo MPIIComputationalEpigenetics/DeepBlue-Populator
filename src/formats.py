@@ -183,6 +183,20 @@ gff = [
     "ATTRIBUTES"
 ]
 
+deep_dna_methylation = [
+    "CHROMOSOME",
+    "START",
+    "END",
+    "AVG_METHYL_LEVEL",
+    "DNA_METH_T",
+    "STRAND",
+    "THICK_START",
+    "THICK_END",
+    "ITEM_RGB",
+    "COUNT_A",
+    "COUNT_G"
+]
+
 formats = {
     "simple": simple,
     "bed": bed,
@@ -198,7 +212,8 @@ formats = {
     "rmsk": rmsk,
     "blueprint_bs_call": blueprint_bs_call,
     "narrow_peaks_fdr_1perc_hotspot": narrow_peaks_fdr_1perc_hotspot,
-    "gff": gff
+    "gff": gff,
+    "deep_dna_methylation": deep_dna_methylation
 }
 
 
