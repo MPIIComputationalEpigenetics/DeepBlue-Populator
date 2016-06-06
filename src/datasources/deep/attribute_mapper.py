@@ -21,6 +21,8 @@ class DEEPMapper(AttributeMapper):
 
     @property
     def format(self):
+        if self.dataset.meta["EPIGENETIC_MARK"] == "DNA Methylation":
+            return "deep_dna_methylation"
         return self.dataset.type
 
     @property
