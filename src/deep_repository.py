@@ -39,15 +39,16 @@ def process_metadata(file_location):
   return data
 
 def extension_to_type(extension):
+  extension = extension.lower()
   if extension == ".bw":
     return "bigWig"
   if extension == ".bed":
     return "bed"
-  if extension == ".broadPeak":
+  if extension == ".broadpeak":
     return "broadPeak"
-  if extension == ".narrowPeak":
+  if extension == ".narrowpeak":
     return "narrowPeak"
-  if extension == ".bedGraph":
+  if extension == ".bedgraph":
     return "bedgraph"
 
   else:
