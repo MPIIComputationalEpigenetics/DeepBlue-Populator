@@ -12,7 +12,7 @@ SIMPLE = [
     ("CHROMOSOME", "Chromosome", Type.STRING),
     ("COUNT", "count", Type.INTEGER),
     ("COUNT_A", "Count of A", Type.INTEGER),
-    ("COUNT_G", "Count of A", Type.INTEGER)
+    ("COUNT_G", "Count of A", Type.INTEGER),
     ("DATA_RANGE", "Data range", Type.DOUBLE),
     ("DNA_METH_M", "Number of methylated reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER),
     ("DNA_METH_T", "Number of total reads for a cytosine in a bisulfite sequencing experiment", Type.INTEGER),
