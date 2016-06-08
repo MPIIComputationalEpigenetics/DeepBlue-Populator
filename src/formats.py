@@ -183,7 +183,7 @@ gff = [
     "ATTRIBUTES"
 ]
 
-deep_dna_methylation = [
+deep_dna_methylation_calls_bisnp = [
     "CHROMOSOME",
     "START",
     "END",
@@ -195,6 +195,20 @@ deep_dna_methylation = [
     "ITEM_RGB",
     "COUNT_A",
     "COUNT_G"
+]
+
+
+#chr start   stop    p.value avg(fg_cov) avg.meth    avg(fg+bg_cov)  coverage_group  q.value
+nome_open_chromatin_peaks = [
+    "CHROMOSOME",
+    "START",
+    "END",
+    "P_VALUE",
+    "AVG_FOREGROUND_COVERAGE",
+    "AVG_METHYL_LEVEL"
+    "AVG_FOREGROUND_BACKGROUND_COVERAGE",
+    "COVERAGE_GROUP",
+    "Q_VALUE"
 ]
 
 formats = {
@@ -213,7 +227,8 @@ formats = {
     "blueprint_bs_call": blueprint_bs_call,
     "narrow_peaks_fdr_1perc_hotspot": narrow_peaks_fdr_1perc_hotspot,
     "gff": gff,
-    "deep_dna_methylation": deep_dna_methylation
+    "deep_dna_methylation_calls_bisnp": deep_dna_methylation_calls_bisnp,
+    "nome_open_chromatin_peaks": nome_open_chromatin_peaks
 }
 
 

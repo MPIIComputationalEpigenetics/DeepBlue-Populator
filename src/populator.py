@@ -121,6 +121,7 @@ class Populator:
         epidb = PopulatorEpidbClient()
 
         epidb.add_epigenetic_mark("DNA Methylation", "DNA Methylation", {"category": "DNA Methylation"})
+        epidb.add_epigenetic_mark("DNA Accessibility", "DNA Accessibility/Open Chromatin", {"category": "DNA Accessibility"})
         epidb.add_epigenetic_mark("DNaseI", "DNaseI hypersensitive sites", {"category": "Hypersensitive sites"})
         epidb.add_epigenetic_mark("TFBS", "Transcription factor binding sites", {"category": "Transcription Factor"})
         epidb.add_epigenetic_mark("Chromatin State Segmentation",

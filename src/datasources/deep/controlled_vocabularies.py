@@ -110,7 +110,7 @@ def get_disease_status(_id):
 
 library= {}
 library["DNase"] = ("DNaseI", "DNase-Seq")
-library["NOMe"] = ("DNA Methylation", "NOMe-seq")
+library["NOMe"] = ("__", "NOMe-seq")
 library["WGBS"] = ("DNA Methylation", "WGBS")
 library["Input"] = ("Input", "ChIP-seq")
 library["H3K4me3"] = ("H3K4me3", "ChIP-seq")

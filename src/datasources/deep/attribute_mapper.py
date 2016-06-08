@@ -19,14 +19,35 @@ class DEEPMapper(AttributeMapper):
         else:
             return ".".join(file_full_name.split(".")[:-1])
 
+    def NOMe_epigenetic_mark(self):
+        if "GCH" in self.name():
+            print "QQ GCH"
+            return "nome_open_chromatin_peaks"
+        if "HGC" in self.name():
+            print "QQ HGC"
+            return "deep_dna_methylation_calls_bisnp"
+        else:
+            print "QQ else"
+            return "deep_dna_methylation_calls_bisnp"
+
+
     @property
     def format(self):
-        if self.dataset.meta["EPIGENETIC_MARK"] == "DNA Methylation":
-            return "deep_dna_methylation"
+        # LOOK AT THE FILE NAME ------
+        if self.dataset.meta["TECHNOLOGY"].lower() == "NOMe-seq":
+            return self.NOMe_epigenetic_mark()
+
         return self.dataset.type
 
     @property
     def epigenetic_mark(self):
+        if self.dataset.meta["TECHNOLOGY"].lower() == "NOMe-seq":
+            if "deep_dna_methylation_calls_bisnp" == self.NOMe_epigenetic_mark():
+                return "DNA Accessibility"
+            if "nome_open_chromatin_peaks" == self.NOMe_epigenetic_mark():
+                return "DNA Methylation"
+            else:
+                return "DNA methylation"
         return self.dataset.meta["EPIGENETIC_MARK"]
 
     @property
