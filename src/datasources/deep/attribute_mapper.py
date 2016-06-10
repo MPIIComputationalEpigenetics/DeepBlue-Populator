@@ -34,14 +34,14 @@ class DEEPMapper(AttributeMapper):
     @property
     def format(self):
         # LOOK AT THE FILE NAME ------
-        if self.dataset.meta["TECHNOLOGY"].lower() == "NOMe-seq":
+        if self.dataset.meta["TECHNOLOGY"].lower() == "nome-seq":
             return self.NOMe_epigenetic_mark()
 
         return self.dataset.type
 
     @property
     def epigenetic_mark(self):
-        if self.dataset.meta["TECHNOLOGY"].lower() == "NOMe-seq":
+        if self.dataset.meta["TECHNOLOGY"].lower() == "nome-seq":
             if "deep_dna_methylation_calls_bisnp" == self.NOMe_epigenetic_mark():
                 return "DNA Accessibility"
             if "nome_open_chromatin_peaks" == self.NOMe_epigenetic_mark():
