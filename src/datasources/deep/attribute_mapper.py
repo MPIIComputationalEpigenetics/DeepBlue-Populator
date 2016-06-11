@@ -20,10 +20,10 @@ class DEEPMapper(AttributeMapper):
             return ".".join(file_full_name.split(".")[:-1])
 
     def NOMe_epigenetic_mark(self):
-        if "GCH" in self.name():
+        if "GCH" in self.name:
             print "QQ GCH"
             return "nome_open_chromatin_peaks"
-        if "HGC" in self.name():
+        if "HGC" in self.name:
             print "QQ HGC"
             return "deep_dna_methylation_calls_bisnp"
         else:

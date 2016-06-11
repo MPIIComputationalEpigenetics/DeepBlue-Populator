@@ -205,7 +205,7 @@ nome_open_chromatin_peaks = [
     "END",
     "P_VALUE",
     "AVG_FOREGROUND_COVERAGE",
-    "AVG_METHYL_LEVEL"
+    "AVG_METHYL_LEVEL",
     "AVG_FOREGROUND_BACKGROUND_COVERAGE",
     "COVERAGE_GROUP",
     "Q_VALUE"
