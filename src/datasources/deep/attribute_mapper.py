@@ -21,10 +21,10 @@ class DEEPMapper(AttributeMapper):
 
     def NOMe_epigenetic_mark(self):
         if "GCH" in self.name:
-            print "QQ GCH"
+            if "filtered" in self.name:
+                return "deep_dna_methylation_calls_bisnp"
             return "nome_open_chromatin_peaks"
         if "HGC" in self.name:
-            print "QQ HGC"
             return "deep_dna_methylation_calls_bisnp"
         else:
             print "QQ else"
