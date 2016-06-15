@@ -287,8 +287,7 @@ class Dataset:
 
             f = open(am.extra_metadata['__local_file__'])
             first_line = f.readline()
-
-            while (first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser"):
+            while (first_line[:1] == "#" or first_line[:5] == "track" or first_line[:7] == "browser" or first_line.startswith("chr\tstart")):
                 first_line = f.readline()
                 log.debug(first_line)
 
