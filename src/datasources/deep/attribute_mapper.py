@@ -21,18 +21,13 @@ class DEEPMapper(AttributeMapper):
 
     def NOMe_epigenetic_mark(self):
         if "GCH" in self.name:
-            if "filtered.GCH.peaks" in self.name:
-                return "nome_open_chromatin_peaks"
-
-            if "filtered" in self.name:
-                return "deep_dna_methylation_calls_bisnp"
-
             return "nome_open_chromatin_peaks"
+
         if "HGC" in self.name:
             return "deep_dna_methylation_calls_bisnp"
+
         else:
-            print "QQ else"
-            return "deep_dna_methylation_calls_bisnp"
+            return "UNKNOWN"
 
 
     @property
@@ -41,17 +36,21 @@ class DEEPMapper(AttributeMapper):
         if self.dataset.meta["TECHNOLOGY"].lower() == "nome-seq":
             return self.NOMe_epigenetic_mark()
 
+        if self.extra_metadata["TECHNOLOGY"].lower() == "wgbs" and
+            "cpg.filtered.CG" in self.name:
+                return "deep_dna_methylation_calls_bisnp"
+
         return self.dataset.type
 
     @property
     def epigenetic_mark(self):
         if self.dataset.meta["TECHNOLOGY"].lower() == "nome-seq":
             if "deep_dna_methylation_calls_bisnp" == self.NOMe_epigenetic_mark():
-                return "DNA Accessibility"
-            if "nome_open_chromatin_peaks" == self.NOMe_epigenetic_mark():
                 return "DNA Methylation"
+            if "nome_open_chromatin_peaks" == self.NOMe_epigenetic_mark():
+                return "DNA Accessibility"
             else:
-                return "DNA methylation"
+                return "UNKNOWN"
         return self.dataset.meta["EPIGENETIC_MARK"]
 
     @property
