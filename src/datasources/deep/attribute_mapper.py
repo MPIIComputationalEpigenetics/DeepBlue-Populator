@@ -33,18 +33,17 @@ class DEEPMapper(AttributeMapper):
     @property
     def format(self):
         # LOOK AT THE FILE NAME ------
-        if self.dataset.meta["TECHNOLOGY"].lower() == "nome-seq":
+        if self.technique.lower() == "nome-seq":
             return self.NOMe_epigenetic_mark()
 
-        if self.extra_metadata["TECHNOLOGY"].lower() == "wgbs" and
-            "cpg.filtered.CG" in self.name:
+        if self.technique.lower() == "wgbs" and "cpg.filtered.CG" in self.name:
                 return "deep_dna_methylation_calls_bisnp"
 
         return self.dataset.type
 
     @property
     def epigenetic_mark(self):
-        if self.dataset.meta["TECHNOLOGY"].lower() == "nome-seq":
+        if self.technique.lower() == "nome-seq":
             if "deep_dna_methylation_calls_bisnp" == self.NOMe_epigenetic_mark():
                 return "DNA Methylation"
             if "nome_open_chromatin_peaks" == self.NOMe_epigenetic_mark():
