@@ -8,7 +8,7 @@ import settings
 Globals
 """
 
-_client = MongoClient(settings.MDB_HOST, settings.MDB_PORT)
+_client = MongoClient(settings.MDB_HOST, settings.MDB_PORT, connect=False)
 mdb = _client.populator
 
 def find_not_inserted(id, data_types):

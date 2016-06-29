@@ -67,7 +67,7 @@ class BlueprintMapper(AttributeMapper):
         if self.epigenetic_mark == "dnaseI":
             return "bed"
 
-        msg = "Unknown format for %s epigenetic mark %s and meta %s" % ( 
+        msg = "Unknown format for %s epigenetic mark %s and meta %s" % (
             self.name, self.epigenetic_mark, str(self.dataset.meta))
         log.critical(msg)
 

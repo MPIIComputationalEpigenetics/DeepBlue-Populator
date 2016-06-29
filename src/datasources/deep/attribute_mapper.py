@@ -23,7 +23,7 @@ class DEEPMapper(AttributeMapper):
         if "GCH" in self.name:
             return "nome_open_chromatin_peaks"
 
-        if "HGC" in self.name:
+        if "HCG" in self.name:
             return "deep_dna_methylation_calls_bisnp"
 
         else:
