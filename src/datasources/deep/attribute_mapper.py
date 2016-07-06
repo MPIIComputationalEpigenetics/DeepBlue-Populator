@@ -21,7 +21,10 @@ class DEEPMapper(AttributeMapper):
 
     def NOMe_epigenetic_mark(self):
         if "GCH" in self.name:
-            return "nome_open_chromatin_peaks"
+            if "filtered" in self.name:
+                return "nome_open_chromatin"
+            else:
+                return "nome_open_chromatin_peaks"
 
         if "HCG" in self.name:
             return "deep_dna_methylation_calls_bisnp"
@@ -46,7 +49,7 @@ class DEEPMapper(AttributeMapper):
         if self.technique.lower() == "nome-seq":
             if "deep_dna_methylation_calls_bisnp" == self.NOMe_epigenetic_mark():
                 return "DNA Methylation"
-            if "nome_open_chromatin_peaks" == self.NOMe_epigenetic_mark():
+            if "nome_open_chromatin" in self.NOMe_epigenetic_mark():
                 return "DNA Accessibility"
             else:
                 return "UNKNOWN"

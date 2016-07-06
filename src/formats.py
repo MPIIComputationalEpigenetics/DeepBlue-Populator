@@ -197,6 +197,20 @@ deep_dna_methylation_calls_bisnp = [
     "COUNT_G"
 ]
 
+nome_open_chromatin = [
+    "CHROMOSOME",
+    "START",
+    "END",
+    "AVG_METHYL_LEVEL",
+    "DNA_METH_T",
+    "STRAND",
+    "THICK_START",
+    "THICK_END",
+    "ITEM_RGB",
+    "COUNT_A",
+    "COUNT_G"
+]
+
 
 #chr start   stop    p.value avg(fg_cov) avg.meth    avg(fg+bg_cov)  coverage_group  q.value
 nome_open_chromatin_peaks = [
@@ -228,6 +242,7 @@ formats = {
     "narrow_peaks_fdr_1perc_hotspot": narrow_peaks_fdr_1perc_hotspot,
     "gff": gff,
     "deep_dna_methylation_calls_bisnp": deep_dna_methylation_calls_bisnp,
+    "nome_open_chromatin": nome_open_chromatin,
     "nome_open_chromatin_peaks": nome_open_chromatin_peaks
 }
 
