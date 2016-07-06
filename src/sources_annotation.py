@@ -152,14 +152,14 @@ transcripts_snoRNA_full_autosomes = Annotation({
 	"extra_metadata" : {'URL': 'ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_mouse/release_M4/gencode.vM4.annotation.gtf.gz', 'Chromosomes': 'autosomes', 'GENCODE': 'M4', 'ENSEMBL': '78', 'AltAssembly': 'GRCm38'}
 })
 
- blueprint_regulatory_build_20150820 = Annotation({
+blueprint_regulatory_build_20150820 = Annotation({
 	"name" : 'Blueprint Ensembl Regulatory Build',
 	"genome" : 'grch38',
 	"description":  "The Ensembl Regulatory Build provides a genome-wide set of regions that are  likely to be involved in gene regulation. These regions are classified into  six functional types (see below). On top of these classifications, in each cell type we add an activity annotation, by comparing the classifications in each region to the cell type specific evidence,  the cell type specific segmentation  states and peak calls.",
 	"data_file" : settings.DATA_DIR + "annotations/blueprint_regulatory_build_20150820.bed.gz",
-	"file_format" : "file_format":formats.format_builder("narrow_peak_format"),
+	"file_format" : formats.format_builder("narrow_peak_format"),
 	"extra_metadata" : {'URL': 'ftp://ftp.ebi.ac.uk/pub/databases/blueprint/releases/current_release/homo_sapiens/secondary_analysis/Ensembl_Regulatory_Build/hg38/overview/RegBuild.bb'}
- 	})
+})
 
 
 annotations = [repeat_masker, cpgIslands, genes, promoters, probes450k, laminB1,conservation_primates, conservation_placental, RepeatFree_1kb_autosomes, RepeatMasked_1kb_autosomes, gene_protcod_3kbprom_autosomes,gene_protcod_full_autosomes, transcripts_protcod_3kbprom_autosomes, transcripts_lincRNA_full_autosomes, transcripts_miRNA_full_autosomes, transcripts_snRNA_full_autosomes, transcripts_snoRNA_full_autosomes, blueprint_regulatory_build_20150820]
