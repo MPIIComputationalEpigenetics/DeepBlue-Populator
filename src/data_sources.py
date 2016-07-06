@@ -1,8 +1,8 @@
 from password_manager import PROJECT_USER, PROJECT_PASSWORD
 
 encode = [
-    #('ENCODE', "Mus musculus", "https://www.encodeproject.org/"),
-    ('ENCODE', "Homo sapiens", "https://www.encodeproject.org/"),
+    ('ENCODE', "Mus musculus", "https://www.encodeproject.org/"),
+    ('ENCODE', "Homo sapiens", "https://www.encodeproject.org/")
 ]
 
 blueprint_source = [
@@ -58,16 +58,17 @@ epigenomic_landscape = [
 ]
 
 deep = [
-    ('DEEP', 'hs37d5', '')
-   # ('DEEP', 'GRCm38', '')
+    ('DEEP', 'hs37d5', ''),
+    ('DEEP', 'GRCm38', '')
 ]
 
 project_sources = [
      # roadmap
      # blueprint_source,
-     encode
+     # encode
      # encode_mm9,
+     # encode,
      # epigenomic_landscape
-     # deep
+     deep
      # geo_source
 ]
