@@ -19,7 +19,7 @@ def get_key():
                                                settings.EPIDB_POPULATOR_USER[1],
                                                settings.EPIDB_POPULATOR_USER[2]):
                         get_key.key = key.strip()
-                        return key
+                        return get_key.key
 
             log.info("Authentication key loaded")
         else:
