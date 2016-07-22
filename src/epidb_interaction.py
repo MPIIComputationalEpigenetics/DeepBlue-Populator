@@ -18,7 +18,7 @@ def get_key():
                     if (user, email, inst) == (settings.EPIDB_POPULATOR_USER[0],
                                                settings.EPIDB_POPULATOR_USER[1],
                                                settings.EPIDB_POPULATOR_USER[2]):
-                        get_key.key = key
+                        get_key.key = key.strip()
                         return key
 
             log.info("Authentication key loaded")
