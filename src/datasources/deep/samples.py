@@ -20,7 +20,7 @@ class Sample:
     biomaterial_type = self._data['BIOMATERIAL_TYPE'].lower()
     if biomaterial_type == 'cell culture':
       self._biosource = self._data["LINE"]
-    
+
     if biomaterial_type == 'cell line':
       self._biosource = self._data["LINE"]
 

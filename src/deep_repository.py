@@ -38,7 +38,11 @@ def process_metadata(file_location):
       data[s[0]] = s[1]
   return data
 
-def extension_to_type(extension):
+def file_to_type(file_name):
+  _sub, extension = os.path.splitext(file_name)
+  if extension == ".gz":
+    _sub, extension = os.path.splitext(_sub)
+
   extension = extension.lower()
   if extension == ".bw":
     return "bigWig"
@@ -50,6 +54,10 @@ def extension_to_type(extension):
     return "narrowPeak"
   if extension == ".bedgraph":
     return "bedgraph"
+  if extension == ".fpkm_tracking" and "_genes" in file_name:
+    return "cufflinks_fpkm_genes"
+  if extension == ".fpkm_tracking" and "_isoforms" in file_name:
+    return "cufflinks_fpkm_isoforms"
 
   else:
     print "unknow", extension
@@ -63,7 +71,7 @@ class Experiment:
 
 class DeepRepository(Repository):
   def __init__(self, proj, genome, path):
-    super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedgraph"], path)
+    super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedgraph", "cufflinks_fpkm_genes"], path)
     self._samples = {}
     if genome == "hs37d5":
       self.organism = "homo sapiens"
@@ -76,6 +84,8 @@ class DeepRepository(Repository):
     return "<DEEP Repository: [%s, %s, %s]>" % (self.genome, self.path, self.data_types)
 
   def read_datasets(self):
+    file_types = ['signal', 'region', 'FPKM estimates']
+
     new = 0
 
     deepblue_sample = {}
@@ -87,7 +97,6 @@ class DeepRepository(Repository):
 
     EXPERIMENT_METADATA_DIRECTORY = "../data/deep/metadata/experiment/"
 
-    file_types = ['signal', 'region']
 
     config = ConfigParser.ConfigParser()
     config.read("../data/deep/deep_generic_re_python2.ini")
@@ -120,8 +129,8 @@ class DeepRepository(Repository):
         experiment_metadata_collection[experiment_emd_key] = experiment
         print "Including: ", experiment_emd_key, " - ", experiment
 
-      for type in file_types:
-        files = srv.get_files_by_type(type, sample.id())
+      for type_ in file_types:
+        files = srv.get_files_by_type(type_, sample.id())
 
         for file_info in files[1]["p_iofiles_col"]:
           file_name = file_info["filename"]
@@ -134,10 +143,6 @@ class DeepRepository(Repository):
             experiment_genome = "GRCh38"
           elif "GRCm38" in experiment_data_file_path:
             experiment_genome = "GRCm38"
-
-          _sub, file_extension = os.path.splitext(file_name)
-          if file_extension == ".gz":
-            _sub, file_extension = os.path.splitext(_sub)
 
           track_hub = re.compile("\.THBv\d\.")
           if re.search(track_hub, file_name): # Ignore Track Hub files
@@ -188,9 +193,9 @@ class DeepRepository(Repository):
           experiment_metadata["extra"] = emd
           experiment_metadata["location"] = experiment_data_file_path
 
-          type = extension_to_type(file_extension)
+          file_type = file_to_type(file_name)
 
-          ds = Dataset(experiment_data_file_path, type, experiment_metadata, sample_id=deepblue_sample[sample.id()])
+          ds = Dataset(experiment_data_file_path, file_type, experiment_metadata, sample_id=deepblue_sample[sample.id()])
           if self.add_dataset(ds):
             new += 1
             self.has_updates = True

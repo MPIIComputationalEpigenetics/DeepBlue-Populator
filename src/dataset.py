@@ -210,6 +210,8 @@ class Dataset:
     def process(self):
         log.info("processing dataset %s", self)
 
+        is_gene_expression = False
+
         project = self.repository["project"]
         am = attribute_mapper_factory.get(project)(self)
 
@@ -255,6 +257,11 @@ class Dataset:
             am.extra_metadata['__local_file__'] = self.download_path+".out"
             file_content = ""
             frmt = "bedgraph"
+
+        elif self.type_ == "cufflinks_fpkm_genes":
+            is_gene_expression = True
+            frmt = "cufflinks"
+            file_content = open(self.download_path, 'r').read()
 
         elif (self.meta.has_key("type") and self.meta["type"].lower() == "bigbed") or self.type.lower() == "bigbed":
             print "../third_party/bigBedToBed." + OS + " " + self.download_path + " " + self.download_path + ".bed"
@@ -314,13 +321,20 @@ class Dataset:
             else:
                 exp_name = am.name + ".bed"
 
-        args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
-                am.project, am.description, file_content, frmt, am.extra_metadata)
+        if is_gene_expression:
+            args = (sample_id, 0, file_content, frmt, am.extra_metadata)
+        else:
+            args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
+                    am.project, am.description, file_content, frmt, am.extra_metadata)
 
         am.extra_metadata["__ignore_unknow_chromosomes__"] = True
 
         try:
-            res = epidb.add_experiment(*args)
+            if is_gene_expression:
+                res = epidb.add_gene_expression(*args)
+            else:
+                res = epidb.add_experiment(*args)
+
             if res[0] == "okay" or res[1].startswith("102001"):
                 self.inserted = True
                 self.insert_error = ""
@@ -328,6 +342,8 @@ class Dataset:
                 log.info("dataset %s inserted ", exp_name)
             else:
                 msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s(%s)\nfile_content: %s\ndownload_path: %s\ntype:%s\nepigenetic_mark:%s\ntechnique:%s\ndescription:%s" % (res, am.name, frmt, am.format, file_content[0:500], self.download_path, self.type, am.epigenetic_mark, am.technique, am.description)
+                if is_gene_expression:
+                    msg = "Is gene expression. " + msg
                 log.error(msg)
                 self.insert_error = msg
                 self.save()
