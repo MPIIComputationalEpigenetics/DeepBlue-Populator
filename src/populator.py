@@ -88,7 +88,9 @@ class Populator:
             for l in f.readlines():
                 (user, email, inst, key) = l.split(':')
                 if (user, email, inst) == (self.username, self.email, self.institution):
-                    self.key = key
+                    self.key = key.strip()
+                    print 'XXXXXXXXXXXXXXXXXXXX'
+                    print self.key
                     break
 
         log.info("loaded authentication key successfully")
@@ -201,18 +203,18 @@ class Populator:
         epidb = PopulatorEpidbClient()
 
         genes = gzip.open("../data/gene_sets/gencode.v19.annotation.ONLY_GENES.gtf.gz").read()
-        print epidb.add_gene_set("gencode v19", "gencode.v19.basic.annotation - only genes",
+        print epidb.add_gene_model("gencode v19", "gencode.v19.basic.annotation - only genes",
                                   genes, "GTF",
                                   {"name":"gencode", "release":"19", "content":"Basic gene annotation", "genome":"hg19"})
 
 
         genes = gzip.open("../data/gene_sets/gencode.v22.annotation.ONLY_GENES.gtf.gz").read()
-        print epidb.add_gene_set("gencode v22", "gencode.v22.basic.annotation - only genes",
+        print epidb.add_gene_model("gencode v22", "gencode.v22.basic.annotation - only genes",
                                   genes, "GTF",
                                   {"name":"gencode", "release":"22", "content":"Basic gene annotation", "genome":"GRCh38"})
 
         #genes = gzip.open("../data/gene_sets/gencode.v23.basic.annotation.ONLY_GENES.gtf.gz").read()
-        #print epidb.add_gene_set("gencode v23", "gencode.v23.basic.annotation - only genes",
+        #print epidb.add_gene_model("gencode v23", "gencode.v23.basic.annotation - only genes",
         #                          genes, "GTF",
         #                          {"name":"gencode", "release":"23", "content":"Basic gene annotation", "genome":"GRCh38.p3"})
 
