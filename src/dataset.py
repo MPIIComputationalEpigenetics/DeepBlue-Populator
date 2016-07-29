@@ -322,7 +322,7 @@ class Dataset:
                 exp_name = am.name + ".bed"
 
         if is_gene_expression:
-            args = (sample_id, 0, file_content, frmt, am.extra_metadata)
+            args = (sample_id, 0, file_content, frmt, am.project, am.extra_metadata)
         else:
             args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
                     am.project, am.description, file_content, frmt, am.extra_metadata)
