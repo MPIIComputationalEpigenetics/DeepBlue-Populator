@@ -15,7 +15,8 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
     def __init__(self, proj, genome, path):
         super(BlueprintRepository, self).__init__(proj, genome,
-                                                  ["bed", "bigwig", "results"], path)
+                                                  ["RNA_GENE_QUANT_STAR_CRG"]
+                                                  # "bed", "bigwig", "results"], path)
                                                   #["gtf", "gff"], path)
 
     def __str__(self):
@@ -28,12 +29,7 @@ class BlueprintRepository(Repository):
 
     @property
     def index_path(self):
-        #return self.path + "blueprint/releases/20150820/homo_sapiens/20150820.data.index"
-        #return self.path + "releases/20150128/data_files.index"
-        return self.path + "releases/next_release/public.results_GRCh38.index"
-
-
-
+        return self.path + "blueprint/releases/20160816/homo_sapiens/20160816.data.index"
 
     """
     read_datasets analyses the repositorie's index file and flags
@@ -119,6 +115,8 @@ class BlueprintRepository(Repository):
             file_path = line_info["FILE"]
             file_full_name = file_path.split("/")[-1]
 
+            meta = line_info
+
             file_type = file_full_name.split(".")[-1]
             if file_type == "gz":
                 file_type = file_full_name.split(".")[-2]
@@ -126,7 +124,9 @@ class BlueprintRepository(Repository):
                 file_type = "bigwig"
             directory = os.path.dirname(file_path)
 
-            meta = line_info
+            if file_type == "results":
+                file_type = meta["FILE_TYPE"]
+
 
             ds = Dataset(file_path, file_type, meta, file_directory=directory,
                          sample_id=sample_id)

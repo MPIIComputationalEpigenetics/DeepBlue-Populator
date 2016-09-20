@@ -34,13 +34,21 @@ class BlueprintMapper(AttributeMapper):
 
         if e == "flrna-seq":
             return "flRNA"
+
+        if e == "total-rna-seq":
+            return "RNA"
         return e
 
     @property
     def technique(self):
         t = self.dataset.meta["LIBRARY_STRATEGY"].lower()
+        e = self.dataset.meta["EXPERIMENT_TYPE"].lower()
+
         if t == "dnase-hypersensitivity":
             return "DNase-Seq"
+
+        if t == "rna-seq" and e == "total-rna-seq":
+            return "total-RNA-seq"
 
         return t
 
