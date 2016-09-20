@@ -15,7 +15,7 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
     def __init__(self, proj, genome, path):
         super(BlueprintRepository, self).__init__(proj, genome,
-                                                  ["bed", "bigwig", "gtf", "gff"], path)
+                                                  ["bed", "bigwig", "results"], path)
                                                   #["gtf", "gff"], path)
 
     def __str__(self):
@@ -28,8 +28,11 @@ class BlueprintRepository(Repository):
 
     @property
     def index_path(self):
-        return self.path + "blueprint/releases/20150820/homo_sapiens/20150820.data.index"
+        #return self.path + "blueprint/releases/20150820/homo_sapiens/20150820.data.index"
         #return self.path + "releases/20150128/data_files.index"
+        return self.path + "releases/next_release/public.results_GRCh38.index"
+
+
 
 
     """
@@ -108,7 +111,7 @@ class BlueprintRepository(Repository):
                 (s, sample_id) = epidb.add_sample(biosource_name,
                                                   sample_extra_info)
                 if util.has_error(s, sample_id, []):
-                    print "Error while loading BluePrint sample:"
+                    print "Error while loading BLUEPRINT sample:"
                     print biosource_name
                     print sample_extra_info
                     return

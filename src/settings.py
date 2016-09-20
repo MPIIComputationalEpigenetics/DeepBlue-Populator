@@ -18,10 +18,10 @@ EPIDB_AUTHKEY_FILE = ".populator.epidb"
 LOG_LEVEL = logging.DEBUG
 
 MDB_HOST = "localhost"
-MDB_PORT = 27027
+MDB_PORT = 27017
 
 DEEPBLUE_HOST = "localhost"
-DEEPBLUE_PORT = 56573
+DEEPBLUE_PORT = 31415
 
 VOCAB_URL = "ftp://hgdownload.cse.ucsc.edu/apache/cgi-bin/encode/cv.ra"
 
@@ -34,4 +34,4 @@ DEEP_XMLRPC_SERVER = "http://139.19.33.1:50005"
 """
 Threads
 """
-max_threads = 1
+max_threads = 4
