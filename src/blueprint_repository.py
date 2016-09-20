@@ -28,8 +28,8 @@ class BlueprintRepository(Repository):
 
     @property
     def index_path(self):
-        return self.path + "blueprint/releases/20150820/homo_sapiens/20150820.data.index"
-        #return self.path + "releases/20150128/data_files.index"
+        return self.path + "blueprint/releases/20160816/homo_sapiens/20160816.data.index"
+        #return self.path + "blueprint/releases/20160816/data_files.index"
 
 
     """
@@ -125,6 +125,7 @@ class BlueprintRepository(Repository):
 
             meta = line_info
 
+            print file_path
             ds = Dataset(file_path, file_type, meta, file_directory=directory,
                          sample_id=sample_id)
             if self.add_dataset(ds):
