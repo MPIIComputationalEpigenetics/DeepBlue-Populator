@@ -263,6 +263,11 @@ class Dataset:
             frmt = "cufflinks"
             file_content = open(self.download_path, 'r').read()
 
+        elif self.type_ == "RNA_GENE_QUANT_STAR_CRG":
+            is_gene_expression = True
+            frmt = "grape2"
+            file_content = open(self.download_path, 'r').read()
+
         elif (self.meta.has_key("type") and self.meta["type"].lower() == "bigbed") or self.type.lower() == "bigbed":
             print "../third_party/bigBedToBed." + OS + " " + self.download_path + " " + self.download_path + ".bed"
             call(["../third_party/bigBedToBed." + OS, self.download_path, self.download_path + ".bed"])

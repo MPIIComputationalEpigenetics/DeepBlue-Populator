@@ -6,8 +6,8 @@ encode = [
 ]
 
 blueprint_source = [
-    # ('BLUEPRINT Epigenome', "GRCh38", "ftp://ftp.ebi.ac.uk/pub/databases/"),
-    ('BLUEPRINT Epigenome', "GRCh38", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
+    ('BLUEPRINT Epigenome', "GRCh38", "ftp://ftp.ebi.ac.uk/pub/databases/"),
+    #('BLUEPRINT Epigenome', "GRCh38", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
 ]
 
 geo_source = [
