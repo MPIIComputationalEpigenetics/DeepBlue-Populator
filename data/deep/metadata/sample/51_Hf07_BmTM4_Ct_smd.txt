@@ -1,12 +1,13 @@
 DEEP_SAMPLE_ID	51_Hf07_BmTM4_Ct
 ORGANISM	Homo sapiens
 POOL	yes
-DISEASE	none
-BIOMATERIAL_PROVIDER	Dong, Chang, Radbruch, Julia Polansky-Biskup, Alf Hamann, DRFZ
+DISEASE	healthy
+BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ
+Julia Polansky-Biskup, Alf Hamann, DRFZ
 BIOMATERIAL_TYPE	primary cell
+TISSUE_TYPE     bone marrow
 CELL_TYPE	CD4-positive alpha-beta memory T cell
-TISSUE_TYPE	bone marrow
-MARKERS	CD3+, CD4+, CD25-, CD45RA-
+MARKERS	CD3+CD4+CD25-CD45RA-
 DONOR_ID	51_Hf07
 DONOR_AGE	72
 DONOR_AGE_UNIT	year

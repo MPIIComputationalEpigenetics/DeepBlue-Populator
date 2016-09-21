@@ -1,0 +1,19 @@
+DEEP_SAMPLE_ID	42_Mf05_LiHe_Sh
+ORGANISM	Mus musculus
+STRAIN	DBA/2J / C57BL/6J (LT2+/p62-) 
+POOL	no
+STATUS	Steatohepatitis by LdC diet
+MOLECULE	genomic DNA, total RNA, cell pellets for ChIP, NOME, DNase1
+DISEASE	healthy
+BIOMATERIAL_PROVIDER	Pharmazeutische Biologie, UDS, Saarbruecken / IfADo, Dortmund
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	hepatocyte
+MARKERS	none
+DONOR_ID	42_Mf05
+DONOR_AGE	9
+DONOR_AGE_UNIT	week
+DONOR_HEALTH_STATUS	NA
+DONOR_SEX	female
+DONOR_ETHNICITY	NA
+COMMENT	controlled: p62 expression / F4/80 expression / Lipid content
+SORTING_PARAMETERS	none

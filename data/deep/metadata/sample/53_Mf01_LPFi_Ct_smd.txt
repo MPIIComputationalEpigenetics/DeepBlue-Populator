@@ -3,7 +3,7 @@ ORGANISM	mus musculus
 STRAIN	C57BL/6
 POOL	no
 STATUS	wildtype
-DISEASE	none
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Anja Hillmann, Pap Lab
 BIOMATERIAL_TYPE	primary cell culture
 CELL_TYPE	fibroblast

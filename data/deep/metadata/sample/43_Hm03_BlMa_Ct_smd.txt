@@ -2,7 +2,7 @@ DEEP_SAMPLE_ID	43_Hm03_BlMa_Ct
 ORGANISM	Homo sapiens
 POOL	no
 STATUS	control
-DISEASE	none
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Stefan Wallner/Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell culture
 CELL_TYPE	macrophage

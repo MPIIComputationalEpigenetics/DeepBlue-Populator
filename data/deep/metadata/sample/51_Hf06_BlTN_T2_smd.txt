@@ -1,0 +1,15 @@
+DEEP_SAMPLE_ID	51_Hf06_BlTN_T2
+ORGANISM	Homo sapiens
+POOL	yes
+STATUS	stimulated with10ng/ml PMA + 500ng/ml Ionomycin for 34h in vitro
+DISEASE	healthy
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	Naive CD4-positive T cell
+MARKERS	CD3+CD4+CD25-CD45RA+CCR7+
+DONOR_ID	51_Hf06
+DONOR_AGE	30
+DONOR_AGE_UNIT	year
+DONOR_HEALTH_STATUS	healthy
+DONOR_SEX	female
+DONOR_ETHNICITY	NA

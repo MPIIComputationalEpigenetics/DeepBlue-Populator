@@ -1,7 +1,7 @@
 DEEP_SAMPLE_ID	51_Hf06_BlTN_Ct
 ORGANISM	Homo sapiens
 POOL	yes
-DISEASE	none
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Julia Polansky-Biskup, Alf Hamann, DRFZ
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	Naive CD4-positive T cell

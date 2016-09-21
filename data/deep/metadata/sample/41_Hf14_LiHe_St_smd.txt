@@ -2,7 +2,7 @@ DEEP_SAMPLE_ID	41_Hf14_LiHe_St
 ORGANISM	Homo sapiens
 POOL	no
 MOLECULE	genomic DNA
-DISEASE	none
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Charité Berlin
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte

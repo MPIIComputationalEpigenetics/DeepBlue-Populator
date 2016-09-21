@@ -2,7 +2,7 @@ DEEP_SAMPLE_ID	43_Hm05_BlMo_Ct
 ORGANISM	Homo sapiens
 POOL	no
 STATUS	control
-DISEASE	none
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Stefan Wallner / Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	monocyte

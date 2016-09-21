@@ -3,7 +3,7 @@ ORGANISM	Mus musculus
 STRAIN	C57BL/6J
 POOL	yes
 STATUS	Scotophase (Fed)
-DISEASE	none
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	MPI Freiburg in-house colony
 BIOMATERIAL_TYPE	primary tissue
 CELL_TYPE	white fat cell

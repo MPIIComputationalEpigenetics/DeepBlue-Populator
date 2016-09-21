@@ -1,8 +1,8 @@
 DEEP_SAMPLE_ID	41_Hf02_LiHe_Ct
 ORGANISM	Homo sapiens
 POOL	no
-DISEASE	none
-BIOMATERIAL_PROVIDER	Klinikum Uni München
+DISEASE	healthy
+BIOMATERIAL_PROVIDER	Klinikum Uni Muenchen
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
 TISSUE_TYPE	liver
