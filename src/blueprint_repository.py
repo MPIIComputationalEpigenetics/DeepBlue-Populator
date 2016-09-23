@@ -92,7 +92,7 @@ class BlueprintRepository(Repository):
                 biosource_name = biosource_name.split("(")[0]
                 print "Renaming " + biosource_name_old + " to " + biosource_name
 
-            sample_extra_info["source"] = "BLUEPRINT Epigenomics"
+            sample_extra_info["source"] = "BLUEPRINT Epigenome"
 
             epidb.add_biosource(biosource_name, None, {})
 
@@ -101,7 +101,7 @@ class BlueprintRepository(Repository):
             if samples:
                 sample_id = samples[0][0]
             else:
-                sample_extra_info["source"] = "BLUEPRINT Epigenomics"
+                sample_extra_info["source"] = "BLUEPRINT Epigenome"
                 (s, sample_id) = epidb.add_sample(biosource_name,
                                                   sample_extra_info)
                 if util.has_error(s, sample_id, []):
