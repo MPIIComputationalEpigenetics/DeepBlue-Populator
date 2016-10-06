@@ -63,13 +63,13 @@ deep = [
 ]
 
 project_sources = [
-    blueprint_source
+     # blueprint_source
      # roadmap
      # blueprint_source,
      # encode
      # encode_mm9,
      # encode,
      # epigenomic_landscape
-     # deep
+     deep
      # geo_source
 ]

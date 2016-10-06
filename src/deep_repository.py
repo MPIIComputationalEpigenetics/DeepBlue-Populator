@@ -120,14 +120,12 @@ class DeepRepository(Repository):
         file_path = experiment_metadata_info["filepath"]
         experiment_sample_id = os.path.basename(os.path.normpath(file_path))
         experiment_emd_path = os.path.join(EXPERIMENT_METADATA_DIRECTORY, experiment_sample_id, experiment_metadata_info["filename"])
-        print experiment_metadata_info["filename"]
         experiment_emd_key = experiment_metadata_info["filename"][:-8] # remove _emd.csv
         if not os.path.exists(experiment_emd_path):
           print "Path: " + experiment_emd_path + " does not exists."
           continue
         experiment = Experiment(process_metadata(experiment_emd_path))
         experiment_metadata_collection[experiment_emd_key] = experiment
-        print "Including: ", experiment_emd_key, " - ", experiment
 
       for type_ in file_types:
         files = srv.get_files_by_type(type_, sample.id())

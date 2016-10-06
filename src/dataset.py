@@ -327,7 +327,10 @@ class Dataset:
                 exp_name = am.name + ".bed"
 
         if is_gene_expression:
-            args = (sample_id, 0, file_content, frmt, am.project, am.extra_metadata)
+            (status, gxs) = epidb.list_gene_expressions(sample_id, None, am.project)
+            print gxs
+            replica = len(gxs)
+            args = (sample_id, replica, file_content, frmt, am.project, am.extra_metadata)
         else:
             args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
                     am.project, am.description, file_content, frmt, am.extra_metadata)
@@ -346,7 +349,7 @@ class Dataset:
                 self.save()
                 log.info("dataset %s inserted ", exp_name)
             else:
-                msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s(%s)\nfile_content: %s\ndownload_path: %s\ntype:%s\nepigenetic_mark:%s\ntechnique:%s\ndescription:%s" % (res, am.name, frmt, am.format, file_content[0:500], self.download_path, self.type, am.epigenetic_mark, am.technique, am.description)
+                msg = "Error while inserting dataset: res: %s\nexperiment_name: %s\nformat:%s\nformat name:%s\nfile_content: %s\ndownload_path: %s\ntype:%s\nepigenetic_mark:%s\ntechnique:%s\ndescription:%s" % (res, am.name, frmt, am.format, file_content[0:500], self.download_path, self.type, am.epigenetic_mark, am.technique, am.description)
                 if is_gene_expression:
                     msg = "Is gene expression. " + msg
                 log.error(msg)

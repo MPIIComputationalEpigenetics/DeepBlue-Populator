@@ -18,10 +18,10 @@ EPIDB_AUTHKEY_FILE = ".populator.epidb"
 LOG_LEVEL = logging.DEBUG
 
 MDB_HOST = "localhost"
-MDB_PORT = 27017
+MDB_PORT = 27027
 
 DEEPBLUE_HOST = "localhost"
-DEEPBLUE_PORT = 31415
+DEEPBLUE_PORT = 56573
 
 VOCAB_URL = "ftp://hgdownload.cse.ucsc.edu/apache/cgi-bin/encode/cv.ra"
 
@@ -29,10 +29,10 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 DOWNLOAD_PATH = os.path.join(ROOT, "download/")
 DATA_DIR = os.path.join(ROOT, "../data/")
 
-
 # always check:
 # /TL/deep-share/archive00/software/dtdrpc/dtd_srv.info 
-DEEP_XMLRPC_SERVER = "http://139.19.33.1:50005"
+=======
+DEEP_XMLRPC_SERVER = "http://deep01:50005"
 
 """
 Threads
