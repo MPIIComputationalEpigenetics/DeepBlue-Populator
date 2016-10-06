@@ -29,6 +29,9 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 DOWNLOAD_PATH = os.path.join(ROOT, "download/")
 DATA_DIR = os.path.join(ROOT, "../data/")
 
+
+# always check:
+# /TL/deep-share/archive00/software/dtdrpc/dtd_srv.info 
 DEEP_XMLRPC_SERVER = "http://139.19.33.1:50005"
 
 """
