@@ -1,9 +1,8 @@
-﻿EXPERIMENT_TYPE	RNA-seq (poly-A enriched)
-CONTACT_PERSON	Matthias Barann
-CONTACT_LAB	Philip Rosenstiel
+﻿CONTACT_LAB	Philip Rosenstiel
 SAMPLE_ID	01_HepaRG_LiHR_D31
 EXPERIMENT_DATE	2014-09-30
 EXPERIMENT_ID	01_HepaRG_LiHR_D31_mRNA_K_1
+EXPERIMENT_TYPE	RNA-seq (poly-A enriched)
 TECHNICAL_REPLICATE_ID	1
 FULL_LENGTH_PROTOCOL_LINK	http://supportres.illumina.com/documents/documentation%5Cchemistry_documentation%5Csamplepreps_truseq%5Ctruseqstrandedmrna%5Ctruseq-stranded-mrna-sample-prep-guide-15031047-e.pdf
 BIOLOGICAL_REPLICATE_ID	1
