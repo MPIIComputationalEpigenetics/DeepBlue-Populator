@@ -5,6 +5,7 @@ from datasources.blueprint.attribute_mapper import BlueprintMapper
 from datasources.deep.attribute_mapper import DEEPMapper
 from datasources.encode.attribute_mapper import EncodeMapper
 from datasources.roadmap.attribute_mapper import RoadmapMapper
+from datasources.progenitors.attribute_mapper import ProgenitorsMapper
 
 def get(project):
   if project == "ENCODE":
@@ -17,4 +18,6 @@ def get(project):
     return RoadmapMapper
   if project == "DEEP":
     return DEEPMapper
+  if project == "Progenitors Repository":
+    return ProgenitorsMapper
   print 'Invalid Project:', project

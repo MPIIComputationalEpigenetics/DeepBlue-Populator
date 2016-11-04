@@ -13,7 +13,7 @@ pp = pprint.PrettyPrinter(depth=6)
 
 class ProgenitorsRepository(Repository):
     def __init__(self, proj, genome, path):
-        super(ProgenitorsRepository, self).__init__(proj, genome, ["bw"], path)
+        super(ProgenitorsRepository, self).__init__(proj, genome, ["bigwig"], path)
 
     def __str__(self):
         return "<Progenitors Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -74,8 +74,7 @@ class ProgenitorsRepository(Repository):
 
                 name = data_url.split("/")[-1]
 
-                meta = {"name": name,
-                            "genome": genome,
+                meta = {"genome": genome,
                             "epigenetic_mark": epigenetic_mark,
                             "sample": db_sample_id,
                             "technique": technique,
@@ -85,7 +84,7 @@ class ProgenitorsRepository(Repository):
                             "extra_metadata": extra_metadata}
 
                 print meta
-                ds = Dataset(data_url, "bw", meta, sample_id=db_sample_id)
+                ds = Dataset(data_url, "bigwig", meta, sample_id=db_sample_id)
 
                 if self.add_dataset(ds):
                     self.has_updates = True
