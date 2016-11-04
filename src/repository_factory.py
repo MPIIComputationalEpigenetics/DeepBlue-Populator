@@ -4,6 +4,7 @@ from encode_repository import EncodeRepository
 from geo_repository import GeoRepository
 from roadmap_repository import RoadmapRepository
 from deep_repository import DeepRepository
+from progenitors_repository import ProgenitorsRepository
 
 from log import log
 
@@ -20,5 +21,7 @@ def load(project, genome, url):
         return DeepRepository("DEEP", genome, url)
     elif project == "Roadmap Epigenomics":
         return RoadmapRepository("Roadmap Epigenomics", genome, url)
+    elif project == "BLUEPRINT Progenitors":
+        return ProgenitorsRepository("Progenitors Repository", genome, url)
     else:
         log.error("Invalid project %s", project)

@@ -10,6 +10,10 @@ blueprint_source = [
     #('BLUEPRINT Epigenome', "GRCh38", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
 ]
 
+progenitors = [
+    ('BLUEPRINT Progenitors', 'GRCh38', "")
+]
+
 geo_source = [
     # UCSD Human Reference Epigenome Mapping Project
     ('GEO', 'hg19',
@@ -63,7 +67,8 @@ deep = [
 ]
 
 project_sources = [
-    blueprint_source
+    progenitors
+    #blueprint_source
      # roadmap
      # blueprint_source,
      # encode

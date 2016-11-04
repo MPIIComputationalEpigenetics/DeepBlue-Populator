@@ -1,0 +1,4180 @@
+{
+  "hub_description": {
+    "taxon_id": 9606,
+    "assembly": "hg38",
+    "publishing_group": "Blueprint",
+    "email": "cbock@cemm.oeaw.ac.at",
+    "date": "2016-10-27",
+    "description": "An optimized whole genome bisulfite sequencing protocol (µWGBS, Farlik et al. 2015 Cell Reports) was used to establish DNA methylation profiles of FACS-purified stem and progenitor cells types of the human blood lineage. Most cell types were sorted from the peripheral blood of three donors with eight pools of ten cells, two pools of 50 cells, and one pool of 1000 cells. HSCs and MPPs were also sorted from fetal liver (HSCs only), cord blood, and bone marrow. Single-cell methylomes using the scWGBS protocol (Farlik et al. 2015 Cell Reports) were established for six cell types (HSC, MPP, CMP, GMP, CLP, MLP0). Gene expression profiling using the Smart-seq2 protocol (Picelli et al. 2013 Nature Methods) was done for nine stem/progenitor cell types (HSC, MPP, CMP, GMP, CLP, MLP0, MLP1, MLP2, MLP3).",
+    "description_url": "http://blueprint-methylomes.computational-epigenetics.org"
+  },
+  "datasets": {
+    "Bcell_PB_I44_WGBS": {
+      "sample_id": "Bcell_PB_I44",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002734"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Bcell_PB_I44_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "8d821aef22c398f675e0af8aec220609"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Bcell_PB_I44_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "2ba533159b2ed4210a5a7a45ef57ac81"
+          }
+        ]
+      }
+    },
+    "Bcell_PB_I45_WGBS": {
+      "sample_id": "Bcell_PB_I45",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002735"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Bcell_PB_I45_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "b54d7f1b9ab10016084beb4ef6ee1b61"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Bcell_PB_I45_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7808d5e855c24750cead83a3a8db3291"
+          }
+        ]
+      }
+    },
+    "Bcell_PB_I53_WGBS": {
+      "sample_id": "Bcell_PB_I53",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002736"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Bcell_PB_I53_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "b3c40666c40607a7c86ff4088614de20"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Bcell_PB_I53_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "d59694f43d2d46c39be766c0c91253b5"
+          }
+        ]
+      }
+    },
+    "CD4_PB_I44_WGBS": {
+      "sample_id": "CD4_PB_I44",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002737"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD4_PB_I44_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "87ea71e272de13003a4ef3f0c3da1be6"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD4_PB_I44_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "48727374351e8f2cf4903d4cb2f6919c"
+          }
+        ]
+      }
+    },
+    "CD4_PB_I45_WGBS": {
+      "sample_id": "CD4_PB_I45",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002738"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD4_PB_I45_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "634bd49c796e671eb9d496a3c82b8ec0"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD4_PB_I45_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0a6b5931d31bad63a05e0c2e1695ba8e"
+          }
+        ]
+      }
+    },
+    "CD4_PB_I53_WGBS": {
+      "sample_id": "CD4_PB_I53",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002739"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD4_PB_I53_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "fe3097e9b01e39d97a120806bd8ade3e"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD4_PB_I53_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "15c7d41c86c3255879305a545ab3ef9d"
+          }
+        ]
+      }
+    },
+    "CD8_PB_I44_WGBS": {
+      "sample_id": "CD8_PB_I44",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002740"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD8_PB_I44_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0fa92082ed24a5f8bd81359c7a303274"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD8_PB_I44_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "58c18fa0dfe72eb1774b14d1a063c108"
+          }
+        ]
+      }
+    },
+    "CD8_PB_I45_WGBS": {
+      "sample_id": "CD8_PB_I45",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002741"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD8_PB_I45_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0060b6335e1c9cb73b077096a734d30f"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD8_PB_I45_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "cad944dafdb64d9b49ea893ab119559a"
+          }
+        ]
+      }
+    },
+    "CD8_PB_I53_WGBS": {
+      "sample_id": "CD8_PB_I53",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002742"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD8_PB_I53_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "840f8e2f5d77720c26332f0417187033"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CD8_PB_I53_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7aff8a7df12f9b7fc38e080e1b98d9eb"
+          }
+        ]
+      }
+    },
+    "CLP_PB_I12_WGBS": {
+      "sample_id": "CLP_PB_I12",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002743"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CLP_PB_I12_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "d4de7b85ec6ea54d9944d5e3d02e352e"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CLP_PB_I12_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "13e684c3bb9d0b9a5eb6d8cb53883153"
+          }
+        ]
+      }
+    },
+    "CLP_PB_I19_WGBS": {
+      "sample_id": "CLP_PB_I19",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002744"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CLP_PB_I19_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "6dace40a1a15fddfb33716ce034ddaa5"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CLP_PB_I19_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "49f9721a1805ca7ac8f2bff77bcda685"
+          }
+        ]
+      }
+    },
+    "CLP_PB_I20_WGBS": {
+      "sample_id": "CLP_PB_I20",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002745"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CLP_PB_I20_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0ff9751b70387cbf98ef21d01ad41b50"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CLP_PB_I20_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "68a839504927a7a7769c5706e90b4593"
+          }
+        ]
+      }
+    },
+    "CLP_PB_I32_RNA": {
+      "sample_id": "CLP_PB_I32",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002746"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_CLP_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "e7d32e9b22be07467d0e5dc167886b9d"
+          }
+        ]
+      }
+    },
+    "CMP_PB_I13_WGBS": {
+      "sample_id": "CMP_PB_I13",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002747"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CMP_PB_I13_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "f0a6840192e31d02a8a77337a3a5d5ea"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CMP_PB_I13_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "b147972ddcaa14e7476db1cece005c25"
+          }
+        ]
+      }
+    },
+    "CMP_PB_I14_WGBS": {
+      "sample_id": "CMP_PB_I14",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002748"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CMP_PB_I14_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0e543f4a67911fb00a11e194dbbd0ad3"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CMP_PB_I14_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7cec6c62f6c49be7c6fa8b1455bcad09"
+          }
+        ]
+      }
+    },
+    "CMP_PB_I15_WGBS": {
+      "sample_id": "CMP_PB_I15",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002749"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CMP_PB_I15_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "5881bf08bd8fd2b12dcb0784db5f0e16"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/CMP_PB_I15_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "4fa820052dd80fc8cdbf6fe9f8b1d8d0"
+          }
+        ]
+      }
+    },
+    "CMP_PB_I39_RNA": {
+      "sample_id": "CMP_PB_I39",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002750"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D2_CMP_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0faedba9cff1e063676c7a22f88152f8"
+          }
+        ]
+      }
+    },
+    "GMP_PB_I42_RNA": {
+      "sample_id": "GMP_PB_I42",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002751"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_GMP_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "af55f78ddf9aa677d438810fcde216fa"
+          }
+        ]
+      }
+    },
+    "GMP_PB_I46_RNA": {
+      "sample_id": "GMP_PB_I46",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002752"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D2_GMP_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "6593f8acb6cc1cac7f4a8c1164b32baa"
+          }
+        ]
+      }
+    },
+    "GMP_PB_I47_WGBS": {
+      "sample_id": "GMP_PB_I47",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002753"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/GMP_PB_I47_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ade69471c5d76291fb9f519dc12a972b"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/GMP_PB_I47_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "6f16b8c17c1638141da10e4ec2bc8004"
+          }
+        ]
+      }
+    },
+    "GMP_PB_I48_WGBS": {
+      "sample_id": "GMP_PB_I48",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002754"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/GMP_PB_I48_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "4cb6695cc3028a35e4d9ccfac337b1dc"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/GMP_PB_I48_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "3ea5b86a71e9744a63f8f5991d24b534"
+          }
+        ]
+      }
+    },
+    "GMP_PB_I49_WGBS": {
+      "sample_id": "GMP_PB_I49",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002755"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/GMP_PB_I49_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "afa3b3fe59198c884c17f2f876876cfd"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/GMP_PB_I49_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "cd5dc2797fd31627b57889d77e273bb8"
+          }
+        ]
+      }
+    },
+    "HSC_BM_I23_WGBS": {
+      "sample_id": "HSC_BM_I23",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002756"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_BM_I23_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "8e506d5943d82503d2d37c9d685063a6"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_BM_I23_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7c0d6905ec0f8f6eb0ddc5542d634d1f"
+          }
+        ]
+      }
+    },
+    "HSC_BM_I34_RNA": {
+      "sample_id": "HSC_BM_I34",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002757"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_HSCbm_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "6a505c5e004146fa40414e4c28cb24db"
+          }
+        ]
+      }
+    },
+    "HSC_BM_I56_WGBS": {
+      "sample_id": "HSC_BM_I56",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002758"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_BM_I56_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "d01bda7b427a10befabf90a5b5f38247"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_BM_I56_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "99d4f0bf0d64e577344e8bd76683cb23"
+          }
+        ]
+      }
+    },
+    "HSC_CB_I26_WGBS": {
+      "sample_id": "HSC_CB_I26",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002759"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_CB_I26_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "e8ec5840e2391681ce6808a16eea8515"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_CB_I26_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "dd862e8c9c67ca3cba7e99c4d2dc34c4"
+          }
+        ]
+      }
+    },
+    "HSC_CB_I28_WGBS": {
+      "sample_id": "HSC_CB_I28",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002760"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_CB_I28_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "91fb72af7e376246a85426a89c9fa993"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_CB_I28_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "6bb6ce8069f3f90a0d90c7da71bcb88c"
+          }
+        ]
+      }
+    },
+    "HSC_CB_I29_WGBS": {
+      "sample_id": "HSC_CB_I29",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002761"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_CB_I29_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7f48baa4cd61dd6376aa3f35cf500c87"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_CB_I29_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7e9e79be5ad3284a3f6a30342f65f727"
+          }
+        ]
+      }
+    },
+    "HSC_FL_I54_WGBS": {
+      "sample_id": "HSC_FL_I54",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002762"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_FL_I54_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "8541c6cf20fcb5d8b3146fb0caae7564"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_FL_I54_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "357e6e4a387dfa51271e615410f422a3"
+          }
+        ]
+      }
+    },
+    "HSC_FL_I55_WGBS": {
+      "sample_id": "HSC_FL_I55",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002763"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_FL_I55_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "a373faecb14e73f2e1a118abafd37943"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_FL_I55_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "c8f6693003243f87de6c2f612ce579d0"
+          }
+        ]
+      }
+    },
+    "HSC_PB_I24_WGBS": {
+      "sample_id": "HSC_PB_I24",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002764"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_PB_I24_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "6a1b8a717f1a5dd66b7d00f907c2ce81"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_PB_I24_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "d9e757fe84547e9728f7572944e806eb"
+          }
+        ]
+      }
+    },
+    "HSC_PB_I30_WGBS": {
+      "sample_id": "HSC_PB_I30",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002765"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_PB_I30_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "d85b9d4ae708fe61c2812e2654f1e034"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_PB_I30_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "247614e512aa6ffd222e6d5de20c62a6"
+          }
+        ]
+      }
+    },
+    "HSC_PB_I31_WGBS": {
+      "sample_id": "HSC_PB_I31",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002766"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_PB_I31_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7de045fd38bc2bb58946dc363887be1c"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/HSC_PB_I31_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "aa82e9fed6f495bfa98e8af2bddea7d0"
+          }
+        ]
+      }
+    },
+    "HSC_PB_I43_RNA": {
+      "sample_id": "HSC_PB_I43",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002767"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_HSC_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "3b23cf4c3982f2c612d00a88712d80c6"
+          }
+        ]
+      }
+    },
+    "MEP_PB_I16_WGBS": {
+      "sample_id": "MEP_PB_I16",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002768"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MEP_PB_I16_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "c803b6b816048cb7e5d97d853798d4d2"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MEP_PB_I16_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "2de8c1299ecc54e984187ef99341611c"
+          }
+        ]
+      }
+    },
+    "MEP_PB_I17_WGBS": {
+      "sample_id": "MEP_PB_I17",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002769"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MEP_PB_I17_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "d3f7fe0535cdb6bc3f13644b0e577274"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MEP_PB_I17_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "3138fe500570c0f84fc4bab7ae7c1b17"
+          }
+        ]
+      }
+    },
+    "MEP_PB_I18_WGBS": {
+      "sample_id": "MEP_PB_I18",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002770"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MEP_PB_I18_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "d00ec5077cd1a4ba8f72785d88d46264"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MEP_PB_I18_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "3ac618675a26a7630cf34bd67d2a0209"
+          }
+        ]
+      }
+    },
+    "MK_BM_I1_WGBS": {
+      "sample_id": "MK_BM_I1",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002771"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MK_BM_I1_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "35bff2864176b9b037ab277ca2873c1e"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MK_BM_I1_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ae5e12eaee15c1d8756d3a925c4555c6"
+          }
+        ]
+      }
+    },
+    "MK_BM_I21_WGBS": {
+      "sample_id": "MK_BM_I21",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002773"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MK_BM_I21_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "f628a92b1ef34a82f171889dce79be0e"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MK_BM_I21_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "b081d052e5ed99cc0cbe2065ad95ba2a"
+          }
+        ]
+      }
+    },
+    "MK_BM_I22_WGBS": {
+      "sample_id": "MK_BM_I22",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002774"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MK_BM_I22_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "f628a92b1ef34a82f171889dce79be0e"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MK_BM_I22_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "b081d052e5ed99cc0cbe2065ad95ba2a"
+          }
+        ]
+      }
+    },
+    "MLP0_PB_I41_RNA": {
+      "sample_id": "MLP0_PB_I41",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002775"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_MLP0_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "5f47f7fbf78538104c93f30bce456c33"
+          }
+        ]
+      }
+    },
+    "MLP0_PB_I50_WGBS": {
+      "sample_id": "MLP0_PB_I50",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002776"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP0_PB_I50_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "bc2394e40b62cd0742452e719d5358ff"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP0_PB_I50_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "9efe37c24f69fa104a78dfc12069187c"
+          }
+        ]
+      }
+    },
+    "MLP0_PB_I51_WGBS": {
+      "sample_id": "MLP0_PB_I51",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002777"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP0_PB_I51_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "9e7c8097927e1303eae004c90f7f3137"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP0_PB_I51_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "672602fbae3be123267a3c0feb77f304"
+          }
+        ]
+      }
+    },
+    "MLP0_PB_I52_WGBS": {
+      "sample_id": "MLP0_PB_I52",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002778"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP0_PB_I52_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "3353e7840bda435fe1b10edcaf7dcafc"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP0_PB_I52_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "28ff93f4b55782a91751a0dc56ea1e94"
+          }
+        ]
+      }
+    },
+    "MLP1_PB_I6_WGBS": {
+      "sample_id": "MLP1_PB_I6",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002779"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP1_PB_I6_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "eac7a24f144574f796071f6a82e75014"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP1_PB_I6_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "938e93633f0b8ce71558d3c4674987cf"
+          }
+        ]
+      }
+    },
+    "MLP1_PB_I7_WGBS": {
+      "sample_id": "MLP1_PB_I7",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002780"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP1_PB_I7_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "58a0414a9f15b156b499e93960517c96"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP1_PB_I7_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "27a0921587d6eb3fd68757536957f0b9"
+          }
+        ]
+      }
+    },
+    "MLP1_PB_I8_WGBS": {
+      "sample_id": "MLP1_PB_I8",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002781"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP1_PB_I8_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "2d85c7abea965b18807502528077acee"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP1_PB_I8_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "aa52e4f6d300ea1b195adb654c9f2df7"
+          }
+        ]
+      }
+    },
+    "MLP1_PB_I35_RNA": {
+      "sample_id": "MLP1_PB_I35",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002782"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D2_MLP1_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7f70bf488e0a9e7dcaad2dcf6b9d4250"
+          }
+        ]
+      }
+    },
+    "MLP1_PB_I40_RNA": {
+      "sample_id": "MLP1_PB_I40",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002783"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_MLP1_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "92bfdfc10bb67a274c366317e457434d"
+          }
+        ]
+      }
+    },
+    "MLP2_PB_I3_WGBS": {
+      "sample_id": "MLP2_PB_I3",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002784"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP2_PB_I3_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "01ea50b36b019f234f1d2dd416834fec"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP2_PB_I3_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "37fd51d00b757fa6280145bbc7c80cc2"
+          }
+        ]
+      }
+    },
+    "MLP2_PB_I4_WGBS": {
+      "sample_id": "MLP2_PB_I4",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002785"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP2_PB_I4_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "4f3621fc5b456704bf08d14c1f843470"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP2_PB_I4_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "4eb57a426af6645278e9f79bc1fae583"
+          }
+        ]
+      }
+    },
+    "MLP2_PB_I5_WGBS": {
+      "sample_id": "MLP2_PB_I5",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002786"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP2_PB_I5_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "6ea706a92148fcc307e86db24e50bbf3"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP2_PB_I5_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "07dbe69fee60e83f8cbd94530b0e1e00"
+          }
+        ]
+      }
+    },
+    "MLP2_PB_I38_RNA": {
+      "sample_id": "MLP2_PB_I38",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002787"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_MLP2_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "f27a73c90dc3581bbea5110c838ecdd0"
+          }
+        ]
+      }
+    },
+    "MLP3_PB_I9_WGBS": {
+      "sample_id": "MLP3_PB_I9",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002788"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP3_PB_I9_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "926c82365075a410b4fabd9ad935be69"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP3_PB_I9_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0f4cd9172e03a756e5b893db292de101"
+          }
+        ]
+      }
+    },
+    "MLP3_PB_I10_WGBS": {
+      "sample_id": "MLP3_PB_I10",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002789"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP3_PB_I10_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "b21a60d666d37292ae9d6a33b233ddd1"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP3_PB_I10_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ec2f349e51fb4d689c35b27ba77b9a6b"
+          }
+        ]
+      }
+    },
+    "MLP3_PB_I11_WGBS": {
+      "sample_id": "MLP3_PB_I11",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002790"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP3_PB_I11_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0fd0ba5c13ac6a8914b6edd6b8f70919"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MLP3_PB_I11_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0c053201069481dabb86942a50d18309"
+          }
+        ]
+      }
+    },
+    "MLP3_PB_I37_RNA": {
+      "sample_id": "MLP3_PB_I37",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002791"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_MLP3_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "3c7d51026ff1a5a6d267684b5f681401"
+          }
+        ]
+      }
+    },
+    "Mono_PB_I44_WGBS": {
+      "sample_id": "Mono_PB_I44",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002792"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Mono_PB_I44_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "afc59bdacbe352daf85a2064f4417274"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Mono_PB_I44_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "657d9643aaba4ba50e9d9ed99fe2db28"
+          }
+        ]
+      }
+    },
+    "Mono_PB_I45_WGBS": {
+      "sample_id": "Mono_PB_I45",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002793"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Mono_PB_I45_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "8bd01b6aa26518f245415be588f15a4f"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Mono_PB_I45_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "7465e4b50bf5da078c4d51211386f095"
+          }
+        ]
+      }
+    },
+    "Mono_PB_I53_WGBS": {
+      "sample_id": "Mono_PB_I53",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002794"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Mono_PB_I53_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "95ed33565cd661d93465f4d10ea5a06a"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Mono_PB_I53_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "9bd15e3ed3eeec046fbc6d283e6b37af"
+          }
+        ]
+      }
+    },
+    "MPP_BM_I27_WGBS": {
+      "sample_id": "MPP_BM_I27",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002795"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_BM_I27_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "12658c9d0779a759b641b459de0812a9"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_BM_I27_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ab7da84c0e8e6a40222247b8d18bb751"
+          }
+        ]
+      }
+    },
+    "MPP_CB_I26_WGBS": {
+      "sample_id": "MPP_CB_I26",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002796"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_CB_I26_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "4749dbc09f7af9731f22cb1818dcefbd"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_CB_I26_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ec08423c4602fed225d26cba985aeb03"
+          }
+        ]
+      }
+    },
+    "MPP_CB_I28_WGBS": {
+      "sample_id": "MPP_CB_I28",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002797"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_CB_I28_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "9b050ff8a08a357ff06a4205637a0c80"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_CB_I28_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "fef1da4f9faef328aee233b00c7bfdcb"
+          }
+        ]
+      }
+    },
+    "MPP_CB_I29_WGBS": {
+      "sample_id": "MPP_CB_I29",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002798"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_CB_I29_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "9d0d311db2c495bd40b73161e4abcb19"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_CB_I29_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "66c858bde7e92b00ae99b859e005ac59"
+          }
+        ]
+      }
+    },
+    "MPP_PB_I25_WGBS": {
+      "sample_id": "MPP_PB_I25",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002799"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I25_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "01cbec9a8ee353e56851e329e812103d"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I25_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0e2a8ce9d0c146abbf054c10472fe0f1"
+          }
+        ]
+      }
+    },
+    "MPP_PB_I30_WGBS": {
+      "sample_id": "MPP_PB_I30",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002800"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I30_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "cbb0d9122fb9b6065490293e232d571a"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I30_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "0e89224c52fd46ec9930233f51bd83f5"
+          }
+        ]
+      }
+    },
+    "MPP_PB_I31_WGBS": {
+      "sample_id": "MPP_PB_I31",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002801"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I31_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "013ff48180f0254ef218b6a8c4774340"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I31_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "957e4de36029bf3ca8008b91da7ec1b1"
+          }
+        ]
+      }
+    },
+    "MPP_PB_I33_RNA": {
+      "sample_id": "MPP_PB_I33",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002802"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D2_MPP_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ce31383f18906e421044894867ce4970"
+          }
+        ]
+      }
+    },
+    "MPP_PB_I36_RNA": {
+      "sample_id": "MPP_PB_I36",
+      "experiment_attributes": {
+        "experiment_type": "RNA-Seq",
+        "assay_type": "RNA-seq assay",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001271",
+        "reference_registry_id": "IHECRE00002803"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bowtie",
+        "alignment_software_version": "v1.1.1",
+        "analysis_software": "BitSeq; DESeq2",
+        "analysis_software_version": "v1.12.0; 2"
+      },
+      "browser": {
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/rna/RNA_D1_MPP_100.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "a44849360ce6f080d23213358a53b299"
+          }
+        ]
+      }
+    },
+    "MPP_PB_I57_WGBS": {
+      "sample_id": "MPP_PB_I57",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002804"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I57_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "1a34f780ee0b15af6760125471ddfcbb"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/MPP_PB_I57_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "08f0886cd9f773fcde74cdc56c540cad"
+          }
+        ]
+      }
+    },
+    "Neut_PB_I44_WGBS": {
+      "sample_id": "Neut_PB_I44",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002805"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Neut_PB_I44_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "1ffcab1e78f524974e157a16301734c6"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Neut_PB_I44_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "4753dac5a4b0883ffe291f2d82c1a2d7"
+          }
+        ]
+      }
+    },
+    "Neut_PB_I45_WGBS": {
+      "sample_id": "Neut_PB_I45",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002806"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Neut_PB_I45_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ba3e7301e2ce0b1f4b5cc6234a5a2a4f"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Neut_PB_I45_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "abc32984f849388823eb8a17762ab810"
+          }
+        ]
+      }
+    },
+    "Neut_PB_I53_WGBS": {
+      "sample_id": "Neut_PB_I53",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002807"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Neut_PB_I53_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "56743bb638fd064c74b2f7a984ea0ecd"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/Neut_PB_I53_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "2ab874d8cd81cccdd9b07f44bd412cb0"
+          }
+        ]
+      }
+    },
+    "NK_PB_I44_WGBS": {
+      "sample_id": "NK_PB_I44",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002808"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/NK_PB_I44_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "10da958a0160b9f107107860c702c121"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/NK_PB_I44_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "ee1eb40979d2f790b5bef7d5596a5bd2"
+          }
+        ]
+      }
+    },
+    "NK_PB_I45_WGBS": {
+      "sample_id": "NK_PB_I45",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002809"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/NK_PB_I45_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "809a933f115184c1ad45e2b5f65b5ee0"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/NK_PB_I45_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "a3c4687bbaa440bd427ad8150779360d"
+          }
+        ]
+      }
+    },
+    "NK_PB_I53_WGBS": {
+      "sample_id": "NK_PB_I53",
+      "experiment_attributes": {
+        "experiment_type": "DNA Methylation",
+        "assay_type": "µWGBS",
+        "experiment_ontology_uri": "http://purl.obolibrary.org/obo/OBI_0001863",
+        "reference_registry_id": "IHECRE00002810"
+      },
+      "analysis_attributes": {
+        "analysis_group": "CeMM/MPI-INF",
+        "alignment_software": "Bismark; Bowtie2",
+        "alignment_software_version": "v0.12.2; v2.2.4",
+        "analysis_software": "RnBeads",
+        "analysis_software_version": "1.5"
+      },
+      "browser": {
+        "methylation_profile": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/NK_PB_I53_fracmeth.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "18f592841fe9abf79659e0335d5b6480"
+          }
+        ],
+        "signal_unstranded": [
+          {
+            "big_data_url": "http://ftp.ebi.ac.uk/pub/databases/blueprint/blueprint_progenitor_methylomes/meth/NK_PB_I53_covg.bw",
+            "description_url": "http://blueprint-methylomes.computational-epigenetics.org",
+            "md5sum": "281133f87dba2e25289b6bde6e25a793"
+          }
+        ]
+      }
+    }
+  },
+  "samples": {
+    "Bcell_PB_I44": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "44",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "donor_sex": "Male",
+      "subject_id": "44",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000236;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000236;UBERON_0013756",
+      "cell_type": "B cell from peripheral blood",
+      "markers": "CD19+ CD27- IgD+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Bcell_PB_I45": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "45",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "45",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000236;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000236;UBERON_0013756",
+      "cell_type": "B cell from peripheral blood",
+      "markers": "CD19+ CD27- IgD+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Bcell_PB_I53": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "53",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "53",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000236;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000236;UBERON_0013756",
+      "cell_type": "B cell from peripheral blood",
+      "markers": "CD19+ CD27- IgD+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CD4_PB_I44": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "44",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "44",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000624;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000624;UBERON_0013756",
+      "cell_type": "CD4+ T cell from peripheral blood",
+      "markers": "CD3+ CD4+ CD62L+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CD4_PB_I45": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "45",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "45",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000624;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000624;UBERON_0013756",
+      "cell_type": "CD4+ T cell from peripheral blood",
+      "markers": "CD3+ CD4+ CD62L+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CD4_PB_I53": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "53",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "53",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000624;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000624;UBERON_0013756",
+      "cell_type": "CD4+ T cell from peripheral blood",
+      "markers": "CD3+ CD4+ CD62L+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CD8_PB_I44": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "44",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "44",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000625;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000625;UBERON_0013756",
+      "cell_type": "CD8+ T cell from peripheral blood",
+      "markers": "CD3+ CD8+ CD62L+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CD8_PB_I45": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "45",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "45",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000625;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000625;UBERON_0013756",
+      "cell_type": "CD8+ T cell from peripheral blood",
+      "markers": "CD3+ CD8+ CD62L+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CD8_PB_I53": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "53",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "53",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000625;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000625;UBERON_0013756",
+      "cell_type": "CD8+ T cell from peripheral blood",
+      "markers": "CD3+ CD8+ CD62L+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CLP_PB_I12": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "12",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "12",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001021;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001021;UBERON_0013756",
+      "cell_type": "Common lymphoid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CLP_PB_I19": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "19",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "19",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001021;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001021;UBERON_0013756",
+      "cell_type": "Common lymphoid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CLP_PB_I20": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "20",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "20",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001021;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001021;UBERON_0013756",
+      "cell_type": "Common lymphoid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CLP_PB_I32": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "32",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "32",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001021;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001021;UBERON_0013756",
+      "cell_type": "Common lymphoid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CMP_PB_I13": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "13",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "13",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001026;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001026;UBERON_0013756",
+      "cell_type": "Common myeloid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123 low CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CMP_PB_I14": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "14",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "14",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001026;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001026;UBERON_0013756",
+      "cell_type": "Common myeloid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123 low CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CMP_PB_I15": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "15",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "15",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001026;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001026;UBERON_0013756",
+      "cell_type": "Common myeloid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123 low CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "CMP_PB_I39": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "39",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "39",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001026;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001026;UBERON_0013756",
+      "cell_type": "Common myeloid progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123 low CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "GMP_PB_I42": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "42",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "42",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000557;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000557;UBERON_0013756",
+      "cell_type": "Granulocyte macrophage progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123+ CD45RA+ CD10-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "GMP_PB_I46": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "46",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "46",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000557;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000557;UBERON_0013756",
+      "cell_type": "Granulocyte macrophage progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123+ CD45RA+ CD10-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "GMP_PB_I47": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "47",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "47",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000557;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000557;UBERON_0013756",
+      "cell_type": "Granulocyte macrophage progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123+ CD45RA+ CD10-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "GMP_PB_I48": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "48",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "48",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000557;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000557;UBERON_0013756",
+      "cell_type": "Granulocyte macrophage progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123+ CD45RA+ CD10-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "GMP_PB_I49": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "49",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "49",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000557;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000557;UBERON_0013756",
+      "cell_type": "Granulocyte macrophage progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123+ CD45RA+ CD10-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "HSC_BM_I23": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "23",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "23",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0002371",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0002371",
+      "cell_type": "Hematopoietic stem cell from bone marrow",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Lonza"
+    },
+    "HSC_BM_I34": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "34",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "34",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0002371",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0002371",
+      "cell_type": "Hematopoietic stem cell from bone marrow",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "Lonza"
+    },
+    "HSC_BM_I56": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "56",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "56",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0002371",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0002371",
+      "cell_type": "Hematopoietic stem cell from bone marrow",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Lonza"
+    },
+    "HSC_CB_I26": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "26",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "newborn",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "26",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0012168",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0012168",
+      "cell_type": "Hematopoietic stem cell from cord blood",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Rosie Maternity Hospital"
+    },
+    "HSC_CB_I28": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "28",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "newborn",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "28",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0012168",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0012168",
+      "cell_type": "Hematopoietic stem cell from cord blood",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Rosie Maternity Hospital"
+    },
+    "HSC_CB_I29": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "29",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "newborn",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "29",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0012168",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0012168",
+      "cell_type": "Hematopoietic stem cell from cord blood",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Rosie Maternity Hospital"
+    },
+    "HSC_FL_I54": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "54",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "fetal",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "54",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0002107",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0002107",
+      "cell_type": "Hematopoietic stem cell from fetal liver",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "StemExpress"
+    },
+    "HSC_FL_I55": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "55",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "fetal",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "55",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0002107",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0002107",
+      "cell_type": "Hematopoietic stem cell from fetal liver",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "StemExpress"
+    },
+    "HSC_PB_I24": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "24",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "24",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0013756",
+      "cell_type": "Hematopoietic stem cell from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "HSC_PB_I30": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "30",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "30",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0013756",
+      "cell_type": "Hematopoietic stem cell from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "HSC_PB_I31": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "31",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "31",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0013756",
+      "cell_type": "Hematopoietic stem cell from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "HSC_PB_I43": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "43",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "43",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000037;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000037;UBERON_0013756",
+      "cell_type": "Hematopoietic stem cell from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90+ CD49f+ CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MEP_PB_I16": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "16",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "16",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000050;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000050;UBERON_0013756",
+      "cell_type": "Megakaryocyte erythrocyte progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MEP_PB_I17": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "17",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "17",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000050;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000050;UBERON_0013756",
+      "cell_type": "Megakaryocyte erythrocyte progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MEP_PB_I18": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "18",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "18",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000050;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000050;UBERON_0013756",
+      "cell_type": "Megakaryocyte erythrocyte progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38+ CD123- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MK_BM_I1": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "1",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "1",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000556;http://purl.obolibrary.org/obo/UBERON_0002371",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000556;UBERON_0002371",
+      "cell_type": "Megakaryocyte from bone marrow",
+      "markers": "CD41a+ CD42b+ Hoechst",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Lonza"
+    },
+    "MK_BM_I21": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "21",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "21",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000556;http://purl.obolibrary.org/obo/UBERON_0002371",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000556;UBERON_0002371",
+      "cell_type": "Megakaryocyte from bone marrow",
+      "markers": "CD41a+ CD42b+ Hoechst",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Lonza"
+    },
+    "MK_BM_I22": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "22",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "22",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000556;http://purl.obolibrary.org/obo/UBERON_0002371",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000556;UBERON_0002371",
+      "cell_type": "Megakaryocyte from bone marrow",
+      "markers": "CD41a+ CD42b+ Hoechst",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Lonza"
+    },
+    "MLP0_PB_I41": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "41",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "41",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 0 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP0_PB_I50": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "50",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "50",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 0 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP0_PB_I51": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "51",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "51",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 0 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP0_PB_I52": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "52",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "52",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 0 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP1_PB_I6": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "6",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "6",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 1 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP1_PB_I7": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "7",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "7",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 1 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP1_PB_I8": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "8",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "8",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 1 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP1_PB_I35": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "35",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "35",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 1 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP1_PB_I40": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "40",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "40",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 1 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10- CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP2_PB_I3": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "3",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "3",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 2 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP2_PB_I4": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "4",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "4",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 2 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP2_PB_I5": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "5",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "5",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 2 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP2_PB_I38": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "38",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "38",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 2 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7- CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP3_PB_I9": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "9",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "9",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 3 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP3_PB_I10": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "10",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "10",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 3 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP3_PB_I11": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "11",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "11",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 3 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MLP3_PB_I37": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "37",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "37",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000838;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000838;UBERON_0013756",
+      "cell_type": "Immature lymphoid progenitor 3 from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD7+ CD10+ CD45RA+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Mono_PB_I44": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "44",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "44",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001054;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001054;UBERON_0013756",
+      "cell_type": "Monocyte from peripheral blood",
+      "markers": "CD45+ CD64+ CD14+ CD16-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Mono_PB_I45": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "45",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "45",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001054;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001054;UBERON_0013756",
+      "cell_type": "Monocyte from peripheral blood",
+      "markers": "CD45+ CD64+ CD14+ CD16-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Mono_PB_I53": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "53",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "53",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0001054;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0001054;UBERON_0013756",
+      "cell_type": "Monocyte from peripheral blood",
+      "markers": "CD45+ CD64+ CD14+ CD16-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MPP_BM_I27": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "27",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "27",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0002371",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0002371",
+      "cell_type": "Multipotent progenitor from bone marrow",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Lonza"
+    },
+    "MPP_CB_I26": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "26",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "newborn",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "26",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0012168",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0012168",
+      "cell_type": "Multipotent progenitor from cord blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Rosie Maternity Hospital"
+    },
+    "MPP_CB_I28": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "28",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "newborn",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "28",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0012168",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0012168",
+      "cell_type": "Multipotent progenitor from cord blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Rosie Maternity Hospital"
+    },
+    "MPP_CB_I29": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "29",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "newborn",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "29",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0012168",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0012168",
+      "cell_type": "Multipotent progenitor from cord blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "Rosie Maternity Hospital"
+    },
+    "MPP_PB_I25": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "25",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "25",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0013756",
+      "cell_type": "Multipotent progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MPP_PB_I30": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "30",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "30",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0013756",
+      "cell_type": "Multipotent progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MPP_PB_I31": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "31",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "31",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0013756",
+      "cell_type": "Multipotent progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MPP_PB_I33": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "33",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "33",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0013756",
+      "cell_type": "Multipotent progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MPP_PB_I36": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "36",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "adult",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "36",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0013756",
+      "cell_type": "Multipotent progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "polyA RNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "MPP_PB_I57": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "57",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "57",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0002043;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0002043;UBERON_0013756",
+      "cell_type": "Multipotent progenitor from peripheral blood",
+      "markers": "Lin- CD34+ CD38- CD90- CD45RA-",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Neut_PB_I44": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "44",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "44",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000775;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000775;UBERON_0013756",
+      "cell_type": "Neutrophil from peripheral blood",
+      "markers": "CD45+ CD66b+ CD16+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Neut_PB_I45": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "45",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "45",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000775;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000775;UBERON_0013756",
+      "cell_type": "Neutrophil from peripheral blood",
+      "markers": "CD45+ CD66b+ CD16+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "Neut_PB_I53": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "53",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "53",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000775;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000775;UBERON_0013756",
+      "cell_type": "Neutrophil from peripheral blood",
+      "markers": "CD45+ CD66b+ CD16+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "NK_PB_I44": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "44",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "44",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000623;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000623;UBERON_0013756",
+      "cell_type": "Natural killer cell from peripheral blood",
+      "markers": "CD56dim CD3- CD16+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "NK_PB_I45": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "45",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "45",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000623;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000623;UBERON_0013756",
+      "cell_type": "Natural killer cell from peripheral blood",
+      "markers": "CD56dim CD3- CD16+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    },
+    "NK_PB_I53": {
+      "biomaterial_type": "Primary Cell",
+      "donor_id": "53",
+      "disease_ontology_uri": "http://ncim-stage.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=C3898900",
+      "donor_life_stage": "unknown",
+      "passage_if_expanded": "NA",
+      "donor_ethnicity": "NA",
+      "subject_id": "53",
+      "donor_sex": "Male",
+      "gender": "male",
+      "donor_age_unit": "year",
+      "taxon_id": "9606",
+      "species": "Homo sapiens",
+      "sample_ontology_uri": "http://purl.obolibrary.org/obo/CL_0000623;http://purl.obolibrary.org/obo/UBERON_0013756",
+      "disease": "",
+      "donor_age": "NA",
+      "phenotype": "CL_0000623;UBERON_0013756",
+      "cell_type": "Natural killer cell from peripheral blood",
+      "markers": "CD56dim CD3- CD16+",
+      "donor_health_status": "NA",
+      "molecule_ontology_uri": "",
+      "molecule": "genomic DNA",
+      "biomaterial_provider": "NIHR Cambridge BioResource"
+    }
+  }
+}
