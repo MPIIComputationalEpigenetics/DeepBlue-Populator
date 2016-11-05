@@ -43,6 +43,7 @@ class ProgenitorsRepository(Repository):
         for s_id in samples:
             sample = samples[s_id]
             biosource_url = sample['sample_ontology_uri'].split(";")[0]
+            sample["source"] = "BLUEPRINT Progenitors"
             s, bs = epidb.list_biosources({"url": biosource_url})
             print s, bs
             biosource = bs[0][1]
