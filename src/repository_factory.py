@@ -21,7 +21,7 @@ def load(project, genome, url):
         return DeepRepository("DEEP", genome, url)
     elif project == "Roadmap Epigenomics":
         return RoadmapRepository("Roadmap Epigenomics", genome, url)
-    elif project == "BLUEPRINT Progenitors":
-        return ProgenitorsRepository("Progenitors Repository", genome, url)
+    elif project == "Blueprint HSC differentiation":
+        return ProgenitorsRepository("Blueprint HSC differentiation", genome, url)
     else:
         log.error("Invalid project %s", project)

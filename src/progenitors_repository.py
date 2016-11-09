@@ -11,6 +11,8 @@ from epidb_interaction import PopulatorEpidbClient
 
 pp = pprint.PrettyPrinter(depth=6)
 
+project_name = "Blueprint HSC differentiation"
+
 class ProgenitorsRepository(Repository):
     def __init__(self, proj, genome, path):
         super(ProgenitorsRepository, self).__init__(proj, genome, ["bigwig"], path)
@@ -29,7 +31,6 @@ class ProgenitorsRepository(Repository):
 
         hub_description = j['hub_description']
         genome = hub_description['assembly']
-        project_name = "BLUEPRINT Progenitors"
         project_description = hub_description['description'] + " " + hub_description['description_url']
 
         add_project = (project_name, project_description)
@@ -43,7 +44,7 @@ class ProgenitorsRepository(Repository):
         for s_id in samples:
             sample = samples[s_id]
             biosource_url = sample['sample_ontology_uri'].split(";")[0]
-            sample["source"] = "BLUEPRINT Progenitors"
+            sample["source"] = project_name
             s, bs = epidb.list_biosources({"url": biosource_url})
             print s, bs
             biosource = bs[0][1]
@@ -89,7 +90,4 @@ class ProgenitorsRepository(Repository):
 
                 if self.add_dataset(ds):
                     self.has_updates = True
-
-
-
 

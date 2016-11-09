@@ -18,6 +18,6 @@ def get(project):
     return RoadmapMapper
   if project == "DEEP":
     return DEEPMapper
-  if project == "Progenitors Repository":
+  if project == "Blueprint HSC differentiation":
     return ProgenitorsMapper
   print 'Invalid Project:', project
