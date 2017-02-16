@@ -167,7 +167,7 @@ class Populator:
         epidb.add_technique("DNase-seq Uniform",
                             "DNase I hypersensitive sites sequencing performed uniform processing on datasets produced by multiple data production groups in the ENCODE Consortium",
             {})
-        epidb.add_technique("Chromatin State Segmentation by HMM",
+        epidb.add_technique("Chromatin State Segmentation by ChromHMM",
                             "ChIP-seq data from the Broad Histone track was used to generate this track. Data for nine factors plus input and nine cell types was binarized separately at a 200 base pair resolution based on a Poisson background model. The chromatin states were learned from this binarized data using a multivariate Hidden Markov Model (HMM) that explicitly models the combinatorial patterns of observed modifications (Ernst and Kellis, 2010). To learn a common set of states across the nine cell types, first the genomes were concatenated across the cell types. For each of the nine cell types, each 200 base pair interval was then assigned to its most likely state under the model. Detailed information about the model parameters and state enrichments can be found in (Ernst et al, accepted).",
             {})
         epidb.add_technique("RNA-seq", "RNA sequencing", {})
@@ -206,20 +206,20 @@ class Populator:
         epidb = PopulatorEpidbClient()
 
         genes = gzip.open("../data/gene_sets/gencode.v19.annotation.ONLY_GENES.gtf.gz").read()
-        print epidb.add_gene_model("gencode v19", "gencode.v19.basic.annotation - only genes",
+        print epidb.add_gene_model("gencode v19", "hg19", "gencode.v19.basic.annotation - only genes",
                                   genes, "GTF",
                                   {"name":"gencode", "release":"19", "content":"Basic gene annotation", "genome":"hg19"})
 
 
         genes = gzip.open("../data/gene_sets/gencode.v22.annotation.ONLY_GENES.gtf.gz").read()
-        print epidb.add_gene_model("gencode v22", "gencode.v22.basic.annotation - only genes",
+        print epidb.add_gene_model("gencode v22", "GRCh38", "gencode.v22.basic.annotation - only genes",
                                   genes, "GTF",
                                   {"name":"gencode", "release":"22", "content":"Basic gene annotation", "genome":"GRCh38"})
 
-        #genes = gzip.open("../data/gene_sets/gencode.v23.basic.annotation.ONLY_GENES.gtf.gz").read()
-        #print epidb.add_gene_model("gencode v23", "gencode.v23.basic.annotation - only genes",
-        #                          genes, "GTF",
-        #                          {"name":"gencode", "release":"23", "content":"Basic gene annotation", "genome":"GRCh38.p3"})
+        genes = gzip.open("../data/gene_sets/gencode.v23.basic.annotation.ONLY_GENES.gtf.gz").read()
+        print epidb.add_gene_model("gencode v23", "GRCh38", "gencode.v23.basic.annotation - only genes",
+                                  genes, "GTF",
+                                  {"name":"gencode", "release":"23", "content":"Basic gene annotation", "genome":"GRCh38.p3"})
 
     def create_columns(self):
         epidb = PopulatorEpidbClient()
