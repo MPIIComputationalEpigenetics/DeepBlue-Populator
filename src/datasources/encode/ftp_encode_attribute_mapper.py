@@ -189,7 +189,7 @@ class FtpEncodeHMMMapper(FtpEncodeMapper):
 
     @property
     def technique(self):
-        return "ChromHMM"
+        return "Chromatin State Segmentation by ChromHMM"
 
 
 class FtpEncodeTfbsMapper(FtpEncodeMapper):

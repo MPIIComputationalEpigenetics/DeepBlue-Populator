@@ -71,7 +71,7 @@ class EncodeRepositoryFTP(Repository):
             if not epigenetic_mark:
                 epigenetic_mark = em
             elif epigenetic_mark and epigenetic_mark != em:
-                print "datatype was set %s but new is %s" % (epigenetic_mark, em)
+                log.info("datatype was set %s but new is %s" , epigenetic_mark, em)
 
             meta["epigenetic_mark"] = epigenetic_mark
 
@@ -90,7 +90,6 @@ class EncodeRepositoryFTP(Repository):
             (status, samples_id) = epidb.list_samples(sample_biosource, sample_metadata)
 
             if status == "okay" and len(samples_id):
-                print samples_id
                 sample_id = samples_id[0][0]
             else:
                 log.critical(samples_id)
