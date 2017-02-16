@@ -21,6 +21,6 @@ def get(project, epigenetic_mark=None):
     return RoadmapMapper
   if project == "DEEP":
     return DEEPMapper
-  if project == "Progenitors Repository":
+  if project == "Blueprint HSC differentiation":
     return ProgenitorsMapper
   print 'Invalid Project:', project

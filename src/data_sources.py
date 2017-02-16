@@ -16,7 +16,7 @@ blueprint_source = [
 ]
 
 progenitors = [
-    ('BLUEPRINT Progenitors', 'GRCh38', "")
+    ('Blueprint HSC differentiation', 'GRCh38', "")
 ]
 
 geo_source = [

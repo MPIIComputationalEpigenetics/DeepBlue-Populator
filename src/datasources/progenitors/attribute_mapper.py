@@ -16,15 +16,21 @@ class ProgenitorsMapper(AttributeMapper):
 
     @property
     def epigenetic_mark(self):
-        return self.dataset.meta['epigenetic_mark']
+        em = self.dataset.meta['epigenetic_mark']
+        if em == "RNA-Seq":
+            return "RNA"
+        return em
 
     @property
     def technique(self):
-        return self.dataset.meta['technique']
+        t = self.dataset.meta['technique']
+        if t == "RNA-seq assay":
+            return "RNA-seq"
+        return t
 
     @property
     def project(self):
-        return "BLUEPRINT Progenitors"
+        return "Blueprint HSC differentiation"
 
     @property
     def format(self):
