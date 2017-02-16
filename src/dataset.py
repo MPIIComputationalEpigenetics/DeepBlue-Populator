@@ -213,7 +213,10 @@ class Dataset:
         is_gene_expression = False
 
         project = self.repository["project"]
-        am = attribute_mapper_factory.get(project)(self)
+        if project == "ENCODE FTP":
+            am = attribute_mapper_factory.get(project, self.meta["epigenetic_mark"])(self)
+        else:
+            am = attribute_mapper_factory.get(project)(self)
 
         if not os.path.exists(self.download_path):
             raise MissingFile(self.download_path, self.file_name)

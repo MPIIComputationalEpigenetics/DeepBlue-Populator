@@ -5,6 +5,11 @@ encode = [
     ('ENCODE', "Homo sapiens", "https://www.encodeproject.org/")
 ]
 
+encode_ftp = [
+    # Load the old Segmentation Data
+    ('ENCODE FTP', 'hg19', "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHmm/")
+]
+
 blueprint_source = [
     ('BLUEPRINT Epigenome', "GRCh38", "ftp://ftp.ebi.ac.uk/pub/databases/"),
     #('BLUEPRINT Epigenome', "GRCh38", "ftp://"+PROJECT_USER("blueprint")+":"+PROJECT_PASSWORD("blueprint")+"@ftp.1000genomes.ebi.ac.uk/")
@@ -67,11 +72,12 @@ deep = [
 ]
 
 project_sources = [
-    progenitors
+     # progenitors
      # blueprint_source
      # roadmap
      # blueprint_source,
      # encode
+     encode_ftp
      # encode_mm9,
      # encode,
      # epigenomic_landscape
