@@ -327,10 +327,10 @@ class Dataset:
                 exp_name = am.name + ".bed"
 
         if is_gene_expression:
-            (status, gxs) = epidb.list_gene_expressions(sample_id, None, am.project)
+            (status, gxs) = epidb.list_expressions("gene", sample_id, None, am.project)
             print gxs
             replica = len(gxs)
-            args = (sample_id, replica, file_content, frmt, am.project, am.extra_metadata)
+            args = ("gene", sample_id, replica, file_content, frmt, am.project, am.extra_metadata)
         else:
             args = (exp_name, am.genome, am.epigenetic_mark, sample_id, am.technique,
                     am.project, am.description, file_content, frmt, am.extra_metadata)
@@ -339,7 +339,7 @@ class Dataset:
 
         try:
             if is_gene_expression:
-                res = epidb.add_gene_expression(*args)
+                res = epidb.add_expression(*args)
             else:
                 res = epidb.add_experiment(*args)
 
