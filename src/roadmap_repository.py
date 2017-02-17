@@ -104,10 +104,13 @@ class RoadmapRepository(Repository):
     read_coverage_bigwig_rrbs = ("http://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/RRBS/ReadCoverage_bigwig/", "methylation")
     fractional_methylation_mcrf = ("http://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/mCRF/FractionalMethylation_bigwig/", "methylation")
 
+    chmmModels = ("http://egg2.wustl.edu/roadmap/data/byFileType/chromhmmSegmentations/ChmmModels/coreMarks/jointModel/final/", "chmm")
 
     rna = ("http://egg2.wustl.edu/roadmap/data/byDataType/rna/signal/normalized_bigwig/stranded/", "rna")
 
-    sources = (consolidated_narrow_peaks, consolidated_broad_peaks, consolidated_gapped_peaks, consolidated_signal, consolidated_signal_fold_change, fractional_methylation_wgbs, read_coverage_wgbs, fractional_methylation_rrbs, read_coverage_bigwig_rrbs, fractional_methylation_mcrf )
+    #sources = (consolidated_narrow_peaks, consolidated_broad_peaks, consolidated_gapped_peaks, consolidated_signal, consolidated_signal_fold_change, fractional_methylation_wgbs, read_coverage_wgbs, fractional_methylation_rrbs, read_coverage_bigwig_rrbs, fractional_methylation_mcrf )
+
+    sources = (chmmModels,)
 
     return sources
 
@@ -150,7 +153,7 @@ class RoadmapRepository(Repository):
     for s in samples:
       eid = s["EID"]
       #original_name = biosource_name = s["Epigenome name (from EDACC Release 9 directory)"]
-      biosource_name = s["ANATOMY"]
+      biosource_name = s["ANATOMY"].strip()
 
       if biosource_name == "ADRENAL":
         biosource_name = "adrenal gland"
@@ -163,17 +166,52 @@ class RoadmapRepository(Repository):
       elif biosource_name == "ESC_DERIVED":
         biosource_name = "embryonic stem cell"
       elif biosource_name == "MUSCLE_LEG":
-        biosource_name = "MUSCLE"
+        if s["EDACC_NAME"] == "Fetal_Muscle_Leg":
+          biosource_name = "musculature of leg"
+
       elif biosource_name == "STROMAL_CONNECTIVE":
         if s["EDACC_NAME"] == "Bone_Marrow_Derived_Mesenchymal_Stem_Cell_Cultured_Cells":
           biosource_name = "stromal cell of bone marrow"
-        if s["EDACC_NAME"] == "Chondrocytes_from_Bone_Marrow_Derived_Mesenchymal_Stem_Cell_Cultured_Cells":
+        elif s["EDACC_NAME"] == "Chondrocytes_from_Bone_Marrow_Derived_Mesenchymal_Stem_Cell_Cultured_Cells":
           biosource_name = "chondrocyte"
+        else:
+          print "no mapping for STROMAL_CONNECTIVE", s["EDACC_NAME"]
+
       elif biosource_name == "VASCULAR":
         if s["EDACC_NAME"] == "Aorta":
           biosource_name = "Aorta"
-        if s["EDACC_NAME"] == "HUVEC_Umbilical_Vein_Endothelial_Cells":
+        elif s["EDACC_NAME"] == "HUVEC_Umbilical_Vein_Endothelial_Cells":
           biosource_name = "HUVEC"
+        else:
+          print "no mapping for VASCULAR", s["EDACC_NAME"]
+
+      elif biosource_name == "MUSCLE":
+        if s["EDACC_NAME"] == "Muscle_Satellite_Cultured_Cells":
+          biosource_name = "skeletal muscle satellite cell"
+        elif s["EDACC_NAME"] == "Fetal_Muscle_Trunk":
+          biosource_name = "musculature of trunk"
+        elif s["EDACC_NAME"] == "Psoas_Muscle":
+          biosource_name = " psoas muscle"
+        elif s["EDACC_NAME"] == "Skeletal_Muscle_Male":
+          biosource_name = "cell of skeletal muscle"
+        elif s["EDACC_NAME"] == "Fetal_Muscle_Leg":
+          print 'AAAA Fetal_Muscle_Leg Fetal_Muscle_Leg'
+          biosource_name = "musculature of leg"
+        elif s["EDACC_NAME"] == "Skeletal_Muscle_Female":
+          biosource_name = "skeletal muscle tissue"
+        elif s["EDACC_NAME"] == "HSMMtube_Skeletal_Muscle_Myotubes_Derived_from_HSMM":
+          biosource_name = "skeletal muscle tissue"
+        elif s["EDACC_NAME"] == "HSMM_Skeletal_Muscle_Myoblasts":
+          biosource_name = "skeletal muscle tissue"
+        else:
+         print "no mapping for MUSCLE", s["EDACC_NAME"]
+
+      elif biosource_name == "CERVIX":
+        if s["EDACC_NAME"] == "HeLa-S3_Cervical_Carcinoma":
+          biosource_name = "HeLa-S3"
+        else:
+          print "no mapping for CERVIX", s["EDACC_NAME"]
+
       elif biosource_name.startswith("GI_"):
         biosource_name = biosource_name[len("GI_"):]
       if epidb.is_biosource(biosource_name)[0] == "okay":
@@ -185,7 +223,8 @@ class RoadmapRepository(Repository):
         if s == "okay":
           mapped[eid] = _id
       else:
-        print biosource_name, " not mapped"
+        print "'"+biosource_name+"'", " not mapped", s["ANATOMY"]
+        print "'"+s["EDACC_NAME"]+"'"
 
       total = total + 1
 
