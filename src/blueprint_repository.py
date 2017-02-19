@@ -15,7 +15,8 @@ pp = pprint.PrettyPrinter(depth=6)
 class BlueprintRepository(Repository):
     def __init__(self, proj, genome, path):
         super(BlueprintRepository, self).__init__(proj, genome,
-                                                 ["RNA_GENE_QUANT_STAR_CRG"], path)
+                                                 ["bed"], path)
+                                                # ["RNA_GENE_QUANT_STAR_CRG"], path)
                                                 # ["bed", "bigwig", "RNA_GENE_QUANT_STAR_CRG"], path)
 
     def __str__(self):

@@ -19,7 +19,6 @@ retrival and processing.
 """
 
 def parse_file_name(file_name, mark):
-  print file_name
   if not file_name.endswith("gz") and \
      not file_name.endswith('bigwig') and \
      not file_name.endswith("bw"):
@@ -44,6 +43,16 @@ def parse_file_name(file_name, mark):
     else:
       print "Unknown file_name format: ", s, len(s)
       return None
+
+  elif mark == "chmm":
+    if not "mnemonics.bed.gz" in file_name:
+      return None
+
+    # E122_15_coreMarks_mnemonics.bed.gz
+    s = file_name.split(".")
+    file, ext, gz = s
+    eid = file.split("_")[0]
+    return eid, "chmm", ext, file_name
 
   else:
     eid, emark, = name.split("-", 1)
@@ -83,7 +92,7 @@ def parse_data(link, experiments):
 
 class RoadmapRepository(Repository):
   def __init__(self, proj, genome, path):
-    super(RoadmapRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "gappedPeak", "bigWig", "narrow_peaks_fdr_1perc_hotspot"], path)
+    super(RoadmapRepository, self).__init__(proj, genome, ["bed", "broadPeak", "narrowPeak", "gappedPeak", "bigWig", "narrow_peaks_fdr_1perc_hotspot"], path)
 
   def __str__(self):
     return "<Roadmap Epigenomics Repository: [%s, %s]>" % (self.path, self.data_types)
@@ -262,6 +271,9 @@ class RoadmapRepository(Repository):
 
     if v1 == "rna" and v2 == "bw":
       return "rna", "rna-seq", "bigWig"
+
+    if v1 == "chmm" and v2 =="bed":
+      return "ChrHMM", "ChrHMM", "bed"
 
     print "Not found:", v1, v2
     return None, None, None

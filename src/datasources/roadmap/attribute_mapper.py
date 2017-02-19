@@ -17,18 +17,22 @@ class RoadmapMapper(AttributeMapper):
     @property
     def epigenetic_mark(self):
         em =  self.dataset.meta['epigenetic_mark']
-	if em == "Methylation":
-		return "DNA Methylation"
-	if em == "DNase":
-		return "DNaseI"
+        if em == "Methylation":
+            return "DNA Methylation"
+        if em == "DNase":
+            return "DNaseI"
+        if em == "ChrHMM":
+            return "Chromatin State Segmentation"
         return em
 
     @property
     def technique(self):
-        t = self.dataset.meta['technique']
-	if t == "mCRF":
-		return "MeDIP/MRE"
-	return t
+       t = self.dataset.meta['technique']
+       if t == "mCRF":
+          return "MeDIP/MRE"
+       if t == "ChrHMM":
+            return "Chromatin State Segmentation by ChromHMM"
+       return t
 
     @property
     def project(self):
