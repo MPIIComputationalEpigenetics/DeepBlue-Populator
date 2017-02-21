@@ -24,18 +24,18 @@ OboInOwlID = "{%s}id" % OboInOwl
 OboInOwlHasOBONamespace  = "{%s}hasOBONamespace" % OboInOwl
 
 class GO_Term:
-    def __init__(self, _label, _id, _namespace, _upperclass):
+    def __init__(self, _label, _id, _namespace, _superclass):
         self._label = _label
         self._id = _id
         self._namespace = _namespace
-        self._upperclass = _upperclass
+        self._superclass = _superclass
 
     def __str__(self):
         return self._label + " " + self._id +  " " + self._namespace + " " + self.upper_id()
 
-    def upper_id(self):
-        if self._upperclass is not None:
-            _up = ":".join(self._upperclass.split("/")[-1].split("_"))
+    def super_id(self):
+        if self._superclass is not None:
+            _up = ":".join(self._superclass.split("/")[-1].split("_"))
             return _up
         return ""
 
@@ -110,11 +110,11 @@ def load_gaf(_file):
     else:
         data = open(_file).read()
 
-    _map = defaultdict(list)
+    _map = defaultdict(set)
     for line in data.split("\n"):
         columns = line.split("\t")
         if len(columns) == 15 or len(columns) == 16:
-            _map[columns[1]].append(columns[4])
+            _map[columns[1]].add(columns[4])
 
     return _map
 
@@ -122,22 +122,23 @@ def annotate_genes(uniprotkb_to_go, _map_kprto_ensb):
     gene_go = []
     for (uniprotkb, gos) in uniprotkb_to_go.iteritems():
         ensb = _map_kprto_ensb.get(uniprotkb)
-        if not ensb:
-            continue
-        gene_go.extend(list(itertools.product(ensb, gos)))
+        if ensb:
+            gene_go.extend(list(itertools.product(ensb, gos)))
     return gene_go
 
-uniprotkb_to_go = load_gaf("goa_human.gaf")
-_map_kprto_ensb, _map_ensb_kprto = load_id_mapping("HUMAN_9606_idmapping.dat")
-
+uniprotkb_to_go = load_gaf("goa_human.gaf.gz")
+_map_kprto_ensb, _map_ensb_kprto = load_id_mapping("HUMAN_9606_idmapping.dat.gz")
 ann_gs = annotate_genes(uniprotkb_to_go, _map_kprto_ensb)
-print len(ann_gs)
-
-go_terms = load_go_owl('go.owl')
-
 for (gene, go) in ann_gs:
-    print gene, go, go_terms.get(go)
+    print "server.anotate_gene("+gene+","+go+")"
 
+
+go_terms = load_go_owl('go.owl.gz')
+
+for (go_id, go_term) in go_terms.iteritems():
+    print 'server.add_go_term('+go_term._id+","+go_term._label+","+go_term._namespace+","+go_term.super_id()+", 'userkey')"
+
+# 440000
 #found = list(set(sum([_map_kprto_ensb.get(key) for key in uniprotkb_to_go.keys() if _map_kprto_ensb.has_key(key)], [])))
 #print found
 #print len(found)
