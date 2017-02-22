@@ -10,6 +10,7 @@ from epidb_interaction import PopulatorEpidbClient
 from client import DeepBlueClient
 from data_sources import project_sources
 from genomes import hg19_info, mm9_info, mm10_info, hs37d5_info, GRCm38_info, GRCh38_info
+from gene_ontology import add_gene_ontology_terms_and_annotate_genes
 from histones import insert_histones
 from owl_loader import load_owl
 from log import log
@@ -102,6 +103,9 @@ class Populator:
         self.insert_technologies()
         self.insert_projects()
         self.insert_gene_sets()
+
+    def insert_gene_ontology(self):
+        add_gene_ontology_terms_and_annotate_genes()
 
     def insert_genomes(self):
         epidb = PopulatorEpidbClient()

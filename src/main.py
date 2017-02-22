@@ -5,7 +5,7 @@ from log import log
 
 
 def main(init=False, insert_annotations=False, insert_datasets=False,
-         insert_ontology=False, insert_basic_data=False):
+         insert_ontology=False, insert_basic_data=False, insert_gene_ontology=False):
     # initialize populator and update populators local database
     pop = Populator()
 
@@ -21,6 +21,9 @@ def main(init=False, insert_annotations=False, insert_datasets=False,
     if insert_basic_data:
         pop.insert_basic_data()
         pop.create_columns()
+
+    if insert_gene_ontology:
+        pop.insert_gene_ontology()
 
     if insert_ontology:
         pop.process_ontology()
@@ -39,7 +42,7 @@ def main(init=False, insert_annotations=False, insert_datasets=False,
 
 
 if __name__ == '__main__':
-    parser = OptionParser(version="DeepBlue-Populator 0.9")
+    parser = OptionParser(version="DeepBlue-Populator 1.0")
 
     parser.add_option("--init", action="store_true", dest="init",
                       default=False,
@@ -50,6 +53,9 @@ if __name__ == '__main__':
     parser.add_option("--ontology", action="store_true", dest="ontology",
                       default=False,
                       help="Insert Ontologies terms into the controlled vocabulary")
+    parser.add_option("--gene_ontology", action="store_true", dest="gene_ontology",
+                      default=False,
+                      help="Insert Gene Ontology Terms and annotate the gene terms.")
     parser.add_option("--annotations", action="store_true",
                       dest="insert_annotations", default=False,
                       help="Insert annotations")
@@ -67,6 +73,7 @@ if __name__ == '__main__':
     insert_datasets = args[0].insert_datasets
     insert_ontology = args[0].ontology
     insert_basic_data = args[0].insert_basic_data
+    insert_gene_ontology = args[0].gene_ontology
 
     if args[0].insert_basic_data:
         insert_basic_data = True
@@ -76,9 +83,10 @@ if __name__ == '__main__':
         insert_annotations = True
         insert_ontology = True
         insert_datasets = True
+        insert_gene_ontology = True
 
-    if init or insert_annotations or insert_datasets or insert_ontology or insert_basic_data:
-      main(init, insert_annotations, insert_datasets, insert_ontology, insert_basic_data)
+    if init or insert_annotations or insert_datasets or insert_ontology or insert_basic_data or insert_gene_ontology:
+      main(init, insert_annotations, insert_datasets, insert_ontology, insert_basic_data, insert_gene_ontology)
     else:
       parser.print_version()
       parser.print_help()

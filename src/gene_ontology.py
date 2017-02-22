@@ -3,12 +3,24 @@ from collections import defaultdict
 import itertools
 import gzip
 import threading
+
+from settings import max_threads
+from log import log
+from multiprocessing import Pool
+
 import xml.etree.ElementTree as ET
+
+from epidb_interaction import PopulatorEpidbClient
+
+from log import log
 
 Owl = "http://www.w3.org/2002/07/owl#"
 Rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 Rdfs = "http://www.w3.org/2000/01/rdf-schema#"
+Obo = "http://purl.obolibrary.org/obo/"
 OboInOwl = "http://www.geneontology.org/formats/oboInOwl#"
+
+OboFormalDefinition = "{%s}IAO_0000115" % Obo
 
 OwlClass = "{%s}Class" % Owl
 OwlOntology = "{%s}Ontology" % Owl
@@ -23,10 +35,12 @@ RdfsLabel = "{%s}label" % Rdfs
 OboInOwlID = "{%s}id" % OboInOwl
 OboInOwlHasOBONamespace  = "{%s}hasOBONamespace" % OboInOwl
 
+
 class GO_Term:
-    def __init__(self, _label, _id, _namespace, _superclass):
+    def __init__(self, _label, _id, _description, _namespace, _superclass):
         self._label = _label
         self._id = _id
+        self._description = _description
         self._namespace = _namespace
         self._superclass = _superclass
 
@@ -39,7 +53,7 @@ class GO_Term:
             return _up
         return ""
 
-def load_go_owl(_file):
+def _load_go_owl(_file):
     terms = {}
     file_type = _file.split(".")[-1]
 
@@ -69,6 +83,12 @@ def load_go_owl(_file):
             return
         _label = _label.text.encode('utf-8').strip()
 
+        _description = child.find(OboFormalDefinition)
+        if _description is not None and _description.text is not None:
+            _description = _description.text.encode('utf-8').strip()
+        else:
+            _description = ""
+
         _namespace = child.find(OboInOwlHasOBONamespace)
         if _namespace is None:
             print 'Namespace not found', _label
@@ -78,12 +98,12 @@ def load_go_owl(_file):
         if _superclass is not None:
             _superclass = _superclass.get(RdfResource).encode('utf-8').strip()
 
-        terms[_id] = GO_Term(_label, _id, _namespace, _superclass)
+        terms[_id] = GO_Term(_label, _id, _description, _namespace, _superclass)
 
     return terms
 
 
-def load_id_mapping(_file):
+def _load_id_mapping(_file):
     if _file.endswith("gz"):
         data = gzip.open(_file).read()
     else:
@@ -104,7 +124,7 @@ def load_id_mapping(_file):
 
 
 # Protein (UniProtKB) to GO term
-def load_gaf(_file):
+def _load_gaf(_file):
     if _file.endswith("gz"):
         data = gzip.open(_file).read()
     else:
@@ -118,7 +138,7 @@ def load_gaf(_file):
 
     return _map
 
-def annotate_genes(uniprotkb_to_go, _map_kprto_ensb):
+def _annotate_genes(uniprotkb_to_go, _map_kprto_ensb):
     gene_go = []
     for (uniprotkb, gos) in uniprotkb_to_go.iteritems():
         ensb = _map_kprto_ensb.get(uniprotkb)
@@ -126,17 +146,41 @@ def annotate_genes(uniprotkb_to_go, _map_kprto_ensb):
             gene_go.extend(list(itertools.product(ensb, gos)))
     return gene_go
 
-uniprotkb_to_go = load_gaf("goa_human.gaf.gz")
-_map_kprto_ensb, _map_ensb_kprto = load_id_mapping("HUMAN_9606_idmapping.dat.gz")
-ann_gs = annotate_genes(uniprotkb_to_go, _map_kprto_ensb)
-for (gene, go) in ann_gs:
-    print "server.anotate_gene("+gene+","+go+")"
+
+def _insert_go_term(go_term):
+    epidb = PopulatorEpidbClient()
+    print epidb.add_gene_ontology_term(go_term._id, go_term._label, go_term._description, go_term._namespace)
+
+def _anotate_gene(v):
+    epidb = PopulatorEpidbClient()
+    s, m = epidb.annotate_gene(v[0], v[1])
+    if s == "error":
+        print m
+        print v[0], v[1]
+
+def add_gene_ontology_terms_and_annotate_genes():
+    log.info("Loading go.owl")
+    #go_terms = _load_go_owl('../data/gene_ontology/go.owl.gz')
+
+    #p = Pool(32)
+    #p.map(_insert_go_term, go_terms.values())
+    #p.close()
+    #p.join()
+
+    log.info("Loading goa_human.gaf.gz")
+    uniprotkb_to_go = _load_gaf("../data/gene_ontology/goa_human.gaf.gz")
+    log.info("Loading HUMAN_9606_idmapping.dat.gz")
+    _map_kprto_ensb, _map_ensb_kprto = _load_id_mapping("../data/gene_ontology/HUMAN_9606_idmapping.dat.gz")
+
+    log.info("Processing genes annotations")
+    ann_gs = _annotate_genes(uniprotkb_to_go, _map_kprto_ensb)
+
+    p = Pool(32)
+    p.map(_anotate_gene, ann_gs)
+    p.close()
+    p.join()
 
 
-go_terms = load_go_owl('go.owl.gz')
-
-for (go_id, go_term) in go_terms.iteritems():
-    print 'server.add_go_term('+go_term._id+","+go_term._label+","+go_term._namespace+","+go_term.super_id()+", 'userkey')"
 
 # 440000
 #found = list(set(sum([_map_kprto_ensb.get(key) for key in uniprotkb_to_go.keys() if _map_kprto_ensb.has_key(key)], [])))
