@@ -1,0 +1,14 @@
+DEEP_SAMPLE_ID	51_Hf11_SFEM_RD
+ORGANISM	Homo sapiens
+POOL	yes
+DISEASE	rheumatic disease
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	effector memory CD4-positive, alpha-beta T cell
+MARKERS	CD3+CD4+CD25-CD45RA-CCR7-
+DONOR_ID	51_Hf11
+DONOR_AGE	54
+DONOR_AGE_UNIT	year
+DONOR_HEALTH_STATUS	rheumatic disease
+DONOR_SEX	female
+DONOR_ETHNICITY	NA
