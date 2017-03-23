@@ -1,17 +1,21 @@
-DEEP_SAMPLE_ID	01_HepaRG_LiHR_T11
-ORGANISM	Homo sapiens
-STRAIN	NA
-STATUS	untreated
-DISEASE	Hepatocellular carcinoma
 BIOMATERIAL_PROVIDER	Biopredic
 BIOMATERIAL_TYPE	cell line
-LINE	HepaRG
-LINEAGE	NA
-DONOR_ETHNICITY	unknown
-DIFFERENTIATION_STATE	undifferentiated
-DIFFERENTIATION_METHOD	NA
-PASSAGE	15
-MEDIUM	William's E + 10% FCS + 1% Pen/Strep + 0.5ppm Insulin + 1ppm Hydrocortisone
-SEX	female
-BATCH	NA
 COMMENT	sampled after 7 days
+DEEP_SAMPLE_ID	01_HepaRG_LiHR_T11
+DISEASE	Hepatocellular carcinoma
+DONOR_ETHNICITY	unknown
+ORGANISM	Homo sapiens
+STATUS	untreated
+STRAIN	no-data
+CELL_TYPE	no-data
+DONOR_AGE	no-data
+DONOR_AGE_UNIT	no-data
+DONOR_HEALTH_STATUS	no-data
+DONOR_ID	no-data
+DONOR_SEX	no-data
+MARKERS	no-data
+POOL	no-data
+TISSUE_TYPE	no-data
+SORTING_PARAMETERS	no-data
+COLLECTION_METHOD	no-data
+TISSUE_DEPOT	no-data

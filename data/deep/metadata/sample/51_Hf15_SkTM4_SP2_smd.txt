@@ -1,16 +1,21 @@
-DEEP_SAMPLE_ID	51_Hf15_SkTM4_SP2
-ORGANISM	Homo sapiens
-POOL	no
-DISEASE	healthy
-BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ
-Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ Julia Polansky-Biskup, Alf Hamann, DRFZ
 BIOMATERIAL_TYPE	primary cell
+COMMENT	sorted from skin, CD69-
+DEEP_SAMPLE_ID	51_Hf15_SkTM4_SP2
+DISEASE	healthy
+DONOR_ETHNICITY	no-data
+ORGANISM	Homo sapiens
+STATUS	no-data
+STRAIN	no-data
 CELL_TYPE	CD4-positive alpha-beta memory T cell
-MARKERS	CD3+CD4+CD45RO+CD69-
-DONOR_ID	51_Hf15
 DONOR_AGE	65
 DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
+DONOR_ID	51_Hf15
 DONOR_SEX	female
-DONOR_ETHNICITY	NA
-COMMENT	sorted from skin, CD69-
+MARKERS	CD3+CD4+CD45RO+CD69-
+POOL	no
+TISSUE_TYPE	no-data
+SORTING_PARAMETERS	no-data
+COLLECTION_METHOD	no-data
+TISSUE_DEPOT	no-data

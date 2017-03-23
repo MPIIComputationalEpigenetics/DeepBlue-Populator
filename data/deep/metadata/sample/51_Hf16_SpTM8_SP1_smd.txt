@@ -1,16 +1,21 @@
-DEEP_SAMPLE_ID	51_Hf16_SpTM8_SP1
-ORGANISM	Homo sapiens
-POOL	yes
-DISEASE	healthy
-BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ
-Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ Julia Polansky-Biskup, Alf Hamann, DRFZ
 BIOMATERIAL_TYPE	primary cell
+COMMENT	sorted from spleen CD69+
+DEEP_SAMPLE_ID	51_Hf16_SpTM8_SP1
+DISEASE	healthy
+DONOR_ETHNICITY	no-data
+ORGANISM	Homo sapiens
+STATUS	no-data
+STRAIN	no-data
 CELL_TYPE	CD8-positive, alpha-beta memory T cell
-MARKERS	CD3+CD8+CD45RO+CD69+
-DONOR_ID	51_Hf16
 DONOR_AGE	43
 DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
-DONOR_SEX	female 
-DONOR_ETHNICITY	NA
-COMMENT	sorted from spleen CD69+
+DONOR_ID	51_Hf16
+DONOR_SEX	female
+MARKERS	CD3+CD8+CD45RO+CD69+
+POOL	yes
+TISSUE_TYPE	no-data
+SORTING_PARAMETERS	no-data
+COLLECTION_METHOD	no-data
+TISSUE_DEPOT	no-data

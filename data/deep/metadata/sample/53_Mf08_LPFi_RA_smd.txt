@@ -1,20 +1,21 @@
-DEEP_SAMPLE_ID	53_Mf08_LPFi_RA
-ORGANISM	Mus musculus
-STRAIN	C57BL/6
-POOL	no
-STATUS	hTNF transgenic
-DISEASE	rheumatoid arthritis
 BIOMATERIAL_PROVIDER	Anja Hillmann, Pap Lab
 BIOMATERIAL_TYPE	primary cell culture
-CELL_TYPE	fibroblast
-TISSUE_TYPE	synovial fluid
-MARKERS	isolated from the synovium
-CULTURE_CONDITIONS	10% CO2, DMEM+10%FCS+P/S
-DONOR_ID	53_Mf08
-DONOR_AGE	13
-DONOR_AGE_UNIT	week
-DONOR_HEALTH_STATUS	healthy
-DONOR_SEX	female 
-DONOR_ETHNICITY	NA
-PASSAGE_IF_EXPANDED	3
 COMMENT	sister of 53_Mf07, same caging
+DEEP_SAMPLE_ID	53_Mf08_LPFi_RA
+DISEASE	rheumatoid arthritis
+DONOR_ETHNICITY	no-data
+ORGANISM	Mus musculus
+STATUS	hTNF transgenic
+STRAIN	C57BL/6
+CELL_TYPE	fibroblast
+DONOR_AGE	13
+DONOR_AGE_UNIT	weeks
+DONOR_HEALTH_STATUS	healthy
+DONOR_ID	53_Mf08
+DONOR_SEX	female
+MARKERS	isolated from the synovium
+POOL	no
+TISSUE_TYPE	synovial fluid
+SORTING_PARAMETERS	no-data
+COLLECTION_METHOD	no-data
+TISSUE_DEPOT	no-data

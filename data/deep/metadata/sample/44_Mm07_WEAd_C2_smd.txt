@@ -1,19 +1,21 @@
-DEEP_SAMPLE_ID	44_Mm07_WEAd_C2
-ORGANISM	Mus musculus
-STRAIN	C57BL/6J
-POOL	yes
-STATUS	Photophase (Fasted)
-DISEASE	healthy
 BIOMATERIAL_PROVIDER	MPI Freiburg in-house colony
 BIOMATERIAL_TYPE	primary tissue
+COMMENT	Pool of 10 mice. Only ChIP was performed on this sample, originally to replace the undersoinicated/overfixed sample Mm01 - however, although the sonication/fixation of this sample was ideal, the signal to noise ratio of the sequenced DNA was poor compared to Mm01!
+DEEP_SAMPLE_ID	44_Mm07_WEAd_C2
+DISEASE	healthy
+DONOR_ETHNICITY	no-data
+ORGANISM	Mus musculus
+STATUS	Photophase (Fasted)
+STRAIN	C57BL/6J
 CELL_TYPE	white fat cell
-TISSUE_TYPE	white adipose tissue
-TISSUE_DEPOT	epididymal
-COLLECTION_METHOD	collagenase digestion & adipocyte purification
-DONOR_ID	44_Mm07
 DONOR_AGE	10
-DONOR_AGE_UNIT	week
-DONOR_HEALTH_STATUS	NA
+DONOR_AGE_UNIT	weeks
+DONOR_HEALTH_STATUS	no-data
+DONOR_ID	44_Mm07
 DONOR_SEX	male
-DONOR_ETHNICITY	NA
-COMMENT	Pool of 10 mice.  Only ChIP was performed on this sample, originally to replace the undersoinicated/overfixed sample Mm01 - however, although the sonication/fixation of this sample was ideal, the signal to noise ratio of the sequenced DNA was poor compared to Mm01!
+MARKERS	no-data
+POOL	yes
+TISSUE_TYPE	white adipose tissue
+SORTING_PARAMETERS	no-data
+COLLECTION_METHOD	collagenase digestion & adipocyte purification
+TISSUE_DEPOT	epididymal

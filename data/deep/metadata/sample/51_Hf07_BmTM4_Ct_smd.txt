@@ -1,17 +1,21 @@
-DEEP_SAMPLE_ID	51_Hf07_BmTM4_Ct
-ORGANISM	Homo sapiens
-POOL	yes
-DISEASE	healthy
-BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ
-Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ Julia Polansky-Biskup, Alf Hamann, DRFZ
 BIOMATERIAL_TYPE	primary cell
-TISSUE_TYPE     bone marrow
+COMMENT	sorted from bone-marrow
+DEEP_SAMPLE_ID	51_Hf07_BmTM4_Ct
+DISEASE	healthy
+DONOR_ETHNICITY	no-data
+ORGANISM	Homo sapiens
+STATUS	no-data
+STRAIN	no-data
 CELL_TYPE	CD4-positive alpha-beta memory T cell
-MARKERS	CD3+CD4+CD25-CD45RA-
-DONOR_ID	51_Hf07
 DONOR_AGE	72
 DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
+DONOR_ID	51_Hf07
 DONOR_SEX	female
-DONOR_ETHNICITY	NA
-COMMENT	sorted from bone-marrow
+MARKERS	CD3+CD4+CD25-CD45RA-
+POOL	yes
+TISSUE_TYPE	bone marrow
+SORTING_PARAMETERS	no-data
+COLLECTION_METHOD	no-data
+TISSUE_DEPOT	no-data
