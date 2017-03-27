@@ -1,21 +1,19 @@
+DEEP_SAMPLE_ID	42_Mf06_LiHe_CS
+ORGANISM	Mus musculus
+STRAIN	DBA/2J / C57BL/6J (LT2+/p62-)
+POOL	no
+STATUS	Kupffer cell depleted and steatohepatitis (LDC diet)
+MOLECULE	genomic DNA, total RNA, cell pellets for ChIP, NOME, DNase1
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Pharmazeutische Biologie, UDS, Saarbruecken / IfADo, Dortmund
 BIOMATERIAL_TYPE	primary cell
-COMMENT	controlled: p62 expression / F4/80 expression / Lipid content
-DEEP_SAMPLE_ID	42_Mf06_LiHe_CS
-DISEASE	healthy
-DONOR_ETHNICITY	no-data
-ORGANISM	Mus musculus
-STATUS	Kupffer cell depleted and steatohepatitis (LDC diet)
-STRAIN	DBA/2J / C57BL/6J (LT2+/p62-)
 CELL_TYPE	hepatocyte
+MARKERS	none
+DONOR_ID	42_Mf06
 DONOR_AGE	9
 DONOR_AGE_UNIT	weeks
-DONOR_HEALTH_STATUS	no-data
-DONOR_ID	42_Mf06
+DONOR_HEALTH_STATUS	NA
 DONOR_SEX	female
-MARKERS	none
-POOL	no
-TISSUE_TYPE	no-data
+DONOR_ETHNICITY	NA
+COMMENT	controlled: p62 expression / F4/80 expression / Lipid content
 SORTING_PARAMETERS	none
-COLLECTION_METHOD	no-data
-TISSUE_DEPOT	no-data
