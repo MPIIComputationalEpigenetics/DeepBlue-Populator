@@ -1,21 +1,20 @@
+DEEP_SAMPLE_ID	53_Mf01_LPFi_Ct
+ORGANISM	Mus musculus
+STRAIN	C57BL/6
+POOL	no
+STATUS	wildtype
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Anja Hillmann, Pap Lab
 BIOMATERIAL_TYPE	primary cell culture
-COMMENT	sister of 53_Mf02, same caging, only RNA sequencing!
-DEEP_SAMPLE_ID	53_Mf01_LPFi_Ct
-DISEASE	healthy
-DONOR_ETHNICITY	no-data
-ORGANISM	Mus musculus
-STATUS	wildtype
-STRAIN	C57BL/6
 CELL_TYPE	fibroblast
+TISSUE_TYPE	synovial fluid
+MARKERS	isolated from the synovium
+CULTURE_CONDITIONS	10% CO2, DMEM+10%FCS+P/S
+DONOR_ID	53_Mf01
 DONOR_AGE	13
 DONOR_AGE_UNIT	weeks
 DONOR_HEALTH_STATUS	healthy
-DONOR_ID	53_Mf01
 DONOR_SEX	female
-MARKERS	isolated from the synovium
-POOL	no
-TISSUE_TYPE	synovial fluid
-SORTING_PARAMETERS	no-data
-COLLECTION_METHOD	no-data
-TISSUE_DEPOT	no-data
+DONOR_ETHNICITY	NA
+PASSAGE_IF_EXPANDED	4
+COMMENT	sister of 53_Mf02, same caging, only RNA sequencing!

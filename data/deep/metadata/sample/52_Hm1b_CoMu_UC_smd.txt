@@ -1,21 +1,16 @@
+DEEP_SAMPLE_ID	52_Hm1b_CoMu_UC
+ORGANISM	Homo sapiens
+POOL	no
+DISEASE	ulcerative colitis
 BIOMATERIAL_PROVIDER	IKMB, Robert Häsler
 BIOMATERIAL_TYPE	primary tissue
-COMMENT	discordant Twin to Twin09A(52_Hm1a_CoMu_Ct)
-DEEP_SAMPLE_ID	52_Hm1b_CoMu_UC
-DISEASE	ulcerative colitis
-DONOR_ETHNICITY	caucasian
-ORGANISM	Homo sapiens
-STATUS	no-data
-STRAIN	no-data
-CELL_TYPE	no-data
+TISSUE_TYPE	mucosa of large intestine
+TISSUE_DEPOT	sigma
+COLLECTION_METHOD	colonoscopy
+DONOR_ID	Twin09B
 DONOR_AGE	23
 DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	Cortison, Salofalk
-DONOR_ID	Twin09B
 DONOR_SEX	male
-MARKERS	no-data
-POOL	no
-TISSUE_TYPE	mucosa of large intestine
-SORTING_PARAMETERS	no-data
-COLLECTION_METHOD	colonoscopy
-TISSUE_DEPOT	sigma
+DONOR_ETHNICITY	caucasian
+COMMENT	discordant Twin to Twin09A(52_Hm1a_CoMu_Ct)

@@ -1,21 +1,20 @@
+DEEP_SAMPLE_ID	43_Hm01_BlMo_Ct
+ORGANISM	Homo sapiens
+POOL	no
+STATUS	control
+DISEASE	healthy
+DISEASE_ONTOLOGY	https://ncimeta.nci.nih.gov/ncimbrowser/ConceptReport.jsp?dictionary=NCI%20MetaThesaurus&code=CL473288
 BIOMATERIAL_PROVIDER	Stefan Wallner/Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell
-COMMENT	Apo E3/E3 genotype
-DEEP_SAMPLE_ID	43_Hm01_BlMo_Ct
-DISEASE	healthy
-DONOR_ETHNICITY	caucasian
-ORGANISM	Homo sapiens
-STATUS	control
-STRAIN	no-data
 CELL_TYPE	monocyte
+TISSUE_TYPE	blood
+MARKERS	Flow scatter analysis
+DONOR_ID	43_Hm01
 DONOR_AGE	28
 DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
-DONOR_ID	43_Hm01
 DONOR_SEX	male
-MARKERS	Flow scatter analysis
-POOL	no
-TISSUE_TYPE	blood
-SORTING_PARAMETERS	no-data
-COLLECTION_METHOD	no-data
-TISSUE_DEPOT	no-data
+DONOR_ETHNICITY	caucasian
+PASSAGE_IF_EXPANDED	NA
+COMMENT	Apo E3/E3 genotype
+SORTING_PARAMETERS	NA

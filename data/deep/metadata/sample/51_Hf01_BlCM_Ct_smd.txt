@@ -1,21 +1,16 @@
+DEEP_SAMPLE_ID	51_Hf01_BlCM_Ct
+ORGANISM	Homo sapiens
+POOL	yes
+DISEASE	healthy
 BIOMATERIAL_PROVIDER	Julia Polansky-Biskup
 BIOMATERIAL_TYPE	primary cell
-COMMENT	from buffy coats
-DEEP_SAMPLE_ID	51_Hf01_BlCM_Ct
-DISEASE	healthy
-DONOR_ETHNICITY	no-data
-ORGANISM	Homo sapiens
-STATUS	no-data
-STRAIN	no-data
 CELL_TYPE	central memory CD4-positive, alpha-beta T cell
-DONOR_AGE	no-data
+TISSUE_TYPE	blood
+MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CD62L+
+DONOR_ID	51_Hf01
+DONOR_AGE	NA
 DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
-DONOR_ID	51_Hf01
 DONOR_SEX	female
-MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CD62L+
-POOL	yes
-TISSUE_TYPE	blood
-SORTING_PARAMETERS	no-data
-COLLECTION_METHOD	no-data
-TISSUE_DEPOT	no-data
+DONOR_ETHNICITY	NA
+COMMENT	from buffy coats
