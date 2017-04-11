@@ -2,10 +2,10 @@ from __future__ import absolute_import
 
 from attribute_mapper import AttributeMapper
 
-class ProgenitorsMapper(AttributeMapper):
+class IhecDataPortalMapper(AttributeMapper):
 
     def __init__(self, dataset):
-        super(ProgenitorsMapper, self).__init__(dataset)
+        super(IhecDataPortalMapper, self).__init__(dataset)
 
     @property
     def name(self):
@@ -17,6 +17,13 @@ class ProgenitorsMapper(AttributeMapper):
         em = self.dataset.meta['epigenetic_mark']
         if em == "RNA-Seq":
             return "RNA"
+
+        if em == "mRNA-Seq":
+            return "mRNA"
+
+        if em.startswith("Histone "):
+            return em.split()[1]
+
         return em
 
     @property
@@ -24,15 +31,33 @@ class ProgenitorsMapper(AttributeMapper):
         t = self.dataset.meta['technique']
         if t == "RNA-seq assay":
             return "RNA-seq"
+
+        if t == "cross-linking immunoprecipitation high-throughput sequencing assay":
+            return "ChIP-seq"
+
         return t
 
     @property
     def project(self):
-        return "Blueprint HSC differentiation"
+        return self.dataset.meta["project"]
 
     @property
     def format(self):
-        return "wig"
+        if self.dataset.type in ["signal_unstranded", "methylation_profile", "signal_forward", "signal_reverse"]:
+            return 'wig'
+
+        print 'unknow data type: ', self.dataset.type
+
+        return None
+
+    @property
+    def genome(self):
+        genome = self.dataset.meta["genome"]
+
+        if genome == "hg38":
+            return "GRCh38"
+
+        return genome
 
     @property
     def extra_metadata(self):
