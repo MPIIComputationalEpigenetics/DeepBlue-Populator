@@ -71,11 +71,16 @@ deep = [
     ('DEEP', 'GRCm38', '')
 ]
 
+ihec = [
+    ('CREST', 'hg38', '')
+    #('Blueprint', 'hg38', '')
+]
+
 project_sources = [
-     # progenitors
+    ihec
+     # progenitors,
      # blueprint_source
-     roadmap
-     # blueprint_source,
+     # roadmap
      # encode
      # encode_ftp
      # encode_mm9,

@@ -7,6 +7,7 @@ from datasources.encode.attribute_mapper import EncodeMapper
 from datasources.encode.ftp_encode_attribute_mapper import ftp_encode_attribute_mapper
 from datasources.roadmap.attribute_mapper import RoadmapMapper
 from datasources.progenitors.attribute_mapper import ProgenitorsMapper
+from datasources.ihec_data_portal.attribute_mapper import IhecDataPortalMapper
 
 def get(project, epigenetic_mark=None):
   if project == "ENCODE":
@@ -23,4 +24,7 @@ def get(project, epigenetic_mark=None):
     return DEEPMapper
   if project == "Blueprint HSC differentiation":
     return ProgenitorsMapper
+  if project in ["CREST"]:
+    return IhecDataPortalMapper
+
   print 'Invalid Project:', project

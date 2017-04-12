@@ -7,6 +7,7 @@ from geo_repository import GeoRepository
 from roadmap_repository import RoadmapRepository
 from deep_repository import DeepRepository
 from progenitors_repository import ProgenitorsRepository
+from ihec_data_repository import IhecDataRepository
 
 from log import log
 
@@ -27,5 +28,7 @@ def load(project, genome, url):
         return RoadmapRepository("Roadmap Epigenomics", genome, url)
     elif project == "Blueprint HSC differentiation":
         return ProgenitorsRepository("Blueprint HSC differentiation", genome, url)
+    elif project in ["CREST", "Blueprint"]:
+        return IhecDataRepository(project, genome, url)
     else:
         log.error("Invalid project %s", project)

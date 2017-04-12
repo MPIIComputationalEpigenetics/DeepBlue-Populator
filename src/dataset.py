@@ -223,8 +223,10 @@ class Dataset:
 
         converted_file_name = ""
 
-        # Handle crazy ENCODE big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
-        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type.lower() == "bigwig":
+        # Handle crazy big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
+        if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type.lower() == "bigwig" \
+            or self.type.lower() in ["signal_unstranded", "methylation_profile", "signal_forward", "signal_reverse"]: #IHEC datasets
+            print "HEREEEEE"
             print "../third_party/bigWigToWig." + OS + " " + self.download_path + " " + self.download_path + ".wig"
             call(["../third_party/bigWigToWig." + OS, self.download_path, self.download_path + ".wig"])
 
@@ -359,7 +361,10 @@ class Dataset:
                 self.insert_error = msg
                 self.save()
 
+
         finally:
+            pass
+            """"
             if os.path.exists(self.download_path):
                 os.remove(self.download_path)
 
@@ -372,3 +377,4 @@ class Dataset:
             if frmt == "wig" or frmt == "bedgraph":
                 if os.path.exists(converted_file_name):
                     os.remove(converted_file_name)
+            """

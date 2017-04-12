@@ -3,9 +3,7 @@ from __future__ import absolute_import
 from attribute_mapper import AttributeMapper
 
 class ProgenitorsMapper(AttributeMapper):
-    """
-    RoadmapMapper is the basic AttributeMapper for Geo repositories.
-    """
+
     def __init__(self, dataset):
         super(ProgenitorsMapper, self).__init__(dataset)
 
