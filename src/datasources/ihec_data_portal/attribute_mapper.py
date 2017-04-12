@@ -41,6 +41,17 @@ class IhecDataPortalMapper(AttributeMapper):
         if t == "shotgun bisulfite-seq assay":
             return "Shotgun bisulfite-seq"
 
+        if not t:
+            if self.epigenetic_mark == "mRNA":
+                return "mRNA-seq"
+
+            if self.epigenetic_mark.lower() in ["input", "h3k4me1", "h3k4me3", "h3k27ac", "h3k36me3", "h3k9me3", "h3k27me3"]:
+                return "ChIP-seq"
+
+            if self.epigenetic_mark == "DNA Methylation":
+                if "wgbs" in self.dataset.file_name.lower():
+                    return "WGBS"
+
         return t
 
     @property
