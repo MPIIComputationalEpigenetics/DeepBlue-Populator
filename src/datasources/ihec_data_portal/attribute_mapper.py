@@ -21,6 +21,9 @@ class IhecDataPortalMapper(AttributeMapper):
         if em == "mRNA-Seq":
             return "mRNA"
 
+        if em == "ChIP-Seq Input":
+            return "Input"
+
         if em.startswith("Histone "):
             return em.split()[1]
 
@@ -34,6 +37,9 @@ class IhecDataPortalMapper(AttributeMapper):
 
         if t == "cross-linking immunoprecipitation high-throughput sequencing assay":
             return "ChIP-seq"
+
+        if t == "shotgun bisulfite-seq assay":
+            return "Shotgun bisulfite-seq"
 
         return t
 
