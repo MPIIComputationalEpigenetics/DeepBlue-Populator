@@ -4,7 +4,7 @@ CONTACT_LAB	MDC
 SAMPLE_ID	51_Hf12_SFTR_RD
 EXPERIMENT_TYPE	StrandedTotalRNA-seq
 EXPERIMENT_DATE	03/16/16
-EXPERIMENT_ID	51_Hf12_SFTR_RD_tRNA_M_1_emd.tsv
+EXPERIMENT_ID	51_Hf12_SFTR_RD_tRNA_M_1
 TECHNICAL_REPLICATE_ID	0
 FULL_LENGTH_PROTOCOL_LINK	http://supportres.illumina.com/documents/documentation/chemistry_documentation/samplepreps_truseq/truseqstrandedtotalrna/truseq-stranded-total-rna-sample-prep-guide-15031048-e.pdf
 BIOLOGICAL_REPLICATE_ID	0

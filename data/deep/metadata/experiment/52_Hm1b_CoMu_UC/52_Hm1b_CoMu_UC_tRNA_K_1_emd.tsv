@@ -3,7 +3,7 @@ CONTACT_PERSON	Anupam Sinha(a.sinha@ikmb.uni-kiel.de)
 CONTACT_LAB	Philip Rosenstiel
 SAMPLE_ID	52_Hm1b_CoMu_UC
 EXPERIMENT_DATE	9/26/2014
-EXPERIMENT_ID	52_Hm1b_CoMu_UC_tRNA_K_1_emd.tsv
+EXPERIMENT_ID	52_Hm1b_CoMu_UC_tRNA_K_1
 TECHNICAL_REPLICATE_ID	1
 FULL_LENGTH_PROTOCOL_LINK	http://support.illumina.com/downloads/truseq_stranded_total_rna_sample_preparation_guide_15031048.html
 LIBRARY_GENERATION_PROTOCOL	TruSeq stranded total RNA (Part # 15031048 Rev. C)
