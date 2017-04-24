@@ -33,3 +33,28 @@ ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
 ChromatinAccessibility_CHROMATIN_STATUS	Fixed
 ChromatinAccessibility_ENZYME_AMOUNT	60 U/ml
+BIOMATERIAL_PROVIDER	Stefan Wallner/Regensburg University Hospital
+BIOMATERIAL_TYPE	primary cell culture
+biosource_name	macrophage
+CELL_TYPE	macrophage
+COMMENT	Apo E3/E3 genotype
+CULTURE_CONDITIONS	5d MCSF + 1d eLDL
+data_type	signal
+DEEP_SAMPLE_ID	43_Hm05_BlMa_TE
+DISEASE	obesity
+DONOR_AGE	25
+DONOR_AGE_UNIT	year
+DONOR_ETHNICITY	caucasian
+DONOR_HEALTH_STATUS	healthy
+DONOR_ID	43_Hm05
+DONOR_SEX	male
+epigenetic_mark	DNA Accessibility
+experiment	43_Hm05_BlMa_TE_NOMe_S_1.NCSv2.20150424.GRCh37.filtered.GCH.bedgraph
+genome	hs37d5
+MARKERS	-
+ORGANISM	Homo sapiens
+POOL	no
+source	DEEP
+STATUS	loaded eLDL
+technique	NOMe-seq
+TISSUE_TYPE	blood

@@ -33,3 +33,24 @@ ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
 ChromatinAccessibility_CHROMATIN_STATUS	Fixed
 ChromatinAccessibility_ENZYME_AMOUNT	80 U/ml
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	central memory CD4-positive, alpha-beta T cell
+COMMENT	from buffy coats
+DEEP_SAMPLE_ID	51_Hf01_BlCM_Ct
+DISEASE	healthy
+DONOR_HEALTH_STATUS	healthy
+DONOR_ID	51_Hf01
+DONOR_SEX	female
+MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CD62L+
+ORGANISM	Homo sapiens
+POOL	yes
+biosource_name	central memory CD4-positive, alpha-beta T cell
+source	DEEP
+epigenetic_mark	DNA Methylation
+data_type	peaks
+genome	hs37d5
+experiment	51_Hf01_BlCM_Ct_NOMe_S_1.NCSv2.20150729.GRCh37.cpg.filtered.HCG.bed
+technique	NOMe-seq
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	blood

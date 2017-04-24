@@ -33,3 +33,25 @@ ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
 ChromatinAccessibility_CHROMATIN_STATUS	Fresh Frozen
 ChromatinAccessibility_ENZYME_AMOUNT	80 U/ml
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	effector memory CD4-positive, alpha-beta T cell
+COMMENT	age is mean of pool
+DEEP_SAMPLE_ID	51_Hf04_BlEM_Ct
+DISEASE	healthy
+DONOR_AGE	45
+DONOR_HEALTH_STATUS	healthy
+DONOR_ID	51_Hf04
+DONOR_SEX	female
+MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CCR7neg
+ORGANISM	Homo sapiens
+POOL	yes
+biosource_name	effector memory CD4-positive, alpha-beta T cell
+source	DEEP
+epigenetic_mark	DNA Methylation
+data_type	peaks
+genome	hs37d5
+experiment	51_Hf04_BlEM_Ct_NOMe_S_2.NCSv2.20150729.GRCh37.cpg.filtered.HCG.bed
+technique	NOMe-seq
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	blood

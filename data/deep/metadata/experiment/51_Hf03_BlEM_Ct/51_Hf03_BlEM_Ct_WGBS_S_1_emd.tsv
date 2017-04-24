@@ -25,3 +25,25 @@ LIBRARY_GENERATION_PCR_THERMOCYCLING_PROGRAM	15m @ 95C, 9*(30s @ 95°C, 30s @ 60
 LIBRARY_GENERATION_PCR_PRODUCT_LENGTH	450
 LIBRARY_GENERATION_FRAGMENT_SIZE_SELECTION	200-500
 LIBRARY_GENERATION_cDNA_FRAGMENTATION	Bioruptor NGS
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	effector memory CD4-positive, alpha-beta T cell
+COMMENT	age is mean of pool
+DEEP_SAMPLE_ID	51_Hf03_BlEM_Ct
+DISEASE	healthy
+DONOR_AGE	45
+DONOR_HEALTH_STATUS	healthy
+DONOR_ID	51_Hf03
+DONOR_SEX	female
+MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CCR7neg
+ORGANISM	Homo sapiens
+POOL	yes
+biosource_name	effector memory CD4-positive, alpha-beta T cell
+source	DEEP
+epigenetic_mark	DNA Methylation
+data_type	peaks
+genome	hs37d5
+experiment	51_Hf03_BlEM_Ct_WGBS_S_1.MCSv3.20150424.GRCh37.cpg.filtered.CG.bed
+technique	WGBS
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	blood

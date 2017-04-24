@@ -39,3 +39,26 @@ CHIP_PROTOCOL_SHEARING_METHOD	Bioruptor NGS
 CHIP_PROTOCOL_SHEARING_CYCLES	30
 CHIP_PROTOCOL_SHEARING_FREQUENCY	30'' on / 30'' off
 CHIP_PROTOCOL_IPSTAR_CONDITIONS	N/A
+BIOMATERIAL_PROVIDER	Biopredic
+BIOMATERIAL_TYPE	cell line
+CELL_TYPE	HepaRG cell line
+COLLECTION_METHOD	trypsination
+COMMENT	mixture of hepatocytes and biliary cells, sampled after 30 days
+DEEP_SAMPLE_ID	01_HepaRG_LiHR_D31
+DISEASE	Hepatocellular carcinoma
+DONOR_SEX	female
+ORGANISM	Homo sapiens
+STATUS	untreated
+biosource_name	HepaRG
+source	DEEP
+epigenetic_mark	H3K4me3
+data_type	signal
+genome	hs37d5
+experiment	01_HepaRG_LiHR_D31_H3K4me3_S_1.CHPv3.20150501.hs37.bamcov.bedgraph
+technique	ChIP-seq
+DIFFERENTIATION_METHOD	DMSO for 14 days
+DIFFERENTIATION_STATE	differentiated
+LINE	HepaRG
+MEDIUM	William's E + 10% FCS + 1.7% DMSO + 1% Pen/Strep + 1ppm Hydrocortisone
+PASSAGE	15
+SEX	female

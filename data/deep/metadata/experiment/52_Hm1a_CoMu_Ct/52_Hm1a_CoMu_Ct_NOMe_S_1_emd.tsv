@@ -33,3 +33,26 @@ ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
 ChromatinAccessibility_CHROMATIN_STATUS	Fresh Frozen Ground tissue
 ChromatinAccessibility_ENZYME_AMOUNT	60 U/ml
+BIOMATERIAL_PROVIDER	IKMB, Robert Häsler
+BIOMATERIAL_TYPE	primary tissue
+COMMENT	discordant Twin to Twin09B(52_Hm1b_CoMu_UC)
+DEEP_SAMPLE_ID	52_Hm1a_CoMu_Ct
+DISEASE	healthy
+DONOR_AGE	23
+DONOR_ETHNICITY	caucasian
+DONOR_HEALTH_STATUS	no medication
+DONOR_ID	Twin09A
+DONOR_SEX	male
+ORGANISM	Homo sapiens
+POOL	no
+biosource_name	mucosa of large intestine
+source	DEEP
+epigenetic_mark	DNA Methylation
+data_type	peaks
+genome	hs37d5
+experiment	52_Hm1a_CoMu_Ct_NOMe_S_1.NCSv2.20150729.GRCh37.cpg.filtered.HCG.bed
+technique	NOMe-seq
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	mucosa of large intestine
+COLLECTION_METHOD	colonoscopy
+TISSUE_DEPOT	sigma

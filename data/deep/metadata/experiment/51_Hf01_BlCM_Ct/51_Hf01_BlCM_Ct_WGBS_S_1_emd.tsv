@@ -38,3 +38,24 @@ SEQUENCING_CHEMISTRY_VERSION	TruSeq SBS Kit v3
 SEQUENCING_CLUSTER_GENERATION_KIT_VERSION	TruSeq PE Cluster Kit v3
 SEQUENCING_PROCESSING_SOFTWARE_VERSION	bcl2fastq v1.8.4
 SEQUENCING_CONTROL_SOFTWARE_VERSION	HCS 2.0.12.0 / RTA 1.17.21.3 / Recipe Fragment 1.3.61.0
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	central memory CD4-positive, alpha-beta T cell
+COMMENT	from buffy coats
+DEEP_SAMPLE_ID	51_Hf01_BlCM_Ct
+DISEASE	healthy
+DONOR_HEALTH_STATUS	healthy
+DONOR_ID	51_Hf01
+DONOR_SEX	female
+MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CD62L+
+ORGANISM	Homo sapiens
+POOL	yes
+biosource_name	central memory CD4-positive, alpha-beta T cell
+source	DEEP
+epigenetic_mark	DNA Methylation
+data_type	signal
+genome	hs37d5
+experiment	51_Hf01_BlCM_Ct_WGBS_S_1.MCSv3.20150424.GRCh37.cpg.filtered.CG.ct_coverage.bedgraph
+technique	WGBS
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	blood

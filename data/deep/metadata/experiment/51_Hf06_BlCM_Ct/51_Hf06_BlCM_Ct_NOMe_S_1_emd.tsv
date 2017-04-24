@@ -4,7 +4,7 @@ TECHNICAL_REPLICATE_ID	1
 BIOLOGICAL_REPLICATE_ID	1
 CONTACT_PERSON	Gilles Gasparoni, gillesgasparoni@gmail.com
 CONTACT_LAB	Walter
-EXPERIMENT_DATE	42248
+EXPERIMENT_DATE	2015-09-01
 EXPERIMENT_TYPE	NOMe
 EXTRACTION_PROTOCOL	PCI
 EXTRACTION_PROTOCOL_STARTING_NR_CELLS	N/A
@@ -33,3 +33,25 @@ ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
 ChromatinAccessibility_CHROMATIN_STATUS	Fixed Frozen
 ChromatinAccessibility_ENZYME_AMOUNT	60 U/ml
+BIOMATERIAL_PROVIDER	Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_TYPE	primary cell
+CELL_TYPE	central memory CD4-positive, alpha-beta T cell
+COMMENT	-
+DEEP_SAMPLE_ID	51_Hf06_BlCM_Ct
+DISEASE	healthy
+DONOR_AGE	30
+DONOR_HEALTH_STATUS	healthy
+DONOR_ID	51_Hf06
+DONOR_SEX	female
+MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CCR7+
+ORGANISM	Homo sapiens
+POOL	yes
+biosource_name	central memory CD4-positive, alpha-beta T cell
+source	DEEP
+epigenetic_mark	DNA Methylation
+data_type	peaks
+genome	hs37d5
+experiment	51_Hf06_BlCM_Ct_NOMe_S_1.NCSv2.20160113.GRCh37.cpg.filtered.HCG.bed
+technique	NOMe-seq
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	blood
