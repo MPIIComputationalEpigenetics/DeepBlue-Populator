@@ -31,28 +31,6 @@ ChromatinAccessibility_CHROMATIN_AMOUNT	N/A
 ChromatinAccessibility_ENZYME	M. CviPI
 ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
-ChromatinAccessibility_CHROMATIN_STATUS	Fresh Frozen Ground tissue
 ChromatinAccessibility_ENZYME_AMOUNT	60 U/ml
-BIOMATERIAL_PROVIDER	IKMB, Robert Häsler
-BIOMATERIAL_TYPE	primary tissue
-biosource_name	mucosa of large intestine
 COLLECTION_METHOD	colonoscopy
-COMMENT	discordant Twin to Twin07B(52_Hf3b_CoMu_UC)
-data_type	peaks
-DEEP_SAMPLE_ID	52_Hf3a_CoMu_Ct
-DISEASE	healthy
-DONOR_AGE	17
-DONOR_AGE_UNIT	year
-DONOR_ETHNICITY	caucasian
-DONOR_HEALTH_STATUS	no medication
-DONOR_ID	Twin07A
-DONOR_SEX	female
-epigenetic_mark	DNA Accessibility
-experiment	52_Hf3a_CoMu_Ct_NOMe_S_1.NCSv2.20150513.GRCh37.cpg.filtered.GCH.peaks.bed
-genome	hs37d5
-ORGANISM	Homo sapiens
-POOL	no
-source	DEEP
-technique	NOMe-seq
 TISSUE_DEPOT	sigma
-TISSUE_TYPE	mucosa of large intestine

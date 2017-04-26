@@ -39,25 +39,5 @@ CHIP_PROTOCOL_SHEARING_METHOD	Bioruptor NGS
 CHIP_PROTOCOL_SHEARING_CYCLES	30
 CHIP_PROTOCOL_SHEARING_FREQUENCY	30'' on / 30'' off
 CHIP_PROTOCOL_IPSTAR_CONDITIONS	N/A
-BIOMATERIAL_PROVIDER	ATCC
-BIOMATERIAL_TYPE	cell line
-CELL_TYPE	HepG2 cell line
 COLLECTION_METHOD	trypsination
-COMMENT	-
-DEEP_SAMPLE_ID	01_HepG2_LiHG_Ct1
-DISEASE	Hepatocellular carcinoma
-DONOR_SEX	male
-ORGANISM	Homo sapiens
-STATUS	untreated
-biosource_name	HepG2
-source	DEEP
-epigenetic_mark	H3K4me3
-data_type	signal
-genome	hs37d5
-experiment	01_HepG2_LiHG_Ct1_H3K4me3-log2-Input_S_1.CHPv3.20150507.hs37.bamcomp.SES.bedgraph
-technique	ChIP-seq
-DIFFERENTIATION_STATE	undifferentiated
-LINE	HepG2
-MEDIUM	DMEM + 10% FCS + 1% Pen/Strep
 PASSAGE	15
-SEX	male

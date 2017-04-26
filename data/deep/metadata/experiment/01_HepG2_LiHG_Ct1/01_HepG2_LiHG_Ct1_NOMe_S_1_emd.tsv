@@ -31,33 +31,4 @@ ChromatinAccessibility_CHROMATIN_AMOUNT	500000
 ChromatinAccessibility_ENZYME	M. CviPI
 ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
-ChromatinAccessibility_CHROMATIN_STATUS	Fixed
 ChromatinAccessibility_ENZYME_AMOUNT	20 U/ml
-BIOMATERIAL_PROVIDER	ATCC
-BIOMATERIAL_TYPE	cell line
-biosource_name	HepG2
-CELL_TYPE	HepG2
-COMMENT	-
-CULTURE_CONDITIONS	DMEM + 10% FCS + 1% Pen/Strep
-data_type	signal
-DEEP_SAMPLE_ID	01_HepG2_LiHG_Ct1
-DIFFERENTIATION_STATE	undifferentiated
-DISEASE	Hepatocellular carcinoma
-DONOR_AGE	15
-DONOR_AGE_UNIT	year
-DONOR_ETHNICITY	caucasian
-DONOR_HEALTH_STATUS	Hepatocellular carcinoma
-DONOR_ID	HepG2
-DONOR_SEX	male
-epigenetic_mark	DNA Accessibility
-experiment	01_HepG2_LiHG_Ct1_NOMe_S_1.NCSv2.20150630.GRCh37.filtered.GCH.ct_coverage.bedgraph
-genome	hs37d5
-LINE	HepG2
-MEDIUM	DMEM + 10% FCS + 1% Pen/Strep
-ORGANISM	Homo sapiens
-POOL	no
-SEX	male
-source	DEEP
-STATUS	untreated
-technique	NOMe-seq
-TISSUE_TYPE	liver

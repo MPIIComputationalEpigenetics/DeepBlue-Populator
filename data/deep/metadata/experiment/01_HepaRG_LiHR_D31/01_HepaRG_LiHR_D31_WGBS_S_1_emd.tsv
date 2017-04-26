@@ -25,30 +25,5 @@ LIBRARY_GENERATION_PCR_THERMOCYCLING_PROGRAM	30s @ 98°C, 12*(10s @ 98°C, 30s @
 LIBRARY_GENERATION_PCR_PRODUCT_LENGTH	400
 LIBRARY_GENERATION_FRAGMENT_SIZE_SELECTION	200-500
 LIBRARY_GENERATION_cDNA_FRAGMENTATION	Bioruptor NGS
-BIOMATERIAL_PROVIDER	Biopredic
-BIOMATERIAL_TYPE	cell line
-CELL_TYPE	HepaRG
-COMMENT	mixture of hepatocytes and biliary cells, sampled after 30 days
-DEEP_SAMPLE_ID	01_HepaRG_LiHR_D31
-DISEASE	Hepatocellular carcinoma
-DONOR_ETHNICITY	caucasian
-DONOR_HEALTH_STATUS	hepatocarcinoma
-DONOR_ID	HepaRG
-DONOR_SEX	female
-MARKERS	none
-ORGANISM	Homo sapiens
-POOL	no
-STATUS	untreated
-biosource_name	HepaRG
-source	DEEP
-epigenetic_mark	DNA Methylation
-data_type	peaks
-genome	hs37d5
-experiment	01_HepaRG_LiHR_D31_WGBS_S_1.MCSv3.20150424.GRCh37.cpg.filtered.CG.bed
-technique	WGBS
 DIFFERENTIATION_METHOD	DMSO for 14 days
-DIFFERENTIATION_STATE	differentiated
-LINE	HepaRG
-MEDIUM	William's E + 10% FCS + 1.7% DMSO + 1% Pen/Strep + 1ppm Hydrocortisone
 PASSAGE	15
-SEX	female
