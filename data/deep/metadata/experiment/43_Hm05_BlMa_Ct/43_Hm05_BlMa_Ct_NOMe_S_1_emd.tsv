@@ -1,4 +1,4 @@
-EXPERIMENT_ID	43_Hm05_BlMa_Ct_NOMe_S_1_emd.tsv
+EXPERIMENT_ID	43_Hm05_BlMa_Ct_NOMe_S_1
 SAMPLE_ID	43_Hm05_BlMa_Ct
 TECHNICAL_REPLICATE_ID	1
 BIOLOGICAL_REPLICATE_ID	1
@@ -31,5 +31,4 @@ ChromatinAccessibility_CHROMATIN_AMOUNT	500000
 ChromatinAccessibility_ENZYME	M. CviPI
 ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
-ChromatinAccessibility_CHROMATIN_STATUS	Fixed
 ChromatinAccessibility_ENZYME_AMOUNT	60 U/ml

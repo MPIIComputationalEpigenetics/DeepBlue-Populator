@@ -3,7 +3,7 @@ CONTACT_LAB	MDC
 SAMPLE_ID	44_Mm04_WEAd_C1
 EXPERIMENT_TYPE	StrandedTotalRNA-seq
 EXPERIMENT_DATE	06/03/14
-EXPERIMENT_ID	44_Mm04_WEAd_C1_mRNA_M_1_emd.tsv
+EXPERIMENT_ID	44_Mm04_WEAd_C1_mRNA_M_1
 TECHNICAL_REPLICATE_ID	0
 FULL_LENGTH_PROTOCOL_LINK	http://supportres.illumina.com/documents/documentation%5Cchemistry_documentation%5Csamplepreps_truseq%5Ctruseqstrandedmrna%5Ctruseq-stranded-mrna-sample-prep-guide-15031047-e.pdf
 BIOLOGICAL_REPLICATE_ID	0
