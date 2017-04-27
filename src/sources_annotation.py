@@ -161,5 +161,22 @@ blueprint_regulatory_build_20150820 = Annotation({
 	"extra_metadata" : {'URL': 'ftp://ftp.ebi.ac.uk/pub/databases/blueprint/releases/current_release/homo_sapiens/secondary_analysis/Ensembl_Regulatory_Build/hg38/overview/RegBuild.bb'}
 })
 
+grch38_cpg_islands = Annotation({
+	"name" : 'CpG Islands',
+	"genome" : 'grch38',
+	"description":  "CpG islands are associated with genes, particularly housekeeping genes, in vertebrates. CpG islands are typically common near transcription start sites and may be associated with promoter regions. Normally a C (cytosine) base followed immediately by a G (guanine) base (a CpG) is rare in vertebrate DNA because the Cs in such an arrangement tend to be methylated. This methylation helps distinguish the newly synthesized DNA strand from the parent strand, which aids in the final stages of DNA proofreading after duplication. However, over evolutionary time, methylated Cs tend to turn into Ts because of spontaneous deamination. The result is that CpGs are relatively rare unless there is selective pressure to keep them or a region is not methylated for some other reason, perhaps having to do with the regulation of gene expression. CpG islands are regions where CpGs are present at significantly higher levels than is typical for the genome as a whole.",
+	"data_file" : settings.DATA_DIR + "annotations/grch38/Cpg Islands.bed.gz",
+	"file_format" : "CHROMOSOME,START,END,NAME,LENGTH,NUM_CPG,NUM_GC,PER_CPG,PER_GC,OBS_EXP",
+	"extra_metadata" : {'URL': 'http://hgdownload.cse.ucsc.edu/goldenpath/hg38/database/cpgIslandExt.txt.gz'}
+})
 
-annotations = [repeat_masker, cpgIslands, genes, promoters, probes450k, laminB1,conservation_primates, conservation_placental, RepeatFree_1kb_autosomes, RepeatMasked_1kb_autosomes, gene_protcod_3kbprom_autosomes,gene_protcod_full_autosomes, transcripts_protcod_3kbprom_autosomes, transcripts_lincRNA_full_autosomes, transcripts_miRNA_full_autosomes, transcripts_snRNA_full_autosomes, transcripts_snoRNA_full_autosomes, blueprint_regulatory_build_20150820]
+grch38_promoters = Annotation({
+	"name" : 'Promoters',
+	"genome" : 'grch38',
+	"description":  "Promoters regions generated using gencode.v23.annotation.gtf. Firstly we selected all genes regions. After, if strand is +, we define the region as START-1500 and START-500, if strand is -, we define the region as END-1500 and END-500. After we removed 2 gene regions that were negative (from chrM).",
+	"data_file" : settings.DATA_DIR + "annotations/grch38/promoters.bed.gz",
+	"file_format" : "CHROMOSOME,START,END,STRAND,GENE_ID_ENSEMBL"
+})
+
+
+annotations = [repeat_masker, cpgIslands, genes, promoters, probes450k, laminB1,conservation_primates, conservation_placental, RepeatFree_1kb_autosomes, RepeatMasked_1kb_autosomes, gene_protcod_3kbprom_autosomes,gene_protcod_full_autosomes, transcripts_protcod_3kbprom_autosomes, transcripts_lincRNA_full_autosomes, transcripts_miRNA_full_autosomes, transcripts_snRNA_full_autosomes, transcripts_snoRNA_full_autosomes, blueprint_regulatory_build_20150820, grch38_cpg_islands, grch38_promoters]
