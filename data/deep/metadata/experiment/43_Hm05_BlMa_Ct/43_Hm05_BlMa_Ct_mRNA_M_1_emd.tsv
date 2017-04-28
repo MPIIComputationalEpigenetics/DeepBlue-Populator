@@ -5,7 +5,7 @@ EXPERIMENT_TYPE	Stranded mRNA-seq
 EXPERIMENT_DATE	11.-13.08.2014
 EXPERIMENT_ID	43_Hm05_BlMa_Ct_mRNA_M_1
 TECHNICAL_REPLICATE_ID	0
-FULL_LENGTH_PROTOCOL_LINK	[MISSING] http://supportres.illumina.com/documents/documentation%5Cchemistry_documentation%5Csamplepreps_truseq%5Ctruseqstrandedmrna%5Ctruseq-stranded-mrna-sample-prep-guide-15031047-e.pdf
+FULL_LENGTH_PROTOCOL_LINK	http://supportres.illumina.com/documents/documentation%5Cchemistry_documentation%5Csamplepreps_truseq%5Ctruseqstrandedmrna%5Ctruseq-stranded-mrna-sample-prep-guide-15031047-e.pdf
 BIOLOGICAL_REPLICATE_ID	0
 EXTRACTION_PROTOCOL	TRIzol RNA Isolation for Cells. TRIzol (Life Technologies, 15596-018) RNA Isolation, performed following the manufacturer instruction to isolate total RNA, used 1 ml TRIzol per Sample. Followed by Isopropyl alcohol/Ethanol precipitation
 EXTRACTION_PROTOCOL_STARTING_NR_CELLS	50x10^6
