@@ -12,6 +12,6 @@ DIFFERENTIATION_STATE	differentiated
 DIFFERENTIATION_METHOD	DMSO for 14 days
 PASSAGE	15
 MEDIUM	William's E + 10% FCS + 1.7% DMSO + 1% Pen/Strep + 1ppm Hydrocortisone
-SEX	female
+DONOR_SEX	female
 BATCH	NA
 COMMENT	mixture of hepatocytes and biliary cells, sampled after 30 days
