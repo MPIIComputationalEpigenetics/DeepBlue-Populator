@@ -1,4 +1,4 @@
-DEEP_SAMPLE_ID	51_Hf06_BlCM_t2
+DEEP_SAMPLE_ID	51_Hf06_BlCM_T2
 ORGANISM	Homo sapiens
 POOL	yes
 STATUS	stimulated with10ng/ml PMA + 500ng/ml Ionomycin for 34h in vitro

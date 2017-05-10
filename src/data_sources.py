@@ -72,14 +72,16 @@ deep = [
 ]
 
 ihec = [
-    ('CREST', 'hg38', '')
+    #('CREST', 'hg38', ''),
+    #('CREST', 'hg19', ''),
+    ('CEEHRC','hg19', '')
     #('Blueprint', 'hg38', '')
 ]
 
 project_sources = [
-    ihec
+     # ihec
      # progenitors,
-     # blueprint_source
+     ihec
      # roadmap
      # encode
      # encode_ftp

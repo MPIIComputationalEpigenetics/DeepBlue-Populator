@@ -6,7 +6,7 @@ DISEASE	healthy
 BIOMATERIAL_PROVIDER	Stefan Wallner/Regensburg University Hospital
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	monocyte
-TISSUE_TYPE     blood
+TISSUE_TYPE	blood
 MARKERS	Flow scatter analysis
 DONOR_ID	43_Hm02
 DONOR_AGE	31

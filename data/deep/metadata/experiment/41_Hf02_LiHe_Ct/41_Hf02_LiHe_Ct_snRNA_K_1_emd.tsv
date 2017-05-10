@@ -3,7 +3,7 @@ CONTACT_PERSON	Matthias Barann
 CONTACT_LAB	IKMB
 SAMPLE_ID	41_Hf02_LiHe_Ct
 EXPERIMENT_DATE	2013-11-21
-EXPERIMENT_ID	41_Hf02_LiHe_Ct_snRNA_K_1_emd.tsv
+EXPERIMENT_ID	41_Hf02_LiHe_Ct_snRNA_K_1
 TECHNICAL_REPLICATE_ID	1
 FULL_LENGTH_PROTOCOL_LINK	http://supportres.illumina.com/documents/documentation/chemistry_documentation/samplepreps_truseq/truseqsmallrna/truseq_smallrna_sampleprep_guide_15004197_e.pdf
 BIOLOGICAL_REPLICATE_ID	1

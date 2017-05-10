@@ -28,7 +28,7 @@ def load(project, genome, url):
         return RoadmapRepository("Roadmap Epigenomics", genome, url)
     elif project == "Blueprint HSC differentiation":
         return ProgenitorsRepository("Blueprint HSC differentiation", genome, url)
-    elif project in ["CREST", "Blueprint"]:
+    elif project in ["CREST", "Blueprint", "CEEHRC"]:
         return IhecDataRepository(project, genome, url)
     else:
         log.error("Invalid project %s", project)

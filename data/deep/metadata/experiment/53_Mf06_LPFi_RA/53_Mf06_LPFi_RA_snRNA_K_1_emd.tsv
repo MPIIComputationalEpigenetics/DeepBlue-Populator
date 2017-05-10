@@ -2,7 +2,7 @@ EXPERIMENT_TYPE	RNA-Seq
 CONTACT_PERSON	Anupam Sinha(a.sinha@ikmb.uni-kiel.de)
 CONTACT_LAB	Philip Rosenstiel
 SAMPLE_ID	53_Mf06_LPFi_RA
-EXPERIMENT_ID	53_Mf06_LPFi_RA_snRNA_K_1_emd.tsv
+EXPERIMENT_ID	53_Mf06_LPFi_RA_snRNA_K_1
 TECHNICAL_REPLICATE_ID	1
 FULL_LENGTH_PROTOCOL_LINK	http://support.illumina.com/content/dam/illumina-support/documents/documentation/chemistry_documentation/samplepreps_truseq/truseqsmallrna/truseq-small-rna-library-prep-guide-15004197-g.pdf
 LIBRARY_GENERATION_PROTOCOL	IlluminaTruSeq small RNA Sample Preparation Guide (Part # 15004197 Rev. C)

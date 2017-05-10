@@ -1,4 +1,4 @@
-EXPERIMENT_ID	51_Hf04_BlEM_Ct_NOMe_S_1_emd.tsv
+EXPERIMENT_ID	51_Hf04_BlEM_Ct_NOMe_S_1
 SAMPLE_ID	51_Hf04_BlEM_Ct
 TECHNICAL_REPLICATE_ID	1
 BIOLOGICAL_REPLICATE_ID	1
@@ -31,5 +31,4 @@ ChromatinAccessibility_CHROMATIN_AMOUNT	N/A
 ChromatinAccessibility_ENZYME	M. CviPI
 ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
-ChromatinAccessibility_CHROMATIN_STATUS	Fresh Frozen
 ChromatinAccessibility_ENZYME_AMOUNT	80 U/ml

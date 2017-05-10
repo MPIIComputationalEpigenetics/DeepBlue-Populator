@@ -1,4 +1,4 @@
-EXPERIMENT_ID	52_Hf3b_CoMu_UC_NOMe_S_1_emd.tsv
+EXPERIMENT_ID	52_Hf3b_CoMu_UC_NOMe_S_1
 SAMPLE_ID	52_Hf3b_CoMu_UC
 TECHNICAL_REPLICATE_ID	1
 BIOLOGICAL_REPLICATE_ID	1
@@ -31,5 +31,6 @@ ChromatinAccessibility_CHROMATIN_AMOUNT	N/A
 ChromatinAccessibility_ENZYME	M. CviPI
 ChromatinAccessibility_ENZYME_PROVIDER	NEB
 ChromatinAccessibility_ENZYME_LOT	N/A
-ChromatinAccessibility_CHROMATIN_STATUS	Fresh Frozen Ground tissue
 ChromatinAccessibility_ENZYME_AMOUNT	60 U/ml
+COLLECTION_METHOD	colonoscopy
+TISSUE_DEPOT	sigma

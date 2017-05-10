@@ -1,5 +1,5 @@
 import requests
-import pprint
+from pprint import pprint
 
 from repository import Repository
 from epidb_interaction import PopulatorEpidbClient
@@ -65,7 +65,6 @@ class IhecDataRepository(Repository):
     for j in releases:
       hub_description = j['hub_description']
 
-      pprint.pprint(hub_description)
       genome = hub_description['assembly']
       releasing_group = hub_description['releasing_group']
       project_description = hub_description['description']
@@ -100,8 +99,7 @@ class IhecDataRepository(Repository):
           sample = map_sample[dataset['sample_id']]
           (status, db_sample_id) = epidb.add_sample(sample[0], sample[1])
           extra_metadata = {}
-          extra_metadata['experiment_ontology_uri'] = dataset['experiment_attributes']['experiment_ontology_uri']
-          extra_metadata['reference_registry_id'] = dataset['experiment_attributes']['reference_registry_id']
+          extra_metadata.update(dataset['experiment_attributes'])
           for key in dataset['analysis_attributes']:
               extra_metadata[key] = dataset['analysis_attributes'][key]
 
@@ -116,7 +114,6 @@ class IhecDataRepository(Repository):
                           "sample": db_sample_id,
                           "technique": technique,
                           "project": self.project,
-                          "description": sample[1]['cell_type'],
                           "data_url": data_url,
                           "extra_metadata": extra_metadata}
 

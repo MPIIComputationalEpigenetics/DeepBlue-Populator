@@ -363,8 +363,6 @@ class Dataset:
 
 
         finally:
-            pass
-            """"
             if os.path.exists(self.download_path):
                 os.remove(self.download_path)
 
@@ -377,4 +375,3 @@ class Dataset:
             if frmt == "wig" or frmt == "bedgraph":
                 if os.path.exists(converted_file_name):
                     os.remove(converted_file_name)
-            """
