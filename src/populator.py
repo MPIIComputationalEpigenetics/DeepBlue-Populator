@@ -228,6 +228,16 @@ class Populator:
                                   genes, "GTF",
                                   {"name":"gencode", "release":"23", "content":"Basic gene annotation", "genome":"GRCh38.p3"})
 
+        genes = gzip.open("../data/gene_sets/gencode.vM1.annotation.ONLY_GENES.gtf.gz").read()
+        print epidb.add_gene_model("gencode vM1", "mm9", "gencode.vM1.annotation.gtf - only genes",
+                                  genes, "GTF",
+                                  {"name":"gencode", "release":"M1", "content":"Basic gene annotation", "genome":"NCBIM37"})
+
+        genes = gzip.open("../data/gene_sets/gencode.vM13.basic.annotation.ONLY_GENES.gtf.gz").read()
+        print epidb.add_gene_model("gencode vM13", "mm10", "gencode.vM13.basic.annotation - only genes",
+                                  genes, "GTF",
+                                  {"name":"gencode", "release":"M13", "content":"Basic gene annotation", "genome":"GRCm38.p5"})
+
     def create_columns(self):
         epidb = PopulatorEpidbClient()
 
