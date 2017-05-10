@@ -28,6 +28,9 @@ class IhecDataPortalMapper(AttributeMapper):
         if em == "ChIP-Seq Input":
             return "Input"
 
+        if em == "ATAC-Seq":
+            return "DNA Accessibility"
+
         if em.startswith("Histone "):
             return em.split()[1]
 
@@ -53,11 +56,11 @@ class IhecDataPortalMapper(AttributeMapper):
                 return "ChIP-seq"
 
             if epigenetic_mark == "dna methylation":
-                if "wgbs" in self.dataset.file_name:
+                if "wgbs" in self.dataset.file_name.lower():
                     return "WGBS"
 
-            if epigenetic_mark == "atac-seq":
-                return "DNA Accessibility"
+            if epigenetic_mark == "dna accessibility":
+                return self.dataset.meta['epigenetic_mark']
 
         else:
             t = t.lower()
