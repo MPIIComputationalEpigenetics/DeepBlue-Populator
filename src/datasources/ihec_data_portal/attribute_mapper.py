@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from attribute_mapper import AttributeMapper
 
+
 class IhecDataPortalMapper(AttributeMapper):
 
     def __init__(self, dataset):
@@ -18,6 +19,9 @@ class IhecDataPortalMapper(AttributeMapper):
         if em == "RNA-Seq":
             return "RNA"
 
+        if em == "smRNA-Seq":
+            return "smRNA"
+
         if em == "mRNA-Seq":
             return "mRNA"
 
@@ -32,27 +36,41 @@ class IhecDataPortalMapper(AttributeMapper):
     @property
     def technique(self):
         t = self.dataset.meta['technique']
-        if t == "RNA-seq assay":
-            return "RNA-seq"
-
-        if t == "cross-linking immunoprecipitation high-throughput sequencing assay":
-            return "ChIP-seq"
-
-        if t == "shotgun bisulfite-seq assay":
-            return "Shotgun bisulfite-seq"
 
         if not t:
-            if self.epigenetic_mark == "mRNA":
+            epigenetic_mark = self.epigenetic_mark.lower()
+
+            if epigenetic_mark == "mrna":
                 return "mRNA-seq"
 
-            if self.epigenetic_mark.lower() in ["input", "h3k4me1", "h3k4me3", "h3k27ac", "h3k36me3", "h3k9me3", "h3k27me3"]:
+            if epigenetic_mark == "rna":
+                return "RNA-seq "
+
+            if epigenetic_mark == "smrna":
+                return "smRNA-seq"
+
+            if epigenetic_mark in ["input", "h3k4me1", "h3k4me3", "h3k27ac", "h3k36me3", "h3k9me3", "h3k27me3"]:
                 return "ChIP-seq"
 
-            if self.epigenetic_mark == "DNA Methylation":
-                if "wgbs" in self.dataset.file_name.lower():
+            if epigenetic_mark == "dna methylation":
+                if "wgbs" in self.dataset.file_name:
                     return "WGBS"
 
-        return t
+            if epigenetic_mark == "atac-seq":
+                return "DNA Accessibility"
+
+        else:
+            t = t.lower()
+            if t == "rna-seq assay":
+                return "RNA-seq"
+
+            if t == "cross-linking immunoprecipitation high-throughput sequencing assay":
+                return "ChIP-seq"
+
+            if t == "shotgun bisulfite-seq assay":
+                return "Shotgun bisulfite-seq"
+
+            return t
 
     @property
     def project(self):

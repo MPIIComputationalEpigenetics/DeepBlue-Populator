@@ -151,7 +151,7 @@ class Populator:
             {"category": "Chromosomes Organization"})
         epidb.add_epigenetic_mark("Gene Expression", "Gene expression is the process by which information from a gene is used in the synthesis of a functional gene product. These products are often proteins, but in non-protein coding genes such as transfer RNA (tRNA) or small nuclear RNA (snRNA) genes, the product is a functional RNA. (Wikipedia)",
             {"category": "Gene Expression"})
-
+        epidb.add_epigenetic_mark("smRNA","small modulatory RNA", {"category":"RNA Expression"})
 
         insert_histones(epidb)
 
@@ -193,6 +193,7 @@ class Populator:
         epidb.add_technique("microRNA-seq", "MicroRNA sequencing (miRNA-seq), a type of RNA-Seq, is the use of next-generation sequencing or massively parallel high-throughput DNA sequencing to sequence microRNAs, also called miRNAs. miRNA-seq differs from other forms of RNA-seq in that input material is often enriched for small RNAs.", {})
         epidb.add_technique("RAMPAGE", "RAMPAGE (RNA Annotation and Mapping of Promoters for the Analysis of Gene Expression) is a very accurate sequencing approach to identify transcription start sites (TSSs) at base-pair resolution, the quantification of their expression and the characterization of their transcripts. This assay uses direct cDNA evidence to link specific genes and their regulatory TSSs.", {})
         epidb.add_technique("Shotgun bisulfite-seq", "Shotgun bisulfite sequencing", {})
+        epidb.add_technique("smRNA-Seq", "small modulatory RNA sequencing", {})
 
 
     def insert_projects(self):

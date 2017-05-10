@@ -24,7 +24,7 @@ def get(project, epigenetic_mark=None):
     return DEEPMapper
   if project == "Blueprint HSC differentiation":
     return ProgenitorsMapper
-  if project in ["CREST"]:
+  if project in ["CREST", "CEEHRC"]:
     return IhecDataPortalMapper
 
   print 'Invalid Project:', project
