@@ -179,7 +179,6 @@ def _anotate_gene(v):
 
 def add_gene_ontology_terms_and_annotate_genes():
     log.info("Loading go.owl")
-<<<<<<< HEAD
 
     go_terms = _load_go_owl('../data/gene_ontology/go.owl.gz')
     p = Pool(16)
