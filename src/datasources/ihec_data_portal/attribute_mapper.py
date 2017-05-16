@@ -34,6 +34,9 @@ class IhecDataPortalMapper(AttributeMapper):
         if em.startswith("Histone "):
             return em.split()[1]
 
+        if em.startswith("Chipmentation "):
+            return em.split()[1]
+
         return em
 
     @property
@@ -53,10 +56,16 @@ class IhecDataPortalMapper(AttributeMapper):
                 return "smRNA-seq"
 
             if epigenetic_mark in ["input", "h3k4me1", "h3k4me3", "h3k27ac", "h3k36me3", "h3k9me3", "h3k27me3"]:
-                return "ChIP-seq"
+                if "Histone " in self.dataset.meta['epigenetic_mark']:
+                    return "ChIP-seq"
+                if "Chipmentation " in self.dataset.meta['epigenetic_mark']:
+                    return "ChIPmentation"
 
             if epigenetic_mark == "dna methylation":
                 if "wgbs" in self.dataset.file_name.lower():
+                    return "WGBS"
+                
+                if "5mc" in self.dataset.file_name.lower():
                     return "WGBS"
 
             if epigenetic_mark == "dna accessibility":

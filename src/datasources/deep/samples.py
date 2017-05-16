@@ -2,6 +2,11 @@ import codecs
 import os
 import xmlrpclib
 
+from epidb_interaction import PopulatorEpidbClient
+
+
+from client import DeepBlueClient
+
 SAMPLE_METADATA_DIRECTORY = "../data/deep/metadata/sample/"
 
 class Sample:
@@ -22,6 +27,7 @@ class Sample:
       self._biosource = self._data["LINE"]
 
     if biomaterial_type == 'cell line':
+      print self.data
       self._biosource = self._data["LINE"]
 
     elif biomaterial_type == 'primary tissue':
@@ -72,7 +78,7 @@ def process_metadata(file_location):
 
 class DeepSamples:
   def __init__(self, deepblue, deep_xmlrpc_server):
-    self._epidb = deepblue
+    self._epidb = PopulatorEpidbClient()
     self._srv = xmlrpclib.Server(deep_xmlrpc_server)
 
   def process(self):

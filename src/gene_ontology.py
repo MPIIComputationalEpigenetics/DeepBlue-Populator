@@ -160,12 +160,12 @@ def _anotate_gene(v):
 
 def add_gene_ontology_terms_and_annotate_genes():
     log.info("Loading go.owl")
-    #go_terms = _load_go_owl('../data/gene_ontology/go.owl.gz')
+    go_terms = _load_go_owl('../data/gene_ontology/go.owl.gz')
 
-    #p = Pool(32)
-    #p.map(_insert_go_term, go_terms.values())
-    #p.close()
-    #p.join()
+    p = Pool(32)
+    p.map(_insert_go_term, go_terms.values())
+    p.close()
+    p.join()
 
     log.info("Loading goa_human.gaf.gz")
     uniprotkb_to_go = _load_gaf("../data/gene_ontology/goa_human.gaf.gz")

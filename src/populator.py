@@ -195,7 +195,6 @@ class Populator:
         epidb.add_technique("Shotgun bisulfite-seq", "Shotgun bisulfite sequencing", {})
         epidb.add_technique("smRNA-Seq", "small modulatory RNA sequencing", {})
 
-
     def insert_projects(self):
         epidb = PopulatorEpidbClient()
 
