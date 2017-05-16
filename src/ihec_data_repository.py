@@ -33,6 +33,8 @@ class IhecDataPortal:
   def get_releases_id(publishing_group, assembly):
     releases = IhecDataPortal.get_releases_info(publishing_group, assembly)
     ids = []
+    if not releases: 
+      return ids
     for release in releases:
       ids.append(release["id"])
     return ids
@@ -105,9 +107,12 @@ class IhecDataRepository(Repository):
           sample = map_sample[dataset['sample_id']]
           (status, db_sample_id) = epidb.add_sample(sample[0], sample[1])
           extra_metadata = {}
-          extra_metadata.update(dataset['experiment_attributes'])
-          for key in dataset['analysis_attributes']:
-              extra_metadata[key] = dataset['analysis_attributes'][key]
+          extra_metadata.update(dataset.get('experiment_attributes', {}))
+          extra_metadata.update(dataset.get('analysis_attributes', {}))
+          extra_metadata.update(dataset.get('ihec_data_portal', {}))
+          extra_metadata.update(dataset.get('other_attributes', {}))
+          if dataset.get("raw_data_url"):
+              extra_metadata["raw_data_url"] = dataset.get("raw_data_url")
 
           extra_metadata['releasing_group'] = releasing_group
           for f in dataset['browser']:
