@@ -73,7 +73,13 @@ class IhecDataRepository(Repository):
       if description_url:
         project_description = project_description + " (" + description_url + ")"
 
-      add_project = (self.project, project_description)
+
+      # Shitty workaround to handle the private and public DEEP data
+      if self.project == "DEEP":
+        add_project = (self.project + " (IHEC)", project_description)
+      else:
+        add_project = (self.project, project_description)
+
       print epidb.add_project(*add_project)
       datasets = j["datasets"]
       samples = j["samples"]

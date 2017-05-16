@@ -33,10 +33,11 @@ RdfsSubClass = "{%s}subClassOf" % Rdfs
 RdfsLabel = "{%s}label" % Rdfs
 
 OboInOwlID = "{%s}id" % OboInOwl
-OboInOwlHasOBONamespace  = "{%s}hasOBONamespace" % OboInOwl
+OboInOwlHasOBONamespace = "{%s}hasOBONamespace" % OboInOwl
 
 
 class GO_Term:
+
     def __init__(self, _label, _id, _description, _namespace, _superclass):
         self._label = _label
         self._id = _id
@@ -45,13 +46,14 @@ class GO_Term:
         self._superclass = _superclass
 
     def __str__(self):
-        return self._label + " " + self._id +  " " + self._namespace + " " + self.upper_id()
+        return self._label + " " + self._id + " " + self._namespace + " " + self.super_id()
 
     def super_id(self):
         if self._superclass is not None:
             _up = ":".join(self._superclass.split("/")[-1].split("_"))
             return _up
         return ""
+
 
 def _load_go_owl(_file):
     terms = {}
@@ -70,7 +72,8 @@ def _load_go_owl(_file):
     else:
         address = ""
 
-     # Load the class and the RdfDescription, because the UBERON defines somes classes inside RdfDescription
+     # Load the class and the RdfDescription, because the UBERON defines somes
+     # classes inside RdfDescription
     for child in root.findall(OwlClass):
         _id = child.find(OboInOwlID)
         if _id is None:
@@ -98,7 +101,8 @@ def _load_go_owl(_file):
         if _superclass is not None:
             _superclass = _superclass.get(RdfResource).encode('utf-8').strip()
 
-        terms[_id] = GO_Term(_label, _id, _description, _namespace, _superclass)
+        terms[_id] = GO_Term(_label, _id, _description,
+                             _namespace, _superclass)
 
     return terms
 
@@ -138,6 +142,7 @@ def _load_gaf(_file):
 
     return _map
 
+
 def _annotate_genes(uniprotkb_to_go, _map_kprto_ensb):
     gene_go = []
     for (uniprotkb, gos) in uniprotkb_to_go.iteritems():
@@ -149,58 +154,77 @@ def _annotate_genes(uniprotkb_to_go, _map_kprto_ensb):
 
 def _insert_go_term(go_term):
     epidb = PopulatorEpidbClient()
-    print epidb.add_gene_ontology_term(go_term._id, go_term._label, go_term._description, go_term._namespace)
+    s, m = epidb.add_gene_ontology_term(
+        go_term._id, go_term._label, go_term._description, go_term._namespace)
+    if s == "error":
+        log.error(str(m) + " : " + str(go_term))
+
+
+def _set_parent_go_term(go_term):
+    if not go_term.super_id():
+        return
+
+    epidb = PopulatorEpidbClient()
+    s, m = epidb.set_gene_ontology_term_parent(go_term.super_id(), go_term._id)
+    if s == "error":
+        log.error(str(m) + " : " + str(go_term))
+
 
 def _anotate_gene(v):
     epidb = PopulatorEpidbClient()
     s, m = epidb.annotate_gene(v[0], v[1])
     if s == "error":
-        print m
-        print v[0], v[1]
+        log.error(m + " : " + v[0] + " - " + v[1])
+
 
 def add_gene_ontology_terms_and_annotate_genes():
     log.info("Loading go.owl")
-    #go_terms = _load_go_owl('../data/gene_ontology/go.owl.gz')
 
-    #p = Pool(32)
-    #p.map(_insert_go_term, go_terms.values())
-    #p.close()
-    #p.join()
+    go_terms = _load_go_owl('../data/gene_ontology/go.owl.gz')
+    p = Pool(16)
+    p.map(_insert_go_term, go_terms.values())
+    p.close()
+    p.join()
+
+    p = Pool(16)
+    p.map(_set_parent_go_term, go_terms.values())
+    p.close()
+    p.join()
 
     log.info("Loading goa_human.gaf.gz")
     uniprotkb_to_go = _load_gaf("../data/gene_ontology/goa_human.gaf.gz")
     log.info("Loading HUMAN_9606_idmapping.dat.gz")
-    _map_kprto_ensb, _map_ensb_kprto = _load_id_mapping("../data/gene_ontology/HUMAN_9606_idmapping.dat.gz")
+    _map_kprto_ensb, _map_ensb_kprto = _load_id_mapping(
+        "../data/gene_ontology/HUMAN_9606_idmapping.dat.gz")
 
     log.info("Processing genes annotations")
     ann_gs = _annotate_genes(uniprotkb_to_go, _map_kprto_ensb)
 
-    p = Pool(32)
+    p = Pool(16)
     p.map(_anotate_gene, ann_gs)
     p.close()
     p.join()
 
 
-
 # 440000
 #found = list(set(sum([_map_kprto_ensb.get(key) for key in uniprotkb_to_go.keys() if _map_kprto_ensb.has_key(key)], [])))
-#print found
-#print len(found)
-#print len(_map_ensb_kprto.keys())
-#print len(_map_kprto_ensb.keys())
+# print found
+# print len(found)
+# print len(_map_ensb_kprto.keys())
+# print len(_map_kprto_ensb.keys())
 
 
 #missing = {key: value for (key, value) in _map_kprto_ensb.iteritems() if not uniprotkb_to_go.has_key(key)}
-#print len(missing)
-#print len(_map_kprto_ensb.keys())
+# print len(missing)
+# print len(_map_kprto_ensb.keys())
 
-#print _map_ensb_kprto.keys()
+# print _map_ensb_kprto.keys()
 
-#for uniprotk in uniprotkb_to_go.keys():
-    #if not _map_kprto_ensb[uniprotk]
+# for uniprotk in uniprotkb_to_go.keys():
+    # if not _map_kprto_ensb[uniprotk]
 
 
-#for term in go_terms:
+# for term in go_terms:
 #    print term
 
 
