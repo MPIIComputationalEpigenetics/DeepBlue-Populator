@@ -110,12 +110,23 @@ class Populator:
     def insert_genomes(self):
         epidb = PopulatorEpidbClient()
 
-        print epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info)
-        print epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info)
-        print epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
-        print epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
-        print epidb.add_genome("GRCh38", "Human Genome Asembly GRCh38", GRCh38_info)
-        print epidb.add_genome("GRCm38", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38_info)
+        (status, _id) = epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info)
+        print epidb.change_extra_metadata( _id, "taxon_id", "9606", user_key)
+
+        (status, _id) = epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
+        print epidb.change_extra_metadata(_id, "taxon_id", "9606", user_key)
+
+        (status, _id) = epidb.add_genome("GRCh38", "Human Genome Asembly GRCh38", GRCh38_info)
+        print epidb.change_extra_metadata(_id, "taxon_id", "9606", user_key)
+
+        (status, _id) = epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info)
+        print epidb.change_extra_metadata(_id, "taxon_id", "10090", user_key)
+
+        (status, _id) = epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
+        print epidb.change_extra_metadata(_id, "taxon_id", "10090", user_key)
+
+        (status, _id) = epidb.add_genome("GRCm38", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38_info)
+        print epidb.change_extra_metadata(_id, "taxon_id", "10090", user_key)
 
         #insert_chromosome_sequences(epidb, "hg19", self.key)
         #insert_chromosome_sequences(epidb, "hs37d5", self.key)
@@ -226,6 +237,16 @@ class Populator:
         print epidb.add_gene_model("gencode v23", "GRCh38", "gencode.v23.basic.annotation - only genes",
                                   genes, "GTF",
                                   {"name":"gencode", "release":"23", "content":"Basic gene annotation", "genome":"GRCh38.p3"})
+
+        genes = gzip.open("../data/gene_sets/gencode.vM1.annotation.ONLY_GENES.gtf.gz").read()
+        print epidb.add_gene_model("gencode vM1", "mm9", "gencode.vM1.annotation.gtf - only genes",
+                                  genes, "GTF",
+                                  {"name":"gencode", "release":"M1", "content":"Basic gene annotation", "genome":"NCBIM37"})
+
+        genes = gzip.open("../data/gene_sets/gencode.vM13.basic.annotation.ONLY_GENES.gtf.gz").read()
+        print epidb.add_gene_model("gencode vM13", "mm10", "gencode.vM13.basic.annotation - only genes",
+                                  genes, "GTF",
+                                  {"name":"gencode", "release":"M13", "content":"Basic gene annotation", "genome":"GRCm38.p5"})
 
     def create_columns(self):
         epidb = PopulatorEpidbClient()
