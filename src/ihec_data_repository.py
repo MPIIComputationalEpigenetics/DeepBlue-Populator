@@ -62,7 +62,10 @@ class IhecDataRepository(Repository):
 
   def read_datasets(self):
     epidb = PopulatorEpidbClient()
-    releases = IhecDataPortal.get_releases_data(self.project, self.genome)
+    ihec_project = self.project
+    if ihec_project == "DEEP (IHEC)":
+      ihec_project = "DEEP"
+    releases = IhecDataPortal.get_releases_data(ihec_project, self.genome)
 
     for j in releases:
       hub_description = j['hub_description']
@@ -76,11 +79,7 @@ class IhecDataRepository(Repository):
         project_description = project_description + " (" + description_url + ")"
 
 
-      # Shitty workaround to handle the private and public DEEP data
-      if self.project == "DEEP":
-        add_project = (self.project + " (IHEC)", project_description)
-      else:
-        add_project = (self.project, project_description)
+      add_project = (self.project, project_description)
 
       print epidb.add_project(*add_project)
       datasets = j["datasets"]

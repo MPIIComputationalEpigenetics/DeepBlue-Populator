@@ -37,6 +37,13 @@ class IhecDataPortalMapper(AttributeMapper):
         if em.startswith("Chipmentation "):
             return em.split()[1]
 
+        if em == "NOMe seq":
+            if "filtered" in self.dataset.file_name.lower():
+                return "DNA Methylation"
+
+            if "GCH" in self.dataset.file_name:
+                return "DNA Accessibility"
+
         return em
 
     @property
@@ -67,9 +74,19 @@ class IhecDataPortalMapper(AttributeMapper):
                 
                 if "5mc" in self.dataset.file_name.lower():
                     return "WGBS"
+           
+                if "rrbs" in self.dataset.file_name.lower():
+                    return "WGBS"
 
             if epigenetic_mark == "dna accessibility":
                 return self.dataset.meta['epigenetic_mark']
+
+            if "nome seq" == self.dataset.meta['epigenetic_mark'].lower(): 
+                return "NOMe-seq"
+        et = self.dataset.meta.get("extra_metadata", {}).get("experiment_type")
+        if et:
+            if "chip-seq input" == et.lower():
+                return "ChIP-seq"
 
         else:
             t = t.lower()
@@ -82,7 +99,7 @@ class IhecDataPortalMapper(AttributeMapper):
             if t == "shotgun bisulfite-seq assay":
                 return "Shotgun bisulfite-seq"
 
-            return t
+        return t
 
     @property
     def project(self):

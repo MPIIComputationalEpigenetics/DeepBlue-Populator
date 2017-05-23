@@ -28,11 +28,7 @@ def load(project, genome, url):
         return RoadmapRepository("Roadmap Epigenomics", genome, url)
     elif project == "Blueprint HSC differentiation":
         return ProgenitorsRepository("Blueprint HSC differentiation", genome, url)
-    elif project in ["CREST", "CEEHRC", "DEEP IHEC"]:
-
-        #ugly workaround to have private DEEP and public DEEP data from IHEC
-        if project == "DEEP IHEC":
-            project = "DEEP"
+    elif project in ["CREST", "CEEHRC", "DEEP (IHEC)"]:
         return IhecDataRepository(project, genome, url)
     else:
         log.error("Invalid project %s", project)
