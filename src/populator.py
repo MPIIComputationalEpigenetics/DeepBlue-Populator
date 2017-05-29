@@ -112,22 +112,29 @@ class Populator:
 
         (status, _id) = epidb.add_genome("hg19", "Human Genome Assembly hg19", hg19_info)
         print epidb.change_extra_metadata( _id, "taxon_id", "9606", user_key)
+        print epidb.change_extra_metadata(_id, "species", "Human", user_key)
 
         (status, _id) = epidb.add_genome("hs37d5", "Human Genome Assembly HS37 with Decoy Sequences", hs37d5_info)
         print epidb.change_extra_metadata(_id, "taxon_id", "9606", user_key)
+        print epidb.change_extra_metadata(_id, "species", "Human", user_key)
 
         (status, _id) = epidb.add_genome("GRCh38", "Human Genome Asembly GRCh38", GRCh38_info)
         print epidb.change_extra_metadata(_id, "taxon_id", "9606", user_key)
+        print epidb.change_extra_metadata(_id, "species", "Human", user_key)
 
         (status, _id) = epidb.add_genome("mm9", "Mouse Genome Assembly mm9", mm9_info)
         print epidb.change_extra_metadata(_id, "taxon_id", "10090", user_key)
+        print epidb.change_extra_metadata(_id, "species", "Mouse", user_key)
 
         (status, _id) = epidb.add_genome("mm10", "Mouse Genome Assembly mm10", mm10_info)
         print epidb.change_extra_metadata(_id, "taxon_id", "10090", user_key)
+        print epidb.change_extra_metadata(_id, "species", "Mouse", user_key)
 
         (status, _id) = epidb.add_genome("GRCm38", "Mouse Genome Assembly GRCm38 (compatible with mm10)", GRCm38_info)
         print epidb.change_extra_metadata(_id, "taxon_id", "10090", user_key)
+        print epidb.change_extra_metadata(_id, "species", "Mouse", user_key)
 
+        ## Uncomment when do full install
         #insert_chromosome_sequences(epidb, "hg19", self.key)
         #insert_chromosome_sequences(epidb, "hs37d5", self.key)
         #insert_chromosome_sequences(epidb, "GRCm38", self.key)
