@@ -142,6 +142,38 @@ def _load_gaf(_file):
 
     return _map
 
+def _load_gene_association(_file):
+    if _file.endswith("gz"):
+        data = gzip.open(_file).open()
+    else:
+        data = open(_file).read()
+
+    _map = defaultdict(set)
+    for line in data.split("\n"):
+        columns = line.split("\t")
+        if len(columns) == 17:
+            _map[columns[1]].add(columns[4])
+
+    return _map
+
+def _load_gp2protein(_file):
+    if _file.endswith("gz"):
+        data = gzip.open(_file).open()
+    else:
+        data = open(_file).read()
+
+    _map = defaultdict(set)
+    for line in data.split("\n"):
+        columns = line.split()
+        if len(columns) != 2:
+            continue
+        mgi = ":".join(columns[0].split(":")[1:])
+        other = columns[1]
+        if other.startswith("UniProtKB:"):
+            uniprot = other.split(":")[1]
+            _map[mgi].add(uniprot)
+
+    return _map
 
 def _annotate_genes(uniprotkb_to_go, _map_kprto_ensb):
     gene_go = []
@@ -205,6 +237,29 @@ def add_gene_ontology_terms_and_annotate_genes():
     p.close()
     p.join()
 
+
+def MOUSE_add_gene_ontology_terms_and_annotate_genes():
+    log.info("Loading go.owl")
+
+    log.info("Loading gene_association.mgi.gz")
+    go_to_mgi = _load_gene_association("../data/gene_ontology/gene_association.mgi")
+
+    gp2protein = _load_gp2protein("../data/gene_ontology/gp2protein.mgi.txt")
+    print gp2protein
+
+MOUSE_add_gene_ontology_terms_and_annotate_genes()
+
+#    log.info("Loading HUMAN_9606_idmapping.dat.gz")
+#    _map_kprto_ensb, _map_ensb_kprto = _load_id_mapping(
+#        "../data/gene_ontology/HUMAN_9606_idmapping.dat.gz")
+
+#    log.info("Processing genes annotations")
+#    ann_gs = _annotate_genes(uniprotkb_to_go, _map_kprto_ensb)
+
+#    p = Pool(16)
+#    p.map(_anotate_gene, ann_gs)
+#    p.close()
+#    p.join()
 
 # 440000
 #found = list(set(sum([_map_kprto_ensb.get(key) for key in uniprotkb_to_go.keys() if _map_kprto_ensb.has_key(key)], [])))
