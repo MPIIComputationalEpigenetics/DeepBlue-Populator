@@ -144,7 +144,7 @@ def _load_gaf(_file):
 
 def _load_gene_association(_file):
     if _file.endswith("gz"):
-        data = gzip.open(_file).open()
+        data = gzip.open(_file).read()
     else:
         data = open(_file).read()
 
@@ -158,7 +158,7 @@ def _load_gene_association(_file):
 
 def _load_gp2protein(_file):
     if _file.endswith("gz"):
-        data = gzip.open(_file).open()
+        data = gzip.open(_file).read()
     else:
         data = open(_file).read()
 
@@ -255,9 +255,9 @@ def MOUSE_add_gene_ontology_terms_and_annotate_genes(has_go = True):
         p.join()
 
     log.info("Loading gene_association.mgi.gz")
-    go_to_mgi = _load_gene_association("../data/gene_ontology/gene_association.mgi")
+    go_to_mgi = _load_gene_association("../data/gene_ontology/gene_association.mgi.gz")
 
-    gp2protein = _load_gp2protein("../data/gene_ontology/gp2protein.mgi.txt")
+    gp2protein = _load_gp2protein("../data/gene_ontology/gp2protein.mgi.txt.gz")
 
     _map_kprto_ensb, _map_ensb_kprto = _load_id_mapping("../data/gene_ontology/MOUSE_10090_idmapping.dat.gz")
 
