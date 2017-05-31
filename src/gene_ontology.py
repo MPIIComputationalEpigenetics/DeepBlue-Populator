@@ -152,7 +152,7 @@ def _load_gene_association(_file):
     for line in data.split("\n"):
         columns = line.split("\t")
         if len(columns) == 17:
-            _map[columns[1]].add(columns[4])
+            _map[columns[4]].add(columns[1])
 
     return _map
 
@@ -238,16 +238,45 @@ def add_gene_ontology_terms_and_annotate_genes():
     p.join()
 
 
-def MOUSE_add_gene_ontology_terms_and_annotate_genes():
+def MOUSE_add_gene_ontology_terms_and_annotate_genes(has_go = True):
     log.info("Loading go.owl")
+
+    if not has_go:
+        go_terms = _load_go_owl('../data/gene_ontology/go.owl.gz')
+
+        p = Pool(16)
+        p.map(_insert_go_term, go_terms.values())
+        p.close()
+        p.join()
+
+        p = Pool(16)
+        p.map(_set_parent_go_term, go_terms.values())
+        p.close()
+        p.join()
 
     log.info("Loading gene_association.mgi.gz")
     go_to_mgi = _load_gene_association("../data/gene_ontology/gene_association.mgi")
 
     gp2protein = _load_gp2protein("../data/gene_ontology/gp2protein.mgi.txt")
-    print gp2protein
 
-MOUSE_add_gene_ontology_terms_and_annotate_genes()
+    _map_kprto_ensb, _map_ensb_kprto = _load_id_mapping("../data/gene_ontology/MOUSE_10090_idmapping.dat.gz")
+
+    kv = {}
+    for gm in go_to_mgi:
+        for gmi in go_to_mgi[gm]:
+            for uniprotkb in gp2protein[gmi]:
+                kv[gm] = _map_kprto_ensb[uniprotkb]
+
+    gene_gos = []
+    for k in kv:
+        genes = kv[k]
+        for gene in genes:
+            gene_gos.append((gene, k))
+
+    p = Pool(16)
+    p.map(_anotate_gene, gene_gos)
+    p.close()
+    p.join()
 
 #    log.info("Loading HUMAN_9606_idmapping.dat.gz")
 #    _map_kprto_ensb, _map_ensb_kprto = _load_id_mapping(
