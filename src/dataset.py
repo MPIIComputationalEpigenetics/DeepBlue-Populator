@@ -19,6 +19,7 @@ MissingFile exception is raised if the file at the given path cannot be found.
 
 
 class MissingFile(Exception):
+
     def __init__(self, p, f):
         super(MissingFile, self).__init__()
         self.path = p
@@ -35,6 +36,7 @@ a specific repository, which should also be persistent in the database.
 
 
 class OrphanedDataset(Exception):
+
     def __init__(self, ds, msg):
         super(OrphanedDataset, self).__init__()
         self.dataset = ds
@@ -52,6 +54,7 @@ used to process and insert data into epidb.
 
 
 class Dataset:
+
     def __init__(self, file_name, type_, meta={}, file_directory=None, sample_id=None, repo_id=None):
 
         self.file_name = file_name
@@ -101,7 +104,6 @@ class Dataset:
     def id(self, val):
         self._id = val
 
-
     @property
     def repository(self):
         if not self.repository_id:
@@ -109,9 +111,9 @@ class Dataset:
         # only keep cache as long as it matches the repository_id
         if self._repository and self._repository["_id"] == self.repository_id:
             return self._repository
-        self._repository = mdb.repositories.find_one({"_id": self.repository_id})
+        self._repository = mdb.repositories.find_one(
+            {"_id": self.repository_id})
         return self._repository
-
 
     @property
     def type(self):
@@ -128,7 +130,6 @@ class Dataset:
             "file_name": self.file_name
         }).count() > 0
 
-
     """
     save saves the dataset with its meta information to the database
     Note: this does not have anything to do with the actual genetic data
@@ -137,7 +138,8 @@ class Dataset:
 
     def save(self):
         if not self.repository_id:
-            raise OrphanedDataset(self, "datasets cannot be saved without a repository id")
+            raise OrphanedDataset(
+                self, "datasets cannot be saved without a repository id")
 
         doc = {
             "file_name": self.file_name,
@@ -162,11 +164,13 @@ class Dataset:
     @property
     def download_path(self):
         if not self.repository_id:
-            raise OrphanedDataset(self, "download path cannot be determined without repository.")
+            raise OrphanedDataset(
+                self, "download path cannot be determined without repository.")
 
         return os.path.join(DOWNLOAD_PATH, str(self.repository_id),
-                            # do not remove the "." it is used to transform the absolute paths
-                            "./"+self.file_name.replace("ftp://", "").replace("http://", "").replace("https://", "").replace("@", ""))
+                            # do not remove the "." it is used to transform the
+                            # absolute paths
+                            "./" + self.file_name.replace("ftp://", "").replace("http://", "").replace("https://", "").replace("@", ""))
 
     """
     load downloads the actual data this dataset refers to if it hasn't
@@ -174,6 +178,10 @@ class Dataset:
     """
 
     def load(self):
+      if "contig" in self.file_name:
+        log.info("[load] Dataset: " + self.file_name + " ignored. We do not include contigs data")
+        return
+
       if os.path.exists(self.download_path):
         log.info("%s already downloaded", self)
         return
@@ -211,7 +219,8 @@ class Dataset:
         log.info("processing dataset %s", self)
 
         if "contig" in self.file_name:
-            print "File: ", self.file_name, " ignored. We do not include contigs data"
+            log.info("[process] Dataset: " + self.file_name + " ignored. We do not include contigs data")
+            return
 
         is_gene_expression = False
 

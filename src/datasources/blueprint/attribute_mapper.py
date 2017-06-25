@@ -27,7 +27,7 @@ class BlueprintMapper(AttributeMapper):
             return "mRNA"
 
         if e == "chromatin accessibility":
-            return "DNaseI"
+            return "DNA Accessibility"
 
         if e == "mrna-seq":
             return "mRNA"
@@ -54,28 +54,28 @@ class BlueprintMapper(AttributeMapper):
 
     @property
     def format(self):
-        if self.dataset.type == "bigwig":
+        if self.dataset.type.lower() == "bigwig":
             return "wig"
 
-        if self.dataset.type == "gtf":
+        if self.dataset.type.lower() == "gtf":
             return "gff"
 
-        if self.dataset.type == "gff":
+        if self.dataset.type.lower() == "gff":
             return "gff"
 
-        if self.epigenetic_mark == "mrna":
+        if self.epigenetic_mark.lower() == "mrna":
             return "encode_rna"
 
-        if self.epigenetic_mark in ["h3k27me3", "h3k36me3", "h3k9me3", "h3k4me1"]:
+        if self.epigenetic_mark.lower() in ["h3k27me3", "h3k36me3", "h3k9me3", "h3k4me1"]:
             return "broadPeak"
 
-        if self.epigenetic_mark in ["h3k27ac", "h3k4me3", "h3k9/14ac", "h2a.zac"]:
+        if self.epigenetic_mark.lower() in ["h3k27ac", "h3k4me3", "h3k9/14ac", "h2a.zac"]:
             return "narrowPeak"
 
-        if self.epigenetic_mark == "dnaseI":
+        if self.epigenetic_mark == "DNA Accessibility":
             return "bed"
 
-        if self.dataset.type == "bed" and self.epigenetic_mark == "dna methylation" and self.technique == "bisulfite-seq":
+        if self.dataset.type == "bed" and self.epigenetic_mark.lower() == "dna methylation" and self.technique == "bisulfite-seq":
             return "blueprint_bs_call"
 
         msg = "Unknown format for %s epigenetic mark %s and meta %s" % (
