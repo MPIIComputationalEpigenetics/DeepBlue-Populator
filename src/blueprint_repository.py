@@ -128,6 +128,9 @@ class BlueprintRepository(Repository):
                 file_type = meta["FILE_TYPE"]
 
 
+            if "contig" in file_path:
+                print "File: ", file_path, " ignored. We do not include contigs data"
+
             ds = Dataset(file_path, file_type, meta, file_directory=directory,
                          sample_id=sample_id)
             if self.add_dataset(ds):

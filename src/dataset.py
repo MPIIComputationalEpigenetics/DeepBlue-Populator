@@ -210,6 +210,9 @@ class Dataset:
     def process(self):
         log.info("processing dataset %s", self)
 
+        if "contig" in self.file_name:
+            print "File: ", file_path, " ignored. We do not include contigs data"
+
         is_gene_expression = False
 
         project = self.repository["project"]
