@@ -75,6 +75,9 @@ class BlueprintMapper(AttributeMapper):
         if self.epigenetic_mark == "dnaseI":
             return "bed"
 
+        if self.dataset.type == "bed" and self.epigenetic_mark == "dna methylation" and self.technique == "bisulfite-seq":
+            return "blueprint_bs_call"
+
         msg = "Unknown format for %s epigenetic mark %s and meta %s" % (
             self.name, self.epigenetic_mark, str(self.dataset.meta))
         log.critical(msg)
