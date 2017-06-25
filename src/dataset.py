@@ -211,7 +211,7 @@ class Dataset:
         log.info("processing dataset %s", self)
 
         if "contig" in self.file_name:
-            print "File: ", file_path, " ignored. We do not include contigs data"
+            print "File: ", self.file_name, " ignored. We do not include contigs data"
 
         is_gene_expression = False
 
