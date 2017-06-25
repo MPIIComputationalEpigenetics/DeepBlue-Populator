@@ -6,13 +6,18 @@ import os.path
 from cStringIO import StringIO
 
 import xmlrpclib
+import settings
 
-url = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
-user_key = "*******"
+url = "http://localhost:31415/xmlrpc"
 
+with open(settings.EPIDB_AUTHKEY_FILE, 'r') as f:
+  for l in f.readlines():
+    (user, email, inst, key) = l.split(':')
+    user_key = key.strip()
+    print user_key
+
+print 'user_key', user_key
 server = xmlrpclib.Server(url, allow_none=True)
-
-
 states = [
     "1_Repressed_Polycomb_High",
     "2_Repressed_Polycomb_Low",
