@@ -109,8 +109,9 @@ def get_disease_status(_id):
       return "Timepoint (x= " + _id[1] + ")"
 
 library= {}
-library["DNase"] = ("DNaseI", "DNase-Seq")
+library["DNase"] = ("DNA Accessibility", "DNase-Seq")
 library["NOMe"] = ("__", "NOMe-seq")
+library["WGBS"] = ("DNA Methylation", "RRBS")
 library["WGBS"] = ("DNA Methylation", "WGBS")
 library["Input"] = ("Input", "ChIP-seq")
 library["H3K4me3"] = ("H3K4me3", "ChIP-seq")
