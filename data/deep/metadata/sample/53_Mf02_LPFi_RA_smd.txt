@@ -7,14 +7,14 @@ DISEASE	rheumatoid arthritis
 BIOMATERIAL_PROVIDER	Anja Hillmann, Pap Lab
 BIOMATERIAL_TYPE	primary cell culture
 CELL_TYPE	fibroblast
-TISSUE_TYPE	synovial fluid
 MARKERS	isolated from the synovium
-CULTURE_CONDITIONS	10% CO2, DMEM+10%FCS+P/S
 DONOR_ID	53_Mf02
 DONOR_AGE	13
-DONOR_AGE_UNIT	weeks
 DONOR_HEALTH_STATUS	Rheumatoid arthritis
 DONOR_SEX	female
 DONOR_ETHNICITY	NA
-PASSAGE_IF_EXPANDED	4
 COMMENT	sister of 53_Mf01, same caging, only RNA sequencing
+DONOR_AGE_UNIT	weeks
+TISSUE_TYPE	synovial fluid
+PASSAGE_IF_EXPANDED	4
+CULTURE_CONDITIONS	10% CO2, DMEM+10%FCS+P/S

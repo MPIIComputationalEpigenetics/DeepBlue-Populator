@@ -1,4 +1,4 @@
-EXPERIMENT_TYPE	ChIP-seq
+EXPERIMENT_TYPE	ChIP-Seq
 CONTACT_PERSON	Laura Arrigoni (arrigoni@ie-freiburg.mpg.de); Ulrike Boenisch (boenisch@ie-freiburg.mpg.de); Thomas Manke (manke@ie-freiburg.mpg.de)
 CONTACT_LAB	MPI-IE Deep Sequencing Facility
 SAMPLE_ID	44_Mm05_WEAd_C1
@@ -10,9 +10,9 @@ BIOLOGICAL_REPLICATE_ID	[MISSING]
 EXTRACTION_PROTOCOL	John Longinotto
 EXTRACTION_PROTOCOL_SONICATION_CYCLES	Duty Cycle: 5 , Peak Incident Power: 140 , Cycles per Burst: 200 , Processing Time: 16 min
 EXTRACTION_PROTOCOL_TYPE_OF_SONICATOR	Covaris S220
-DNA_PREPARATION_FRAGMENT_SIZE_RANGE	200-700 bp
+DNA_PREPARATION_FRAGMENT_SIZE_RANGE	200-700bp
 DNA_PREPARATION_INITIAL_DNA_QNTY	53.6 ng/µl
-CHIP_PROTOCOL	Auto Histone ChIP Kit (Diagenode). Single reaction. Indirect method.ChIP_16_IPure_200_1: 13 hrs antibody incubation, 4 hrs beads incubation, 5 min washes. Decrosslink + RNase/Proteinase K treatment 30 min 37 degrees + 4 hrs 65 degrees. Purification with Qiagen MinElute kit
+CHIP_PROTOCOL	Auto Histone ChIP Kit (Diagenode). Indirect method. ChIP_16_IPure_200: 13 hrs antibody incubation, 4 hrs beads incubation, 5 min washes. Decrosslink + RNase/Proteinase K treatment 30 min 37 degrees + 4 hrs 65 degrees. Purification with Qiagen MinElute kit
 CHIP_PROTOCOL_CHROMATIN_AMOUNT	5.36 µg DNA
 CHIP_ANTIBODY	H3K27me3
 CHIP_ANTIBODY_CATALOG	C15410195
@@ -23,7 +23,7 @@ CHIP_PROTOCOL_BEAD_AMOUNT	20 µl
 CHIP_PROTOCOL_BEAD_TYPE	magnetic beads A from Auto histone kit (Diagenode)
 LIBRARY_GENERATION_PROTOCOL	NEBNext Ultra DNA Kit (NEB, E7370)
 LIBRARY_GENERATION_ADAPTOR_SEQUENCE	NEBNext Adaptor for Illumina (NEB, E7335); 5´-/5Phos/GATCGGAAGAGCACACGTCTGAACTCCAGTC/ideoxyU/ACACTCTTTCCCTACACGACGCTCTTCCGATC*T-3´
-LIBRARY_GENERATION_PCR_F_PRIMER_SEQUENCE	NEBNext Universal PCR Primer for Illumina (NEB, E7335); 5'-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC*T-3'
+LIBRARY_GENERATION_PCR_F_PRIMER_SEQUENCE	NEBNext Universal PCR Primer for Illumina (NEB, E7335); 5´-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC*T-3´
 LIBRARY_GENERATION_PCR_R_PRIMER_SEQUENCE	NEBNext Index 25 Primer for Illumina (NEB, E7500); 5´-CAAGCAGAAGACGGCATACGAGATATATCAGTGTGACTGGAGTTCAGACGTGTGCTCTTCCGATC-s-T-3´
 LIBRARY_GENERATION_PCR_PRIMER_CONC	not given in the protocol (1µl of universal and 1 µl of index primer per 50 µl PCR reaction)
 LIBRARY_GENERATION_PCR_NUMBER_CYCLES	10
@@ -33,8 +33,8 @@ LIBRARY_GENERATION_PCR_TEMPLATE_CONC	Prior to PCR not meassured, Starting amount
 LIBRARY_GENERATION_PCR_PRODUCT_ISOLATION_PROTOCOL	Agencourt AMPure XP Beads (Beckman Coulter, A63881)
 LIBRARY_GENERATION_PCR_PRODUCT_LENGTH	Fragment size distribution from 200 bp to 2000 bp, Peak fragment size: 588 bp
 LIBRARY_GENERATION_FRAGMENT_SIZE_SELECTION	no size selection
-SEQUENCING_PLATFORM	Illumina HiSeq 2500
-SEQUENCING_PLATFORM_VERSION	Illumina HiSeq 2500
+SEQUENCING_PLATFORM	Illumina HiSeq
+SEQUENCING_PLATFORM_VERSION	2500
 SEQUENCING_CYCLES	2x53 bp, 7bp Index
 SEQUENCING_PE_TYPE	paired end
 SEQUENCING_LANE	1, 2, 3

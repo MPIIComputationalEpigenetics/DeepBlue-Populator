@@ -5,12 +5,12 @@ DISEASE	healthy
 BIOMATERIAL_PROVIDER	Julia Polansky-Biskup
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	central memory CD4-positive, alpha-beta T cell
-TISSUE_TYPE	blood
 MARKERS	CD3+ CD4+ CD25neg CD45-RAneg CD62L+
 DONOR_ID	51_Hf01
 DONOR_AGE	NA
-DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
 DONOR_SEX	female
 DONOR_ETHNICITY	NA
 COMMENT	from buffy coats
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	blood

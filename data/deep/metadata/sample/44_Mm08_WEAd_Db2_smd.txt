@@ -7,13 +7,13 @@ DISEASE	obesity
 BIOMATERIAL_PROVIDER	MPI Freiburg in-house colony
 BIOMATERIAL_TYPE	primary tissue
 CELL_TYPE	white fat cell
-TISSUE_TYPE	white adipose tissue
-TISSUE_DEPOT	epididymal
-COLLECTION_METHOD	collagenase digestion & adipocyte purification
 DONOR_ID	44_Mm08
 DONOR_AGE	10
-DONOR_AGE_UNIT	weeks
 DONOR_HEALTH_STATUS	NA
 DONOR_SEX	male
 DONOR_ETHNICITY	NA
 COMMENT	Pool of 2 mice.
+DONOR_AGE_UNIT	weeks
+TISSUE_TYPE	white adipose tissue
+TISSUE_DEPOT	epididymal
+COLLECTION_METHOD	collagenase digestion & adipocyte purification

@@ -4,13 +4,13 @@ POOL	no
 DISEASE	healthy
 BIOMATERIAL_PROVIDER	IKMB, Robert Häsler
 BIOMATERIAL_TYPE	primary tissue
-TISSUE_TYPE	mucosa of large intestine
-TISSUE_DEPOT	sigma
-COLLECTION_METHOD	colonoscopy
 DONOR_ID	Twin07A
 DONOR_AGE	17
-DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	no medication
 DONOR_SEX	female
 DONOR_ETHNICITY	caucasian
 COMMENT	discordant Twin to Twin07B(52_Hf3b_CoMu_UC)
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	mucosa of large intestine
+TISSUE_DEPOT	sigma
+COLLECTION_METHOD	colonoscopy

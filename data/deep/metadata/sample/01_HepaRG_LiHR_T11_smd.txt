@@ -5,13 +5,13 @@ STATUS	untreated
 DISEASE	Hepatocellular carcinoma
 BIOMATERIAL_PROVIDER	Biopredic
 BIOMATERIAL_TYPE	cell line
+DONOR_ETHNICITY	unknown
+COMMENT	sampled after 7 days
 LINE	HepaRG
 LINEAGE	NA
-DONOR_ETHNICITY	unknown
 DIFFERENTIATION_STATE	undifferentiated
 DIFFERENTIATION_METHOD	NA
 PASSAGE	15
 MEDIUM	William's E + 10% FCS + 1% Pen/Strep + 0.5ppm Insulin + 1ppm Hydrocortisone
-DONOR_SEX	female
+SEX	female
 BATCH	NA
-COMMENT	sampled after 7 days

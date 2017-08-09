@@ -5,11 +5,11 @@ DISEASE	healthy
 BIOMATERIAL_PROVIDER	Klinikum Uni Muenchen
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
-TISSUE_TYPE	liver
 MARKERS	none
 DONOR_ID	41_Hf02
 DONOR_AGE	51-60
-DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	non steatotic (metastasis segment 5-8 upon bronchial carcinoma)
 DONOR_SEX	female
 DONOR_ETHNICITY	european
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	liver

@@ -2,14 +2,14 @@ DEEP_SAMPLE_ID	51_Hf15_SkTM8_SP2
 ORGANISM	Homo sapiens
 POOL	no
 DISEASE	healthy
-BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ Julia Polansky-Biskup, Alf Hamann, DRFZ
+BIOMATERIAL_PROVIDER	Dong/Chang/Radbruch, DRFZ; Julia Polansky-Biskup, Alf Hamann, DRFZ
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	CD8-positive, alpha-beta memory T cell
 MARKERS	CD3+CD8+CD45RO+CD69-
 DONOR_ID	51_Hf15
 DONOR_AGE	65
-DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
 DONOR_SEX	female
 DONOR_ETHNICITY	NA
 COMMENT	sorted from skin, CD69-
+DONOR_AGE_UNIT	year

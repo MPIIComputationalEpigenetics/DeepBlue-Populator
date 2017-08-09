@@ -1,17 +1,17 @@
 DEEP_SAMPLE_ID	41_Hf14_LiHe_St
 ORGANISM	Homo sapiens
 POOL	no
-MOLECULE	genomic DNA
 DISEASE	healthy
 BIOMATERIAL_PROVIDER	Charité Berlin
 BIOMATERIAL_TYPE	primary cell
 CELL_TYPE	hepatocyte
-TISSUE_TYPE	liver
 MARKERS	none
 DONOR_ID	41_Hf14
 DONOR_AGE	42
-DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	symptomatic cavernous hemangioma of the liver, steatosis
 DONOR_SEX	female
 DONOR_ETHNICITY	NA
 COMMENT	[MISSING]
+DONOR_AGE_UNIT	year
+TISSUE_TYPE	liver
+MOLECULE	genomic DNA

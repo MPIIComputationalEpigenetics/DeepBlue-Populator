@@ -5,13 +5,13 @@ STATUS	untreated
 DISEASE	Hepatocellular carcinoma
 BIOMATERIAL_PROVIDER	Biopredic
 BIOMATERIAL_TYPE	cell line
+DONOR_ETHNICITY	unknown
+COMMENT	mixture of hepatocytes and biliary cells, sampled after 30 days
 LINE	HepaRG
 LINEAGE	NA
-DONOR_ETHNICITY	unknown
 DIFFERENTIATION_STATE	differentiated
 DIFFERENTIATION_METHOD	DMSO for 14 days
 PASSAGE	15
 MEDIUM	William's E + 10% FCS + 1.7% DMSO + 1% Pen/Strep + 1ppm Hydrocortisone
-DONOR_SEX	female
+SEX	female
 BATCH	NA
-COMMENT	mixture of hepatocytes and biliary cells, sampled after 30 days

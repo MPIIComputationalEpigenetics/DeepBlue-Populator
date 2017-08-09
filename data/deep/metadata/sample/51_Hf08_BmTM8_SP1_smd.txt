@@ -8,8 +8,8 @@ CELL_TYPE	CD8-positive, alpha-beta memory T cell
 MARKERS	CD3+, CD8+, CD45RA-, CD45RO+, CD69+
 DONOR_ID	51_Hf08
 DONOR_AGE	61
-DONOR_AGE_UNIT	year
 DONOR_HEALTH_STATUS	healthy
 DONOR_SEX	female
 DONOR_ETHNICITY	NA
 COMMENT	sorted from bone-marrow, CD69+
+DONOR_AGE_UNIT	year
