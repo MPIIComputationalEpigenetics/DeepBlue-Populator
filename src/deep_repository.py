@@ -73,7 +73,7 @@ class DeepRepository(Repository):
   def __init__(self, proj, genome, path):
     super(DeepRepository, self).__init__(proj, genome, ["broadPeak", "narrowPeak", "bed", "bigWig", "bedgraph", "cufflinks_fpkm_genes"], path)
     self._samples = {}
-    if genome == "hs37d5":
+    if genome == "hs37d5" or genome == "GRCh38":
       self.organism = "homo sapiens"
     elif genome == "GRCm38":
       self.organism = "mus musculus"

@@ -56,3 +56,6 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+data/deep/.vscode/tags
+.vscode/tags
+src/.vscode/tags
