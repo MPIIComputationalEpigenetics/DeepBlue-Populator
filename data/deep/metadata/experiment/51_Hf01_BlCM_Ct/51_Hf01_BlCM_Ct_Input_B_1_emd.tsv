@@ -2,6 +2,7 @@ EXPERIMENT_TYPE	ChIP-seq
 CONTACT_PERSON	Sarah Kinkley (kinkley@molgen.mpg.de) Na Li (nali@molgen.mpg.de) Ho-Ryun Chung (chung@molgen.mpg.de)
 CONTACT_LAB	Epigenomics Lab at the Max Planck Institute for Molecular Genetics
 SAMPLE_ID	51_Hf01_BlCM_Ct
+EXPERIMENT_DATE	(sequencing date) 2013-09-17
 EXPERIMENT_ID	51_Hf01_BlCM_Ct_Input_B_1
 TECHNICAL_REPLICATE_ID	no technical replicate
 FULL_LENGTH_PROTOCOL_LINK	[MISSING]
@@ -44,4 +45,3 @@ SEQUENCING_CHEMISTRY_VERSION	TruSeq SBS Kit v3 - HS (50-cycles)
 SEQUENCING_CLUSTER_GENERATION_KIT_VERSION	TruSeq PE Cluster Kit v3 - cBot - HS
 SEQUENCING_PROCESSING_SOFTWARE_VERSION	CASAVA 1.8.4
 SEQUENCING_CONTROL_SOFTWARE_VERSION	HCS 2.0.12.0 / RTA 1.17.21.3 / Recipe PE51
-EXPERIMENT_DATE_(sequencing_date)	2013-09-17
