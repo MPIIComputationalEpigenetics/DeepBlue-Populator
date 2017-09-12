@@ -171,6 +171,7 @@ class Populator:
         epidb.add_epigenetic_mark("Gene Expression", "Gene expression is the process by which information from a gene is used in the synthesis of a functional gene product. These products are often proteins, but in non-protein coding genes such as transfer RNA (tRNA) or small nuclear RNA (snRNA) genes, the product is a functional RNA. (Wikipedia)",
             {"category": "Gene Expression"})
         epidb.add_epigenetic_mark("smRNA","small modulatory RNA", {"category":"RNA Expression"})
+        epidb.add_epigenetic_mark("RNA polymerase II", "RNA polymerase II", {"category":"RNA polymerase II"})
 
         insert_histones(epidb)
 
@@ -226,6 +227,9 @@ class Populator:
         print epidb.set_project_public("DEEP", False)
         print epidb.add_project("Roadmap Epigenomics", "NIH Roadmap Epigenomics Mapping Consortium")
         print epidb.set_project_public("Roadmap Epigenomics", True)
+
+        print epidb.add_project("ChIP-Atlas", "ChIP-Atlas is an integrative and comprehensive database for visualizing and making use of public ChIP-seq data. ChIP-Atlas covers almost all public ChIP-seq data submitted to the SRA (Sequence Read Archives) in NCBI, DDBJ, or ENA. Web Page: http://chip-atlas.org/")
+        print epidb.set_project_public("ChIP-Atlas", True)
 
     def insert_gene_sets(self):
         epidb = PopulatorEpidbClient()
