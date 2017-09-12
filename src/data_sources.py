@@ -78,10 +78,16 @@ ihec = [
     #('Blueprint', 'hg38', '')
 ]
 
+chip_atlas = [
+    ('ChIPAtlas', 'hg19', '')
+]
+
 project_sources = [
+    chip_atlas
+     # blueprint_source
      # ihec
      # progenitors,
-     ihec
+     # ihec
      # roadmap
      # encode
      # encode_ftp

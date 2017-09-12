@@ -32,10 +32,6 @@ class AttributeMapper(object):
         raise UnmappedAttribute("epigenetic_mark")
 
     @property
-    def biosource(self):
-        raise UnmappedAttribute("biosource")
-
-    @property
     def technique(self):
         raise UnmappedAttribute("technique")
 

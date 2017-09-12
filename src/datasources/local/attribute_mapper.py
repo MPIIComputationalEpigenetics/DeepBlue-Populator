@@ -23,10 +23,6 @@ class EpigenomicLandscapeAttributeMapper(AttributeMapper):
         return self.dataset.meta["epigenetic_mark"]
 
     @property
-    def biosource(self):
-        return self.dataset.meta["biosource"]
-
-    @property
     def technique(self):
         return self.dataset.meta["technique"]
 
