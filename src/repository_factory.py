@@ -8,6 +8,7 @@ from roadmap_repository import RoadmapRepository
 from deep_repository import DeepRepository
 from progenitors_repository import ProgenitorsRepository
 from ihec_data_repository import IhecDataRepository
+from chip_atlas import ChIPAtlas
 
 from log import log
 
@@ -28,6 +29,8 @@ def load(project, genome, url):
         return RoadmapRepository("Roadmap Epigenomics", genome, url)
     elif project == "Blueprint HSC differentiation":
         return ProgenitorsRepository("Blueprint HSC differentiation", genome, url)
+    elif project == "ChIPAtlas":
+        return ChIPAtlas("ChIPAtlas", genome, url)
     elif project in ["CREST", "CEEHRC", "DEEP (IHEC)"]:
         return IhecDataRepository(project, genome, url)
     else:
