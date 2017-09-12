@@ -1,8 +1,12 @@
 import requests
 
 class EncodeTFs:
-	def __init__(self, specie):
+	def __init__(self, genome):
 		self.__url__ = "https://www.encodeproject.org/search/?type=target&limit=all&format=json"
+		specie = ""
+		if genome.lower() in ["hg19", "grch38"]:
+			specie = "Homo sapiens"
+
 		self.__specie__ = specie
 		self.__tfs__ = {}
 
