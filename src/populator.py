@@ -211,6 +211,7 @@ class Populator:
         epidb.add_technique("single cell isolation followed by RNA-seq", "", {})
         epidb.add_technique("RIP-seq", "RNA Immunoprecipitation followed by sequencing", {})
         epidb.add_technique("microRNA-seq", "MicroRNA sequencing (miRNA-seq), a type of RNA-Seq, is the use of next-generation sequencing or massively parallel high-throughput DNA sequencing to sequence microRNAs, also called miRNAs. miRNA-seq differs from other forms of RNA-seq in that input material is often enriched for small RNAs.", {})
+        epidb.add_technique("microRNA profiling", "MiRNA profiling experiments typically involve making comparisons between two or more groups, and therefore the next stage of analysis is usually the calculation of differential miRNA expression between groups",{})
         epidb.add_technique("RAMPAGE", "RAMPAGE (RNA Annotation and Mapping of Promoters for the Analysis of Gene Expression) is a very accurate sequencing approach to identify transcription start sites (TSSs) at base-pair resolution, the quantification of their expression and the characterization of their transcripts. This assay uses direct cDNA evidence to link specific genes and their regulatory TSSs.", {})
         epidb.add_technique("Shotgun bisulfite-seq", "Shotgun bisulfite sequencing", {})
         epidb.add_technique("smRNA-Seq", "small modulatory RNA sequencing", {})
