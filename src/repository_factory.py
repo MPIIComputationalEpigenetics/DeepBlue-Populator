@@ -31,7 +31,7 @@ def load(project, genome, url):
         return ProgenitorsRepository("Blueprint HSC differentiation", genome, url)
     elif project == "ChIPAtlas":
         return ChIPAtlas("ChIPAtlas", genome, url)
-    elif project in ["CREST", "CEEHRC", "DEEP (IHEC)"]:
+    elif project in ["CREST", "CEEHRC", "DEEP (IHEC)", "KNIH"]:
         return IhecDataRepository(project, genome, url)
     else:
         log.error("Invalid project %s", project)

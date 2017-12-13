@@ -27,7 +27,7 @@ def get(project, epigenetic_mark=None):
     return ProgenitorsMapper
   if project == "ChIPAtlas":
     return ChipAtlasMapper
-  if project in ["CREST", "CEEHRC", "DEEP (IHEC)"]:
+  if project in ["CREST", "CEEHRC", "DEEP (IHEC)", "KNIH"]:
     return IhecDataPortalMapper
 
   print 'Invalid Project:', project
