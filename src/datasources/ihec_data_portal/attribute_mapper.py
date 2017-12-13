@@ -50,9 +50,6 @@ class IhecDataPortalMapper(AttributeMapper):
     def technique(self):
         t = self.dataset.meta['technique']
 
-        print 'AAAAAAAAAAAAAAAAAAAA'
-        print t
-
         if not t:
             epigenetic_mark = self.epigenetic_mark.lower()
 
@@ -87,8 +84,6 @@ class IhecDataPortalMapper(AttributeMapper):
             if "nome seq" == self.dataset.meta['epigenetic_mark'].lower():
                 return "NOMe-seq"
         et = self.dataset.meta.get("extra_metadata", {}).get("experiment_type")
-        print 'etetetetetetete',
-        print et
         if et:
             if "chip-seq input" == et.lower():
                 return "ChIP-seq"
