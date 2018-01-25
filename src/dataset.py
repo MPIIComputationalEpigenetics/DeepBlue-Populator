@@ -238,7 +238,6 @@ class Dataset:
         # Handle crazy big wigs, that can be bedgraph, bedgraph that can be converted to wig, and... wig!
         if (self.meta.has_key("type") and self.meta["type"].lower() == "bigwig") or self.type.lower() == "bigwig" \
             or self.type.lower() in ["signal_unstranded", "methylation_profile", "signal_forward", "signal_reverse"]: #IHEC datasets
-            print "HEREEEEE"
             print "../third_party/bigWigToWig." + OS + " " + self.download_path + " " + self.download_path + ".wig"
             call(["../third_party/bigWigToWig." + OS, self.download_path, self.download_path + ".wig"])
 
@@ -285,7 +284,10 @@ class Dataset:
             frmt = "grape2"
             file_content = open(self.download_path, 'r').read()
 
-        elif (self.meta.has_key("type") and self.meta["type"].lower() == "bigbed") or self.type.lower() == "bigbed":
+        elif (self.meta.has_key("type") and self.meta["type"].lower() == "bigbed") or\
+            self.type.lower() == "bigbed" or\
+            (self.type.lower() == "peak_calls"):
+
             print "../third_party/bigBedToBed." + OS + " " + self.download_path + " " + self.download_path + ".bed"
             call(["../third_party/bigBedToBed." + OS, self.download_path, self.download_path + ".bed"])
 

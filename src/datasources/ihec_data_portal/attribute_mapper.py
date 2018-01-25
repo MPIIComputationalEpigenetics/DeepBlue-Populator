@@ -112,6 +112,9 @@ class IhecDataPortalMapper(AttributeMapper):
         if self.dataset.type in ["signal_unstranded", "methylation_profile", "signal_forward", "signal_reverse"]:
             return 'wig'
 
+        if self.dataset.type in ["peak_calls"]:
+            return "bed"
+
         print 'unknow data type: ', self.dataset.type
 
         return None
