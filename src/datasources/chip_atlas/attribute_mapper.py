@@ -17,8 +17,10 @@ class ChipAtlasMapper(AttributeMapper):
         em = self.dataset.meta["antigen"]
         if em == "Input control":
             return "Input"
+
         elif em == "DNase-Seq":
             return "DNA Accessibility"
+
         elif em == "H3K9K14ac":
             return "H3K9/14ac"
 
@@ -26,6 +28,10 @@ class ChipAtlasMapper(AttributeMapper):
 
     @property
     def technique(self):
+        em = self.dataset.meta["antigen"]
+        if em == "DNA Accessibility":
+            return "DNase-seq"
+
         return "ChIP-seq"
 
     @property
