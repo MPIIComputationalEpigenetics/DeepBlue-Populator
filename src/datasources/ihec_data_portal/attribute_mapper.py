@@ -71,33 +71,35 @@ class IhecDataPortalMapper(AttributeMapper):
             if epigenetic_mark == "dna methylation":
                 if "wgbs" in self.dataset.file_name.lower():
                     return "WGBS"
-                
+
                 if "5mc" in self.dataset.file_name.lower():
                     return "WGBS"
-           
+
                 if "rrbs" in self.dataset.file_name.lower():
                     return "WGBS"
 
             if epigenetic_mark == "dna accessibility":
                 return self.dataset.meta['epigenetic_mark']
 
-            if "nome seq" == self.dataset.meta['epigenetic_mark'].lower(): 
+            if "nome seq" == self.dataset.meta['epigenetic_mark'].lower():
                 return "NOMe-seq"
         et = self.dataset.meta.get("extra_metadata", {}).get("experiment_type")
         if et:
             if "chip-seq input" == et.lower():
                 return "ChIP-seq"
 
-        else:
-            t = t.lower()
-            if t == "rna-seq assay":
-                return "RNA-seq"
+        t = t.lower()
+        if t == "rna-seq assay":
+            return "RNA-seq"
 
-            if t == "cross-linking immunoprecipitation high-throughput sequencing assay":
-                return "ChIP-seq"
+        if t == "cross-linking immunoprecipitation high-throughput sequencing assay":
+            return "ChIP-seq"
 
-            if t == "shotgun bisulfite-seq assay":
-                return "Shotgun bisulfite-seq"
+        if t == "shotgun bisulfite-seq assay":
+            return "Shotgun bisulfite-seq"
+
+        if t == "microrna profiling assay":
+            return "microRNA profiling"
 
         return t
 
@@ -109,6 +111,9 @@ class IhecDataPortalMapper(AttributeMapper):
     def format(self):
         if self.dataset.type in ["signal_unstranded", "methylation_profile", "signal_forward", "signal_reverse"]:
             return 'wig'
+
+        if self.dataset.type in ["peak_calls"]:
+            return "bed"
 
         print 'unknow data type: ', self.dataset.type
 
