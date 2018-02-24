@@ -108,7 +108,7 @@ class ChIPAtlas(Repository):
                     continue
 
                 print 'Importing ', antigen
-                (s, em) = epidb.add_epigenetic_mark(antigen, str(tf_metadata), {"category": "Transcription Factor"})
+                (s, em) = epidb.add_epigenetic_mark(antigen, str(tf_metadata), {"category": "Transcription Factor Binding Site"})
                 if (s == "okay"):
                     print em
                     self.epigenetic_marks.append(antigen)
