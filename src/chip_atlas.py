@@ -88,6 +88,15 @@ class ChIPAtlas(Repository):
                 continue
 
             antigen = getattr(experiment, "antigen")
+
+            if antigen == "H3K9K14ac":
+                antigen = "H3K9/14ac"
+
+
+            if antigen == "DNase-Seq":
+                antigen = "DNA Accessibility"
+
+            
             if antigen.lower() in ["na", "unclassified"]:
                 bad += 1
                 continue
