@@ -96,7 +96,7 @@ class ChIPAtlas(Repository):
             if antigen == "DNase-Seq":
                 antigen = "DNA Accessibility"
 
-            
+
             if antigen.lower() in ["na", "unclassified"]:
                 bad += 1
                 continue
@@ -117,7 +117,7 @@ class ChIPAtlas(Repository):
                     continue
 
                 print 'Importing ', antigen
-                (s, em) = epidb.add_epigenetic_mark(antigen, str(tf_metadata), {"category": "Transcription Factor Binding Site"})
+                (s, em) = epidb.add_epigenetic_mark(antigen, str(tf_metadata), {"category": "Transcription Factor Binding Sites"})
                 if (s == "okay"):
                     print em
                     self.epigenetic_marks.append(antigen)
